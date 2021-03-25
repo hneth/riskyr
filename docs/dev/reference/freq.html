@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="List current frequency information. — freq" />
 <meta property="og:description" content="freq is a list of named numeric variables
-containing 11 frequencies:" />
+containing 11 key frequencies (and their values):" />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
 
@@ -81,7 +81,7 @@ containing 11 frequencies:" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@ containing 11 frequencies:" />
 
     <div class="ref-description">
     <p><code>freq</code> is a list of named numeric variables
-containing 11 frequencies:</p>
+containing 11 key frequencies (and their values):</p>
     </div>
 
     <pre class="usage"><span class='va'>freq</span></pre>
@@ -236,8 +236,8 @@ are provided by <code><a href='plot_prism.html'>plot_prism</a></code> and
 <code><a href='txt.html'>txt</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># =&gt; initialize freq to default parameters</span>
-<span class='va'>freq</span>                 <span class='co'># =&gt; show current values</span>
+    <pre class="examples"><div class='input'><span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># initialize freq to default parameters</span>
+<span class='va'>freq</span>                 <span class='co'># show current values</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
@@ -270,8 +270,8 @@ are provided by <code><a href='plot_prism.html'>plot_prism</a></code> and
 #&gt; 
 #&gt; $cr
 #&gt; [1] 562
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>freq</span><span class='op'>)</span>         <span class='co'># =&gt; 11 known frequencies</span>
-</div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>freq</span><span class='op'>)</span>          <span class='co'># =&gt; show names of known frequencies</span>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>freq</span><span class='op'>)</span>         <span class='co'># 11 known frequencies</span>
+</div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>freq</span><span class='op'>)</span>          <span class='co'># show names of known frequencies</span>
 </div><div class='output co'>#&gt;  [1] "N"          "cond_true"  "cond_false" "dec_pos"    "dec_neg"   
 #&gt;  [6] "dec_cor"    "dec_err"    "hi"         "mi"         "fa"        
 #&gt; [11] "cr"        </div><div class='input'>

@@ -52,7 +52,7 @@ from 3 essential probabilities
 (prev,
 sens or mirt,
 spec or fart).
-It returns a list of 13 probabilities prob
+It returns a list of 13 key probabilities prob
 as its output." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
@@ -86,7 +86,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ from 3 essential probabilities
 (<code><a href='prev.html'>prev</a></code>,
 <code><a href='sens.html'>sens</a></code> or <code><a href='mirt.html'>mirt</a></code>,
 <code><a href='spec.html'>spec</a></code> or <code><a href='fart.html'>fart</a></code>).
-It returns a list of 13 probabilities <code><a href='prob.html'>prob</a></code>
+It returns a list of 13 key probabilities <code><a href='prob.html'>prob</a></code>
 as its output.</p>
     </div>
 
@@ -222,7 +222,7 @@ Default: <code>tol = .01</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list <code><a href='prob.html'>prob</a></code> containing 13 probability values.</p>
+    <p>A list <code><a href='prob.html'>prob</a></code> containing 13 key probability values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>comp_prob</code> assumes that a sufficient and
@@ -245,7 +245,6 @@ turning <code>NaN</code> when <code><a href='is_extreme_prob_set.html'>is_extrem
 evaluates to <code>TRUE</code>).</p>
 <p><code>comp_prob</code> is the probability counterpart to the
 frequency function <code><a href='comp_freq.html'>comp_freq</a></code>.</p>
-
 <p>Key relationships between probabilities and frequencies:</p>
 <ul>
 <li><p>Three perspectives on a population:</p>
@@ -305,7 +304,6 @@ Thus, they can be computed as ratios between frequencies:</p>
 <p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code><a href='comp_freq.html'>comp_freq</a></code>),
    probabilities computed from <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.</p></li>
 </ul>
-
 
 <p>Functions translating between representational formats:
 <code><a href='comp_prob_prob.html'>comp_prob_prob</a></code>, <code><a href='comp_prob_freq.html'>comp_prob_freq</a></code>,

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="C_confusion_matrix_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Confusion Matrix and Metrics</h1>
@@ -307,10 +307,10 @@
 <h4 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h4>
 <p>To view a 2x2 matrix (or confusion table) in <strong>riskyr</strong>, we can use the <code><a href="../reference/plot_tab.html">plot_tab()</a></code> function (i.e., plot an existing scenario as <code>type = "tab"</code>):</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">## (1) Plot table from basic input parameters: ----- </span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## (1) Plot table from basic input parameters: ----- </span>
 <span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,
-         p_lbl <span class="op">=</span> <span class="st">"def"</span><span class="op">)</span> <span class="co"># show condition probabilies (by default)</span></pre></div>
+         p_lbl <span class="op">=</span> <span class="st">"def"</span><span class="op">)</span> <span class="co"># show condition probabilies (by default)</span></code></pre></div>
 <div class="figure">
 <img src="C_confusion_matrix_files/figure-html/plot-tab-demo-1.png" alt="Example of a 2x2 confusion table in **riskyr**." width="576"><p class="caption">
 Example of a 2x2 confusion table in <strong>riskyr</strong>.
@@ -369,10 +369,10 @@ Example of a 2x2 confusion table in <strong>riskyr</strong>.
 <h4 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example</h4>
 <p>Re-arranging the cells of the 2x2 matrix allows illustrating accuracy as a third perspective (e.g., by specifying the perspective <code>by = "cdac"</code>):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,
          by <span class="op">=</span> <span class="st">"cdac"</span>, p_split <span class="op">=</span> <span class="st">"h"</span>, 
-         p_lbl <span class="op">=</span> <span class="st">"def"</span>, title_lbl <span class="op">=</span> <span class="st">"Scenario 2"</span><span class="op">)</span></pre></div>
+         p_lbl <span class="op">=</span> <span class="st">"def"</span>, title_lbl <span class="op">=</span> <span class="st">"Scenario 2"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="C_confusion_matrix_files/figure-html/plot-tab-cdac-1.png" alt="Arranging a 2x2 confusion table by condition and by accuracy." width="576"><p class="caption">
 Arranging a 2x2 confusion table by condition and by accuracy.
@@ -396,7 +396,7 @@ Arranging a 2x2 confusion table by condition and by accuracy.
 <p>Thus, the terms “true” and “false” are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing <code>mi</code> as “false negatives” and <code>cr</code> as “true negatives”) the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms <code>mi</code> and <code>cr</code> over “false negatives” (FN) and “true negatives” (TN), respectively, but offer both options as pre-defined lists of text labels (see <code>txt_org</code> and <code>txt_TF</code>).</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Beware of alternative terms for <code>dec_cor</code> and <code>dec_err</code>:<br>
-Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and <code>dec_err</code> as “true decisions” and “false decisions”. However, this would also invite conceptual confusion, as “true decisions” would include <code>cond_false</code> cases (<code>cr</code> or TN cases) and “false decisions” would include <code>cond_true</code> cases (<code>mi</code> or FN cases). Again, we prefer the less ambiguous terms “correct decisions” vs. “erroneous decisions”.</li>
+Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and <code>dec_err</code> as “true decisions” and “false decisions”. However, this would also invite conceptual confusion, as “true decisions” would include <code>cond_false</code> cases (<code>cr</code> or TN cases) and “false decisions” would include <code>cond_true</code> cases (<code>mi</code> or FN cases). Again, we prefer the less ambiguous terms “correct decisions” vs. “erroneous decisions”.</li>
 </ol>
 </div>
 </div>
@@ -411,7 +411,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 <a href="#a--specific-metrics-conditional-probabilities" class="anchor"></a>A. Specific metrics: Conditional probabilities</h3>
 <p>The goal of a specific accuracy metric is to quantify some particular aspect of decision performance. For instance, how accurate is our decision or diagnostic test in correctly detecting <code>cond_true</code> cases? How accurate is it in detecting <code>cond_false</code> cases?</p>
 <p>As we are dealing with two types of correct decisions (<code>hi</code> and <code>cr</code>) and two perspectives (by columns vs. by rows), we can provide 4 answers to these questions. To obtain a numeric quantity, we divide the frequency of correct cases (either <code>hi</code> or <code>cr</code>) by</p>
-<p>(a) column sums (<code>cond_true</code> vs. <code>cond_false</code>): This yields the decision’s <em>sensitivity</em> (<code>sens</code>) and <em>specificity</em> (<code>spec</code>):</p>
+<p>(a) column sums (<code>cond_true</code> vs. <code>cond_false</code>): This yields the decision’s <em>sensitivity</em> (<code>sens</code>) and <em>specificity</em> (<code>spec</code>):</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond_true}} &amp; \ \ \textrm{(a1)}   \\
@@ -419,7 +419,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 \texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond_false}} &amp; \ \ \textrm{(a2)}  \\
 \end{aligned}
 \]</span></p>
-<p>(b) row sums (<code>dec_pos</code> vs. <code>dec_neg</code>): This yields the decision’s <em>positive predictive value</em> (<code>PPV</code>) and <em>negative predictive value</em> (<code>NPV</code>):</p>
+<p>(b) row sums (<code>dec_pos</code> vs. <code>dec_neg</code>): This yields the decision’s <em>positive predictive value</em> (<code>PPV</code>) and <em>negative predictive value</em> (<code>NPV</code>):</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec_pos}} &amp; \ \ \ \textrm{(b1)}   \\
@@ -491,7 +491,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 \end{aligned}
 \]</span></p>
 <p>See <a href="https://en.wikipedia.org/wiki/F1_score">Wikipedia: F1 score</a> for details.</p>
-<p>For many more additional scientific metrics that are defined on the basis of a 2x2 matrix, see Section <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2020.567817/full#h5">4. Integration</a> (e.g., Figure 6 and Table 3) of <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al. (2021)</a>.</p>
+<p>For many more additional scientific metrics that are defined on the basis of a 2x2 matrix, see Section <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2020.567817/full#h5">4. Integration</a> (e.g., Figure 6 and Table 3) of <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al. (2021)</a>.</p>
 </div>
 </div>
 </div>
@@ -615,8 +615,8 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>To split a group into subgroups, some criterion for classifying the individuals of the group has to be used. If a criterion is binary (i.e., assigns only two different values), its application yields two subgroups. In the present case, both an individual’s <em>condition</em> and the corresponding <em>decision</em> are binary criteria.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>It is convenient to think of accuracy metrics as <em>outcomes</em> of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>To split a group into subgroups, some criterion for classifying the individuals of the group has to be used. If a criterion is binary (i.e., assigns only two different values), its application yields two subgroups. In the present case, both an individual’s <em>condition</em> and the corresponding <em>decision</em> are binary criteria.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>It is convenient to think of accuracy metrics as <em>outcomes</em> of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

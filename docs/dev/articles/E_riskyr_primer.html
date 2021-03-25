@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="E_riskyr_primer_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Quick Start Primer</h1>
@@ -132,8 +132,8 @@
 <li><p>Inspect one of 24 predefined scenarios to get a glimpse of what types of scenarios are possible.</p></li>
 </ol>
 <p>Either way, you will soon explore some specific risk-related scenario and uncover relationships between its parameters. Please load the package first, if you have not already done so:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://CRAN.R-project.org/package=riskyr">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://CRAN.R-project.org/package=riskyr">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span></code></pre></div>
 <div id="defining-a-scenario" class="section level3">
 <h3 class="hasAnchor">
 <a href="#defining-a-scenario" class="anchor"></a>Defining a scenario</h3>
@@ -170,24 +170,24 @@
 <li><p>In addition, the <em>population size</em> of your sample was mentioned to be <code>N = 753</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p></li>
 </ol>
 <p>The following code defines a perfectly valid <code>riskyr</code> scenario from 3 essential probabilities:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># Create a minimal scenario (from probabilities):</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a minimal scenario (from probabilities):</span>
 <span class="va">my_scenario</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.45</span>, 
                       sens <span class="op">=</span> <span class="fl">.98</span>,
-                      spec <span class="op">=</span> <span class="fl">.46</span><span class="op">)</span></pre></div>
+                      spec <span class="op">=</span> <span class="fl">.46</span><span class="op">)</span></code></pre></div>
 <!-- Mention alternative ways of entering the same (e.g., by providing fart, rather than spec)? -->
 <p>This creates <code>my_scenario</code> from 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code> or <code>fart</code>) and computes a suitable population size <code>N</code> of 1000.</p>
 <p>Alternatively, we could create the same minimal scenario from 4 essential frequencies (if they are known). The following code creates the scenario a second time, but now uses the frequencies of <code>my_scenario</code> to do so:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Create a minimal scenario (from frequencies):</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a minimal scenario (from frequencies):</span>
 <span class="va">my_scenario_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="va">my_scenario</span><span class="op">$</span><span class="va">hi</span>, 
                         mi <span class="op">=</span> <span class="va">my_scenario</span><span class="op">$</span><span class="va">mi</span>,
                         fa <span class="op">=</span> <span class="va">my_scenario</span><span class="op">$</span><span class="va">fa</span>,
-                        cr <span class="op">=</span> <span class="va">my_scenario</span><span class="op">$</span><span class="va">cr</span><span class="op">)</span></pre></div>
+                        cr <span class="op">=</span> <span class="va">my_scenario</span><span class="op">$</span><span class="va">cr</span><span class="op">)</span></code></pre></div>
 <p>If this succeeds, <code>my_scenario</code> and <code>my_scenario_2</code> contain the same information:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">my_scenario</span>, <span class="va">my_scenario_2</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">my_scenario</span>, <span class="va">my_scenario_2</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
 <div id="optional-scenario-information" class="section level4">
 <h4 class="hasAnchor">
@@ -195,22 +195,16 @@
 <!-- B: optional info: text labels -->
 <p>To make various outputs more recognizable, many aspects of a <code>riskyr</code> scenario can be described by setting optional <code>arguments</code>:</p>
 <ul>
-<li>
-<code>scen_lbl</code> specifies a label by which you can recognize the scenario (e.g., “Identifying reoffenders”).<br>
-</li>
+<li><p><code>scen_lbl</code> specifies a label by which you can recognize the scenario (e.g., “Identifying reoffenders”).<br></p></li>
 <li><p><code>popu_lbl</code> specifies the population of interest (e.g., “inmates”).</p></li>
-<li>
-<code>cond_lbl</code> specifies the condition of interest (i.e., “reoffending”).</li>
-<li>
-<code>cond_true_lbl</code> specifies a label for the condition being true (“offends again”).</li>
+<li><p><code>cond_lbl</code> specifies the condition of interest (i.e., “reoffending”).</p></li>
+<li><p><code>cond_true_lbl</code> specifies a label for the condition being true (“offends again”).</p></li>
 <li><p><code>cond_false_lbl</code> specifies a label for the condition being false (“does not offend again”).</p></li>
-<li>
-<code>dec_lbl</code> specifies the nature of the decision, prediction, or test (“test result”).</li>
-<li>
-<code>dec_pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</li>
+<li><p><code>dec_lbl</code> specifies the nature of the decision, prediction, or test (“test result”).</p></li>
+<li><p><code>dec_pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</p></li>
 <li><p><code>dec_neg_lbl</code> specifies a negative decision regarding the condition (“predict to not reoffend”).</p></li>
 <li>
-<code>hi_lbl</code>, <code>mi_lbl</code>, <code>fa_lbl</code>, and <code>cr_lbl</code> specify the four possible combinations of conditions and decisions:
+<p><code>hi_lbl</code>, <code>mi_lbl</code>, <code>fa_lbl</code>, and <code>cr_lbl</code> specify the four possible combinations of conditions and decisions:</p>
 <ol style="list-style-type: decimal">
 <li>hit: The test predicts that the inmate reoffends and s/he does (“reoffender found”);<br>
 </li>
@@ -223,8 +217,8 @@
 </li>
 </ul>
 <p>Whereas specifying three essential probabilities is necessary to define a valid <code>riskyr</code> scenario, providing <code>N</code> and the other arguments are entirely optional. For illustrative purposes, we create a very well-specified <code>riskyr</code> scenario:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># Create a scenario with custom labels: </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a scenario with custom labels: </span>
 <span class="va">my_scenario</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span><span class="op">(</span>scen_lbl <span class="op">=</span> <span class="st">"Identifying reoffenders"</span>, 
                       popu_lbl <span class="op">=</span> <span class="st">"prison inmates"</span>, 
                       cond_lbl <span class="op">=</span> <span class="st">"reoffending"</span>,
@@ -238,7 +232,7 @@
                       spec <span class="op">=</span> <span class="fl">.46</span>,  <span class="co"># p( will not reoffend | does not offend again )</span>
                       fart <span class="op">=</span>  <span class="cn">NA</span>,  <span class="co"># p( will reoffend | does not offend gain )</span>
                       N <span class="op">=</span> <span class="fl">753</span>,     <span class="co"># population size</span>
-                      scen_src <span class="op">=</span> <span class="st">"(a ficticious example)"</span><span class="op">)</span></pre></div>
+                      scen_src <span class="op">=</span> <span class="st">"(a ficticious example)"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="viewing-scenario-information" class="section level4">
 <h4 class="hasAnchor">
@@ -252,13 +246,13 @@
 <div id="prism-plot" class="section level5">
 <h5 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h5>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span><span class="op">)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/plot-default-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>A <em>prism plot</em> (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the <code>area</code> argument and show the names of the frequencies (as provided by our text labels) by adding the <code>f_lbl = "nam"</code> argument. To save space, we do not show the plots here, but please try and see for yourself:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, area <span class="op">=</span> <span class="st">"sq"</span>, f_lbl <span class="op">=</span> <span class="st">"nam"</span>, p_lbl <span class="op">=</span> <span class="st">"mix"</span><span class="op">)</span>  <span class="co"># show frequency names</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, area <span class="op">=</span> <span class="st">"hr"</span>, f_lbl <span class="op">=</span> <span class="st">"num"</span>, p_lbl <span class="op">=</span> <span class="st">"num"</span><span class="op">)</span>  <span class="co"># only numeric labels</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, area <span class="op">=</span> <span class="st">"sq"</span>, f_lbl <span class="op">=</span> <span class="st">"nam"</span>, p_lbl <span class="op">=</span> <span class="st">"mix"</span><span class="op">)</span>  <span class="co"># show frequency names</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, area <span class="op">=</span> <span class="st">"hr"</span>, f_lbl <span class="op">=</span> <span class="st">"num"</span>, p_lbl <span class="op">=</span> <span class="st">"num"</span><span class="op">)</span>  <span class="co"># only numeric labels</span></code></pre></div>
 <p>The resulting graph maps frequency to the size of square boxes, which makes it easier to distinguish between cases with high and with low frequencies.</p>
 </div>
 <div id="practice" class="section level5">
@@ -275,13 +269,13 @@
 <h5 class="hasAnchor">
 <a href="#icon-array" class="anchor"></a>Icon array</h5>
 <p>An <em>icon array</em> displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test’s predictions). We can use this display for our scenario by using the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> function and specifying the <code>type = "icons"</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"icons"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"icons"</span><span class="op">)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/icons-1.png" width="528" style="display: block; margin: auto;"></p>
 <p>From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark blue). The majority of the reoffenders are classified correctly (shown in dark green rather than dark blue).</p>
 <p>But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will <em>either</em> be classified as a “reoffender found” (if he actually reoffends: dark green icons) <em>or</em> as a “false accusation” (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards “reoffenders found”), it appears that his chances of actually reoffending are only slightly higher than chance. To dig deeper into the dirty details of <code>my_scenario</code>, let us look at its <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">my_scenario</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">my_scenario</span><span class="op">)</span>
 <span class="co">#&gt; Scenario:  Identifying reoffenders </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Condition:  reoffending </span>
@@ -321,7 +315,7 @@
 <span class="co">#&gt; Accuracy:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  acc:</span>
-<span class="co">#&gt; 0.694</span></pre></div>
+<span class="co">#&gt; 0.694</span></code></pre></div>
 <p>The text output (printed in R’s Console) provides a brief description of our scenario (i.e., its name, the condition and decision of interest, as well as the type and size of population), followed by a range of numeric parameters (structured into probabilities, frequencies, and overall accuracy).</p>
 <p>In the present case, we were interested in a person’s conditional probability of reoffending given a positive test result. This metric is also known as the <em>positive predictive value</em> (PPV). Our summary information shows <code>PPV = 0.598</code>. Thus, based on the information provided, John D.’s probability of reoffending is 59.8% (quite in line with our visual estimate from the icon array above):</p>
 </div>
@@ -330,14 +324,14 @@
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
 <p>An alternative way to view the our scenario is a <em>frequency tree</em> that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in the <code>summary</code> above):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"tree"</span>, by <span class="op">=</span> <span class="st">"dc"</span><span class="op">)</span>  <span class="co"># plot tree diagram (splitting N by decision)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"tree"</span>, by <span class="op">=</span> <span class="st">"dc"</span><span class="op">)</span>  <span class="co"># plot tree diagram (splitting N by decision)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/tree-plot-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or <code>PPV = hi/dec_pos</code>). Numerically, we see that <code>PPV = 332/556</code>, which amounts to about 60% (or <code>1 - 0.403</code>).</p>
 <p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec_neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition’s prevalence)? To answer this, the following code allows to show conditional probabilities (here <code>PPV</code> and <code>NPV</code>) as a function of <code>prev</code> (and additionally assumes a 5%-uncertainty concerning the exact parameter values):</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"curve"</span>, uc <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">my_scenario</span>, type <span class="op">=</span> <span class="st">"curve"</span>, uc <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/plotting-curve-1.png" width="528" style="display: block; margin: auto;"></p>
 <p>As before, we can read off that the current values of <code>PPV = 59.76%</code> and <code>NPV = 96,56%</code>, but also see that our 5%-uncertainty implies relatively large fluctuations of the exact numeric values. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both <code>PPV</code> and <code>NPV</code>. For instance, if <code>prev</code> dropped further, the <code>PPV</code> of our test was also considerably lower. In fact, both the PPV and NPV always vary from 0 to 1 depending on the value of <code>prev</code>, which means that specifying them is actually meaningless when the corresponding value of <code>prev</code> is not communicated as well. (See the guide on <a href="D_functional_perspectives.html">functional perspectives</a> for additional information and options.)</p>
 <p>Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the <strong>riskyr</strong> package.</p>
@@ -590,15 +584,15 @@
 <h4 class="hasAnchor">
 <a href="#selecting-a-scenario" class="anchor"></a>1. Selecting a scenario</h4>
 <p>Let us assume you want to learn more about the controversy surrounding screening procedures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of <code>scenarios</code> is from an article on this topic (Arkes &amp; Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 (i.e., <code>scenarios$n10</code>) to an R object <code>s10</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">s10</span> <span class="op">&lt;-</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">n10</span>  <span class="co"># assign pre-defined Scenario 10 to s10.</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s10</span> <span class="op">&lt;-</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">n10</span>  <span class="co"># assign pre-defined Scenario 10 to s10.</span></code></pre></div>
 </div>
 <div id="printing-scenario-information" class="section level4">
 <h4 class="hasAnchor">
 <a href="#printing-scenario-information" class="anchor"></a>2. Printing scenario information</h4>
 <p>As each scenario is stored as a list, different aspects of a scenario can be printed by their element names:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="co"># Show basic scenario information: </span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Show basic scenario information: </span>
 <span class="va">s10</span><span class="op">$</span><span class="va">scen_lbl</span>  <span class="co"># shows descriptive label:</span>
 <span class="co">#&gt; [1] "PSA test (patients)"</span>
 <span class="va">s10</span><span class="op">$</span><span class="va">cond_lbl</span>  <span class="co"># shows current condition:</span>
@@ -608,12 +602,12 @@
 <span class="va">s10</span><span class="op">$</span><span class="va">popu_lbl</span>  <span class="co"># shows current population:</span>
 <span class="co">#&gt; [1] "Male patients with symptoms"</span>
 <span class="va">s10</span><span class="op">$</span><span class="va">scen_apa</span>  <span class="co"># shows current source: </span>
-<span class="co">#&gt; [1] "Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."</span></pre></div>
+<span class="co">#&gt; [1] "Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."</span></code></pre></div>
 <p>A description of the scenario can be printed by inspecting <code>s10$scen.txt</code>:</p>
 <pre><code>With a cutoff point of 4 ng/ml, the PSA test is reported to have a sensitivity of approximately 21% and a specificity of approximately 94% (Thompson et al., 2005).  That means the PSA test will correctly classify 21% of the men with prostate cancer and 94% of the men who do not have prostate cancer.  Conversely, the test will miss about 79% of the men who actually have prostate cancer, and raise a false alarm in 6% of the men who actually do not have prostate cancer. Suppose that this test is given to 1,000 patients at a urology clinic who have symptoms diagnostic of prostate cancer.  Perhaps 50% of these men truly have prostate cancer. Table 1 depicts this situation.  Of the 135 men who test positive, 105 actually have prostate cancer.  Thus, the positive predictive value of the PSA test in this situation is approximately 78% (i.e., 105/135 _ 100).</code></pre>
 <p>As explained above, an overview of the main parameters of a scenario is provided by <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s10</span><span class="op">)</span> <span class="co"># summarizes key scenario information:</span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s10</span><span class="op">)</span> <span class="co"># summarizes key scenario information:</span>
 <span class="co">#&gt; Scenario:  PSA test (patients) </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Condition:  Prostate cancer </span>
@@ -653,26 +647,26 @@
 <span class="co">#&gt; Accuracy:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  acc:</span>
-<span class="co">#&gt; 0.575</span></pre></div>
+<span class="co">#&gt; 0.575</span></code></pre></div>
 <p>Note that — in this particular population — the prevalence for the condition (Prostate cancer) is assumed to be relatively high (with a value of 50%).</p>
 </div>
 <div id="visualizing-frequencies-and-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#visualizing-frequencies-and-probabilities" class="anchor"></a>3. Visualizing frequencies and probabilities</h4>
 <p>To eyeball basic scenario information, we can visualize it in many different ways. To save space, we do not show the plots here, but please try and see for yourself:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"tab"</span><span class="op">)</span>                   <span class="co"># plot 2x2 table </span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"tab"</span><span class="op">)</span>                   <span class="co"># plot 2x2 table </span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"icons"</span>, cex_lbl <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span>  <span class="co"># plot an icon array </span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"prism"</span>, area <span class="op">=</span> <span class="st">"sq"</span><span class="op">)</span>    <span class="co"># plot a network/prism diagram</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"area"</span><span class="op">)</span>                  <span class="co"># plot an area plot</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"bar"</span>, dir <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>          <span class="co"># plot a bar chart</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"bar"</span>, dir <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>          <span class="co"># plot a bar chart</span></code></pre></div>
 <p>These initial inspections reveal that the overall accuracy of the decision considered (PSA test (patients)) is not great: There are almost as many cases of incorrect classifications (shown in blue) as correct ones (shown in green). In fact, both the summary and the icon array note that the overall accuracy of the test is at 57.5%. Given that green squares signal correct classifications and blue squares signal incorrect classifications, it is immediately obvious that our main issue with accuracy here consists in so-called misses: Patients with cancer that remain undetected (marked with “FN” and denoted by icons in lighter blue).</p>
 <p>Next, we could another prism diagram, to further illuminate the interplay between probabilities and frequencies in this scenario:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, 
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, 
      by <span class="op">=</span> <span class="st">"cddc"</span>,      <span class="co"># perspective: upper half by condition, lower half by decision </span>
      area <span class="op">=</span> <span class="st">"hr"</span>,      <span class="co"># frequency boxes as horizontal rectangles (scaled to N)</span>
-     p_lbl <span class="op">=</span> <span class="st">"num"</span><span class="op">)</span>    <span class="co"># probability labels: numeric only</span></pre></div>
+     p_lbl <span class="op">=</span> <span class="st">"num"</span><span class="op">)</span>    <span class="co"># probability labels: numeric only</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/s10-prism-1-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of <code>N = 1000</code> patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument <code>p_lbl = "nam"</code> would print the probability names, rather than their values (see also the options <code>p_lbl = "min"</code> and <code>"mix"</code>.) The middle row of boxes shows the four essential frequencies (of hits <code>hi</code>, misses <code>mi</code>, false alarms <code>fa</code>, and correct rejections <code>cr</code>) in colors corresponding to the icon array above. Setting <code>area = "hr"</code> in our <code>plot</code> command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence <code>hr</code>) and the box widths are scaled to add up to the population width <code>N</code> on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases.</p>
 <p>A fact that was not so obvious in the icon array — but shown in the lower half of the prism plot — is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec_neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
@@ -683,19 +677,19 @@
 <li><p>Can you find the current positive predictive value (<code>PPV</code>) in the diagram? (Hint: Its value marks an arrow between two boxes, but is also shown on the margin and was contained in the summary above.)</p></li>
 <li><p>Re-create the prism plot of <code>s10</code> from different perspectives (e.g., <code>by = "cdac"</code>) and different area settings (e.g., <code>area = "sq"</code>, see “?plot_prism” for the options available). For instance, what would the following commands plot:</p></li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, by <span class="op">=</span> <span class="st">"cdac"</span>, area <span class="op">=</span> <span class="st">"sq"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, by <span class="op">=</span> <span class="st">"ac"</span>, area <span class="op">=</span> <span class="st">"hr"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, by <span class="op">=</span> <span class="st">"cdac"</span>, area <span class="op">=</span> <span class="st">"sq"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, by <span class="op">=</span> <span class="st">"ac"</span>, area <span class="op">=</span> <span class="st">"hr"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="visualizing-probabilistic-relationships" class="section level4">
 <h4 class="hasAnchor">
 <a href="#visualizing-probabilistic-relationships" class="anchor"></a>4. Visualizing probabilistic relationships</h4>
 <p>One way to further understand the relations between basic probabilities — like the prevalence <code>prev</code>, which does <em>not</em> depend on our decision, but only on the environmental probability of the condition (here: “Prostate cancer”) — and probabilities conditional on both the condition and on features of the decision (like <code>PPV</code> and <code>NPV</code>) is to plot the latter as a function of the former. Calling <code>type = "curve"</code> does this for us. To save space, we do not show the plots here, but please try and see for yourself:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"curve"</span>, 
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"curve"</span>, 
      what <span class="op">=</span> <span class="st">"all"</span>,  <span class="co"># plot "all" available curves </span>
-     uc <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span>      <span class="co"># with a 5%-uncertainty range </span></pre></div>
+     uc <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span>      <span class="co"># with a 5%-uncertainty range </span></code></pre></div>
 <p>The additional argument <code>what = "all"</code> instructed <strong>riskyr</strong> to provide us with additional curves, corresponding to the percentage of positive decisions (<code>ppod</code>) and overall accuracy (<code>acc</code>). Just like <code>PPV</code> and <code>NPV</code>, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of <code>ppod</code> and <code>acc</code> appear to be linear, even though the <strong>riskyr</strong> function plots them in exactly the same way as <code>PPV</code> and <code>NPV</code>. Would you have predicted this without seeing it?</p>
 <div id="practice-2" class="section level5">
 <h5 class="hasAnchor">
@@ -704,10 +698,10 @@
 <li>Explain why the line of <code>acc</code> intersects the curve of <code>PPV</code> at the point at the same point as the curve of <code>NPV</code>.</li>
 </ul>
 <p>While the curves shown for <code>PPV</code> and <code>NPV</code> so far illustrate their dependence on the prevalence (<code>prev</code>), we can also ask: How do these conditional probabilities vary as a function of the decisions sensitivity (<code>sens</code>) and specificity (<code>spec</code>)? To provide a visual answer to this question, we plot them as 3D planes (i.e., as functions of both <code>sens</code> and <code>spec</code>, for a given value of <code>prev</code>) with the following commands:<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="co">## Plot plane of PPV and NPV as functions of sens and spec (for given prev): </span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Plot plane of PPV and NPV as functions of sens and spec (for given prev): </span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"plane"</span>, what <span class="op">=</span> <span class="st">"PPV"</span>, cex_lbl <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span>  <span class="co"># PPV by sens x spec (fixed prev)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"plane"</span>, what <span class="op">=</span> <span class="st">"NPV"</span>, cex_lbl <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span>  <span class="co"># NPV by sens x spec (fixed prev)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"plane"</span>, what <span class="op">=</span> <span class="st">"NPV"</span>, cex_lbl <span class="op">=</span> <span class="fl">.7</span><span class="op">)</span>  <span class="co"># NPV by sens x spec (fixed prev)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/s10-planes-1.png" width="336" style="display: block; margin: auto;"><img src="E_riskyr_primer_files/figure-html/s10-planes-2.png" width="336" style="display: block; margin: auto;"></p>
 <p>This comparison shows that the curves of <code>PPV</code> and <code>NPV</code> (created by <code>type = "curve"</code> above) were only two out of an infinite number of possible intersections of two planes (created by <code>type = "plane"</code> here). Consequently, the current values of <code>PPV</code> and <code>NPV</code> (shown as yellow points on the planes) crucially depend on the condition’s prevalence (<code>prev</code>), the sensitivity (<code>sens</code>), and the specificity (<code>spec</code>).</p>
 <!-- Conclusion: -->
@@ -720,15 +714,15 @@
 <li>Scenario 9 in the <strong>riskyr</strong> collection of <code>scenarios</code> contains a version of the same situation that assumes a different population (with a lower prevalence value for the same condition). Inspect and explore the consequence of this change by following the same steps for <code>s9</code> as for <code>s10</code> above.</li>
 </ul>
 <!-- Spoiler alarm:  --><p>Here are the first steps:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="co"># Select Scenario 9: </span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Select Scenario 9: </span>
 <span class="va">s9</span> <span class="op">&lt;-</span> <span class="va">scenarios</span><span class="op">$</span><span class="va">n9</span>  <span class="co"># assign pre-defined Scenario 9 to s9. </span>
 
 <span class="co"># Basic scenario information: </span>
 <span class="va">s9</span><span class="op">$</span><span class="va">scen_lbl</span>  <span class="co"># shows descriptive label:</span>
 <span class="co">#&gt; [1] "PSA test (baseline)"</span>
 <span class="va">s9</span><span class="op">$</span><span class="va">popu_lbl</span>  <span class="co"># shows current population:</span>
-<span class="co">#&gt; [1] "Males (general population)"</span></pre></div>
+<span class="co">#&gt; [1] "Males (general population)"</span></code></pre></div>
 <p>Now re-do the plots (for <code>s10</code> above), and note the changes between <code>s9</code> and <code>s10</code>. Importantly, the properties of the test are identical for both scenarios — only the population (i.e., its prevalence for the condition) has changed.</p>
 </div>
 </div>
@@ -853,11 +847,11 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>If no population size value <code>N</code> is specified, a suitable value is provided.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Tukey, J.W. (1962). <em>The future of data analysis</em>. (In: The Collected Works of John W. Tukey, Volume 3, p. 457).<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>The difference between <code>NPV = 190/197 = 0.964467</code> (when computing the ratio of frequencies) and <code>NPV = 0.966</code> (in the <code>summary</code>) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument <code>round = FALSE</code>. <a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>The <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> commands before and after the calls to <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>If no population size value <code>N</code> is specified, a suitable value is provided.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Tukey, J.W. (1962). <em>The future of data analysis</em>. (In: The Collected Works of John W. Tukey, Volume 3, p. 457).<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>The difference between <code>NPV = 190/197 = 0.964467</code> (when computing the ratio of frequencies) and <code>NPV = 0.966</code> (in the <code>summary</code>) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument <code>round = FALSE</code>. <a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>The <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> commands before and after the calls to <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

@@ -47,12 +47,12 @@
 
 
 <meta property="og:title" content="Compute frequencies from (3 essential) probabilities. — comp_freq_prob" />
-<meta property="og:description" content="comp_freq_prob computes current frequency information
+<meta property="og:description" content="comp_freq_prob computes frequency information
 from a sufficient and valid set of 3 essential probabilities
 (prev, and
 sens or its complement mirt, and
 spec or its complement fart).
-It returns a list of 11 frequencies (freq)
+It returns a list of 11 key frequencies (freq)
 as its output." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
@@ -86,7 +86,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -159,12 +159,12 @@ as its output." />
     </div>
 
     <div class="ref-description">
-    <p><code>comp_freq_prob</code> computes current frequency information
+    <p><code>comp_freq_prob</code> computes frequency information
 from a sufficient and valid set of 3 essential probabilities
 (<code><a href='prev.html'>prev</a></code>, and
 <code><a href='sens.html'>sens</a></code> or its complement <code><a href='mirt.html'>mirt</a></code>, and
 <code><a href='spec.html'>spec</a></code> or its complement <code><a href='fart.html'>fart</a></code>).
-It returns a list of 11 frequencies (<code><a href='freq.html'>freq</a></code>)
+It returns a list of 11 key frequencies (<code><a href='freq.html'>freq</a></code>)
 as its output.</p>
     </div>
 
@@ -176,7 +176,8 @@ as its output.</p>
   fart <span class='op'>=</span> <span class='cn'>NA</span>,
   tol <span class='op'>=</span> <span class='fl'>0.01</span>,
   N <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>N</span>,
-  round <span class='op'>=</span> <span class='cn'>TRUE</span>
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sample <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -229,13 +230,22 @@ a suitable minimum value is computed by <code><a href='comp_min_N.html'>comp_min
     <tr>
       <th>round</th>
       <td><p>A Boolean value that determines whether frequencies are
-rounded to the nearest integer. Default: <code>round = TRUE</code>.</p></td>
+rounded to the nearest integer.
+Default: <code>round = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>sample</th>
+      <td><p>Boolean value that determines whether frequency values
+are sampled from <code>N</code>, given the probability values of
+<code>prev</code>, <code>sens</code>, and <code>spec</code>.
+Default: <code>sample = FALSE</code>.</p>
+<p>Note: Sampling uses <code><a href='https://rdrr.io/r/base/sample.html'>sample()</a></code> and returns integer values.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list <code><a href='freq.html'>freq</a></code> containing 11 frequency values.</p>
+    <p>A list <code><a href='freq.html'>freq</a></code> containing 11 key frequency values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>comp_freq_prob</code> is a wrapper function for the more basic
@@ -280,9 +290,9 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 <li><p>Three perspectives on a population:</p>
 <p>by condition / by decision / by accuracy.</p></li>
 <li><p>Defining probabilities in terms of frequencies:</p>
-<p>Probabilities can be computed as ratios between frequencies, but beware of rounding issues.</p></li>
+<p>Probabilities can be computed as ratios between frequencies,
+  but beware of rounding and sampling issues!</p></li>
 </ul>
-
 
 <p>Functions translating between representational formats:
 <code><a href='comp_prob_prob.html'>comp_prob_prob</a></code>, <code><a href='comp_prob_freq.html'>comp_prob_freq</a></code>,
@@ -316,7 +326,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok: hi = 9, ... cr = 72.</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok: hi = 9, ... cr = 72.</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
@@ -350,7 +360,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 72
 #&gt; </div><div class='input'><span class='co'># Same case with complements (using NAs to prevent defaults):</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>.1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.2</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; same result</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>.1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.2</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># same result</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
@@ -384,7 +394,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 72
 #&gt; </div><div class='input'>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span>                   <span class='co'># =&gt; ok, using probability info currently contained in prob</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span>                   <span class='co'># ok, using probability info currently contained in prob</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
@@ -417,12 +427,12 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 562
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>           <span class='co'># =&gt; a list containing 9 frequencies</span>
-</div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>freq</span>, <span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># =&gt; TRUE, unless prob has been changed after computing freq</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span>           <span class='co'># =&gt; computes frequencies and stores them in freq</span>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>           <span class='co'># list of 11 key frequencies</span>
+</div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>freq</span>, <span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># TRUE, unless prob has been changed after computing freq</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'>comp_freq_prob</span><span class='op'>(</span><span class='op'>)</span>           <span class='co'># computes frequencies and stores them in freq</span>
 
 <span class='co'># Ways to work:</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>101</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N hits (TP)</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>101</span><span class='op'>)</span>  <span class='co'># ok + warning: N hits (TP)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 101
@@ -457,7 +467,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'>
-<span class='co'># Same case with complements (using NAs to prevent defaults):</span>
+<span class='co'># Same case with complements (note NAs to prevent default arguments):</span>
 <span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>101</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
@@ -493,7 +503,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>102</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N hits (TP)</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>102</span><span class='op'>)</span>  <span class='co'># ok + warning: N hits (TP)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 102
@@ -527,7 +537,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>103</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N misses (FN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>103</span><span class='op'>)</span>  <span class='co'># ok + warning: N misses (FN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 103
@@ -561,7 +571,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>104</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N misses (FN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>104</span><span class='op'>)</span>  <span class='co'># ok + warning: N misses (FN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 104
@@ -595,7 +605,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>105</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N correct rejections (TN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>105</span><span class='op'>)</span>  <span class='co'># ok + warning: N correct rejections (TN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 1):</span>
 #&gt; <span class='warning'>  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 105
@@ -630,7 +640,43 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 105
 #&gt; </div><div class='input'>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>106</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N false alarms (FP)</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, N <span class='op'>=</span> <span class='fl'>106</span><span class='op'>)</span>  <span class='co'># ok + warning: N false alarms (FP)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; [1] 106
+#&gt; 
+#&gt; $cond_true
+#&gt; [1] 0
+#&gt; 
+#&gt; $cond_false
+#&gt; [1] 106
+#&gt; 
+#&gt; $dec_pos
+#&gt; [1] 106
+#&gt; 
+#&gt; $dec_neg
+#&gt; [1] 0
+#&gt; 
+#&gt; $dec_cor
+#&gt; [1] 0
+#&gt; 
+#&gt; $dec_err
+#&gt; [1] 106
+#&gt; 
+#&gt; $hi
+#&gt; [1] 0
+#&gt; 
+#&gt; $mi
+#&gt; [1] 0
+#&gt; 
+#&gt; $fa
+#&gt; [1] 106
+#&gt; 
+#&gt; $cr
+#&gt; [1] 0
+#&gt; </div><div class='input'><span class='co'># Same case with complements (using NAs to prevent defaults):</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>0</span>,
+               spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>106</span><span class='op'>)</span>  <span class='co'># ok + warning: N false alarms (FP)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
 #&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 106
@@ -665,21 +711,19 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'>
-<span class='co'># Same case with complements (using NAs to prevent defaults):</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>0</span>,
-               spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='fl'>106</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N false alarms (FP)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
-#&gt; [1] 106
+<span class='co'># Rounding:</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>   <span class='co'># yields fa = 1 (see ?round for reason)</span>
+</div><div class='output co'>#&gt; $N
+#&gt; [1] 1
 #&gt; 
 #&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
 #&gt; $cond_false
-#&gt; [1] 106
+#&gt; [1] 1
 #&gt; 
 #&gt; $dec_pos
-#&gt; [1] 106
+#&gt; [1] 1
 #&gt; 
 #&gt; $dec_neg
 #&gt; [1] 0
@@ -688,7 +732,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 0
 #&gt; 
 #&gt; $dec_err
-#&gt; [1] 106
+#&gt; [1] 1
 #&gt; 
 #&gt; $hi
 #&gt; [1] 0
@@ -697,13 +741,114 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 0
 #&gt; 
 #&gt; $fa
-#&gt; [1] 106
+#&gt; [1] 1
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>  <span class='co'># 1 hit (TP, rounded)</span>
+</div><div class='output co'>#&gt; $N
+#&gt; [1] 10
+#&gt; 
+#&gt; $cond_true
+#&gt; [1] 1
+#&gt; 
+#&gt; $cond_false
+#&gt; [1] 9
+#&gt; 
+#&gt; $dec_pos
+#&gt; [1] 3
+#&gt; 
+#&gt; $dec_neg
+#&gt; [1] 7
+#&gt; 
+#&gt; $dec_cor
+#&gt; [1] 8
+#&gt; 
+#&gt; $dec_err
+#&gt; [1] 2
+#&gt; 
+#&gt; $hi
+#&gt; [1] 1
+#&gt; 
+#&gt; $mi
+#&gt; [1] 0
+#&gt; 
+#&gt; $fa
+#&gt; [1] 2
+#&gt; 
+#&gt; $cr
+#&gt; [1] 7
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># hi = .9</span>
+</div><div class='output co'>#&gt; $N
+#&gt; [1] 10
+#&gt; 
+#&gt; $cond_true
+#&gt; [1] 1
+#&gt; 
+#&gt; $cond_false
+#&gt; [1] 9
+#&gt; 
+#&gt; $dec_pos
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $dec_neg
+#&gt; [1] 7.3
+#&gt; 
+#&gt; $dec_cor
+#&gt; [1] 8.1
+#&gt; 
+#&gt; $dec_err
+#&gt; [1] 1.9
+#&gt; 
+#&gt; $hi
+#&gt; [1] 0.9
+#&gt; 
+#&gt; $mi
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $fa
+#&gt; [1] 1.8
+#&gt; 
+#&gt; $cr
+#&gt; [1] 7.2
+#&gt; </div><div class='input'>
+<span class='co'># Sampling (from probabilistic description):</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>100</span>, sample <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># freq values vary</span>
+</div><div class='output co'>#&gt; $N
+#&gt; [1] 100
+#&gt; 
+#&gt; $cond_true
+#&gt; [1] 56
+#&gt; 
+#&gt; $cond_false
+#&gt; [1] 44
+#&gt; 
+#&gt; $dec_pos
+#&gt; [1] 48
+#&gt; 
+#&gt; $dec_neg
+#&gt; [1] 52
+#&gt; 
+#&gt; $dec_cor
+#&gt; [1] 58
+#&gt; 
+#&gt; $dec_err
+#&gt; [1] 42
+#&gt; 
+#&gt; $hi
+#&gt; [1] 31
+#&gt; 
+#&gt; $mi
+#&gt; [1] 25
+#&gt; 
+#&gt; $fa
+#&gt; [1] 17
+#&gt; 
+#&gt; $cr
+#&gt; [1] 27
 #&gt; </div><div class='input'>
 <span class='co'># Watch out for:</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># =&gt; ok + warning: N = 1 computed</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># ok + warning: N = 1 computed</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
@@ -738,7 +883,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but all 0 + warning (NPV = NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># ok, but all 0 + warning (NPV = NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 0
@@ -772,7 +917,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but all rounded</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># ok, but all rounded</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -805,7 +950,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 2
-#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># =&gt; ok, but not rounded</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># ok, but not rounded</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -840,11 +985,11 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 2.5
 #&gt; </div><div class='input'>
 <span class='co'># Ways to fail:</span>
-<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='cn'>NA</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; NAs + no warning (prev NA)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; NAs + no warning (sens NA)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; NAs + no warning (spec NA)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>8</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; NAs + warning (prev beyond range)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>8</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; NAs + warning (sens &amp; spec beyond range)</span>
+<span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='cn'>NA</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># NAs + no warning (prev NA)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># NAs + no warning (sens NA)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># NAs + no warning (spec NA)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>8</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># NAs + warning (prev beyond range)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'><span class='fu'>comp_freq_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>8</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># NAs + warning (sens &amp; spec beyond range)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Please enter a valid set of essential probabilities.</span></div><div class='input'>
 </div></pre>
   </div>

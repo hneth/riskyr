@@ -51,7 +51,7 @@
 as rounded integers) given 3 basic probabilities --
 prev, sens, and spec --
 for a population of N individuals.
-It returns a list of 11 frequencies freq
+It returns a list of 11 key frequencies freq
 as its output." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
@@ -85,7 +85,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ as its output." />
 as rounded integers) given 3 basic probabilities --
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, and <code><a href='spec.html'>spec</a></code> --
 for a population of <code><a href='N.html'>N</a></code> individuals.
-It returns a list of 11 frequencies <code><a href='freq.html'>freq</a></code>
+It returns a list of 11 key frequencies <code><a href='freq.html'>freq</a></code>
 as its output.</p>
     </div>
 
@@ -171,7 +171,8 @@ as its output.</p>
   sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
   spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
   N <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>N</span>,
-  round <span class='op'>=</span> <span class='cn'>TRUE</span>
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sample <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -202,17 +203,26 @@ a suitable minimum value is computed by <code><a href='comp_min_N.html'>comp_min
     </tr>
     <tr>
       <th>round</th>
-      <td><p>Boolean value that determines whether frequencies are
-rounded to the nearest integer. Default: <code>round = TRUE</code>.</p>
+      <td><p>Boolean value that determines whether frequency values
+are rounded to the nearest integer.
+Default: <code>round = TRUE</code>.</p>
 <p>Note: Removed <code>n_digits</code> parameter:  Number of digits to which frequency values
 are to be rounded when <code>round = FALSE</code>.
 Default: <code>n_digits = 5</code>.</p></td>
+    </tr>
+    <tr>
+      <th>sample</th>
+      <td><p>Boolean value that determines whether frequency values
+are sampled from <code>N</code>, given the probability values of
+<code>prev</code>, <code>sens</code>, and <code>spec</code>.
+Default: <code>sample = FALSE</code>.</p>
+<p>Note: Sampling uses <code><a href='https://rdrr.io/r/base/sample.html'>sample()</a></code> and returns integer values.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list <code><a href='freq.html'>freq</a></code> containing 11 frequency values.</p>
+    <p>A list <code><a href='freq.html'>freq</a></code> containing 11 key frequency values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In addition to <code><a href='prev.html'>prev</a></code>, both
@@ -290,8 +300,11 @@ Thus, they can be computed as ratios between frequencies:</p>
 <p><code>p_err_fa = <a href='fa.html'>fa</a>/<a href='dec_err.html'>dec_err</a> = (1 - <a href='mi.html'>mi</a>/<a href='dec_err.html'>dec_err</a>)</code></p></li>
 </ol>
 
-<p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>),
-   probabilities computed from <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.</p></li>
+<p>Beware of rounding and sampling issues!
+   If frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>)
+   or sampled from probabilities (by <code>sample = TRUE</code>),
+   then any probabilities computed from <code><a href='freq.html'>freq</a></code> may differ
+   from original and exact probabilities.</p></li>
 </ul>
 
 <p>Functions translating between representational formats:
@@ -318,7 +331,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 <code><a href='comp_prob_prob.html'>comp_prob_prob</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span><span class='op'>)</span>                  <span class='co'># =&gt; ok, using current defaults</span>
+    <pre class="examples"><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span><span class='op'>)</span>          <span class='co'># ok, using current defaults</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
@@ -351,10 +364,10 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 562
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_freq</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>          <span class='co'># =&gt; 11</span>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_freq</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># 11 key frequencies</span>
 </div><div class='output co'>#&gt; [1] 11</div><div class='input'>
-<span class='co'># Rounding effects:</span>
-<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>   <span class='co'># =&gt; yields fa = 1 (see ?round for reason)</span>
+<span class='co'># Rounding:</span>
+<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>   <span class='co'># yields fa = 1 (see ?round for reason)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
@@ -387,7 +400,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>  <span class='co'># =&gt; 1 hit (TP, rounded)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>  <span class='co'># 1 hit (TP, rounded)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -420,7 +433,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 7
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>    <span class='co'># =&gt; hi = .9</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>    <span class='co'># hi = .9</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -453,7 +466,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 7.2
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, spec <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, N <span class='op'>=</span> <span class='fl'>1</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># =&gt; hi = 0.2857143</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, spec <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, N <span class='op'>=</span> <span class='fl'>1</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># hi = 0.2857143</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
@@ -487,8 +500,43 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0.4444444
 #&gt; </div><div class='input'>
+<span class='co'># Sampling (from probabilistic description):</span>
+<span class='fu'><a href='comp_freq_prob.html'>comp_freq_prob</a></span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>100</span>, sample <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># freq values vary</span>
+</div><div class='output co'>#&gt; $N
+#&gt; [1] 100
+#&gt; 
+#&gt; $cond_true
+#&gt; [1] 44
+#&gt; 
+#&gt; $cond_false
+#&gt; [1] 56
+#&gt; 
+#&gt; $dec_pos
+#&gt; [1] 54
+#&gt; 
+#&gt; $dec_neg
+#&gt; [1] 46
+#&gt; 
+#&gt; $dec_cor
+#&gt; [1] 60
+#&gt; 
+#&gt; $dec_err
+#&gt; [1] 40
+#&gt; 
+#&gt; $hi
+#&gt; [1] 29
+#&gt; 
+#&gt; $mi
+#&gt; [1] 15
+#&gt; 
+#&gt; $fa
+#&gt; [1] 25
+#&gt; 
+#&gt; $cr
+#&gt; [1] 31
+#&gt; </div><div class='input'>
 <span class='co'># Extreme cases:</span>
-<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N hits (TP)</span>
+<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N hits (TP)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -522,7 +570,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N hits</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N hits</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -556,7 +604,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N misses (FN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N misses (FN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -590,7 +638,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N misses</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N misses</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -624,7 +672,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N correct rejections (TN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N correct rejections (TN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 1):</span>
 #&gt; <span class='warning'>  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -658,7 +706,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 100
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># =&gt; ok, N false alarms (FP)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>0</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># ok, N false alarms (FP)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
 #&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
@@ -694,7 +742,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='co'># Watch out for:</span>
-<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but warning that N = 1 was computed</span>
+<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># ok, but warning that N = 1 was computed</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
@@ -729,7 +777,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but all 0 + warning (extreme case: N hits)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>, N <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># ok, but all 0 + warning (extreme case: N hits)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 0
@@ -763,7 +811,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># =&gt; ok, rounded (see mi and fa)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>   <span class='co'># ok, rounded (see mi and fa)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -796,7 +844,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 2
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># =&gt; ok, not rounded</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>10</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># ok, not rounded</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
@@ -831,7 +879,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; [1] 2.5
 #&gt; </div><div class='input'>
 <span class='co'># Ways to fail:</span>
-<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='cn'>NA</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># =&gt; NAs + warning (prev NA)</span>
+<span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='cn'>NA</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># NAs + warning (prev NA)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
@@ -864,7 +912,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># =&gt; NAs + warning (sens NA)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># NAs + warning (sens NA)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
@@ -897,7 +945,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>,  spec <span class='op'>=</span> <span class='cn'>NA</span>, <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># =&gt; NAs + warning (spec NA)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>,  spec <span class='op'>=</span> <span class='cn'>NA</span>, <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># NAs + warning (spec NA)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
@@ -930,7 +978,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>8</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>,  spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># =&gt; NAs + warning (prev beyond range)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>8</span>,  sens <span class='op'>=</span> <span class='fl'>1</span>,  spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># NAs + warning (prev beyond range)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
@@ -963,7 +1011,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] NA
-#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='fl'>8</span>,  spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># =&gt; NAs + warning (sens beyond range)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_freq</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span>,  sens <span class='op'>=</span> <span class='fl'>8</span>,  spec <span class='op'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span><span class='op'>)</span>   <span class='co'># NAs + warning (sens beyond range)</span>
 </div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 

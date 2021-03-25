@@ -87,7 +87,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -177,6 +177,7 @@ and a population size of <code><a href='N.html'>N</a></code> individuals.</p>
   spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
   fart <span class='op'>=</span> <span class='cn'>NA</span>,
   N <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>N</span>,
+  sample <span class='op'>=</span> <span class='cn'>FALSE</span>,
   arr_type <span class='op'>=</span> <span class='st'>"array"</span>,
   by <span class='op'>=</span> <span class='st'>"all"</span>,
   ident_order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hi"</span>, <span class='st'>"mi"</span>, <span class='st'>"fa"</span>, <span class='st'>"cr"</span><span class='op'>)</span>,
@@ -242,6 +243,13 @@ of a positive decision provided that the condition is <code>FALSE</code>).
 A suitable value of <code><a href='N.html'>N</a></code> is computed, if not provided.
 If N is 100,000 or greater it is reduced to 10,000
 for the array types if the frequencies allow it.</p></td>
+    </tr>
+    <tr>
+      <th>sample</th>
+      <td><p>Boolean value that determines whether frequency values
+are sampled from <code>N</code>, given the probability values of
+<code>prev</code>, <code>sens</code>, and <code>spec</code>.
+Default: <code>sample = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>arr_type</th>
@@ -410,39 +418,43 @@ to avoid decimal values in <code><a href='freq.html'>freq</a></code>.</p>
 <code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with default settings (arr_type = "array")</span>
+    <pre class="examples"><div class='input'><span class='co'># Basics:</span>
+<span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with default settings (arr_type = "array")</span>
 </div><div class='img'><img src='plot_icons-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>, N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with shuffled IDs</span>
 </div><div class='img'><img src='plot_icons-2.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Sampling:</span>
+<span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, sample <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_icons-3.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># array types:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"mosaic"</span>,    N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># areas as in mosaic plot</span>
-</div><div class='img'><img src='plot_icons-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"fillequal"</span>, N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># areas of equal size (probability as density)</span>
-</div><div class='img'><img src='plot_icons-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"fillleft"</span>,  N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons filled from left to right (in columns)</span>
-</div><div class='img'><img src='plot_icons-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"filltop"</span>,   N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons filled from top to bottom (in rows)</span>
-</div><div class='img'><img src='plot_icons-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"scatter"</span>,   N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons randomly scattered</span>
-</div><div class='img'><img src='plot_icons-7.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"fillequal"</span>, N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># areas of equal size (probability as density)</span>
+</div><div class='img'><img src='plot_icons-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"fillleft"</span>,  N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons filled from left to right (in columns)</span>
+</div><div class='img'><img src='plot_icons-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"filltop"</span>,   N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons filled from top to bottom (in rows)</span>
+</div><div class='img'><img src='plot_icons-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"scatter"</span>,   N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icons randomly scattered</span>
+</div><div class='img'><img src='plot_icons-8.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># by:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>  <span class='co'># hi, mi, fa, cr (TP, FN, FP, TN) cases</span>
-</div><div class='img'><img src='plot_icons-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"cd"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by condition"</span><span class='op'>)</span>  <span class='co'># (hi + mi) vs. (fa + cr)</span>
-</div><div class='img'><img src='plot_icons-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"dc"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by decision"</span><span class='op'>)</span>   <span class='co'># (hi + fa) vs. (mi + cr)</span>
-</div><div class='img'><img src='plot_icons-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"ac"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by accuracy"</span><span class='op'>)</span>   <span class='co'># (hi + cr) vs. (fa + mi)</span>
-</div><div class='img'><img src='plot_icons-11.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"cd"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by condition"</span><span class='op'>)</span>  <span class='co'># (hi + mi) vs. (fa + cr)</span>
+</div><div class='img'><img src='plot_icons-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"dc"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by decision"</span><span class='op'>)</span>   <span class='co'># (hi + fa) vs. (mi + cr)</span>
+</div><div class='img'><img src='plot_icons-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"ac"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by accuracy"</span><span class='op'>)</span>   <span class='co'># (hi + cr) vs. (fa + mi)</span>
+</div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Custom icon types and colors:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"array"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>23</span>, <span class='fl'>24</span><span class='op'>)</span>,
            block_d <span class='op'>=</span> <span class='fl'>0.5</span>, border_d <span class='op'>=</span> <span class='fl'>0.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_vir</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span><span class='op'>)</span>,
            block_d <span class='op'>=</span> <span class='fl'>0.5</span>, border_d <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"fillequal"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>22</span>, <span class='fl'>21</span><span class='op'>)</span>,
            icon_brd_lwd <span class='op'>=</span> <span class='fl'>.5</span>, cex <span class='op'>=</span> <span class='fl'>1</span>, cex_lbl <span class='op'>=</span> <span class='fl'>1.1</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Text and color options:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>,
            title_lbl <span class='op'>=</span> <span class='st'>""</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_TF</span>, col_pal <span class='op'>=</span> <span class='va'>pal_vir</span>, mar_notes <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>,
            title_lbl <span class='op'>=</span> <span class='st'>"Green vs. red"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span>, transparency <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-17.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

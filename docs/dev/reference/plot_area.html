@@ -85,7 +85,7 @@ as relative proportions of this area." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -178,6 +178,7 @@ as relative proportions of this area.</p>
   area <span class='op'>=</span> <span class='st'>"sq"</span>,
   scale <span class='op'>=</span> <span class='st'>"p"</span>,
   round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sample <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sum_w <span class='op'>=</span> <span class='fl'>0.1</span>,
   gaps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>,
   f_lbl <span class='op'>=</span> <span class='st'>"num"</span>,
@@ -284,6 +285,13 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:</p><
       <th>round</th>
       <td><p>A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: <code>round = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>sample</th>
+      <td><p>Boolean value that determines whether frequency values
+are sampled from <code>N</code>, given the probability values of
+<code>prev</code>, <code>sens</code>, and <code>spec</code>.
+Default: <code>sample = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>sum_w</th>
@@ -447,30 +455,35 @@ and providing many additional options.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Basics:</span>
+<span class='co'># (1) Using global prob and freq values:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># default area plot,</span>
 </div><div class='img'><img src='plot_area-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
 <span class='co'># plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")</span>
 
-<span class='co'># Local freq and prob values:</span>
+<span class='co'># (2) Providing values:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_area-2.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># Customizing text and color:</span>
+<span class='co'># (3) Rounding and sampling:</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>100</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, area <span class='op'>=</span> <span class='st'>"hr"</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_area-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>100</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, area <span class='op'>=</span> <span class='st'>"hr"</span>, sample <span class='op'>=</span> <span class='cn'>TRUE</span>, scale <span class='op'>=</span> <span class='st'>"freq"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_area-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># (4) Custom colors and text:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, N <span class='op'>=</span> <span class='fl'>10</span>,
           by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,
           title_lbl <span class='op'>=</span> <span class='st'>"Custom text and color:"</span>,
           lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>,
           f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, f_lwd <span class='op'>=</span> <span class='fl'>2</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_area-3.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-5.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Versions:</span>
 <span class='co'>## by x p_split (= [3 x 2 x 2] = 12 versions):</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v01 (see v07)</span>
-</div><div class='img'><img src='plot_area-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v02 (see v11)</span>
-</div><div class='img'><img src='plot_area-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "cddc", p_split = "h")  # v03 (see v05)</span>
+</div><div class='img'><img src='plot_area-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v02 (see v11)</span>
+</div><div class='img'><img src='plot_area-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "cddc", p_split = "h")  # v03 (see v05)</span>
 <span class='co'># plot_area(by = "cdac", p_split = "h")  # v04 (see v09)</span>
 
 <span class='co'># plot_area(by = "dccd", p_split = "v")  # v05 (is v03 rotated)</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"dcac"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v06 (see v12)</span>
-</div><div class='img'><img src='plot_area-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)</span>
+</div><div class='img'><img src='plot_area-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)</span>
 <span class='co'># plot_area(by = "dcac", p_split = "h")  # v08 (see v10)</span>
 
 <span class='co'># plot_area(by = "accd", p_split = "v")  # v09 (is v04 rotated)</span>
@@ -481,60 +494,60 @@ and providing many additional options.</p>
 <span class='co'>## Options:</span>
 <span class='co'># area:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span><span class='op'>)</span>  <span class='co'># main area as square (by scaling x-values)</span>
-</div><div class='img'><img src='plot_area-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>  <span class='co'># rectangular main area (using full plotting region)</span>
-</div><div class='img'><img src='plot_area-8.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>  <span class='co'># rectangular main area (using full plotting region)</span>
+</div><div class='img'><img src='plot_area-10.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># scale (matters for small N):</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
           by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by prob (default)</span>
-</div><div class='img'><img src='plot_area-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+</div><div class='img'><img src='plot_area-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
           by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by freq (for small N)</span>
-</div><div class='img'><img src='plot_area-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+</div><div class='img'><img src='plot_area-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
           by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"h"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by prob (default)</span>
-</div><div class='img'><img src='plot_area-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+</div><div class='img'><img src='plot_area-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
           by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"h"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by freq (for small N)</span>
-</div><div class='img'><img src='plot_area-12.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-14.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># gaps (sensible range: 0--.10):</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>gaps <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>             <span class='co'># default gaps (based on p_split)</span>
-</div><div class='img'><img src='plot_area-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gaps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># no gaps</span>
-</div><div class='img'><img src='plot_area-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(gaps = c(.05, .01))  # v_gap &gt; h_gap</span>
+</div><div class='img'><img src='plot_area-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gaps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># no gaps</span>
+</div><div class='img'><img src='plot_area-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(gaps = c(.05, .01))  # v_gap &gt; h_gap</span>
 
 <span class='co'># freq labels:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>" = "</span><span class='op'>)</span>  <span class='co'># default</span>
-</div><div class='img'><img src='plot_area-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>       <span class='co'># NA/NULL: no freq labels (in main area &amp; top/left boxes)</span>
-</div><div class='img'><img src='plot_area-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"abb"</span><span class='op'>)</span>    <span class='co'># abbreviated name (i.e., variable name)</span>
-</div><div class='img'><img src='plot_area-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam")  # only freq name</span>
+</div><div class='img'><img src='plot_area-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>       <span class='co'># NA/NULL: no freq labels (in main area &amp; top/left boxes)</span>
+</div><div class='img'><img src='plot_area-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"abb"</span><span class='op'>)</span>    <span class='co'># abbreviated name (i.e., variable name)</span>
+</div><div class='img'><img src='plot_area-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam")  # only freq name</span>
 <span class='co'># plot_area(f_lbl = "num")  # only freq number</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>  <span class='co'># explicit &amp; smaller</span>
-</div><div class='img'><img src='plot_area-18.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-20.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># prob labels:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>      <span class='co'># default: no prob labels, no links</span>
-</div><div class='img'><img src='plot_area-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(p_lbl = "no")  # show links, but no labels</span>
+</div><div class='img'><img src='plot_area-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(p_lbl = "no")  # show links, but no labels</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.70</span><span class='op'>)</span>  <span class='co'># explicit &amp; smaller labels</span>
-</div><div class='img'><img src='plot_area-20.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-22.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># prob arrows:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>+</span><span class='fl'>3</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># V-shape arrows</span>
-</div><div class='img'><img src='plot_area-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA)  # T-shape arrows</span>
+</div><div class='img'><img src='plot_area-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA)  # T-shape arrows</span>
 <span class='co'># plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA,</span>
 <span class='co'>#           brd_dis = -.02, col_p = c("black")) # adjust arrow type/position</span>
 
 <span class='co'># f_lwd:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># thicker lines</span>
-</div><div class='img'><img src='plot_area-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>    <span class='co'># thinner lines</span>
-</div><div class='img'><img src='plot_area-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)</span>
+</div><div class='img'><img src='plot_area-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>    <span class='co'># thinner lines</span>
+</div><div class='img'><img src='plot_area-25.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)</span>
 
 <span class='co'># sum_w:</span>
 <span class='co'># plot_area(sum_w = .10)  # default (showing top and left freq panels &amp; labels)</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>   <span class='co'># remove top and left freq panels</span>
-</div><div class='img'><img src='plot_area-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span>  <span class='fl'>1</span>,         <span class='co'># top and left freq panels scaled to size of main areas</span>
+</div><div class='img'><img src='plot_area-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span>  <span class='fl'>1</span>,         <span class='co'># top and left freq panels scaled to size of main areas</span>
           col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>  <span class='co'># custom colors</span>
-</div><div class='img'><img src='plot_area-25.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-27.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Plain and suggested plot versions:</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span> <span class='fl'>0</span>, f_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># no compound indicators (on top/left)</span>
-</div><div class='img'><img src='plot_area-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, sum_w <span class='op'>=</span> <span class='fl'>0</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>,  <span class='co'># no gaps, numeric labels</span>
+</div><div class='img'><img src='plot_area-28.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, sum_w <span class='op'>=</span> <span class='fl'>0</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>,  <span class='co'># no gaps, numeric labels</span>
           f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, title_lbl <span class='op'>=</span> <span class='st'>"Black-and-white"</span><span class='op'>)</span>  <span class='co'># b+w print version</span>
-</div><div class='img'><img src='plot_area-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod)  # plot with freq labels</span>
+</div><div class='img'><img src='plot_area-29.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod)  # plot with freq labels</span>
 <span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>  <span class='co'># no borders around boxes</span>
-</div><div class='img'><img src='plot_area-28.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_area-30.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

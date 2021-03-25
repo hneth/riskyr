@@ -52,7 +52,7 @@ from a sufficient and valid set of 3 essential probabilities
 (prev, and
 sens or its complement mirt, and
 spec or its complement fart).
-It returns a list of 11 probabilities (prob)
+It returns a list of 13 key probabilities (prob)
 as its output." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
@@ -86,7 +86,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ from a sufficient and valid set of 3 essential probabilities
 (<code><a href='prev.html'>prev</a></code>, and
 <code><a href='sens.html'>sens</a></code> or its complement <code><a href='mirt.html'>mirt</a></code>, and
 <code><a href='spec.html'>spec</a></code> or its complement <code><a href='fart.html'>fart</a></code>).
-It returns a list of 11 probabilities (<code><a href='prob.html'>prob</a></code>)
+It returns a list of 13 key probabilities (<code><a href='prob.html'>prob</a></code>)
 as its output.</p>
     </div>
 
@@ -222,7 +222,7 @@ Default: <code>tol = .01</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list <code><a href='prob.html'>prob</a></code> containing 11 probability values.</p>
+    <p>A list <code><a href='prob.html'>prob</a></code> containing 13 key probability values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>comp_prob_prob</code> is a wrapper function for the more basic
@@ -232,7 +232,6 @@ probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values <code><a href='PPV.html'>PPV</a></code> or <code><a href='NPV.html'>NPV</a></code>
 turning <code>NaN</code> when <code><a href='is_extreme_prob_set.html'>is_extreme_prob_set</a></code>
 evaluates to <code>TRUE</code>).</p>
-
 <p>Key relationships between frequencies and probabilities
 (see documentation of <code><a href='comp_freq.html'>comp_freq</a></code> or <code><a href='comp_prob.html'>comp_prob</a></code> for details):</p>
 <ul>
@@ -241,7 +240,6 @@ evaluates to <code>TRUE</code>).</p>
 <li><p>Defining probabilities in terms of frequencies:</p>
 <p>Probabilities can be computed as ratios between frequencies, but beware of rounding issues.</p></li>
 </ul>
-
 
 <p>Functions translating between representational formats:</p>
 <ol>
@@ -290,7 +288,7 @@ evaluates to <code>TRUE</code>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
-<span class='fu'>comp_prob_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.11</span>, sens <span class='op'>=</span> <span class='fl'>.88</span>, spec <span class='op'>=</span> <span class='fl'>.77</span><span class='op'>)</span>                        <span class='co'># =&gt; ok: PPV = 0.3210614</span>
+<span class='fu'>comp_prob_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.11</span>, sens <span class='op'>=</span> <span class='fl'>.88</span>, spec <span class='op'>=</span> <span class='fl'>.77</span><span class='op'>)</span>                        <span class='co'># ok: PPV = 0.3210614</span>
 </div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.11
 #&gt; 
@@ -329,7 +327,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0.9394218
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.11</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>.12</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.23</span><span class='op'>)</span>  <span class='co'># =&gt; ok: PPV = 0.3210614</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.11</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, mirt <span class='op'>=</span> <span class='fl'>.12</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.23</span><span class='op'>)</span>  <span class='co'># ok: PPV = 0.3210614</span>
 </div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.11
 #&gt; 
@@ -368,7 +366,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0.9394218
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='op'>)</span>          <span class='co'># =&gt; ok, using current defaults</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='op'>)</span>          <span class='co'># ok, using current defaults</span>
 </div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.25
 #&gt; 
@@ -407,10 +405,10 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0.8333333
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># =&gt; 11 probabilities</span>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># 13 key probability values</span>
 </div><div class='output co'>#&gt; [1] 13</div><div class='input'>
 <span class='co'># Ways to work:</span>
-<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>.99</span>, sens <span class='op'>=</span> <span class='fl'>.99</span>, spec <span class='op'>=</span> <span class='fl'>.99</span><span class='op'>)</span>              <span class='co'># =&gt; ok: PPV = 0.999898</span>
+<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>.99</span>, sens <span class='op'>=</span> <span class='fl'>.99</span>, spec <span class='op'>=</span> <span class='fl'>.99</span><span class='op'>)</span>              <span class='co'># ok: PPV = 0.999898</span>
 </div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.99
 #&gt; 
@@ -449,7 +447,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0.01
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>.99</span>, sens <span class='op'>=</span> <span class='fl'>.90</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.10</span><span class='op'>)</span>   <span class='co'># =&gt; ok: PPV = 0.9988789</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>.99</span>, sens <span class='op'>=</span> <span class='fl'>.90</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>.10</span><span class='op'>)</span>   <span class='co'># ok: PPV = 0.9988789</span>
 </div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.99
 #&gt; 
@@ -490,7 +488,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; [1] 0.01
 #&gt; </div><div class='input'>
 <span class='co'># Watch out for extreme cases:</span>
-<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>      <span class='co'># =&gt; ok, but with warnings (as PPV &amp; FDR are NaN)</span>
+<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>      <span class='co'># ok, but with warnings (as PPV &amp; FDR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: PPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FDR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -530,7 +528,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>      <span class='co'># =&gt; ok, but with warnings (as PPV &amp; FDR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>      <span class='co'># ok, but with warnings (as PPV &amp; FDR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: PPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FDR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -570,7 +568,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but with warnings (as PPV &amp; FDR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># ok, but with warnings (as PPV &amp; FDR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: PPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FDR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -610,7 +608,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] 0
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but with warnings (as PPV &amp; FDR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>0</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># ok, but with warnings (as PPV &amp; FDR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
 #&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: PPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FDR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -651,7 +649,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; $p_err_fa
 #&gt; [1] 0
 #&gt; </div><div class='input'>
-<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>      <span class='co'># =&gt; ok, but with warnings (as NPV &amp; FOR are NaN)</span>
+<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>      <span class='co'># ok, but with warnings (as NPV &amp; FOR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FOR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -691,7 +689,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>      <span class='co'># =&gt; ok, but with warnings (as NPV &amp; FOR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>      <span class='co'># ok, but with warnings (as NPV &amp; FOR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FOR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -731,7 +729,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but with warnings (as NPV &amp; FOR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># ok, but with warnings (as NPV &amp; FOR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FOR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -771,7 +769,7 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; 
 #&gt; $p_err_fa
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># =&gt; ok, but with warnings (as NPV &amp; FOR are NaN)</span>
+#&gt; </div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>, sens <span class='op'>=</span> <span class='fl'>1</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, fart <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># ok, but with warnings (as NPV &amp; FOR are NaN)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: FOR is NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Some derived prob values are peculiar. Check for extreme probabilities!</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
@@ -813,10 +811,10 @@ evaluates to <code>TRUE</code>).</p>
 #&gt; [1] NaN
 #&gt; </div><div class='input'>
 <span class='co'># Ways to fail:</span>
-<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># =&gt; only warning: invalid set (prev not numeric)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>8</span>,  <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># =&gt; only warning: prev no probability</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>,  <span class='fl'>8</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># =&gt; only warning: sens no probability</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>,  <span class='fl'>1</span>, <span class='fl'>1</span>,  <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># =&gt; only warning: is_complement not in tolerated range</span>
+<span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># only warning: invalid set (prev not numeric)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>8</span>,  <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># only warning: prev no probability</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>,  <span class='fl'>8</span>, <span class='fl'>1</span>, <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># only warning: sens no probability</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'><span class='fu'>comp_prob_prob</span><span class='op'>(</span><span class='fl'>1</span>,  <span class='fl'>1</span>, <span class='fl'>1</span>,  <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># only warning: is_complement not in tolerated range</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Probabilities (p1 and p2) are not complements (in tolerated range).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Invalid probabilities. Please enter a valid set of essential probabilities.</span></div><div class='output co'>#&gt; [1] "Invalid probabilities. Please enter a valid set of essential probabilities."</div><div class='input'>
 </div></pre>
   </div>

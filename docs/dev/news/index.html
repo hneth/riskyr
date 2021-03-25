@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -150,11 +150,11 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-3-0" class="section level1">
+    <div id="riskyr-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
-<a href="#riskyr-0-3-0" class="anchor"></a>riskyr 0.3.0<small> Unreleased </small>
+<a href="#riskyr-030" class="anchor"></a>riskyr 0.3.0<small> 2021-03-23 </small>
 </h1>
-<p><strong>riskyr 0.3.0</strong> was published <a href="https://CRAN.R-project.org/package=riskyr">on CRAN</a> on March 23, 2021.</p>
+<p><strong>riskyr 0.3.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr">on CRAN</a> on March 23, 2021.</p>
 <p>Log of changes since last release:</p>
 <div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
@@ -226,9 +226,9 @@ Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as default c
 </div>
 </div>
 </div>
-    <div id="riskyr-0-2-0" class="section level1">
+    <div id="riskyr-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#riskyr-0-2-0" class="anchor"></a>riskyr 0.2.0<small> 2019-01-03 </small>
+<a href="#riskyr-020" class="anchor"></a>riskyr 0.2.0<small> 2019-01-03 </small>
 </h1>
 <p><strong>riskyr 0.2.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr">on CRAN</a> on January 03, 2019.</p>
 <p>Log of changes since last release:</p>
@@ -283,13 +283,12 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
 <li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]:<br>
 Update variable names (to snake_case) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
-<li>
-<code>scale</code> argument [2018-10]:<br>
-The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</li>
+<li><p><code>scale</code> argument [2018-10]:<br>
+The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</p></li>
 <li><p><code>plot_fnet</code> [2018-02]:<br>
 Change argument <code>box.cex</code> to <code>cex.lbl</code> to ensure consistency with <code>plot_curves</code> and <code>plot_plane</code> (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.</p></li>
 <li><p><code>plot_mosaic</code> [2018-02]:<br>
-Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
+Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
 <li><p><code>mar_notes</code> and <code>plot_mar</code> [2018-09]:<br>
 Use consistent plot margins and options for showing margin notes for all plots.</p></li>
 </ul>
@@ -301,7 +300,7 @@ Use consistent plot margins and options for showing margin notes for all plots.<
 <li><p><code>pal</code> and <code>freq</code> [2018-12]:<br>
 Use more consistent color and frequency names (e.g., <code>cond_true</code>, <code>dec_pos</code>, and <code>dec_cor</code> are now names of frequencies and the colors corresponding to these frequencies).</p></li>
 <li><p><code>freq</code> [2018-07]:<br>
-Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
+Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
 <li><p><code>prob</code> [2018-09]:<br>
 Include accuracy metrics in probabilities (in <code>prob</code> and summary functions).</p></li>
 <li><p><code>pal</code> and <code>txt</code> [2018-10]:<br>
@@ -345,9 +344,9 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
 </div>
 </div>
 </div>
-    <div id="riskyr-0-1-0" class="section level1">
+    <div id="riskyr-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
-<a href="#riskyr-0-1-0" class="anchor"></a>riskyr 0.1.0<small> 2018-02-19 </small>
+<a href="#riskyr-010" class="anchor"></a>riskyr 0.1.0<small> 2018-02-19 </small>
 </h1>
 <p><strong>riskyr 0.1.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr">on CRAN</a> on February 19, 2018.</p>
 <hr>

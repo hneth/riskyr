@@ -82,7 +82,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -190,7 +190,9 @@ and summarized by the <code>summary</code> method <code><a href='summary.riskyr.
   scen_lng <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lng</span>,
   scen_txt <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_txt</span>,
   scen_src <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_src</span>,
-  scen_apa <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_apa</span>
+  scen_apa <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_apa</span>,
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sample <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -340,6 +342,23 @@ Options: <code>"en"</code> for English, <code>"de"</code> for German.</p></td>
       <th>scen_apa</th>
       <td><p>Source information for the current scenario
 according to the American Psychological Association (APA style).</p></td>
+    </tr>
+    <tr>
+      <th>round</th>
+      <td><p>Boolean value that determines whether frequency values
+are rounded to the nearest integer.
+Default: <code>round = TRUE</code>.</p>
+<p>Note: Only rounding when using <code><a href='comp_freq_prob.html'>comp_freq_prob</a></code>
+(i.e., computing <code><a href='freq.html'>freq</a></code> from <code><a href='prob.html'>prob</a></code> description).</p></td>
+    </tr>
+    <tr>
+      <th>sample</th>
+      <td><p>Boolean value that determines whether frequency values
+are sampled from <code>N</code>, given the probability values of
+<code>prev</code>, <code>sens</code>, and <code>spec</code>.
+Default: <code>sample = FALSE</code>.</p>
+<p>Note: Only sampling when using <code><a href='comp_freq_prob.html'>comp_freq_prob</a></code>
+(i.e., computing <code><a href='freq.html'>freq</a></code> from <code><a href='prob.html'>prob</a></code> description).</p></td>
     </tr>
     </table>
 
@@ -494,12 +513,12 @@ are used and returned.</p>
 #&gt;  acc:
 #&gt; 0.694</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_reoffend</span><span class='op'>)</span>
 </div><div class='img'><img src='riskyr-2.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># 2 ways of defining the same scenario: -----</span>
+<span class='co'># 2 ways of defining the same scenario:</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>25</span>, mi <span class='op'>=</span> <span class='fl'>25</span>, fa <span class='op'>=</span> <span class='fl'>25</span>, cr <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>        <span class='co'># s2: same scenario by 4 freq</span>
 <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>s1</span>, <span class='va'>s2</span><span class='op'>)</span>  <span class='co'># should be TRUE</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># Ways to work: -----</span>
+<span class='co'># Ways to work:</span>
 <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, hi <span class='op'>=</span> <span class='fl'>25</span>, mi <span class='op'>=</span> <span class='fl'>25</span>, fa <span class='op'>=</span> <span class='fl'>25</span>, cr <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>  <span class='co'># works (consistent)</span>
 </div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A population table based on current frequencies. — popu • riskyr</title>
+<title>A table of cases (in the current population). — popu • riskyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="A population table based on current frequencies. — popu" />
+<meta property="og:title" content="A table of cases (in the current population). — popu" />
 <meta property="og:description" content="popu is an R data frame that is computed
 by comp_popu from the current
 frequency information (contained in freq).
@@ -55,11 +55,11 @@ columns represent the individual's
 condition (TRUE or FALSE),
 a corresponding decision
 (also encoded as TRUE = positive or FALSE = negative),
-and its classification (in SDT terms) as either
-true positive (an individual hit hi),
-false negative (an individual miss mi),
-false positive (an individual false alarm fa), or
-true negative (an individual correct rejection cr)." />
+and its classification (i.e., its case or cell combination, in SDT terms), as
+true positive (hit hi),
+false negative (miss mi),
+false positive (false alarm fa), or
+true negative (correct rejection cr)." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
 
@@ -92,7 +92,7 @@ true negative (an individual correct rejection cr)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@ true negative (an individual correct rejection cr)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A population table based on current frequencies.</h1>
+    <h1>A table of cases (in the current population).</h1>
     <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/comp_popu.R'><code>R/comp_popu.R</code></a></small>
     <div class="hidden name"><code>popu.Rd</code></div>
     </div>
@@ -173,11 +173,11 @@ columns represent the individual's
 condition (<code>TRUE</code> or <code>FALSE</code>),
 a corresponding decision
 (also encoded as <code>TRUE</code> = positive or <code>FALSE</code> = negative),
-and its classification (in SDT terms) as either
-true positive (an individual hit <code><a href='hi.html'>hi</a></code>),
-false negative (an individual miss <code><a href='mi.html'>mi</a></code>),
-false positive (an individual false alarm <code><a href='fa.html'>fa</a></code>), or
-true negative (an individual correct rejection <code><a href='cr.html'>cr</a></code>).</p>
+and its classification (i.e., its case or cell combination, in SDT terms), as
+true positive (hit <code><a href='hi.html'>hi</a></code>),
+false negative (miss <code><a href='mi.html'>mi</a></code>),
+false positive (false alarm <code><a href='fa.html'>fa</a></code>), or
+true negative (correct rejection <code><a href='cr.html'>cr</a></code>).</p>
     </div>
 
     <pre class="usage"><span class='va'>popu</span></pre>
@@ -198,10 +198,8 @@ encoded as ordered factors
     <p>#' <code>popu</code> is initialized to <code>NULL</code>
 and needs to be computed by calling <code><a href='comp_popu.html'>comp_popu</a></code>
 with current parameter settings.</p>
-<p><code>comp_popu</code> uses the current text information
-contained in <code><a href='txt.html'>txt</a></code> to define
-the labels of conditions, decisions, and
-SDT classifications.</p>
+<p>By default, <code><a href='comp_popu.html'>comp_popu</a></code> uses the current information
+contained in <code><a href='txt.html'>txt</a></code> to define text labels.</p>
 <p>A visualization of the current population
 <code>popu</code> is provided by <code><a href='plot_icons.html'>plot_icons</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
