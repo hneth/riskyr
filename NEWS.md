@@ -7,7 +7,8 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added `sample` argument to `comp_freq()` to allow sampling frequencies by description (given `N` and essential probabilities)
+- Added `sample` argument to `comp_freq()` and `comp_freq_prob()` [2021-03]:  
+Allow sampling frequency values by description (given population size\ `N` and 3\ essential probabilities). 
 
 
 ## Minor changes
@@ -24,7 +25,7 @@ Log of changes since last release:
 
 # riskyr 0.3.0
 
-**riskyr 0.3.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
+**riskyr 0.3.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on March\ 23, 2021. 
 
 Log of changes since last release:
 
