@@ -308,7 +308,7 @@ riskyr <- function(#
                         min_freq = 1)  # calculate a suitable N.
       }
 
-      # (e) Calculate the frequencies from probabilities:
+      # (e) Calculate frequencies from probabilities:
       freqs <- comp_freq_prob(prev = probs[1], sens = probs[2], mirt = probs[3],
                               spec = probs[4], probs[5], N = N)
 
@@ -325,6 +325,7 @@ riskyr <- function(#
     }
   }
 
+
   ## Case_4: Something is missing: ------
 
   # if (is.na(freqs)) {
@@ -335,7 +336,8 @@ riskyr <- function(#
   #   warning("Probabilities were not provided or could not be computed.")
   # }
 
-  ## prob_quintet <- probs  # both should be the same by now (not needed?).
+  # prob_quintet <- probs  # both should be the same by now (not needed?).
+
 
   ## Define object (scenario) as a list: ------
 
