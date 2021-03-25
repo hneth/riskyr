@@ -4,7 +4,7 @@
 ## by using basic parameter values of num:
 ## -----------------------------------------------
 
-## (1) Initialize prob as a list (NA) of 11 probabilities (3 essential ones): ----------
+## (1) Initialize prob as a list (NA) of 11 key probabilities (3 essential ones): ----------
 
 ## init_prob: Initialize prob list ------
 
@@ -46,7 +46,7 @@ init_prob <- function() {
 
 ## Check: --------
 # init_prob()          # initializes empty prob
-# length(init_prob())  # => 13 probabilities
+# length(init_prob())  # 13 key probabilities
 
 
 ## (2) Compute the set of ALL current probabilities: ----------
@@ -67,7 +67,7 @@ init_prob <- function() {
 #' (\code{\link{prev}},
 #' \code{\link{sens}} or \code{\link{mirt}},
 #' \code{\link{spec}} or \code{\link{fart}}).
-#' It returns a list of 13 probabilities \code{\link{prob}}
+#' It returns a list of 13 key probabilities \code{\link{prob}}
 #' as its output.
 #'
 #' \code{comp_prob} assumes that a sufficient and
@@ -93,7 +93,6 @@ init_prob <- function() {
 #'
 #' \code{comp_prob} is the probability counterpart to the
 #' frequency function \code{\link{comp_freq}}.
-#'
 #'
 #' Key relationships between probabilities and frequencies:
 #'
@@ -134,7 +133,6 @@ init_prob <- function() {
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-#'
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
@@ -214,7 +212,6 @@ init_prob <- function() {
 #'
 #' }
 #'
-#'
 #' Functions translating between representational formats:
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
@@ -246,7 +243,7 @@ init_prob <- function() {
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
-#' @return A list \code{\link{prob}} containing 13 probability values.
+#' @return A list \code{\link{prob}} containing 13 key probability values.
 #'
 #' @examples
 #' # Basics:
@@ -329,21 +326,21 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 
     ## (4) Assign all values of prob based on current parameter values:
 
-    ## (a) by condition: basic probability parameters:
+    # (a) by condition: basic probability parameters:
     prob$prev <- prev
     prob$sens <- sens
     prob$mirt <- mirt
     prob$spec <- spec
     prob$fart <- fart
 
-    ## (b) by decision: derived probabilities and predictive values (PVs):
+    # (b) by decision: derived probabilities and predictive values (PVs):
     prob$ppod <- comp_ppod(prev, sens, spec)  # Note: using probabilistic versions (Bayes)
     prob$PPV  <- comp_PPV(prev, sens, spec)
     prob$NPV  <- comp_NPV(prev, sens, spec)
     prob$FDR  <- comp_FDR(prev, sens, spec)   # FDR = (1 - PPV)
     prob$FOR  <- comp_FOR(prev, sens, spec)   # FOR = (1 - NPV)
 
-    ## (c) by accuracy/correspondence of decision to condition:
+    # (c) by accuracy/correspondence of decision to condition:
     prob$acc      <- comp_acc(prev, sens, spec)
     prob$p_acc_hi <- (prob$prev * prob$sens)/(prob$acc)  # p(hi | acc)
     # prob$p_err_fa <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc)  # p(fa | err) computed from scratch OR:
@@ -363,7 +360,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
       warning( "Some derived prob values are peculiar. Check for extreme probabilities!")
     }
 
-    ## (6) Return the entire list prob:
+    ## (6) Return prob (as list):
     return(prob)
 
   } else { # (B) NO valid set of probabilities was provided:
@@ -440,7 +437,6 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  (i.e., the conditional probability
 #'  of a positive decision provided that the condition is \code{FALSE}).
 #'
-#'
 #'  \item the proportion (baseline probability or rate)
 #'  of the decision being positive \code{\link{ppod}}
 #'  (but not necessarily true):
@@ -461,7 +457,6 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  \item the decision's false omission rate \code{\link{FOR}}
 #'  (i.e., the conditional probability of the condition being \code{TRUE}
 #'  provided that the decision is negative).
-#'
 #'
 #'  \item the accuracy \code{\link{acc}}
 #'  (i.e., probability of correct decisions \code{\link{dec_cor}} or
@@ -489,7 +484,6 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' value of NaN when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
 #'
-#'
 #' Key relationships between frequencies and probabilities
 #' (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
 #'
@@ -515,9 +509,9 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' \code{\link{plot_prism}}, and \code{\link{plot_curve}}.
 #'
 #' @examples
-#' prob <- comp_prob()  # => initialize prob to default parameters
-#' prob                 # => show current values
-#' length(prob)         # => 13
+#' prob <- comp_prob()  # initialize prob to default parameters
+#' prob                 # show current values
+#' length(prob)         # 13 key probabilities (and their values)
 #'
 #' @family lists containing current scenario information
 #'
@@ -539,30 +533,30 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 prob <- comp_prob()  # => initialize prob to default parameters
 
 ## Check: --------
-# prob               # => show current values
-# length(prob)       # => 13
+# prob               # show current values
+# length(prob)       # 13 key probabilities (and their values)
+
 
 ## (*) Done: -----------
 
-## - Add p_acc_hi and p_err_fa to prob.  [2018 09 30]
-## - Add accuracy acc to prob.           [2018 09 04]
-## - Clean up code.                      [2018 08 31]
+## - etc.
 
 ## (+) ToDo: ----------
 
-## - Document comp_PPV, comp_NPV, ... etc.
-##
-## - Allow using fart instead of spec in all functions
-##   (defined above)
-##
-## - Add alternative ways to compute probabilities
-##   from frequencies (based on various elements of freq)!
-##
-## - Compute alternative prob from freq with
-##   a. N of dec_pos (rather than N of fa) and
-##   b. N of dec_neg (rather than N of mi) provided.
-##
-## - Compute basic parameters (probabilities and frequencies)
-##   from MIX of existing probabilities and frequencies!
+# Alternative ways to start from data vs. from descriptions:
+# (with/out rounding, with/out sampling) etc.
+#
+# - Allow using fart instead of spec in all functions
+#   (see comp_prob_prob)
+#
+# - Add alternative ways to compute probabilities
+#   from frequencies (based on various elements of freq)!
+#
+# - Compute alternative prob from freq with
+#   a. N of dec_pos (rather than N of fa) and
+#   b. N of dec_neg (rather than N of mi) provided.
+#
+# - Compute basic parameters (probabilities and frequencies)
+#   from MIX of existing probabilities and frequencies!
 
 ## eof. ------------------------------------------
