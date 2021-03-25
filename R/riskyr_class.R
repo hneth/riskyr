@@ -132,6 +132,21 @@
 #' @param scen_apa Source information for the current scenario
 #' according to the American Psychological Association (APA style).
 #'
+#' @param round  Boolean value that determines whether frequency values
+#' are rounded to the nearest integer.
+#' Default: \code{round = TRUE}.
+#'
+#' Note: Only rounding when using \code{\link{comp_freq_prob}}
+#' (i.e., computing \code{\link{freq}} from \code{\link{prob}} description).
+#'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
+#'
+#' Note: Only sampling when using \code{\link{comp_freq_prob}}
+#' (i.e., computing \code{\link{freq}} from \code{\link{prob}} description).
+#'
 #' @examples
 #' # Defining scenarios: -----
 #' # (a) minimal information:
@@ -204,7 +219,7 @@ riskyr <- function(#
   # c. by accuracy:
   acc_lbl = txt$acc_lbl,
   dec_cor_lbl = txt$dec_cor_lbl, dec_err_lbl = txt$dec_err_lbl,
-  # (3) 4 SDT cases:
+  # (3) 4 SDT cases/cells/combinations:
   sdt_lbl = txt$sdt_lbl,
   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
   fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
@@ -220,7 +235,10 @@ riskyr <- function(#
   scen_lng = txt$scen_lng,
   scen_txt = txt$scen_txt,
   scen_src = txt$scen_src,
-  scen_apa = txt$scen_apa
+  scen_apa = txt$scen_apa,
+  # (7) Creating freq from prob (by description):
+  round = TRUE,   # round freq values to integers?
+  sample = FALSE  # sample freq values from probabilities?
 ) {
 
   ## (0): Initialize some stuff: ------
@@ -258,7 +276,7 @@ riskyr <- function(#
     probs      <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
     need_probs <- FALSE  # flag that probs are no longer needed
 
-    # (c) Calculate ALL frequencies from 4 essential frequencies:
+    # (c) Calculate key frequencies from 4 essential frequencies:
     freqs <- comp_freq_freq(hi, mi, fa, cr)
 
   } else {  # if not all 4 essential frequencies are provided:
@@ -308,9 +326,12 @@ riskyr <- function(#
                         min_freq = 1)  # calculate a suitable N.
       }
 
-      # (e) Calculate frequencies from probabilities:
+      # (e) Calculate frequencies from probabilities (by description):
       freqs <- comp_freq_prob(prev = probs[1], sens = probs[2], mirt = probs[3],
-                              spec = probs[4], probs[5], N = N)
+                              spec = probs[4], probs[5], N = N,
+                              round = round,   # round freq values to integers?
+                              sample = sample  # sample freq values from probabilities?
+                              )
 
     }
   } # if (is_valid_prob_set(...
@@ -382,14 +403,18 @@ riskyr <- function(#
 } # riskyr() end.
 
 
-## Check: ----------
+## Check: -------
 # test.obj <- riskyr()  # initialize with default parameters
 # names(test.obj)
 
 ## 2 ways to define the same scenario:
-# s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
+# s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1
 # s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
 # all.equal(s1, s2)  # should be TRUE
+
+# Rounding and sampling:
+s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, round = FALSE)  # s3: w/o rounding
+s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, sample = TRUE)  # s4: with sampling
 
 ## Ways to work:
 # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
