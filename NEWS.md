@@ -7,11 +7,13 @@ Log of changes since last release:
 
 ## Major changes
 
-- none yet 
+- Added `sample` argument to `comp_freq()` to allow sampling frequencies by description (given `N` and essential probabilities)
+
 
 ## Minor changes
 
 - none yet 
+
 
 ## Micro changes
 
@@ -240,6 +242,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-24 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-25 by [hn](https://neth.de).) 
 
 <!-- eof -->
