@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2021 01 04
+## 2021 03 25
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -94,6 +94,11 @@
 #'
 #' @param round  A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
+#'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
 #'
 #' @param brd_w  Border width for showing 2 perspective summaries
 #' on top and left borders of main area (as a proportion of area size)
@@ -194,6 +199,10 @@
 #'
 #' # (2) Computing local freq and prob values:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10, f_lwd = 1)
+#'
+#' # (3) Rounding and sampling:
+#' plot_tab(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, round = FALSE)
+#' plot_tab(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, sample = TRUE)
 #'
 #' ## Plot versions:
 #' # by x p_split [yields (3 x 2) x 2] = 12 versions]:
@@ -296,8 +305,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      area = "no",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr")
                      scale = "p",        # in plot_area: "p": scale boxes by exact probabilities (default) vs. "f": scale boxes by (rounded or non-rounded) freq.
 
+                     round = TRUE,       # round freq values to integers? When not rounded: n_digits = 2 (currently fixed).
+                     sample = FALSE,     # sample freq values from probabilities?
+
                      # Freq boxes:
-                     round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
                      f_lbl = "num",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
                      f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                      f_lbl_sum = f_lbl,  # freq label of summary cells (bottom row and right column)
@@ -333,20 +344,21 @@ plot_tab <- function(prev = num$prev,    # probabilities
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart)
     sens <- prob_quintet[2]  # gets sens (if not provided)
     mirt <- prob_quintet[3]  # gets mirt (if not provided)
     spec <- prob_quintet[4]  # gets spec (if not provided)
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
-    ## (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
+    # (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                      round = round, sample = sample)              # key freq
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)  # key prob
 
     # message("Computed local freq and prob to plot prism.")
 
-    ## (c) Compute cur.popu from computed frequencies (not needed):
+    # (c) Compute cur.popu from computed frequencies (not needed):
     # cur.popu <- comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # compute cur.popu (from 4 essential frequencies)
     # message("Generated new population (cur.popu) to plot.")
 

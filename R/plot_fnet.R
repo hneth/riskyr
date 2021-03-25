@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2021 01 08
+## 2021 03 25
 ## Plot frequency net from Binder et al. (2020):
 ## See doi: 10.3389/fpsyg.2020.00750
 ## -----------------------------------------------
@@ -110,6 +110,11 @@
 #' @param round  Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
+#'
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
@@ -196,6 +201,10 @@
 #'
 #' # B. Providing values:
 #' plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9)  # Binder et al. (2020, Fig. 3)
+#'
+#' # C. Rounding and sampling:
+#' plot_fnet(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "sq", round = FALSE)
+#' plot_fnet(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "sq", sample = TRUE, scale = "freq")
 #'
 #' # Variants:
 #' plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
@@ -364,7 +373,8 @@ plot_fnet <- function(prev = num$prev,    # probabilities
                       by = "cddc",        # 2 perspectives (rows 2 and 4): each by = "cd"/"dc"/"ac"  (default: "cddc")
                       area = "no",        # "no" (default = NA, NULL, "fix") vs: "sq"
                       scale = "p",        # "f" vs. "p" (default)
-                      round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                      round = TRUE,       # round freq values to integers? When not rounded: n_digits = 2 (currently fixed).
+                      sample = FALSE,     # sample freq values from probabilities?
 
                       # Freq boxes:
                       f_lbl = "num",      # freq labels: "def", "nam"/"num"/"namnum", "abb", or NA/NULL/"no" to hide freq labels.
@@ -397,20 +407,21 @@ plot_fnet <- function(prev = num$prev,    # probabilities
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart)
     sens <- prob_quintet[2]  # gets sens (if not provided)
     mirt <- prob_quintet[3]  # gets mirt (if not provided)
     spec <- prob_quintet[4]  # gets spec (if not provided)
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
-    ## (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
+    # (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                      round = round, sample = sample)              # key freq
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)  # key prob
 
     # message("Computed local freq and prob to plot prism.")
 
-    ## (c) Compute cur.popu from computed frequencies (not needed):
+    # (c) Compute cur.popu from computed frequencies (not needed):
     # cur.popu <- comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # compute cur.popu (from 4 essential frequencies)
     # message("Generated new population (cur.popu) to plot.")
 

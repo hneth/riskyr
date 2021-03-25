@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2021 02 07
+## 2021 03 25
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -76,6 +76,11 @@
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #' If N is 100,000 or greater it is reduced to 10,000
 #' for the array types if the frequencies allow it.
+#'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
 #'
 #' @param arr_type The icons can be arranged in different ways
 #' resulting in different types of displays:
@@ -196,8 +201,12 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
+#' # Basics:
 #' plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 #' plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
+#'
+#' # Sampling:
+#' plot_icons(N = 1000, prev = 1/2, sens = 2/3, spec = 6/7, sample = TRUE)
 #'
 #' # array types:
 #' plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
@@ -249,6 +258,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,  # was: num$fart,
                        N = freq$N,                  # ONLY freq used
+
+                       # round = TRUE,      # round freq values to integers? When not rounded: n_digits = 2 (currently fixed).
+                       sample = FALSE,      # sample freq values from probabilities?
 
                        # Key option:
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
@@ -455,7 +467,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
     fart <- prob_quintet[5] # gets fart (if not provided)
 
     # (b) Compute cur_freq and popu based on current parameters (N and probabilities):
-    cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE) # compute cur_freq (with round = TRUE).
+    cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                          round = TRUE, sample = sample)  # key freq (with round = TRUE).
 
   } else { # A0.3.2: Using existing frequencies:
 

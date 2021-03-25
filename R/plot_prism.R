@@ -362,7 +362,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        by = "cddc",        # 2 perspectives (rows 2 and 4): each by = "cd"/"dc"/"ac"  (default: "cddc")
                        area = "no",        # "no" (default = NA, NULL, "fix") vs: "hr", "sq"
                        scale = "p",        # "f" vs. "p" (default)
-                       round = TRUE,       # round freq values to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                       round = TRUE,       # round freq values to integers? When not rounded: n_digits = 2 (currently fixed).
                        sample = FALSE,     # sample freq values from probabilities?
 
                        # Freq boxes:
