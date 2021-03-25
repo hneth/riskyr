@@ -1,6 +1,6 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 12 20
-## 2 wrapper functions (that use existing functions)
+## 2021 03 25
+## 2 key wrapper functions (that use existing functions)
 ## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
 
@@ -13,12 +13,12 @@
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
-#' \code{comp_freq_prob} computes current frequency information
+#' \code{comp_freq_prob} computes frequency information
 #' from a sufficient and valid set of 3 essential probabilities
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
-#' It returns a list of 11 frequencies (\code{\link{freq}})
+#' It returns a list of 11 key frequencies (\code{\link{freq}})
 #' as its output.
 #'
 #' \code{comp_freq_prob} is a wrapper function for the more basic
@@ -81,16 +81,15 @@
 #'
 #'   \item Defining probabilities in terms of frequencies:
 #'
-#'   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+#'   Probabilities can be computed as ratios between frequencies,
+#'   but beware of rounding and sampling issues!
 #'
 #' }
-#'
 #'
 #' Functions translating between representational formats:
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{comp_freq_prob}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
-#'
 #'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -123,50 +122,65 @@
 #' a suitable minimum value is computed by \code{\link{comp_min_N}}.
 #'
 #' @param round  A Boolean value that determines whether frequencies are
-#' rounded to the nearest integer. Default: \code{round = TRUE}.
+#' rounded to the nearest integer.
+#' Default: \code{round = TRUE}.
 #'
-#' @return A list \code{\link{freq}} containing 11 frequency values.
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N} given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
+#'
+#' Note: Sampling uses \code{sample()} and returns integer values.
+#'
+#' @return A list \code{\link{freq}} containing 11 key frequency values.
 #'
 #' @examples
 #' # Basics:
-#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # => ok: hi = 9, ... cr = 72.
+#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # ok: hi = 9, ... cr = 72.
 #' # Same case with complements (using NAs to prevent defaults):
-#' comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # => same result
+#' comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # same result
 #'
-#' comp_freq_prob()                   # => ok, using probability info currently contained in prob
-#' length(comp_freq_prob())           # => a list containing 9 frequencies
-#' all.equal(freq, comp_freq_prob())  # => TRUE, unless prob has been changed after computing freq
-#' freq <- comp_freq_prob()           # => computes frequencies and stores them in freq
+#' comp_freq_prob()                   # ok, using probability info currently contained in prob
+#' length(comp_freq_prob())           # list of 11 key frequencies
+#' all.equal(freq, comp_freq_prob())  # TRUE, unless prob has been changed after computing freq
+#' freq <- comp_freq_prob()           # computes frequencies and stores them in freq
 #'
 #' # Ways to work:
-#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # => ok + warning: N hits (TP)
+#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # ok + warning: N hits (TP)
 #'
-#' # Same case with complements (using NAs to prevent defaults):
+#' # Same case with complements (note NAs to prevent default arguments):
 #' comp_freq_prob(prev = 1, sens = NA, mirt = 0, spec = NA, fart = 0, N = 101)
 #'
-#' comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # => ok + warning: N hits (TP)
-#' comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # => ok + warning: N misses (FN)
-#' comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # => ok + warning: N misses (FN)
-#' comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # => ok + warning: N correct rejections (TN)
+#' comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # ok + warning: N hits (TP)
+#' comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # ok + warning: N misses (FN)
+#' comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # ok + warning: N misses (FN)
+#' comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # ok + warning: N correct rejections (TN)
 #'
-#' comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # => ok + warning: N false alarms (FP)
-#'
+#' comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # ok + warning: N false alarms (FP)
 #' # Same case with complements (using NAs to prevent defaults):
 #' comp_freq_prob(prev = 0, sens = NA, mirt = 0,
-#'                spec = NA, fart = 1, N = 106)  # => ok + warning: N false alarms (FP)
+#'                spec = NA, fart = 1, N = 106)  # ok + warning: N false alarms (FP)
+#'
+#' # Rounding:
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 1)   # yields fa = 1 (see ?round for reason)
+#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 10)  # 1 hit (TP, rounded)
+#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # hi = .9
+#'
+#' # Sampling (from probabilistic description):
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100, sample = TRUE)  # freq values vary
 #'
 #' # Watch out for:
-#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # => ok + warning: N = 1 computed
-#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (NPV = NaN)
-#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded
-#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE) # => ok, but not rounded
+#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # ok + warning: N = 1 computed
+#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # ok, but all 0 + warning (NPV = NaN)
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # ok, but all rounded
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE) # ok, but not rounded
 #'
 #' # Ways to fail:
-#' comp_freq_prob(prev = NA, sens = 1, spec = 1, 100)  # => NAs + no warning (prev NA)
-#' comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # => NAs + no warning (sens NA)
-#' comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # => NAs + no warning (spec NA)
-#' comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
-#' comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
+#' comp_freq_prob(prev = NA, sens = 1, spec = 1, 100)  # NAs + no warning (prev NA)
+#' comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # NAs + no warning (sens NA)
+#' comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # NAs + no warning (spec NA)
+#' comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # NAs + warning (prev beyond range)
+#' comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # NAs + warning (sens & spec beyond range)
 #'
 #' @family functions computing frequencies
 #' @family format conversion functions
@@ -195,7 +209,9 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
                            spec = prob$spec, fart = NA,
                            tol = .01,         # tolerance for is_complement
                            N = freq$N,        # using current freq info contained in freq!
-                           round = TRUE       # should freq be rounded to integers? (default: round = TRUE)
+                           round = TRUE,      # should freq be rounded to integers? (default: round = TRUE)
+                           sample = FALSE     # should freq values be sampled from probabilities
+                                              # (given N and prev/sens/spec)?
 ) {
 
   ## (A) If a valid set of probabilities was provided:
@@ -209,11 +225,13 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
     fart <- prob_quintet[5] # gets fart (if not provided)
 
     # (2) Pass on:
-    # Wrapper function: Delegate to existing and more basic function:
-    freq <- comp_freq(prev, sens, spec,  # 3 essential probabilities; currently NOT SUPPORTED: 2 optional (mirt, fart)
-                      N, round)
+    # Wrapper function: Delegate to more basic function:
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec,  # 3 essential probabilities; currently NOT SUPPORTED: 2 optional (mirt, fart)
+                      N = N,
+                      round = round,
+                      sample = sample)
 
-    # (3) Return entire list freq:
+    # (3) Return freq (as list):
     return(freq)
 
   }
@@ -224,47 +242,47 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
   }  # if (is_valid_prob_set(...
 
-}
+} # comp_freq_prob() end.
+
 
 ## Check: ------
 
 # # Basics:
-# comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # => ok: hi = 9, mi = 1, fa = 18, cr = 72.
+# comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # ok: hi = 9, mi = 1, fa = 18, cr = 72.
 # # Same case with complements (using NAs to prevent defaults):
-# comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # => same result
+# comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # same result
 #
-# comp_freq_prob()                   # => ok, using probability info currently contained in prob
-# length(comp_freq_prob())           # => a list containing 9 frequencies
-# all.equal(freq, comp_freq_prob())  # => TRUE, unless prob has been changed after computing freq
-# freq <- comp_freq_prob()           # => computes frequencies and stores them in freq
+# comp_freq_prob()                   # ok, using probability info currently contained in prob
+# length(comp_freq_prob())           # a list containing 9 frequencies
+# all.equal(freq, comp_freq_prob())  # TRUE, unless prob has been changed after computing freq
+# freq <- comp_freq_prob()           # computes frequencies and stores them in freq
 #
 # # Ways to work:
-# comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # => ok + warning: N hits (TP)
+# comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # ok + warning: N hits (TP)
 # # Same case with complements (using NAs to prevent defaults):
 # comp_freq_prob(prev = 1, sens = NA, mirt = 0, spec = NA, fart = 0, N = 101)
 #
-# comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # => ok + warning: N hits (TP)
-# comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # => ok + warning: N misses (FN)
-# comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # => ok + warning: N misses (FN)
-# comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # => ok + warning: N correct rejections (TN)
+# comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # ok + warning: N hits (TP)
+# comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # ok + warning: N misses (FN)
+# comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # ok + warning: N misses (FN)
+# comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # ok + warning: N correct rejections (TN)
 #
-# comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # => ok + warning: N false alarms (FP)
+# comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # ok + warning: N false alarms (FP)
 # # Same case with complements (using NAs to prevent defaults):
-# comp_freq_prob(prev = 0, sens = NA, mirt = 0, spec = NA, fart = 1, N = 106)  # => ok + warning: N false alarms (FP)
+# comp_freq_prob(prev = 0, sens = NA, mirt = 0, spec = NA, fart = 1, N = 106)  # ok + warning: N false alarms (FP)
 #
 # # Watch out for:
-# comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # => ok + additional warning that N = 1 was computed
-# comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits, NPV = NaN)
-# comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # => ok, but all rounded (increasing errors: mi and fa)
-# comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
+# comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # ok + additional warning that N = 1 was computed
+# comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # ok, but all 0 + warning (extreme case: N hits, NPV = NaN)
+# comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # ok, but all rounded (increasing errors: mi and fa)
+# comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # ok, but not rounded
 #
 # # Ways to fail:
-# comp_freq_prob(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + no warning (prev NA)
-# comp_freq_prob(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + no warning (sens NA)
-# comp_freq_prob(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + no warning (spec NA)
-# comp_freq_prob(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-# comp_freq_prob(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens & spec beyond range)
-
+# comp_freq_prob(prev = NA,  sens = 1, spec = 1,  100)   # NAs + no warning (prev NA)
+# comp_freq_prob(prev = 1,  sens = NA, spec = 1,  100)   # NAs + no warning (sens NA)
+# comp_freq_prob(prev = 1,  sens = 1,  spec = NA, 100)   # NAs + no warning (spec NA)
+# comp_freq_prob(prev = 8,  sens = 1,  spec = 1,  100)   # NAs + warning (prev beyond range)
+# comp_freq_prob(prev = 1,  sens = 8,  spec = 1,  100)   # NAs + warning (sens & spec beyond range)
 
 
 
@@ -282,7 +300,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
-#' It returns a list of 11 probabilities (\code{\link{prob}})
+#' It returns a list of 13 key probabilities (\code{\link{prob}})
 #' as its output.
 #'
 #' \code{comp_prob_prob} is a wrapper function for the more basic
@@ -293,7 +311,6 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 #' turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
-#'
 #'
 #' Key relationships between frequencies and probabilities
 #' (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
@@ -309,7 +326,6 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 #'
 #' }
-#'
 #'
 #' Functions translating between representational formats:
 #'
@@ -362,35 +378,35 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
-#' @return A list \code{\link{prob}} containing 11 probability values.
+#' @return A list \code{\link{prob}} containing 13 key probability values.
 #'
 #' @examples
 #' # Basics:
-#' comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
-#' comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
-#' comp_prob_prob()          # => ok, using current defaults
-#' length(comp_prob_prob())  # => 11 probabilities
+#' comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # ok: PPV = 0.3210614
+#' comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # ok: PPV = 0.3210614
+#' comp_prob_prob()          # ok, using current defaults
+#' length(comp_prob_prob())  # 13 key probability values
 #'
 #' # Ways to work:
-#' comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
-#' comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # => ok: PPV = 0.9988789
+#' comp_prob_prob(.99, sens = .99, spec = .99)              # ok: PPV = 0.999898
+#' comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # ok: PPV = 0.9988789
 #'
 #' # Watch out for extreme cases:
-#' comp_prob_prob(1, sens = 0, spec = 1)      # => ok, but with warnings (as PPV & FDR are NaN)
-#' comp_prob_prob(1, sens = 0, spec = 0)      # => ok, but with warnings (as PPV & FDR are NaN)
-#' comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # => ok, but with warnings (as PPV & FDR are NaN)
-#' comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # => ok, but with warnings (as PPV & FDR are NaN)
+#' comp_prob_prob(1, sens = 0, spec = 1)      # ok, but with warnings (as PPV & FDR are NaN)
+#' comp_prob_prob(1, sens = 0, spec = 0)      # ok, but with warnings (as PPV & FDR are NaN)
+#' comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # ok, but with warnings (as PPV & FDR are NaN)
+#' comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # ok, but with warnings (as PPV & FDR are NaN)
 #'
-#' comp_prob_prob(1, sens = 1, spec = 0)      # => ok, but with warnings (as NPV & FOR are NaN)
-#' comp_prob_prob(1, sens = 1, spec = 1)      # => ok, but with warnings (as NPV & FOR are NaN)
-#' comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # => ok, but with warnings (as NPV & FOR are NaN)
-#' comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # => ok, but with warnings (as NPV & FOR are NaN)
+#' comp_prob_prob(1, sens = 1, spec = 0)      # ok, but with warnings (as NPV & FOR are NaN)
+#' comp_prob_prob(1, sens = 1, spec = 1)      # ok, but with warnings (as NPV & FOR are NaN)
+#' comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # ok, but with warnings (as NPV & FOR are NaN)
+#' comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # ok, but with warnings (as NPV & FOR are NaN)
 #'
 #' # Ways to fail:
-#' comp_prob_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
-#' comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
-#' comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
-#' comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
+#' comp_prob_prob(NA, 1, 1, NA)  # only warning: invalid set (prev not numeric)
+#' comp_prob_prob(8,  1, 1, NA)  # only warning: prev no probability
+#' comp_prob_prob(1,  8, 1, NA)  # only warning: sens no probability
+#' comp_prob_prob(1,  1, 1,  1)  # only warning: is_complement not in tolerated range
 #'
 #' @family functions computing frequencies
 #' @family format conversion functions
@@ -425,56 +441,53 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
   ## but note that comp_prob verifies the integrity of probabilities provided
   ## by checking is_valid_prob_set():
 
-  prob <- comp_prob(prev,        # probabilities:
-                    sens, mirt,  # 3 essential (prev, sens, spec)
-                    spec, fart,  # 2 optional  (      mirt, fart)
-                    tol = tol    # tolerance for is_complement
+  prob <- comp_prob(prev = prev,  # probabilities:
+                    sens = sens, mirt = mirt,  # 3 essential (prev, sens, spec)
+                    spec = spec, fart = fart,  # 2 optional  (      mirt, fart)
+                    tol = tol  # tolerance for is_complement
   )
 
-  ## Return entire list prob:
+  ## Return prob (as list):
   return(prob)
 
-}
-
+} # comp_prob_prob() end.
 
 ## Check: ------
 
 # Basics:
-# comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
-# comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
-# comp_prob_prob()          # => ok, using current defaults
-# length(comp_prob_prob())  # => 11 probabilities
+# comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # ok: PPV = 0.3210614
+# comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # ok: PPV = 0.3210614
+# comp_prob_prob()          # ok, using current defaults
+# length(comp_prob_prob())  # 13 probabilities
 #
 # # Ways to work:
-# comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
-# comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # => ok: PPV = 0.9988789
+# comp_prob_prob(.99, sens = .99, spec = .99)              # ok: PPV = 0.999898
+# comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # ok: PPV = 0.9988789
 #
 # # Watch out for extreme cases:
-# comp_prob_prob(1, sens = 0, spec = 1)      # => ok, but with warnings (as PPV & FDR are NaN)
-# comp_prob_prob(1, sens = 0, spec = 0)      # => ok, but with warnings (as PPV & FDR are NaN)
-# comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # => ok, but with warnings (as PPV & FDR are NaN)
-# comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # => ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob_prob(1, sens = 0, spec = 1)      # ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob_prob(1, sens = 0, spec = 0)      # ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # ok, but with warnings (as PPV & FDR are NaN)
 #
-# comp_prob_prob(1, sens = 1, spec = 0)      # => ok, but with warnings (as NPV & FOR are NaN)
-# comp_prob_prob(1, sens = 1, spec = 1)      # => ok, but with warnings (as NPV & FOR are NaN)
-# comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # => ok, but with warnings (as NPV & FOR are NaN)
-# comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # => ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob_prob(1, sens = 1, spec = 0)      # ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob_prob(1, sens = 1, spec = 1)      # ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # ok, but with warnings (as NPV & FOR are NaN)
 #
 # # Ways to fail:
-# comp_prob_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
-# comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
-# comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
-# comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
-
+# comp_prob_prob(NA, 1, 1, NA)  # only warning: invalid set (prev not numeric)
+# comp_prob_prob(8,  1, 1, NA)  # only warning: prev no probability
+# comp_prob_prob(1,  8, 1, NA)  # only warning: sens no probability
+# comp_prob_prob(1,  1, 1,  1)  # only warning: is_complement not in tolerated range
 
 
 ## (*) Done: -----------
 
-## - Clean up code [2018 08 30].
-
+## - etc.
 
 ## (+) ToDo: ----------
 
-## - ...
+## - etc.
 
 ## eof. ------------------------------------------
