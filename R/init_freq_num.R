@@ -224,7 +224,7 @@ init_freq <- function() {
 #' Default: \code{n_digits = 5}.
 #'
 #' @param sample  Boolean value that determines whether frequency values
-#' are sampled from \code{N} given the probability values of
+#' are sampled from \code{N}, given the probability values of
 #' \code{prev}, \code{sens}, and \code{spec}.
 #' Default: \code{sample = FALSE}.
 #'
@@ -285,10 +285,10 @@ init_freq <- function() {
 ## comp_freq: Definition --------
 
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
-                      N = num$N,      # default N
-                      round = TRUE,   # should freq values be rounded to integers? (default: round = TRUE)
-                      # n_digits = 5, # digits to which non-rounded freq are rounded (REMOVED: only round values SHOWN, not computed!)
-                      sample = FALSE  # should freq values be sampled from probabilities (given N and prev/sens/spec)?
+                      N = num$N,       # default N
+                      round = TRUE,    # round freq values to integers?
+                      # n_digits = 5,  # digits to which non-rounded freq are rounded (REMOVED: only round values SHOWN, not computed!)
+                      sample = FALSE   # sample freq values from probabilities?
 ) {
 
   ## (0) Initialize freq:

@@ -126,7 +126,7 @@
 #' Default: \code{round = TRUE}.
 #'
 #' @param sample  Boolean value that determines whether frequency values
-#' are sampled from \code{N} given the probability values of
+#' are sampled from \code{N}, given the probability values of
 #' \code{prev}, \code{sens}, and \code{spec}.
 #' Default: \code{sample = FALSE}.
 #'
@@ -208,9 +208,9 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
                            sens = prob$sens, mirt = NA, # using current probability info contained in prob!
                            spec = prob$spec, fart = NA,
                            tol = .01,         # tolerance for is_complement
-                           N = freq$N,        # using current freq info contained in freq!
-                           round = TRUE,      # should freq be rounded to integers? (default: round = TRUE)
-                           sample = FALSE     # should freq values be sampled from probabilities
+                           N = freq$N,        # using current freq value contained in freq!
+                           round = TRUE,      # round freq values to integers?
+                           sample = FALSE     # sample freq values from probabilities?
                                               # (given N and prev/sens/spec)?
 ) {
 
