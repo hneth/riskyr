@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2021 01 04
+## 2021 03 25
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -93,6 +93,11 @@
 #'
 #' @param round  A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
+#'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
 #'
 #' @param sum_w  Border width of 2 perspective summaries
 #' (on top and left borders) of main area as a proportion of area size
@@ -190,14 +195,19 @@
 #'
 #' @examples
 #' ## Basics:
+#' # (1) Using global prob and freq values:
 #' plot_area()  # default area plot,
 #' # same as:
 #' # plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")
 #'
-#' # Local freq and prob values:
+#' # (2) Providing values:
 #' plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
 #'
-#' # Customizing text and color:
+#' # (3) Rounding and sampling:
+#' plot_area(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+#' plot_area(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
+#'
+#' # (4) Custom colors and text:
 #' plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #'           by = "cddc", p_split = "v", scale = "p",
 #'           title_lbl = "Custom text and color:",
@@ -317,7 +327,8 @@ plot_area <- function(prev = num$prev,    # probabilities
                       p_split = "v",      # primary/perspective split: "v": vertical vs. "h": horizontal
                       area = "sq",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr" )
                       scale = "p",        # "p": exact probabilities (default) vs. "f": Re-compute prob from (rounded or non-rounded) freq.
-                      round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                      round = TRUE,       # round freq values to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                      sample = FALSE,     # sample freq values from probabilities?
 
                       ## Freq boxes:
                       sum_w = .10,        # border width: (default: sum_w = .10), setting sum_w = NULL/NA/<=0  hides top and left panels.
@@ -355,20 +366,21 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart)
     sens <- prob_quintet[2]  # gets sens (if not provided)
     mirt <- prob_quintet[3]  # gets mirt (if not provided)
     spec <- prob_quintet[4]  # gets spec (if not provided)
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
-    ## (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
+    # (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                      round = round, sample = sample)              # key freq
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)  # key prob
 
     # message("Computed local freq and prob to plot prism.")
 
-    ## (c) Compute cur.popu from computed frequencies (not needed):
+    # (c) Compute cur.popu from computed frequencies (not needed):
     # cur.popu <- comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # compute cur.popu (from 4 essential frequencies)
     # message("Generated new population (cur.popu) to plot.")
 

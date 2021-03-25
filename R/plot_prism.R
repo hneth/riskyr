@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2021 01 04
+## 2021 03 25
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -96,6 +96,11 @@
 #' @param round  Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
+#'
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
@@ -179,11 +184,14 @@
 #' #            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
 #' # (2) Providing values:
-#' plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 #' plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 #' plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #'
-#' ## Custom color and text settings:
+#' # (3) Rounding and sampling:
+#' plot_prism(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+#' plot_prism(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
+#'
+#' # (4) Custom colors and text:
 #' plot_prism(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
 #'            font = 3, cex_p_lbl = .75)                         # and text labels
 #'
@@ -354,7 +362,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        by = "cddc",        # 2 perspectives (rows 2 and 4): each by = "cd"/"dc"/"ac"  (default: "cddc")
                        area = "no",        # "no" (default = NA, NULL, "fix") vs: "hr", "sq"
                        scale = "p",        # "f" vs. "p" (default)
-                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                       round = TRUE,       # round freq values to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                       sample = FALSE,     # sample freq values from probabilities?
 
                        # Freq boxes:
                        f_lbl = "num",      # freq labels: "def", "nam"/"num"/"namnum", "abb", or NA/NULL/"no" to hide freq labels.
@@ -394,8 +403,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
     # (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                      round = round, sample = sample)              # key freq
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)  # key prob
 
     # message("Computed local freq and prob to plot prism.")
 

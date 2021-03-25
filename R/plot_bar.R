@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2021 01 04
+## 2021 03 25
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -111,6 +111,11 @@
 #' are to be rounded to integers.
 #' Default: \code{round = TRUE}.
 #'
+#' @param sample  Boolean value that determines whether frequency values
+#' are sampled from \code{N}, given the probability values of
+#' \code{prev}, \code{sens}, and \code{spec}.
+#' Default: \code{sample = FALSE}.
+#'
 #' @param f_lbl  Type of frequency labels, as character code with the following options:
 #' \enumerate{
 #'   \item \code{f_lbl = "nam"}: names;
@@ -147,9 +152,16 @@
 #'
 #' @examples
 #' # Basics:
+#' # (1) Using global prob and freq values:
+#' plot_bar()
+#'
+#' # (2) Providing values:
 #' plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
-#'          title_lbl = "Test 2")  # by "all" (default)
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title_lbl = "Test 2")  # by "all" (default)
+#'
+#' # (3) Rounding and sampling:
+#' plot_bar(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+#' plot_bar(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
 #'
 #' # Perspectives (by):
 #' # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
@@ -229,10 +241,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      N = num$N,                   # population size N
 
                      # Specific options:
-                     by = "all",     # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
+                     by = "all",     # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all"
                      dir = 1,        # directions: 1 (default) vs. 2
-                     scale = "f",    # scale bars: "f" ... freq (default), "p" ... prob.
-                     round = TRUE,   # round freq to integers? (default: round = TRUE).
+                     scale = "f",    # scale bars: "f" ... freq (default), "p" ... prob
+                     round = TRUE,   # round freq values to integers? (default: round = TRUE)
+                     sample = FALSE, # sample freq values from probabilities?
 
                      # Freq boxes:
                      f_lbl = "num",  # type of freq labels: "nam"/"num"/"abb", NA/NULL/"no", or "default" (fname = fnum).
@@ -317,18 +330,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2]  # gets sens (if not provided)
     mirt <- prob_quintet[3]  # gets mirt (if not provided)
     spec <- prob_quintet[4]  # gets spec (if not provided)
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
-    ## (b) Compute freq based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-    # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
+    # (b) Compute LOCAL freq and prob based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N,
+                      round = round, sample = sample)              # key freq
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)  # key prob
 
-    ## (c) Assign (only needed) elements based on freq:
+    # (c) Assign (only needed) elements based on freq:
     hi  <- freq$hi
     mi  <- freq$mi
     fa  <- freq$fa
