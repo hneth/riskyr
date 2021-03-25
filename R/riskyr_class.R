@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2021 01 04
+## 2021 03 25
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 
@@ -163,12 +163,12 @@
 #' summary(scen_reoffend)
 #' plot(scen_reoffend)
 #'
-#' # 2 ways of defining the same scenario: -----
+#' # 2 ways of defining the same scenario:
 #' s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob & N
 #' s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 #' all.equal(s1, s2)  # should be TRUE
 #'
-#' # Ways to work: -----
+#' # Ways to work:
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 #'
@@ -232,15 +232,15 @@ riskyr <- function(#
 
   if (!any(is.na(c(hi, mi, fa, cr)))) {  # all four frequencies are provided:
 
-    ## (a) Checking consistency of N: -----
+    # (a) Check consistency of N: -----
 
-    if (is.na(N)) {  # check, whether N is NA.
+    if (is.na(N)) { # check, whether N is NA:
 
       N <- sum(c(hi, mi, fa, cr))  # set N to sum of frequencies.
 
-    } else {  # N is provided:
+    } else { # N is provided:
 
-      ## check, whether N matches the sum of frequencies:
+      # check, whether N matches the sum of frequencies:
       N.sum <- sum(c(hi, mi, fa, cr))
 
       if (N != N.sum) {
@@ -253,13 +253,12 @@ riskyr <- function(#
       }
     }
 
-    ## (b) Calculate the probabilities: -----
-
+    # (b) Compute probabilities: -----
     probs_calc <- comp_prob_freq(hi, mi, fa, cr)
     probs      <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
-    need_probs <- FALSE  # set flag that probs are no longer needed
+    need_probs <- FALSE  # flag that probs are no longer needed
 
-    ## (c) Calculate ALL frequencies from 4 essential frequencies:
+    # (c) Calculate ALL frequencies from 4 essential frequencies:
     freqs <- comp_freq_freq(hi, mi, fa, cr)
 
   } else {  # if not all 4 essential frequencies are provided:
@@ -277,14 +276,14 @@ riskyr <- function(#
                         spec = spec, fart = fart,
                         tol = .01)) {  # a valid set of probabilities is provided:
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
     # sens <- prob_quintet[2] # gets sens (if not provided)
     # mirt <- prob_quintet[3] # gets mirt (if not provided)
     # spec <- prob_quintet[4] # gets spec (if not provided)
     # fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) If frequencies have been provided, test whether the probabilities match:
+    # (b) If frequencies have been provided, test whether the probabilities match:
     if (!any(is.na(probs))) { # if probs has been calculated:
 
       if (!is.null(prob_quintet)) {  # check, whether prob_quintet has been calculated.
@@ -299,17 +298,17 @@ riskyr <- function(#
 
     } else {  # if no frequencies have been provided (probs is NA): ------
 
-      ## (c) Set probs to the computed prob quintet:
+      # (c) Set probs to the computed prob quintet:
       probs <- prob_quintet
 
-      ## (d) if no N has been provided:
+      # (d) if no N has been provided:
       if (is.na(N)) {
 
         N <- comp_min_N(prev = probs[1], sens = probs[2], spec = probs[4],
                         min_freq = 1)  # calculate a suitable N.
       }
 
-      ## (e) Calculate the frequencies from probabilities:
+      # (e) Calculate the frequencies from probabilities:
       freqs <- comp_freq_prob(prev = probs[1], sens = probs[2], mirt = probs[3],
                               spec = probs[4], probs[5], N = N)
 
@@ -378,7 +377,7 @@ riskyr <- function(#
 
   return(object)
 
-} # riskyr end.
+} # riskyr() end.
 
 
 ## Check: ----------
