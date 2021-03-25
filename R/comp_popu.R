@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2021 03 24
+## 2021 03 25
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
@@ -113,7 +113,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   sdt <- c(rep("hi", hi), rep("mi", mi),
            rep("fa", fa), rep("cr", cr))
 
-  ## (2) Coerce 3 vectors into ordered factors:
+  ## (3) Coerce 3 vectors into ordered factors:
 
   # (a) X: Condition (truth):
   truth <- factor(truth,
@@ -134,15 +134,15 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                 # labels = c("hi", "mi", "fa", "cr"),       # implicit labels
                 ordered = TRUE)
 
-  ## (3) Combine 3 vectors in a population data frame pop:
+  ## (4) Combine 3 vectors in a data frame popu:
   popu <- data.frame(truth = truth,
                      decision = decision,
                      sdt = sdt)
 
-  ## (4) Name variables (by labels of dimensions):
+  ## (5) Name variables (by labels of dimensions):
   names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)  # e.g., c("Truth", "Test", "STD")
 
-  ## (5) Return df:
+  ## (6) Return df:
   return(popu)
 
 } # comp_popu() end.
@@ -171,7 +171,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
 ## popu Documentation: --------
 
-#' A population table based on current frequencies.
+#' A table of cases (in the current population).
 #'
 #' \code{popu} is an R data frame that is computed
 #' by \code{\link{comp_popu}} from the current
@@ -181,11 +181,11 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' condition (\code{TRUE} or \code{FALSE}),
 #' a corresponding decision
 #' (also encoded as \code{TRUE} = positive or \code{FALSE} = negative),
-#' and its classification (in SDT terms) as either
-#' true positive (an individual hit \code{\link{hi}}),
-#' false negative (an individual miss \code{\link{mi}}),
-#' false positive (an individual false alarm \code{\link{fa}}), or
-#' true negative (an individual correct rejection \code{\link{cr}}).
+#' and its classification (i.e., its case or cell combination, in SDT terms), as
+#' true positive (hit \code{\link{hi}}),
+#' false negative (miss \code{\link{mi}}),
+#' false positive (false alarm \code{\link{fa}}), or
+#' true negative (correct rejection \code{\link{cr}}).
 #'
 #' #' \code{popu} is initialized to \code{NULL}
 #' and needs to be computed by calling \code{\link{comp_popu}}
