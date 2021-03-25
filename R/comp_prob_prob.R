@@ -40,7 +40,6 @@
 #' comp_complement(2)    # => NA + warning (beyond range)
 #' comp_complement("p")  # => NA + warning (non-numeric)
 #'
-#'
 #' @family functions computing probabilities
 #'
 #' @seealso
@@ -608,7 +607,6 @@ comp_ppod <- function(prev, sens, spec) {
 #' @return The positive predictive value \code{\link{PPV}} as a probability.
 #' A warning is provided for NaN values.
 #'
-#'
 #' @examples
 #' # (1) Ways to work:
 #' comp_PPV(.50, .500, .500)  # => PPV = 0.5
@@ -628,7 +626,6 @@ comp_ppod <- function(prev, sens, spec) {
 #'
 #' comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
 #' is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
-#'
 #'
 #' @family functions computing probabilities
 #'
@@ -968,13 +965,7 @@ comp_FOR_NPV <- function(NPV) {
 }
 
 
-
-
-
-
-
 ## (3) by accuracy: Compute probability of correct decisions from probabilities: ----------
-
 
 ## comp_acc: Documentation --------
 
