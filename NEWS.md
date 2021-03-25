@@ -7,11 +7,11 @@ Log of changes since last release:
 
 ## Major changes
 
-- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03]: 
+- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
     - Added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`. 
     
-    - Added `sample` argument to key plots: `plot_area()`, `plot_bar()`, `plot_prism()`. 
+    - Added `sample` argument to 6\ key plots: `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
 
 <!-- Add blank line. --> 
