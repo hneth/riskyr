@@ -11,6 +11,7 @@ plot_icons(
   spec = num$spec,
   fart = NA,
   N = freq$N,
+  sample = FALSE,
   arr_type = "array",
   by = "all",
   ident_order = c("hi", "mi", "fa", "cr"),
@@ -62,6 +63,11 @@ of a positive decision provided that the condition is \code{FALSE}).
 A suitable value of \code{\link{N}} is computed, if not provided.
 If N is 100,000 or greater it is reduced to 10,000
 for the array types if the frequencies allow it.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{arr_type}{The icons can be arranged in different ways
 resulting in different types of displays:
@@ -201,8 +207,12 @@ By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
+# Basics:
 plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
+
+# Sampling:
+plot_icons(N = 1000, prev = 1/2, sens = 2/3, spec = 6/7, sample = TRUE)
 
 # array types:
 plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot

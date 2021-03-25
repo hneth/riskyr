@@ -16,6 +16,7 @@ plot_tab(
   area = "no",
   scale = "p",
   round = TRUE,
+  sample = FALSE,
   f_lbl = "num",
   f_lbl_sep = NA,
   f_lbl_sum = f_lbl,
@@ -106,6 +107,11 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
 
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
@@ -226,6 +232,10 @@ plot_tab(f_lbl = "namnum", f_lbl_sep = " = ", brd_w = .10, f_lwd = .5)
 
 # (2) Computing local freq and prob values:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10, f_lwd = 1)
+
+# (3) Rounding and sampling:
+plot_tab(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, round = FALSE)
+plot_tab(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, sample = TRUE)
 
 ## Plot versions:
 # by x p_split [yields (3 x 2) x 2] = 12 versions]:

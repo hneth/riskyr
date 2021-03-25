@@ -20,6 +20,7 @@ plot_fnet(
   area = "no",
   scale = "p",
   round = TRUE,
+  sample = FALSE,
   f_lbl = "num",
   f_lbl_sep = NA,
   f_lwd = 0,
@@ -107,6 +108,11 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
 
 \item{round}{Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
@@ -227,6 +233,10 @@ plot_fnet()  # default frequency net, same as:
 
 # B. Providing values:
 plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9)  # Binder et al. (2020, Fig. 3)
+
+# C. Rounding and sampling:
+plot_fnet(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "sq", round = FALSE)
+plot_fnet(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "sq", sample = TRUE, scale = "freq")
 
 # Variants:
 plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
