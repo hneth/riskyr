@@ -38,7 +38,9 @@ riskyr(
   scen_lng = txt$scen_lng,
   scen_txt = txt$scen_txt,
   scen_src = txt$scen_src,
-  scen_apa = txt$scen_apa
+  scen_apa = txt$scen_apa,
+  round = TRUE,
+  sample = FALSE
 )
 }
 \arguments{
@@ -129,6 +131,21 @@ Options: \code{"en"} for English, \code{"de"} for German.}
 
 \item{scen_apa}{Source information for the current scenario
 according to the American Psychological Association (APA style).}
+
+\item{round}{Boolean value that determines whether frequency values
+are rounded to the nearest integer.
+Default: \code{round = TRUE}.
+
+Note: Only rounding when using \code{\link{comp_freq_prob}}
+(i.e., computing \code{\link{freq}} from \code{\link{prob}} description).}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.
+
+Note: Only sampling when using \code{\link{comp_freq_prob}}
+(i.e., computing \code{\link{freq}} from \code{\link{prob}} description).}
 }
 \value{
 An object of class "riskyr" describing a risk-related scenario.

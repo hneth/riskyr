@@ -15,6 +15,7 @@ plot_bar(
   dir = 1,
   scale = "f",
   round = TRUE,
+  sample = FALSE,
   f_lbl = "num",
   f_lwd = 1,
   lty = 0,
@@ -82,6 +83,11 @@ when \code{round = FALSE}, both settings yield the same bar heights.}
 \item{round}{Boolean option specifying whether computed frequencies
 are to be rounded to integers.
 Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{f_lbl}{Type of frequency labels, as character code with the following options:
 \enumerate{
@@ -159,9 +165,16 @@ for related functions.
 }
 \examples{
 # Basics:
+# (1) Using global prob and freq values:
+plot_bar()
+
+# (2) Providing values:
 plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
-plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
-         title_lbl = "Test 2")  # by "all" (default)
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title_lbl = "Test 2")  # by "all" (default)
+
+# (3) Rounding and sampling:
+plot_bar(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+plot_bar(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
 
 # Perspectives (by):
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",

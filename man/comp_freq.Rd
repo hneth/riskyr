@@ -38,7 +38,7 @@ are to be rounded when \code{round = FALSE}.
 Default: \code{n_digits = 5}.}
 
 \item{sample}{Boolean value that determines whether frequency values
-are sampled from \code{N} given the probability values of
+are sampled from \code{N}, given the probability values of
 \code{prev}, \code{sens}, and \code{spec}.
 Default: \code{sample = FALSE}.
 

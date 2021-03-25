@@ -16,6 +16,7 @@ plot_area(
   area = "sq",
   scale = "p",
   round = TRUE,
+  sample = FALSE,
   sum_w = 0.1,
   gaps = c(NA, NA),
   f_lbl = "num",
@@ -103,6 +104,11 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
 
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{sum_w}{Border width of 2 perspective summaries
 (on top and left borders) of main area as a proportion of area size
@@ -223,14 +229,19 @@ and providing many additional options.
 }
 \examples{
 ## Basics:
+# (1) Using global prob and freq values:
 plot_area()  # default area plot,
 # same as:
 # plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")
 
-# Local freq and prob values:
+# (2) Providing values:
 plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
 
-# Customizing text and color:
+# (3) Rounding and sampling:
+plot_area(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+plot_area(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
+
+# (4) Custom colors and text:
 plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
           by = "cddc", p_split = "v", scale = "p",
           title_lbl = "Custom text and color:",

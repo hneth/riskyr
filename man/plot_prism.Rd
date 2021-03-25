@@ -15,6 +15,7 @@ plot_prism(
   area = "no",
   scale = "p",
   round = TRUE,
+  sample = FALSE,
   f_lbl = "num",
   f_lbl_sep = NA,
   f_lwd = 0,
@@ -102,6 +103,11 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
 
 \item{round}{Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N}, given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.}
 
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
@@ -200,11 +206,14 @@ plot_prism()  # default prism plot,
 #            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 
 # (2) Providing values:
-plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
-## Custom color and text settings:
+# (3) Rounding and sampling:
+plot_prism(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", round = FALSE)
+plot_prism(N = 100, prev = 1/3, sens = 2/3, spec = 6/7, area = "hr", sample = TRUE, scale = "freq")
+
+# (4) Custom colors and text:
 plot_prism(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
            font = 3, cex_p_lbl = .75)                         # and text labels
 
