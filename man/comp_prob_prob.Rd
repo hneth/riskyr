@@ -41,7 +41,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 11 probability values.
+A list \code{\link{prob}} containing 13 key probability values.
 }
 \description{
 \code{comp_prob_prob} computes current probability information
@@ -49,7 +49,7 @@ from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
-It returns a list of 11 probabilities (\code{\link{prob}})
+It returns a list of 13 key probabilities (\code{\link{prob}})
 as its output.
 }
 \details{
@@ -61,7 +61,6 @@ probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
-
 
 Key relationships between frequencies and probabilities
 (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
@@ -77,7 +76,6 @@ Key relationships between frequencies and probabilities
   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
-
 
 Functions translating between representational formats:
 
@@ -106,31 +104,31 @@ Functions translating between representational formats:
 }
 \examples{
 # Basics:
-comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
-comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
-comp_prob_prob()          # => ok, using current defaults
-length(comp_prob_prob())  # => 11 probabilities
+comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # ok: PPV = 0.3210614
+comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # ok: PPV = 0.3210614
+comp_prob_prob()          # ok, using current defaults
+length(comp_prob_prob())  # 13 key probability values
 
 # Ways to work:
-comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
-comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # => ok: PPV = 0.9988789
+comp_prob_prob(.99, sens = .99, spec = .99)              # ok: PPV = 0.999898
+comp_prob_prob(.99, sens = .90, spec = NA, fart = .10)   # ok: PPV = 0.9988789
 
 # Watch out for extreme cases:
-comp_prob_prob(1, sens = 0, spec = 1)      # => ok, but with warnings (as PPV & FDR are NaN)
-comp_prob_prob(1, sens = 0, spec = 0)      # => ok, but with warnings (as PPV & FDR are NaN)
-comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # => ok, but with warnings (as PPV & FDR are NaN)
-comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # => ok, but with warnings (as PPV & FDR are NaN)
+comp_prob_prob(1, sens = 0, spec = 1)      # ok, but with warnings (as PPV & FDR are NaN)
+comp_prob_prob(1, sens = 0, spec = 0)      # ok, but with warnings (as PPV & FDR are NaN)
+comp_prob_prob(1, sens = 0, spec = NA, fart = 0)  # ok, but with warnings (as PPV & FDR are NaN)
+comp_prob_prob(1, sens = 0, spec = NA, fart = 1)  # ok, but with warnings (as PPV & FDR are NaN)
 
-comp_prob_prob(1, sens = 1, spec = 0)      # => ok, but with warnings (as NPV & FOR are NaN)
-comp_prob_prob(1, sens = 1, spec = 1)      # => ok, but with warnings (as NPV & FOR are NaN)
-comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # => ok, but with warnings (as NPV & FOR are NaN)
-comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # => ok, but with warnings (as NPV & FOR are NaN)
+comp_prob_prob(1, sens = 1, spec = 0)      # ok, but with warnings (as NPV & FOR are NaN)
+comp_prob_prob(1, sens = 1, spec = 1)      # ok, but with warnings (as NPV & FOR are NaN)
+comp_prob_prob(1, sens = 1, spec = NA, fart = 0)  # ok, but with warnings (as NPV & FOR are NaN)
+comp_prob_prob(1, sens = 1, spec = NA, fart = 1)  # ok, but with warnings (as NPV & FOR are NaN)
 
 # Ways to fail:
-comp_prob_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
-comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
-comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
-comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
+comp_prob_prob(NA, 1, 1, NA)  # only warning: invalid set (prev not numeric)
+comp_prob_prob(8,  1, 1, NA)  # only warning: prev no probability
+comp_prob_prob(1,  8, 1, NA)  # only warning: sens no probability
+comp_prob_prob(1,  1, 1,  1)  # only warning: is_complement not in tolerated range
 
 }
 \seealso{

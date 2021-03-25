@@ -3,7 +3,7 @@
 \docType{data}
 \name{popu}
 \alias{popu}
-\title{A population table based on current frequencies.}
+\title{A table of cases (in the current population).}
 \format{
 An object of class \code{NULL} of length 0.
 }
@@ -26,11 +26,11 @@ columns represent the individual's
 condition (\code{TRUE} or \code{FALSE}),
 a corresponding decision
 (also encoded as \code{TRUE} = positive or \code{FALSE} = negative),
-and its classification (in SDT terms) as either
-true positive (an individual hit \code{\link{hi}}),
-false negative (an individual miss \code{\link{mi}}),
-false positive (an individual false alarm \code{\link{fa}}), or
-true negative (an individual correct rejection \code{\link{cr}}).
+and its classification (i.e., its case or cell combination, in SDT terms), as
+true positive (hit \code{\link{hi}}),
+false negative (miss \code{\link{mi}}),
+false positive (false alarm \code{\link{fa}}), or
+true negative (correct rejection \code{\link{cr}}).
 }
 \details{
 #' \code{popu} is initialized to \code{NULL}

@@ -41,7 +41,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 13 probability values.
+A list \code{\link{prob}} containing 13 key probability values.
 }
 \description{
 \code{comp_prob} computes current probability information
@@ -49,7 +49,7 @@ from 3 essential probabilities
 (\code{\link{prev}},
 \code{\link{sens}} or \code{\link{mirt}},
 \code{\link{spec}} or \code{\link{fart}}).
-It returns a list of 13 probabilities \code{\link{prob}}
+It returns a list of 13 key probabilities \code{\link{prob}}
 as its output.
 }
 \details{
@@ -76,7 +76,6 @@ evaluates to \code{TRUE}).
 
 \code{comp_prob} is the probability counterpart to the
 frequency function \code{\link{comp_freq}}.
-
 
 Key relationships between probabilities and frequencies:
 
@@ -117,7 +116,6 @@ When providing probabilities, the population size \code{\link{N}} is a free para
 essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
 
 \item Defining probabilities in terms of frequencies:
 
@@ -196,7 +194,6 @@ Thus, they can be computed as ratios between frequencies:
    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
-
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},

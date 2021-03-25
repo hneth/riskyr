@@ -12,7 +12,7 @@ freq
 }
 \description{
 \code{freq} is a list of named numeric variables
-containing 11 frequencies:
+containing 11 key frequencies (and their values):
 }
 \details{
 \enumerate{
@@ -71,10 +71,10 @@ are provided by \code{\link{plot_prism}} and
 \code{\link{plot_icons}}.
 }
 \examples{
-freq <- comp_freq()  # => initialize freq to default parameters
-freq                 # => show current values
-length(freq)         # => 11 known frequencies
-names(freq)          # => show names of known frequencies
+freq <- comp_freq()  # initialize freq to default parameters
+freq                 # show current values
+length(freq)         # 11 known frequencies
+names(freq)          # show names of known frequencies
 
 }
 \seealso{

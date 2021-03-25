@@ -30,7 +30,6 @@ comp_complement(1)    # => 0
 comp_complement(2)    # => NA + warning (beyond range)
 comp_complement("p")  # => NA + warning (non-numeric)
 
-
 }
 \seealso{
 \code{\link{is_complement}} verifies numeric complements;

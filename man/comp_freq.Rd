@@ -9,7 +9,8 @@ comp_freq(
   sens = num$sens,
   spec = num$spec,
   N = num$N,
-  round = TRUE
+  round = TRUE,
+  sample = FALSE
 )
 }
 \arguments{
@@ -28,22 +29,30 @@ of a negative decision provided that the condition is \code{FALSE}).}
 If \code{\link{N}} is unknown (\code{NA}),
 a suitable minimum value is computed by \code{\link{comp_min_N}}.}
 
-\item{round}{Boolean value that determines whether frequencies are
-rounded to the nearest integer. Default: \code{round = TRUE}.
+\item{round}{Boolean value that determines whether frequency values
+are rounded to the nearest integer.
+Default: \code{round = TRUE}.
 
 Note: Removed \code{n_digits} parameter:  Number of digits to which frequency values
 are to be rounded when \code{round = FALSE}.
 Default: \code{n_digits = 5}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N} given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.
+
+Note: Sampling uses \code{sample()} and returns integer values.}
 }
 \value{
-A list \code{\link{freq}} containing 11 frequency values.
+A list \code{\link{freq}} containing 11 key frequency values.
 }
 \description{
 \code{comp_freq} computes frequencies (typically
 as rounded integers) given 3 basic probabilities --
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
 for a population of \code{\link{N}} individuals.
-It returns a list of 11 frequencies \code{\link{freq}}
+It returns a list of 11 key frequencies \code{\link{freq}}
 as its output.
 }
 \details{
@@ -170,8 +179,11 @@ Thus, they can be computed as ratios between frequencies:
 
    }
 
-   Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
-   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+   Beware of rounding and sampling issues!
+   If frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}})
+   or sampled from probabilities (by \code{sample = TRUE}),
+   then any probabilities computed from \code{\link{freq}} may differ
+   from original and exact probabilities.
 
 }
 
@@ -181,35 +193,38 @@ Functions translating between representational formats:
 (see documentation of \code{\link{comp_prob_prob}} for details).
 }
 \examples{
-comp_freq()                  # => ok, using current defaults
-length(comp_freq())          # => 11
+comp_freq()          # ok, using current defaults
+length(comp_freq())  # 11 key frequencies
 
-# Rounding effects:
-comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
-comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => hi = .9
-comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => hi = 0.2857143
+# Rounding:
+comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # yields fa = 1 (see ?round for reason)
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # 1 hit (TP, rounded)
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # hi = .9
+comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # hi = 0.2857143
+
+# Sampling (from probabilistic description):
+comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100, sample = TRUE)  # freq values vary
 
 # Extreme cases:
-comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
-comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
-comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
-comp_freq(prev = 1, sens = 0, spec = 0, 100)  # => ok, N misses
-comp_freq(prev = 0, sens = 1, spec = 1, 100)  # => ok, N correct rejections (TN)
-comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
+comp_freq(prev = 1, sens = 1, spec = 1, 100)  # ok, N hits (TP)
+comp_freq(prev = 1, sens = 1, spec = 0, 100)  # ok, N hits
+comp_freq(prev = 1, sens = 0, spec = 1, 100)  # ok, N misses (FN)
+comp_freq(prev = 1, sens = 0, spec = 0, 100)  # ok, N misses
+comp_freq(prev = 0, sens = 1, spec = 1, 100)  # ok, N correct rejections (TN)
+comp_freq(prev = 0, sens = 1, spec = 0, 100)  # ok, N false alarms (FP)
 
 # Watch out for:
-comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
-comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
-comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # => ok, rounded (see mi and fa)
-comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, not rounded
+comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # ok, but warning that N = 1 was computed
+comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # ok, but all 0 + warning (extreme case: N hits)
+comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # ok, rounded (see mi and fa)
+comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # ok, not rounded
 
 # Ways to fail:
-comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
-comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
-comp_freq(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + warning (spec NA)
-comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens beyond range)
+comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # NAs + warning (prev NA)
+comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # NAs + warning (sens NA)
+comp_freq(prev = 1,  sens = 1,  spec = NA, 100)   # NAs + warning (spec NA)
+comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # NAs + warning (prev beyond range)
+comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # NAs + warning (sens beyond range)
 
 }
 \seealso{

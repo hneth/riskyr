@@ -51,7 +51,6 @@ is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
 comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
 is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
 
-
 }
 \seealso{
 \code{\link{comp_sens}} and \code{\link{comp_NPV}} compute related probabilities;

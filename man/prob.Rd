@@ -42,7 +42,6 @@ as well as 6 conditional) probabilities:
  (i.e., the conditional probability
  of a positive decision provided that the condition is \code{FALSE}).
 
-
  \item the proportion (baseline probability or rate)
  of the decision being positive \code{\link{ppod}}
  (but not necessarily true):
@@ -63,7 +62,6 @@ as well as 6 conditional) probabilities:
  \item the decision's false omission rate \code{\link{FOR}}
  (i.e., the conditional probability of the condition being \code{TRUE}
  provided that the decision is negative).
-
 
  \item the accuracy \code{\link{acc}}
  (i.e., probability of correct decisions \code{\link{dec_cor}} or
@@ -91,7 +89,6 @@ may yield unexpected values (e.g., an \code{\link{NPV}}
 value of NaN when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
-
 Key relationships between frequencies and probabilities
 (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
 
@@ -117,9 +114,9 @@ are provided by \code{\link{plot_area}},
 \code{\link{plot_prism}}, and \code{\link{plot_curve}}.
 }
 \examples{
-prob <- comp_prob()  # => initialize prob to default parameters
-prob                 # => show current values
-length(prob)         # => 13
+prob <- comp_prob()  # initialize prob to default parameters
+prob                 # show current values
+length(prob)         # 13 key probabilities (and their values)
 
 }
 \seealso{

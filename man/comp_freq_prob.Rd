@@ -12,7 +12,8 @@ comp_freq_prob(
   fart = NA,
   tol = 0.01,
   N = freq$N,
-  round = TRUE
+  round = TRUE,
+  sample = FALSE
 )
 }
 \arguments{
@@ -47,18 +48,26 @@ If \code{\link{N}} is unknown (\code{NA}),
 a suitable minimum value is computed by \code{\link{comp_min_N}}.}
 
 \item{round}{A Boolean value that determines whether frequencies are
-rounded to the nearest integer. Default: \code{round = TRUE}.}
+rounded to the nearest integer.
+Default: \code{round = TRUE}.}
+
+\item{sample}{Boolean value that determines whether frequency values
+are sampled from \code{N} given the probability values of
+\code{prev}, \code{sens}, and \code{spec}.
+Default: \code{sample = FALSE}.
+
+Note: Sampling uses \code{sample()} and returns integer values.}
 }
 \value{
-A list \code{\link{freq}} containing 11 frequency values.
+A list \code{\link{freq}} containing 11 key frequency values.
 }
 \description{
-\code{comp_freq_prob} computes current frequency information
+\code{comp_freq_prob} computes frequency information
 from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
-It returns a list of 11 frequencies (\code{\link{freq}})
+It returns a list of 11 key frequencies (\code{\link{freq}})
 as its output.
 }
 \details{
@@ -122,10 +131,10 @@ Key relationships between frequencies and probabilities
 
   \item Defining probabilities in terms of frequencies:
 
-  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies,
+  but beware of rounding and sampling issues!
 
 }
-
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
@@ -134,44 +143,51 @@ Functions translating between representational formats:
 }
 \examples{
 # Basics:
-comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # => ok: hi = 9, ... cr = 72.
+comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # ok: hi = 9, ... cr = 72.
 # Same case with complements (using NAs to prevent defaults):
-comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # => same result
+comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # same result
 
-comp_freq_prob()                   # => ok, using probability info currently contained in prob
-length(comp_freq_prob())           # => a list containing 9 frequencies
-all.equal(freq, comp_freq_prob())  # => TRUE, unless prob has been changed after computing freq
-freq <- comp_freq_prob()           # => computes frequencies and stores them in freq
+comp_freq_prob()                   # ok, using probability info currently contained in prob
+length(comp_freq_prob())           # list of 11 key frequencies
+all.equal(freq, comp_freq_prob())  # TRUE, unless prob has been changed after computing freq
+freq <- comp_freq_prob()           # computes frequencies and stores them in freq
 
 # Ways to work:
-comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # => ok + warning: N hits (TP)
+comp_freq_prob(prev = 1, sens = 1, spec = 1, N = 101)  # ok + warning: N hits (TP)
 
-# Same case with complements (using NAs to prevent defaults):
+# Same case with complements (note NAs to prevent default arguments):
 comp_freq_prob(prev = 1, sens = NA, mirt = 0, spec = NA, fart = 0, N = 101)
 
-comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # => ok + warning: N hits (TP)
-comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # => ok + warning: N misses (FN)
-comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # => ok + warning: N misses (FN)
-comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # => ok + warning: N correct rejections (TN)
+comp_freq_prob(prev = 1, sens = 1, spec = 0, N = 102)  # ok + warning: N hits (TP)
+comp_freq_prob(prev = 1, sens = 0, spec = 1, N = 103)  # ok + warning: N misses (FN)
+comp_freq_prob(prev = 1, sens = 0, spec = 0, N = 104)  # ok + warning: N misses (FN)
+comp_freq_prob(prev = 0, sens = 1, spec = 1, N = 105)  # ok + warning: N correct rejections (TN)
 
-comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # => ok + warning: N false alarms (FP)
-
+comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # ok + warning: N false alarms (FP)
 # Same case with complements (using NAs to prevent defaults):
 comp_freq_prob(prev = 0, sens = NA, mirt = 0,
-               spec = NA, fart = 1, N = 106)  # => ok + warning: N false alarms (FP)
+               spec = NA, fart = 1, N = 106)  # ok + warning: N false alarms (FP)
+
+# Rounding:
+comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 1)   # yields fa = 1 (see ?round for reason)
+comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 10)  # 1 hit (TP, rounded)
+comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # hi = .9
+
+# Sampling (from probabilistic description):
+comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100, sample = TRUE)  # freq values vary
 
 # Watch out for:
-comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # => ok + warning: N = 1 computed
-comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (NPV = NaN)
-comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded
-comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE) # => ok, but not rounded
+comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # ok + warning: N = 1 computed
+comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # ok, but all 0 + warning (NPV = NaN)
+comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # ok, but all rounded
+comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE) # ok, but not rounded
 
 # Ways to fail:
-comp_freq_prob(prev = NA, sens = 1, spec = 1, 100)  # => NAs + no warning (prev NA)
-comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # => NAs + no warning (sens NA)
-comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # => NAs + no warning (spec NA)
-comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
-comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
+comp_freq_prob(prev = NA, sens = 1, spec = 1, 100)  # NAs + no warning (prev NA)
+comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # NAs + no warning (sens NA)
+comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # NAs + no warning (spec NA)
+comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # NAs + warning (prev beyond range)
+comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # NAs + warning (sens & spec beyond range)
 
 }
 \seealso{
