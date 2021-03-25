@@ -18,7 +18,7 @@
 # fart  = false alarm rate = FPR        fa* = FP
 # spec* = true negative rate = TNR      cr* = TN
 
-# [Note: *...is essential]
+# [Note: * = essential]
 
 
 # (B) by decision:                 Combined frequencies:
