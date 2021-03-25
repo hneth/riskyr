@@ -195,12 +195,12 @@ plot(hustosis)
 summary(scen_reoffend)
 plot(scen_reoffend)
 
-# 2 ways of defining the same scenario: -----
+# 2 ways of defining the same scenario:
 s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob & N
 s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 all.equal(s1, s2)  # should be TRUE
 
-# Ways to work: -----
+# Ways to work:
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
