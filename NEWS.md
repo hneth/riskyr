@@ -35,8 +35,9 @@ Log of changes since last release:
 
 ## Micro changes
 
-- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
 
+- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
 
 <!-- Add blank line. --> 
 

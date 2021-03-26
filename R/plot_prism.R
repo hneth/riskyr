@@ -657,8 +657,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
     # gold_ratio  <- 1.618  # a. golden ratio (= approx. 1.6180339887)
     # wide_screen <- 16/9   # b. 1.778
-    compromise  <- 1.75     # c. 1.75
-    # wider     <- 1.88     # d. 1.88 (wider than wide_screen)
+    compromise    <- 1.66   # c. 1.66
+    # wider       <- 1.88   # d. 1.88 (wider than wide_screen)
 
     # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)   # a. gold_ratio + corrected for aspect ratio
     # b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # b. wide_screen + corrected
@@ -670,9 +670,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   } else { # is.na(by_bot), (i.e., single tree):
 
     b_h <- 1
+
     # two_to_one <- 2.0
     # b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # a. two_to_one + corrected for aspect ratio
-    b_w <- comp_lx(b_h, mf = 2.5, corf = scale_x)           # x. customized width
+    b_w <- comp_lx(b_h, mf = 1.9, corf = scale_x)           # x. customized width
 
   } # if ( !is.na(by_bot) ) etc.
 
