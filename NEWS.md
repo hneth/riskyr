@@ -9,19 +9,28 @@ Log of changes since last release:
 
 - Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
-    - Added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`. 
+    - added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
-    - Added `sample` argument to 6\ key plots: `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
+    - added `sample` argument to 6\ key plots: 
+    `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
+
+<!-- Conversion data vs. description: --> 
+
+- Allow conversion/translations between data and descriptions [2021-03-26]:
+
+    - `write_popu()` creates population data from description (riskyr scenario); 
+    
+    - `read_popu()` creates a description (riskyr scenario) from population data. 
 
 
-<!-- Add blank line. --> 
+<!-- Minor: --> 
 
 
 ## Minor changes
 
 - none yet 
 
-<!-- Add blank line. --> 
+<!-- Minor/details: --> 
 
 ## Micro changes
 
