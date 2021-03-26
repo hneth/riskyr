@@ -113,11 +113,8 @@
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #' @param hi The number of hits \code{\link{hi}} (or true positives).
-#'
 #' @param mi The number of misses \code{\link{mi}} (or false negatives).
-#'
 #' @param fa The number of false alarms \code{\link{fa}} (or false positives).
-#'
 #' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #' Details and source information:
@@ -184,7 +181,11 @@
 #' s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 #' all.equal(s1, s2)  # should be TRUE
 #'
-#' # Ways to work:
+#' # Rounding and sampling:
+#' s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, round = FALSE)  # s3: w/o rounding
+#' s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, sample = TRUE)  # s4: with sampling
+#'
+#' # Note:
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 #'
@@ -412,15 +413,15 @@ riskyr <- function(#
 # s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1
 # s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
 # all.equal(s1, s2)  # should be TRUE
-
-# Rounding and sampling:
-s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, round = FALSE)  # s3: w/o rounding
-s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, sample = TRUE)  # s4: with sampling
-
-## Ways to work:
+#
+## Rounding and sampling:
+# s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, round = FALSE)  # s3: w/o rounding
+# s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, sample = TRUE)  # s4: with sampling
+#
+## Note:
 # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
-
+#
 ## Watch out for:
 # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warn: use sum of freq
 # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warn: use freq
@@ -697,10 +698,10 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
 ## plot.riskyr Definition: ------
 
-plot.riskyr <- function(x = NULL,        # require riskyr scenario
+plot.riskyr <- function(x = NULL,        # a riskyr scenario
                         type = "prism",  # default type
                         # by = "cddc",   # default perspective
-                        ...              # other type and display parameters in plot_xxx functions
+                        ...              # other parameters (passed to plot_xxx functions)
 ) {
 
   ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
