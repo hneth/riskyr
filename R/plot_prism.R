@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2021 03 25
+## 2021 03 26
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -656,25 +656,23 @@ plot_prism <- function(prev = num$prev,    # probabilities
     b_h <- (1 * b_h_scale)  # basic box height
 
     # gold_ratio  <- 1.618  # a. golden ratio (= approx. 1.6180339887)
-    wide_screen <- 16/9     # b. 1.778
-    # compromise  <- 1.70   # c. 1.70
-    # wider       <- 1.88   # d. 1.88 (wider than wide_screen)
+    # wide_screen <- 16/9   # b. 1.778
+    compromise  <- 1.75     # c. 1.75
+    # wider     <- 1.88     # d. 1.88 (wider than wide_screen)
 
-    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # a. gold_ratio + corrected for aspect ratio
-    b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)   # b. wide_screen + corrected
-    # b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. compromise + corrected
-    # b_w <- comp_lx(b_h, mf = wider, corf = scale_x)       # d. wider + corrected
+    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)   # a. gold_ratio + corrected for aspect ratio
+    # b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # b. wide_screen + corrected
+    b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)     # c. compromise + corrected
+    # b_w <- comp_lx(b_h, mf = wider, corf = scale_x)        # d. wider + corrected
 
     # b_w <- comp_lx(b_h, mf = 2, corf = scale_x)   # x. customized width
 
-  } else {
+  } else { # is.na(by_bot), (i.e., single tree):
 
     b_h <- 1
-    two_to_one <- 2.0
-
-    b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # a. two_to_one + corrected for aspect ratio
-
-    b_w <- comp_lx(b_h, mf = 3.0, corf = scale_x)         # x. customized width (+++ here now +++)
+    # two_to_one <- 2.0
+    # b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # a. two_to_one + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = 2.5, corf = scale_x)           # x. customized width
 
   } # if ( !is.na(by_bot) ) etc.
 
