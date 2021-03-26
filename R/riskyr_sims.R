@@ -3,11 +3,13 @@
 ## Enable riskyr simulations (i.e., data from descriptions)
 ## -----------------------------------------------
 
-# Move from desriptions to data, and from data to description:
+# Goals: Interact/translate between data <--> description. ------
 
+# Move from descriptions to data, and from data to description:
 # (1) comp_popu(): description: 4 freq   --> data/cases
 # (2) comp_simu(): description: scenario --> data/cases
 # (3) read_popu(): data/cases --> description/scenario
+
 
 ## (1) Create data (popu, as df) from description: 4 essential freq ------
 
@@ -97,7 +99,7 @@
 #'
 #' @export
 
-## read_popu: Definition ----------
+## read_popu: Definition ------
 
 read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_popu)
                       ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,  # indices of by_top, by_bot, and sdt cols in df
