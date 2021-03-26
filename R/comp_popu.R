@@ -1,10 +1,9 @@
 ## comp_popu.R | riskyr
-## 2021 03 25
+## 2021 03 26
 ## Compute a population (popu) as 3 x N data frame
-## based on only the 4 essential frequencies:
-##  [a. the current N from num (not needed)]
-##   b. the 4 essential frequencies of freq (hi mi fa cr)
-##   c. the current text labels of txt
+## based on only 4 essential frequencies:
+##   a. the 4 essential frequencies of freq (hi mi fa cr => N)
+##   b. the current text labels of txt
 ## -----------------------------------------------
 
 ## (1) Compute current population (popu): --------
@@ -167,6 +166,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 # # Note: Distinguish between "prev" of vaccination vs. "prev_2" of
 # #       infection in unvaccinated population (as conditional probability)
 
+
 ## (2) Apply to initialize popu (as data frame): ----------
 
 ## popu Documentation: --------
@@ -242,12 +242,12 @@ popu <- NULL  # initialize
 
 ## - A. comp_popu() generates data/cases from description:
 
-## - comp_popu() current defines a 2x2 matrix
+## - comp_popu() currently defines a 2x2 matrix
 ##   (a) from 4 cell frequencies (i.e., specifying the result).
 
 ## - Add simulations: Add options to generate popu (as df)
-##   (b) from probabilities and N (using exact or rounded values)
-##   (c) from probabilities and N (and sample from N)
+##   (b) from description: probabilities and N (using exact or rounded values)
+##   (c) from description: probabilities and N (and sample from N)
 
 ## - Define a complementary function:
 ##   B. desc_data() that generates description from (binary) data/cases.
