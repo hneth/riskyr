@@ -2,7 +2,7 @@
 % Please edit documentation in R/riskyr_sims.R
 \name{read_popu}
 \alias{read_popu}
-\title{Read a population (given as data frame) into a riskyr scenario.}
+\title{Read population data (from df) into a riskyr scenario (description).}
 \usage{
 read_popu(
   df = popu,
@@ -40,16 +40,17 @@ Default: \code{ix_by_bot = 3} (3rd column).}
 
 \item{cr_lbl}{Label of cases classified as cr (TN).}
 
-\item{...}{Additional parameters (passed to \code{\link{riskyr}} function).}
+\item{...}{Additional parameters (passed to \code{\link{riskyr}}).}
 }
 \value{
 An object of class "riskyr" describing a risk-related scenario.
 }
 \description{
-\code{read_popu} interprets a data frame \code{df}
+\code{read_popu} reads a data frame \code{df}
 (containing observations of some population
 that are cross-classified on two binary variables)
-and returns a scenario of class \code{"riskyr"}.
+and returns a scenario of class \code{"riskyr"}
+(i.e., a description of the data).
 }
 \details{
 Note that \code{df} needs to be structured (cross-classified)
@@ -84,13 +85,13 @@ plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw,
 
 }
 \seealso{
-the corresponding data frame \code{\link{popu}};
-the corresponding generating function \code{\link{comp_popu}};
+\code{\link{comp_popu}} creates data (as df) from description (frequencies);
+\code{\link{write_popu}} creates data (as df) from a riskyr scenario (description);
+\code{\link{popu}} for data format;
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
-Other riskyr scenario functions: 
-\code{\link{plot.riskyr}()},
-\code{\link{riskyr}()},
-\code{\link{summary.riskyr}()}
+Other functions converting data/descriptions: 
+\code{\link{comp_popu}()},
+\code{\link{write_popu}()}
 }
-\concept{riskyr scenario functions}
+\concept{functions converting data/descriptions}

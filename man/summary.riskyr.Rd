@@ -38,7 +38,6 @@ summary(scenarios$n4)
 
 Other riskyr scenario functions: 
 \code{\link{plot.riskyr}()},
-\code{\link{read_popu}()},
 \code{\link{riskyr}()}
 }
 \concept{riskyr scenario functions}

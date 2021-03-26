@@ -89,7 +89,6 @@ Other visualization functions:
 \code{\link{plot_tree}()}
 
 Other riskyr scenario functions: 
-\code{\link{read_popu}()},
 \code{\link{riskyr}()},
 \code{\link{summary.riskyr}()}
 }

@@ -217,7 +217,11 @@ s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob &
 s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 all.equal(s1, s2)  # should be TRUE
 
-# Ways to work:
+# Rounding and sampling:
+s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, round = FALSE)  # s3: w/o rounding
+s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 100, sample = TRUE)  # s4: with sampling
+
+# Note:
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
@@ -233,7 +237,6 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 
 Other riskyr scenario functions: 
 \code{\link{plot.riskyr}()},
-\code{\link{read_popu}()},
 \code{\link{summary.riskyr}()}
 
 Other functions initializing scenario information: 

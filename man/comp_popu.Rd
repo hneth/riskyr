@@ -2,11 +2,11 @@
 % Please edit documentation in R/comp_popu.R
 \name{comp_popu}
 \alias{comp_popu}
-\title{Compute a population table from frequencies.}
+\title{Compute a population table (data) from frequencies (description).}
 \format{
 An object of class \code{data.frame}
-with \code{\link{N}} rows
-and 3 columns (\code{"Truth", "Decision", "SDT"}).
+with \code{\link{N}} rows and 3 columns
+(e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
 }
 \usage{
 comp_popu(
@@ -61,9 +61,8 @@ comp_popu(
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)
-and 3 columns (\code{"Truth", "Decision", "SDT"})
-encoded as ordered factors
-(with 2, 2, and 4 levels, respectively).
+and 3 columns (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
+encoded as ordered factors (with 2, 2, and 4 levels, respectively).
 }
 \description{
 \code{comp_popu} computes a table \code{\link{popu}} (as an R data frame)
@@ -96,18 +95,16 @@ comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
 
 }
 \seealso{
-the corresponding data frame \code{\link{popu}};
-\code{\link{read_popu}} interprets a data frame as a riskyr scenario;
+\code{\link{read_popu}} creates a scenario (description) from data (as df);
+\code{\link{write_popu}} creates data (as df) from a riskyr scenario (description);
+\code{\link{popu}} for data format;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other functions computing frequencies: 
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_freq}()},
-\code{\link{comp_min_N}()},
-\code{\link{comp_prob_prob}()}
+Other functions converting data/descriptions: 
+\code{\link{read_popu}()},
+\code{\link{write_popu}()}
 }
-\concept{functions computing frequencies}
+\concept{functions converting data/descriptions}

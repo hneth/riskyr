@@ -150,8 +150,7 @@ Other functions computing frequencies:
 \code{\link{comp_freq_freq}()},
 \code{\link{comp_freq_prob}()},
 \code{\link{comp_freq}()},
-\code{\link{comp_min_N}()},
-\code{\link{comp_popu}()}
+\code{\link{comp_min_N}()}
 
 Other format conversion functions: 
 \code{\link{comp_freq_freq}()},
