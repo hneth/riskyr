@@ -11,7 +11,7 @@ Log of changes since last release:
 
     - added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
-    - added `sample` argument to 6\ key plots: 
+    - added `sample` argument to 6\ key plots:  
     `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
 <!-- Conversion data vs. description: --> 
@@ -28,13 +28,15 @@ Log of changes since last release:
 
 ## Minor changes
 
-- none yet 
+- None yet. 
 
 <!-- Minor/details: --> 
 
+
 ## Micro changes
 
-- none yet 
+- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+
 
 <!-- Add blank line. --> 
 
