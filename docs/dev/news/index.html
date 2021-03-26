@@ -150,6 +150,53 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="riskyr-0309004" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0.9004">
+<a href="#riskyr-0309004" class="anchor"></a>riskyr 0.3.0.9004<small> Unreleased </small>
+</h1>
+<p>The current development version (0.3.0.9004+) is available at <a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>.</p>
+<p>Log of changes since last release:</p>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>
+<p>Enable <em>sampling</em> when computing <code>freq</code> from <code>prob</code> (i.e., <em>by description</em>, given population size <code>N</code> and 3 essential probabilities) [2021-03-25]:</p>
+<ul>
+<li><p>added <code>sample</code> argument to <code><a href="../reference/comp_freq.html">comp_freq()</a></code>, <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code>, and <code><a href="../reference/riskyr.html">riskyr()</a></code>;</p></li>
+<li><p>added <code>sample</code> argument to 6 key plots:<br><code><a href="../reference/plot_area.html">plot_area()</a></code>, <code><a href="../reference/plot_bar.html">plot_bar()</a></code>, <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code>, <code><a href="../reference/plot_icons.html">plot_icons()</a></code>, <code><a href="../reference/plot_prism.html">plot_prism()</a></code>, and <code><a href="../reference/plot_tab.html">plot_tab()</a></code>.</p></li>
+</ul>
+</li>
+</ul>
+<!-- Conversion data vs. description: --><ul>
+<li>
+<p>Allow conversion/translations between data and descriptions [2021-03-26]:</p>
+<ul>
+<li><p><code><a href="../reference/write_popu.html">write_popu()</a></code> creates population data from description (riskyr scenario);</p></li>
+<li><p><code><a href="../reference/read_popu.html">read_popu()</a></code> creates a description (riskyr scenario) from population data.</p></li>
+</ul>
+</li>
+</ul>
+<!-- Minor: -->
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>None yet.</li>
+</ul>
+<!-- Minor/details: -->
+</div>
+<div id="micro-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#micro-changes" class="anchor"></a>Micro changes</h2>
+<ul>
+<li><p>Reduce widths of freq boxes in <code><a href="../reference/plot_prism.html">plot_prism()</a></code> to reduce overlaps [2021-03-26].</p></li>
+<li><p>Rename labels in <code>txt_TF</code> to avoid confusion, as “True condition” (i.e., X) was <code>FALSE</code> (now “absent”) for “True negatives” (<code>TN</code>/<code>cr</code> cases) [2021-03-26].</p></li>
+</ul>
+<!-- Add blank line. --><hr>
+</div>
+</div>
     <div id="riskyr-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#riskyr-030" class="anchor"></a>riskyr 0.3.0<small> 2021-03-23 </small>
