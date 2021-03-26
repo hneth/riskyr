@@ -11,30 +11,133 @@
 # (3) read_popu(): data/cases --> description/scenario
 
 
-## (1) Create data (popu, as df) from description: 4 essential freq ------
+## (1) Create data (popu, as df) from a description: 4 essential freq ------
 
 # See comp_popu() (in file comp_popu.R).
 # Note: 4 freq fully define popu (i.e., allow for no variation due to rounding/sampling).
 
 
-## (2) Create data (popu, as df) from description: A riskyr scenario ------
+## (2) Create popu (data, as df) from a riskyr scenario (description) ------
 
-# ToDo: Create data from a riskyr scenario (i.e., allowing for a
-#       probabilistic description and random sampling!)
+# Goal: Create/expand data from a riskyr scenario (i.e., allowing for a
+#       probabilistic description and random sampling!):
+#  - input a riskyr scenario (i.e., allowing for random sampling)
+#  - use comp_popu() to create and return popu from freq (as df)
+# Note: Freq values are rounded to nearest integers.
 
-# +++ here now +++
+
+## write_popu Documentation: ------
+
+#' Write a population table (data) from a riskyr scenario (description).
+#'
+#' \code{write_popu} computes (or expands) a table \code{\link{popu}}
+#' (as an R data frame) from a \code{\link{riskyr}} scenario (description),
+#' using its 4 essential frequencies.
+#'
+#' \code{write_popu} expects a \code{\link{riskyr}} scenario as input
+#' and passes its 4 essential frequencies (rounded to integers)
+#' to \code{\link{comp_popu}}.
+#'
+#' By default, \code{write_popu} uses the text settings
+#' contained in \code{\link{txt}}, but labels can be changed
+#' by passing arguments to \code{\link{comp_popu}} (via \code{...}).
+#'
+#' @format An object of class \code{data.frame}
+#' with \code{\link{N}} rows and 3 columns
+#' (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
+#'
+#' @return A data frame \code{popu}
+#' containing \code{\link{N}} rows (individual cases)
+#' and 3 columns (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
+#' encoded as ordered factors (with 2, 2, and 4 levels, respectively).
+#'
+#' @param x  A \code{\link{riskyr}} scenario (description).
+#'
+#' @param ... Additional parameters (text labels, passed to \code{\link{comp_popu}}).
+#'
+#' @examples
+#' # Define scenarios (by description):
+#' s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 10)  # s1: define by 3 prob & N
+#' s2 <- riskyr(hi = 2, mi = 3, fa = 2, cr = 3)           # s2: same scenario by 4 freq
+#'
+#' # Create data (from descriptions):
+#' write_popu(s1)  # data from (prob) description
+#' write_popu(s2,  # data from (freq) description & change some labels:
+#'            cond_lbl = "Disease (X)", cond_true_lbl = "sick", cond_false_lbl = "healthy")
+#'
+#' # Rounding:
+#' s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 10, round = FALSE)  # s3: w/o rounding
+#' write_popu(s3, cond_lbl = "X", dec_lbl = "Y", sdt_lbl = "class")  # rounded to nearest integers
+#'
+#' # Sampling:
+#' s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 10, sample = TRUE)  # s4: with sampling
+#' write_popu(s4, cond_lbl = "X", dec_lbl = "Y", sdt_lbl = "class")  # data from sampling
+#'
+#' @family functions converting data/descriptions
+#'
+#' @seealso
+#' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
+#' \code{\link{read_popu}} creates a scenario (description) from data (as df);
+#' \code{\link{popu}} for data format;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
+#'
+#' @export
+
+## write_popu: Definition ------
+
+write_popu <- function(x = NULL,  # a riskyr scenario
+                       ...        # other parameters (passed to comp_popu)
+) {
+
+  # 1. extract freq from scenario x (and round to integers):
+  n_hi <- round(x$hi, 0)
+  n_mi <- round(x$mi, 0)
+  n_fa <- round(x$fa, 0)
+  n_cr <- round(x$cr, 0)
+
+  # 2. pass to comp_popu():
+  comp_popu(hi = n_hi, # 4 essential freq
+            mi = n_mi,
+            fa = n_fa,
+            cr = n_cr,
+            # use labels from txt
+            ... # other parameters
+  )
+
+} # write_popu() end.
 
 
-## (3) Read riskyr scenario from binary data (popu, as df) ------
+## Check: ------
+# # Define scenarios (by description):
+# s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 10)  # s1: define by 3 prob & N
+# s2 <- riskyr(hi = 2, mi = 3, fa = 2, cr = 3)           # s2: same scenario by 4 freq
+#
+# # Create data (from descriptions):
+# write_popu(s1)  # data from (prob) description
+# write_popu(s2,  # data from (freq) description & change some labels:
+#            cond_lbl = "Disease (X)", cond_true_lbl = "sick", cond_false_lbl = "healthy")
+#
+# # Rounding:
+# s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 10, round = FALSE)  # s3: w/o rounding
+# write_popu(s3, cond_lbl = "X", dec_lbl = "Y", sdt_lbl = "class")  # rounded to nearest integers
+#
+# # Sampling:
+# s4 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 10, sample = TRUE)  # s4: with sampling
+# write_popu(s4, cond_lbl = "X", dec_lbl = "Y", sdt_lbl = "class")  # data from sampling
+
+
+## (3) Read riskyr scenario (description) from binary data (popu, as df) ------
 
 ## read_popu: Documentation: ------
 
-#' Read a population (given as data frame) into a riskyr scenario.
+#' Read population data (from df) into a riskyr scenario (description).
 #'
-#' \code{read_popu} interprets a data frame \code{df}
+#' \code{read_popu} reads a data frame \code{df}
 #' (containing observations of some population
 #' that are cross-classified on two binary variables)
-#' and returns a scenario of class \code{"riskyr"}.
+#' and returns a scenario of class \code{"riskyr"}
+#' (i.e., a description of the data).
 #'
 #' Note that \code{df} needs to be structured (cross-classified)
 #' according to the data frame \code{\link{popu}},
@@ -62,7 +165,7 @@
 #' @param fa_lbl Label of cases classified as fa (FP).
 #' @param cr_lbl Label of cases classified as cr (TN).
 #'
-#' @param ... Additional parameters (passed to \code{\link{riskyr}} function).
+#' @param ... Additional parameters (passed to \code{\link{riskyr}}).
 #'
 #' @examples
 #' # Generating and interpreting different scenario types:
@@ -90,18 +193,19 @@
 #' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 #' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
 #'
-#' @family riskyr scenario functions
+#' @family functions converting data/descriptions
 #'
 #' @seealso
-#' the corresponding data frame \code{\link{popu}};
-#' the corresponding generating function \code{\link{comp_popu}};
+#' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
+#' \code{\link{write_popu}} creates data (as df) from a riskyr scenario (description);
+#' \code{\link{popu}} for data format;
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 #'
 #' @export
 
 ## read_popu: Definition ------
 
-read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_popu)
+read_popu <- function(df = popu,  # df (as population data with 3+ columns, see comp_popu)
                       ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,  # indices of by_top, by_bot, and sdt cols in df
                       # text labels (from txt):
                       hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
@@ -138,7 +242,7 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
   # 4. Return description: ----
   return(scen)
 
-}
+} # read_popu() end.
 
 ## Check: ----------
 
