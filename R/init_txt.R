@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2021 01 02
+## 2021 03 26
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -27,23 +27,23 @@ txt_lbl_def <- list(
   # popu.txt  # Longer description of the current population (as in s21: PSA test example)
 
   # (3) 3 perspectives:
-  # (A) by condition:
+  # (A) by condition/X:
   cond_lbl = "Condition",   # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis", etc.
   cond_true_lbl  = "True",  # "Condition true",   # "has condition", "is affected"
   cond_false_lbl = "False", # "Condition false",  # "does not have condition", "is unaffected"
 
-  # (B) by decision/prediction/predicted condition:
+  # (B) by decision/prediction/predicted condition/Y:
   dec_lbl = "Decision",  # Dimension label: "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec_pos_lbl  = "Positive", # "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec_neg_lbl  = "Negative", # "Decision negative",  # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
   # (C) by accuracy/correspondence of decision to condition:
-  acc_lbl = "Accuracy",   # Dimension label: accuracy/correspondence
+  acc_lbl = "Accuracy",    # Dimension label: accuracy/correspondence
   dec_cor_lbl = "Correct", # Decision correct", "accurate"  # acc/cor  # accurate decision
   # Note: "dec_cor" should better be called "dec_acc" (for consistency with probabilities "acc" vs. "err")!
   dec_err_lbl = "Erroneous", # "Decision error", "inaccurate"  # err   # inaccurate decision
 
-  # (4) Labels for the 4 cases/cells/classes/SDT combinations in 2x2 contingency table:
+  # (4) Labels for the 4 cases/cells/classes/SDT combinations in 2x2 matrix/contingency table:
   sdt_lbl = "Cases",  # Dimension label: "Classification" or cell/case/SDT 2x2 table, etc.
   hi_lbl  = "hi", # "TP", # "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
   mi_lbl  = "mi", # "FN", # "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
@@ -386,6 +386,7 @@ txt <- init_txt()
 # txt$scen_lbl # displays the current scenario label (e.g., used in plot titles)
 # txt$scen_lbl <- "My favorite example" # sets a new scenario title
 
+
 ## txt_org: A copy of original text labels: --------
 
 #' List of original values of text elements.
@@ -443,9 +444,9 @@ txt_org <- txt  # copy txt
 #' @export
 
 txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
-  cond_lbl = "Truth",   cond_true_lbl = "True",   cond_false_lbl = "False",
-  dec_lbl = "Test",     dec_pos_lbl = "Positive", dec_neg_lbl = "Negative",
-  acc_lbl = "Accuracy", dec_cor_lbl = "Correct",  dec_err_lbl = "Incorrect",
+  cond_lbl = "True condition", cond_true_lbl = "present", cond_false_lbl = "absent",
+  dec_lbl = "Outcome", dec_pos_lbl = "positive", dec_neg_lbl = "negative",
+  acc_lbl = "Accuracy", dec_cor_lbl = "correct",  dec_err_lbl = "incorrect",
   hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 
 ## Check:
@@ -511,7 +512,7 @@ lbl_de <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tr
 names(lbl_de) <- names(lbl_en)
 
 
-## Set default text information: --------
+## Set default text information: ------
 
 lbl <- lbl_en    # English
 # lbl <- lbl_de  # German
@@ -522,13 +523,7 @@ txt <- txt_TF     # TF labels (TP, FN, FP, TN)
 
 ## (*) Done: -------------------------------------
 
-## - name_prob: Look up the prob corresponding to 2 freq [2018 08 20].
-## - label_freq + label_prob:
-##   Add functions to obtain freq and prob labels (from fname or pname).
-## - Rename acc.cor and acc.err to dec_cor and dec_err (consistent with freq names).
-## - Add text labels for accuracy/correspondence of decision to condition
-##   (acc_lbl, dec_cor_lbl, dec_err_lbl) and for sdt_lbl.
-## - Clean up code [2018 08 20].
+## - etc.
 
 ## (+) ToDo: -------------------------------------
 
