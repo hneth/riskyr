@@ -138,14 +138,14 @@
 #' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
 #'
-#' @param icon_types Specifies the appearance of the icons as a vector.
+#' @param icon_types specifies the appearance of the icons as a vector.
 #' Default: \code{icon_types = 11} (i.e., squares with border).
 #' Accepts values from 1 to 25 (see \code{?points}).
 #'
-#' @param icon_size Manually specifies the size of the icons via \code{cex}
+#' @param icon_size specifies the size of the icons via \code{cex}
 #' Default: \code{icon_size = NULL} for automatic calculation.
 #'
-#' @param icon_brd_lwd Specifies the border width of icons (if applicable).
+#' @param icon_brd_lwd specifies the border width of icons (if applicable).
 #' Default: \code{icon_brd_lwd = 1.5}. Set to \code{NA} for no border.
 #'
 #' @param block_d  The distance between blocks.
