@@ -8,9 +8,9 @@
 
 ## (1) Compute current population (popu): --------
 
-## comp_popu Documentation: --------
+## comp_popu Documentation: ------
 
-#' Compute a population table from frequencies.
+#' Compute a population table (data) from frequencies (description).
 #'
 #' \code{comp_popu} computes a table \code{\link{popu}} (as an R data frame)
 #' from the current frequency information (contained in \code{\link{freq}}).
@@ -22,14 +22,13 @@
 #' \code{popu} is provided by \code{\link{plot_icons}}.
 #'
 #' @format An object of class \code{data.frame}
-#' with \code{\link{N}} rows
-#' and 3 columns (\code{"Truth", "Decision", "SDT"}).
+#' with \code{\link{N}} rows and 3 columns
+#' (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
 #'
 #' @return A data frame \code{popu}
 #' containing \code{\link{N}} rows (individual cases)
-#' and 3 columns (\code{"Truth", "Decision", "SDT"})
-#' encoded as ordered factors
-#' (with 2, 2, and 4 levels, respectively).
+#' and 3 columns (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
+#' encoded as ordered factors (with 2, 2, and 4 levels, respectively).
 #'
 #' @param hi The number of hits \code{\link{hi}} (or true positives).
 #' @param mi The number of misses \code{\link{mi}} (or false negatives).
@@ -68,11 +67,12 @@
 #'           cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
 #'           dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 #'
-#' @family functions computing frequencies
+#' @family functions converting data/descriptions
 #'
 #' @seealso
-#' the corresponding data frame \code{\link{popu}};
-#' \code{\link{read_popu}} interprets a data frame as a riskyr scenario;
+#' \code{\link{read_popu}} creates a scenario (description) from data (as df);
+#' \code{\link{write_popu}} creates data (as df) from a riskyr scenario (description);
+#' \code{\link{popu}} for data format;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings;
@@ -80,16 +80,19 @@
 #'
 #' @export
 
-## comp_popu Definition: --------
+## comp_popu Definition: ------
 
 comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       mi = freq$mi,
                       fa = freq$fa,
                       cr = freq$cr,
                       ## text labels (from txt):
-                      cond_lbl = txt$cond_lbl, cond_true_lbl = txt$cond_true_lbl, cond_false_lbl = txt$cond_false_lbl,
-                      dec_lbl = txt$dec_lbl, dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
-                      sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
+                      cond_lbl = txt$cond_lbl,
+                      cond_true_lbl = txt$cond_true_lbl, cond_false_lbl = txt$cond_false_lbl,
+                      dec_lbl = txt$dec_lbl,
+                      dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
+                      sdt_lbl = txt$sdt_lbl,
+                      hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond_true  <- (hi + fa)
@@ -101,8 +104,8 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
   # (a) X: Truth (= true condition or state):
   # truth <- c(rep(TRUE, cond_true), rep(FALSE, cond_false))  # a. using combined freq
-  truth <- c(rep(TRUE, hi), rep(TRUE, mi),   # = cond true  # b. using 4 essential freq
-             rep(FALSE, fa), rep(FALSE, cr)) # = cond_false
+  truth <- c(rep(TRUE, hi), rep(TRUE, mi),    # = cond true  # b. using 4 essential freq
+             rep(FALSE, fa), rep(FALSE, cr))  # = cond_false
 
   # (b) Y: Decision (ordered by ACTUAL truth values of condition):
   decision <- c(rep(TRUE, hi), rep(FALSE, mi),
@@ -116,21 +119,21 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
   # (a) X: Condition (truth):
   truth <- factor(truth,
-                  levels = c(TRUE, FALSE),                   # as Booleans
-                  labels = c(cond_true_lbl, cond_false_lbl), # explicit labels: "true" vs. "false"
+                  levels = c(TRUE, FALSE),                    # as Booleans
+                  labels = c(cond_true_lbl, cond_false_lbl),  # explicit labels: "true" vs. "false"
                   ordered = TRUE)
 
   # (b) Y: Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
-                     levels = c(TRUE, FALSE),              # also as Booleans, NOT: (-1, +1) or (0, 1)
-                     labels = c(dec_pos_lbl, dec_neg_lbl), # explicit labels: "pos" vs. "neg"
+                     levels = c(TRUE, FALSE),               # also as Booleans, NOT: (-1, +1) or (0, 1)
+                     labels = c(dec_pos_lbl, dec_neg_lbl),  # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
-  # (c) cells/SDT cases (status decision/truth):
+  # (c) Cells/SDT cases (correspondence decision/truth):
   sdt <- factor(sdt,
-                levels = c("hi", "mi", "fa", "cr"),         # as character: 4 cases
-                labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels (e.g., "TP", "FN", "FP", "TN")
-                # labels = c("hi", "mi", "fa", "cr"),       # implicit labels
+                levels = c("hi", "mi", "fa", "cr"),          # as character: 4 cases
+                labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl),  # explicit labels (e.g., ("TP", "TN"), ("FP", "FN"))
+                # labels = c("hi", "mi", "fa", "cr"),        # implicit labels
                 ordered = TRUE)
 
   ## (4) Combine 3 vectors in a data frame popu:
@@ -138,15 +141,14 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                      decision = decision,
                      sdt = sdt)
 
-  ## (5) Name variables (by labels of dimensions):
-  names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)  # e.g., c("Truth", "Test", "STD")
+  names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)  # e.g., c("Cond (X)", "Test (Y)", "STD/cell")
 
-  ## (6) Return df:
+  ## (5) Return df:
   return(popu)
 
 } # comp_popu() end.
 
-## Check:
+## Check: ----
 # popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 # dim(popu)            # => N x 3
 # head(popu)
