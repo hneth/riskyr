@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a population (given as data frame) into a riskyr scenario. — read_popu • riskyr</title>
+<title>Read population data (from df) into a riskyr scenario (description). — read_popu • riskyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,12 @@
 
 
 
-<meta property="og:title" content="Read a population (given as data frame) into a riskyr scenario. — read_popu" />
-<meta property="og:description" content="read_popu interprets a data frame df
-(that contains individual observations of some population)
-and returns a scenario of class &quot;riskyr&quot;." />
+<meta property="og:title" content="Read population data (from df) into a riskyr scenario (description). — read_popu" />
+<meta property="og:description" content="read_popu reads a data frame df
+(containing observations of some population
+that are cross-classified on two binary variables)
+and returns a scenario of class &quot;riskyr&quot;
+(i.e., a description of the data)." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 
 
@@ -82,7 +84,7 @@ and returns a scenario of class &quot;riskyr&quot;." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9004</span>
       </span>
     </div>
 
@@ -149,15 +151,17 @@ and returns a scenario of class &quot;riskyr&quot;." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a population (given as data frame) into a riskyr scenario.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/riskyr_class.R'><code>R/riskyr_class.R</code></a></small>
+    <h1>Read population data (from df) into a riskyr scenario (description).</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/riskyr_sims.R'><code>R/riskyr_sims.R</code></a></small>
     <div class="hidden name"><code>read_popu.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>read_popu</code> interprets a data frame <code>df</code>
-(that contains individual observations of some population)
-and returns a scenario of class <code>"riskyr"</code>.</p>
+    <p><code>read_popu</code> reads a data frame <code>df</code>
+(containing observations of some population
+that are cross-classified on two binary variables)
+and returns a scenario of class <code>"riskyr"</code>
+(i.e., a description of the data).</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_popu</span><span class='op'>(</span>
@@ -179,43 +183,44 @@ and returns a scenario of class <code>"riskyr"</code>.</p>
       <th>df</th>
       <td><p>A data frame providing a population <code><a href='popu.html'>popu</a></code>
 of individuals, which are identified on at least
-2 binary variables and classified into 4 cases in a 3rd variable.
+2 binary variables and cross-classified into 4 cases in a 3rd variable.
 Default: <code>df = <a href='popu.html'>popu</a></code> (as data frame).</p></td>
     </tr>
     <tr>
       <th>ix_by_top</th>
-      <td><p>Index of variable (column) providing the 1st (top) perspective (in df).
+      <td><p>Index of variable (column) providing the 1st (X/top) perspective (in df).
 Default: <code>ix_by_top = 1</code> (1st column).</p></td>
     </tr>
     <tr>
       <th>ix_by_bot</th>
-      <td><p>Index of variable (column) providing the 2nd (bot) perspective (in df).
+      <td><p>Index of variable (column) providing the 2nd (Y/bot) perspective (in df).
 Default: <code>ix_by_bot = 2</code> (2nd column).</p></td>
     </tr>
     <tr>
       <th>ix_sdt</th>
-      <td><p>Index of variable (column) providing a classification into 4 cases (in df).
+      <td><p>Index of variable (column) providing
+a cross-classification into 4 cases (in df).
 Default: <code>ix_by_bot = 3</code> (3rd column).</p></td>
     </tr>
     <tr>
       <th>hi_lbl</th>
-      <td><p>Variable label of cases classified as hi (TP).</p></td>
+      <td><p>Label of cases classified as hi (TP).</p></td>
     </tr>
     <tr>
       <th>mi_lbl</th>
-      <td><p>Variable label of cases classified as mi (FN).</p></td>
+      <td><p>Label of cases classified as mi (FN).</p></td>
     </tr>
     <tr>
       <th>fa_lbl</th>
-      <td><p>Variable label of cases classified as fa (FP).</p></td>
+      <td><p>Label of cases classified as fa (FP).</p></td>
     </tr>
     <tr>
       <th>cr_lbl</th>
-      <td><p>Variable label of cases classified as cr (TN).</p></td>
+      <td><p>Label of cases classified as cr (TN).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional parameters (to be passed to <code><a href='riskyr.html'>riskyr</a></code> function).</p></td>
+      <td><p>Additional parameters (passed to <code><a href='riskyr.html'>riskyr</a></code>).</p></td>
     </tr>
     </table>
 
@@ -224,17 +229,18 @@ Default: <code>ix_by_bot = 3</code> (3rd column).</p></td>
     <p>An object of class "riskyr" describing a risk-related scenario.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that <code>df</code> needs to be structured according to
-the <code><a href='popu.html'>popu</a></code> created by <code><a href='comp_popu.html'>comp_popu</a></code>.</p>
+    <p>Note that <code>df</code> needs to be structured (cross-classified)
+according to the data frame <code><a href='popu.html'>popu</a></code>,
+created by <code><a href='comp_popu.html'>comp_popu</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>the corresponding data frame <code><a href='popu.html'>popu</a></code>;
-the corresponding generating function <code><a href='comp_popu.html'>comp_popu</a></code>;
+    <div class='dont-index'><p><code><a href='comp_popu.html'>comp_popu</a></code> creates data (as df) from description (frequencies);
+<code><a href='write_popu.html'>write_popu</a></code> creates data (as df) from a riskyr scenario (description);
+<code><a href='popu.html'>popu</a></code> for data format;
 <code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario.</p>
-<p>Other riskyr scenario functions: 
-<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
-<code><a href='riskyr.html'>riskyr</a>()</code>,
-<code><a href='summary.riskyr.html'>summary.riskyr</a>()</code></p></div>
+<p>Other functions converting data/descriptions: 
+<code><a href='comp_popu.html'>comp_popu</a>()</code>,
+<code><a href='write_popu.html'>write_popu</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generating and interpreting different scenario types:</span>
@@ -244,7 +250,7 @@ the corresponding generating function <code><a href='comp_popu.html'>comp_popu</
 <span class='co'># popu_diag</span>
 <span class='va'>scen_diag</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_diag</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Diagnostics"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population tested"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_diag</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>
-</div><div class='img'><img src='read_popu-1.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='read_popu-1.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># (B) Intervention/treatment scenario: ------</span>
 <span class='va'>popu_treat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>80</span>, mi <span class='op'>=</span> <span class='fl'>20</span>, fa <span class='op'>=</span> <span class='fl'>45</span>, cr <span class='op'>=</span> <span class='fl'>55</span>,
                         cond_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"pill"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"placebo"</span>,
@@ -252,8 +258,8 @@ the corresponding generating function <code><a href='comp_popu.html'>comp_popu</
 <span class='co'># popu_treat</span>
 <span class='va'>scen_treat</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_treat</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population treated"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
-</div><div class='img'><img src='read_popu-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"icon"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>
-</div><div class='img'><img src='read_popu-3.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='read_popu-2.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"icon"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-3.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># (C) Prevention scenario (e.g., vaccination): ------</span>
 <span class='va'>popu_vacc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>960</span>, mi <span class='op'>=</span> <span class='fl'>40</span>, fa <span class='op'>=</span> <span class='fl'>880</span>, cr <span class='op'>=</span> <span class='fl'>120</span>,
                        cond_lbl <span class='op'>=</span> <span class='st'>"Vaccination"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"yes"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"no"</span>,
@@ -261,7 +267,7 @@ the corresponding generating function <code><a href='comp_popu.html'>comp_popu</
 <span class='co'># popu_vacc</span>
 <span class='va'>scen_vacc</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_vacc</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Prevention"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population vaccinated"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_vacc</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
-</div><div class='img'><img src='read_popu-4.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='read_popu-4.png' alt='' width='624' height='432' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

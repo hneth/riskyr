@@ -82,7 +82,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9004</span>
       </span>
     </div>
 
@@ -397,7 +397,6 @@ are used and returned.</p>
 <code><a href='init_pal.html'>init_pal</a></code> and <code><a href='pal.html'>pal</a></code> for current color settings.</p>
 <p>Other riskyr scenario functions: 
 <code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
-<code><a href='read_popu.html'>read_popu</a>()</code>,
 <code><a href='summary.riskyr.html'>summary.riskyr</a>()</code></p>
 <p>Other functions initializing scenario information: 
 <code><a href='init_num.html'>init_num</a>()</code>,
@@ -432,8 +431,8 @@ are used and returned.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>hustosis</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Scenario:  Screening for hustosis 
 #&gt; 
-#&gt; Condition:  Truth 
-#&gt; Decision:  Test 
+#&gt; Condition:  True condition 
+#&gt; Decision:  Outcome 
 #&gt; Population:  Population 
 #&gt; N =  1000 
 #&gt; Source:  Source information 
@@ -470,7 +469,7 @@ are used and returned.</p>
 #&gt; 
 #&gt;  acc:
 #&gt; 0.944</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>hustosis</span><span class='op'>)</span>
-</div><div class='img'><img src='riskyr-1.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='riskyr-1.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>scen_reoffend</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Scenario:  Identify reoffenders 
 #&gt; 
@@ -512,13 +511,17 @@ are used and returned.</p>
 #&gt; 
 #&gt;  acc:
 #&gt; 0.694</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_reoffend</span><span class='op'>)</span>
-</div><div class='img'><img src='riskyr-2.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='riskyr-2.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># 2 ways of defining the same scenario:</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, N <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>25</span>, mi <span class='op'>=</span> <span class='fl'>25</span>, fa <span class='op'>=</span> <span class='fl'>25</span>, cr <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>        <span class='co'># s2: same scenario by 4 freq</span>
 <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>s1</span>, <span class='va'>s2</span><span class='op'>)</span>  <span class='co'># should be TRUE</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># Ways to work:</span>
+<span class='co'># Rounding and sampling:</span>
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, N <span class='op'>=</span> <span class='fl'>100</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># s3: w/o rounding</span>
+<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>6</span><span class='op'>/</span><span class='fl'>7</span>, N <span class='op'>=</span> <span class='fl'>100</span>, sample <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># s4: with sampling</span>
+
+<span class='co'># Note:</span>
 <span class='fu'>riskyr</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, hi <span class='op'>=</span> <span class='fl'>25</span>, mi <span class='op'>=</span> <span class='fl'>25</span>, fa <span class='op'>=</span> <span class='fl'>25</span>, cr <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>  <span class='co'># works (consistent)</span>
 </div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"
@@ -530,31 +533,31 @@ are used and returned.</p>
 #&gt; [1] "N"
 #&gt; 
 #&gt; $cond_lbl
-#&gt; [1] "Truth"
+#&gt; [1] "True condition"
 #&gt; 
 #&gt; $cond_true_lbl
-#&gt; [1] "True"
+#&gt; [1] "present"
 #&gt; 
 #&gt; $cond_false_lbl
-#&gt; [1] "False"
+#&gt; [1] "absent"
 #&gt; 
 #&gt; $dec_lbl
-#&gt; [1] "Test"
+#&gt; [1] "Outcome"
 #&gt; 
 #&gt; $dec_pos_lbl
-#&gt; [1] "Positive"
+#&gt; [1] "positive"
 #&gt; 
 #&gt; $dec_neg_lbl
-#&gt; [1] "Negative"
+#&gt; [1] "negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
 #&gt; $dec_cor_lbl
-#&gt; [1] "Correct"
+#&gt; [1] "correct"
 #&gt; 
 #&gt; $dec_err_lbl
-#&gt; [1] "Incorrect"
+#&gt; [1] "incorrect"
 #&gt; 
 #&gt; $sdt_lbl
 #&gt; [1] "Cases"
@@ -622,31 +625,31 @@ are used and returned.</p>
 #&gt; [1] "N"
 #&gt; 
 #&gt; $cond_lbl
-#&gt; [1] "Truth"
+#&gt; [1] "True condition"
 #&gt; 
 #&gt; $cond_true_lbl
-#&gt; [1] "True"
+#&gt; [1] "present"
 #&gt; 
 #&gt; $cond_false_lbl
-#&gt; [1] "False"
+#&gt; [1] "absent"
 #&gt; 
 #&gt; $dec_lbl
-#&gt; [1] "Test"
+#&gt; [1] "Outcome"
 #&gt; 
 #&gt; $dec_pos_lbl
-#&gt; [1] "Positive"
+#&gt; [1] "positive"
 #&gt; 
 #&gt; $dec_neg_lbl
-#&gt; [1] "Negative"
+#&gt; [1] "negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
 #&gt; $dec_cor_lbl
-#&gt; [1] "Correct"
+#&gt; [1] "correct"
 #&gt; 
 #&gt; $dec_err_lbl
-#&gt; [1] "Incorrect"
+#&gt; [1] "incorrect"
 #&gt; 
 #&gt; $sdt_lbl
 #&gt; [1] "Cases"

@@ -1,5 +1,5 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2021 03 23
+## spds, uni.kn | 2021 03 26
 ## -----------------------------------------------
 
 ## site info: ----------
@@ -112,10 +112,12 @@ reference:
   - mi
   - fa
   - cr
-- title: Computation and translation
-  desc: Computing parameters and translating between representational formats.
+- title: Computation and conversion
+  desc: Computing parameters and translating between representational formats and data/descriptions.
   contents:
   - starts_with("comp_")
+  - starts_with("read_")
+  - starts_with("write_")
 - title: Validation and formatting
   desc: Verifying and displaying representational formats.
   contents:
@@ -130,8 +132,8 @@ figures:
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7.2
-  fig.height: 5.6
+  fig.width: 6.5
+  fig.height: 4.5
   fig.retina: 2
 
 ## eof. ----------

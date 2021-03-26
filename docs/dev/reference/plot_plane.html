@@ -87,7 +87,7 @@ for a given prevalence (prev)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9004</span>
       </span>
     </div>
 
@@ -366,33 +366,33 @@ that allows for additional dependent values.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
 <span class='fu'>plot_plane</span><span class='op'>(</span><span class='op'>)</span>              <span class='co'># =&gt; default plot (what = "PPV")</span>
-</div><div class='img'><img src='plot_plane-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
+</div><div class='img'><img src='plot_plane-1.png' alt='' width='624' height='432' /></div><div class='input'><span class='co'># same as:</span>
 <span class='co'># plot_plane(what = "PPV")  # =&gt; plane of PPV</span>
 
 <span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"NPV"</span><span class='op'>)</span>  <span class='co'># =&gt; plane of NPV</span>
-</div><div class='img'><img src='plot_plane-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"ppod"</span><span class='op'>)</span> <span class='co'># =&gt; plane of ppod</span>
-</div><div class='img'><img src='plot_plane-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"acc"</span><span class='op'>)</span>  <span class='co'># =&gt; plane of acc</span>
-</div><div class='img'><img src='plot_plane-4.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_plane-2.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"ppod"</span><span class='op'>)</span> <span class='co'># =&gt; plane of ppod</span>
+</div><div class='img'><img src='plot_plane-3.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"acc"</span><span class='op'>)</span>  <span class='co'># =&gt; plane of acc</span>
+</div><div class='img'><img src='plot_plane-4.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># Plane with/out points:</span>
 <span class='co'># plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")           # plane with 0 points</span>
 <span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.2</span>, <span class='fl'>.5</span>, <span class='fl'>.8</span><span class='op'>)</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, what <span class='op'>=</span> <span class='st'>"npv"</span><span class='op'>)</span>  <span class='co'># plane with 3 points</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-5.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-5.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># Zooming into sens and spec ranges:</span>
 <span class='co'># plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9))  # default ranges</span>
 <span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.9</span><span class='op'>)</span>, spec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.8</span>, <span class='fl'>.9</span>, <span class='fl'>.9</span><span class='op'>)</span>,
            sens_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.7</span>, <span class='fl'>1</span><span class='op'>)</span>, spec_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.7</span>, <span class='fl'>1</span><span class='op'>)</span>, step_size <span class='op'>=</span> <span class='fl'>.02</span><span class='op'>)</span>  <span class='co'># zooming in</span>
-</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-6.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-6.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='co'># Options:</span>
 <span class='co'># plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)</span>
 
 <span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing plot colors"</span>, what_col <span class='op'>=</span> <span class='st'>"royalblue4"</span>, line_col <span class='op'>=</span> <span class='st'>"sienna2"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_plane-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing b/w plot"</span>, what <span class='op'>=</span> <span class='st'>"npv"</span>, what_col <span class='op'>=</span> <span class='st'>"white"</span>, line_col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_plane-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing color pal_bwp"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_plane-9.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_plane-7.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing b/w plot"</span>, what <span class='op'>=</span> <span class='st'>"npv"</span>, what_col <span class='op'>=</span> <span class='st'>"white"</span>, line_col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-8.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing color pal_bwp"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-9.png' alt='' width='624' height='432' /></div><div class='input'>
 <span class='fu'>plot_plane</span><span class='op'>(</span>step_size <span class='op'>=</span> <span class='fl'>.333</span>, what_col <span class='op'>=</span> <span class='st'>"firebrick"</span><span class='op'>)</span>    <span class='co'># =&gt; coarser granularity + color</span>
-</div><div class='img'><img src='plot_plane-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>step_size <span class='op'>=</span> <span class='fl'>.025</span>, what_col <span class='op'>=</span> <span class='st'>"chartreuse4"</span><span class='op'>)</span>  <span class='co'># =&gt; finer granularity + color</span>
-</div><div class='img'><img src='plot_plane-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what_col <span class='op'>=</span> <span class='st'>"steelblue4"</span>, theta <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>, phi <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>  <span class='co'># =&gt; rotated, from above</span>
-</div><div class='img'><img src='plot_plane-12.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_plane-10.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>step_size <span class='op'>=</span> <span class='fl'>.025</span>, what_col <span class='op'>=</span> <span class='st'>"chartreuse4"</span><span class='op'>)</span>  <span class='co'># =&gt; finer granularity + color</span>
+</div><div class='img'><img src='plot_plane-11.png' alt='' width='624' height='432' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what_col <span class='op'>=</span> <span class='st'>"steelblue4"</span>, theta <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>, phi <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>  <span class='co'># =&gt; rotated, from above</span>
+</div><div class='img'><img src='plot_plane-12.png' alt='' width='624' height='432' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

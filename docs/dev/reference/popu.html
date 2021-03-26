@@ -92,7 +92,7 @@ true negative (correct rejection cr)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9004</span>
       </span>
     </div>
 
@@ -214,13 +214,13 @@ contained in <code><a href='txt.html'>txt</a></code> to define text labels.</p>
     <pre class="examples"><div class='input'><span class='va'>popu</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># =&gt; initializes popu with current values of freq and txt</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>popu</span><span class='op'>)</span>            <span class='co'># =&gt; N x 3</span>
 </div><div class='output co'>#&gt; [1] 1000    3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>popu</span><span class='op'>)</span>           <span class='co'># =&gt; shows head of data frame</span>
-</div><div class='output co'>#&gt;   Truth     Test Cases
-#&gt; 1  True Positive    TP
-#&gt; 2  True Positive    TP
-#&gt; 3  True Positive    TP
-#&gt; 4  True Positive    TP
-#&gt; 5  True Positive    TP
-#&gt; 6  True Positive    TP</div><div class='input'>
+</div><div class='output co'>#&gt;   True condition  Outcome Cases
+#&gt; 1        present positive    TP
+#&gt; 2        present positive    TP
+#&gt; 3        present positive    TP
+#&gt; 4        present positive    TP
+#&gt; 5        present positive    TP
+#&gt; 6        present positive    TP</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
