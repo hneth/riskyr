@@ -62,8 +62,10 @@
 #'
 #' # Create data (from descriptions):
 #' write_popu(s1)  # data from (prob) description
-#' write_popu(s2,  # data from (freq) description & change some labels:
-#'            cond_lbl = "Disease (X)", cond_true_lbl = "sick", cond_false_lbl = "healthy")
+#' write_popu(s2,  # data from (freq) description & change labels:
+#'            cond_lbl = "Disease (X)",
+#'            cond_true_lbl = "sick", cond_false_lbl = "healthy",
+#'            dec_lbl = "Test (Y)")
 #'
 #' # Rounding:
 #' s3 <- riskyr(prev = 1/3, sens = 2/3, spec = 6/7, N = 10, round = FALSE)  # s3: w/o rounding
