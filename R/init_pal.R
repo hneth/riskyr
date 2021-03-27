@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2020 03 21
+## 2021 03 27
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -615,17 +615,17 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #'
 #' @export
 
-pal_bwp <- init_pal(N_col = my_white,          # grey(.95, .99), # nearly white
+pal_bwp <- init_pal(N_col = my_white,           # grey(.95, .99), # nearly white
                     cond_true_col =  my_white,  # grey(.90, .99), # darker white
                     cond_false_col = my_white,  # grey(.80, .99), # darker white
                     dec_pos_col = my_white,  # grey(.85, .99),  # darker white
                     dec_neg_col = my_white,  # grey(.70, .99),  # darker white
                     dec_cor_col = my_white,  # grey(.75, .99),  # darker white
                     dec_err_col = my_white,  # grey(.60, .99),  # darker white
-                    hi_col = my_white,  # grey(.80, .99),    # brighter 1
-                    mi_col = my_white,  # grey(.60, .99),    # darker 1
-                    fa_col = my_white,  # grey(.50, .99),    # darker 2
-                    cr_col = my_white,  # grey(.70, .99),    # brighter 2
+                    hi_col = my_white,   # grey(.80, .99),    # brighter 1
+                    mi_col = my_white,   # grey(.60, .99),    # darker 1
+                    fa_col = my_white,   # grey(.50, .99),    # darker 2
+                    cr_col = my_white,   # grey(.70, .99),    # brighter 2
                     PPV_col = my_black,  # grey(.60, .99),   # medium grey
                     NPV_col = my_black,  # grey(.45, .99),   # darker grey
                     txt_col = my_black,  # grey(0, .99),     # black
