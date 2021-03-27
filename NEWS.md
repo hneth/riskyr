@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9004
+# riskyr 0.3.0.9005
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -34,6 +34,8 @@ Log of changes since last release:
 
 
 ## Micro changes
+
+- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
 
 - Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
 
@@ -263,6 +265,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-26 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-27 by [hn](https://neth.de).) 
 
 <!-- eof -->
