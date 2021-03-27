@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2021 01 03
+## 2021 03 27
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -149,36 +149,40 @@ plot.box <- function(x,
 
 ## (A) Labels: ------
 
-## label_freq: Label a known frequency (in freq) by fname ----------
+## label_freq: Label a known frequency (in freq) by fname ------
 
 label_freq <- function(fname,
-                       lbl_type = "default",    # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
-                       lbl_sep = " = ",         # separator: " = " (default), ":\n"
-                       cur_freq = freq,         # current freq
-                       lbl_txt = txt            # current txt
+                       lbl_type = "default",  # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
+                       lbl_sep = " = ",       # separator: " = " (default), ":\n"
+                       cur_freq = freq,       # current freq
+                       lbl_txt = txt          # current txt
 ) {
 
-  ## Initialize:
+  ## (0) Initialize:
   f_lbl <- fname # initialize (in case of unknown freq)
   f_val  <- NA
   f_type <- NA
 
-  ## (0) If lbl_type is "no"/NA/NULL or "nil":
+  # Lowercase:
+  fname <- tolower(fname)  # to facilitate checks:
+  lbl_type <- tolower(lbl_type)
+
+  # If lbl_type is "no"/NA/NULL or "nil":
   if ( is.null(fname) || is.na(fname) ||
-       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "hide" ||
-       tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "non" ||
-       tolower(lbl_type) == "nope" || tolower(lbl_type) == "nil" )  {
+       is.null(lbl_type) || is.na(lbl_type) || lbl_type == "hide" ||
+       lbl_type == "nil" || substr(lbl_type, 1, 2) == "no"
+       # || lbl_type == "no" || lbl_type == "none" || lbl_type == "non" ||
+       #    lbl_type == "nope" || lbl_type == "nothing"
+  )  {
 
     f_lbl <- NA
     return(f_lbl)  # return NA
   }
 
-  ## Robustness (after handling NA/NULL cases):
-  lbl_type <- tolower(lbl_type)
-  if (lbl_type == "val") (lbl_type <- "num")
-  if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
+  # Robustness (after handling NA/NULL cases):
+  if (substr(lbl_type, 1, 3) == "val") (lbl_type <- "num")
+  if (lbl_type == "all" || lbl_type == "both" || lbl_type == "full" || lbl_type == "namval") (lbl_type <- "namnum")
   if (lbl_type == "abbnum" || lbl_type == "def") (lbl_type <- "default")
-
 
   ## (1) Abbreviated name (i.e., variable name of fname): ----
   if (lbl_type == "abb") {
@@ -199,15 +203,14 @@ label_freq <- function(fname,
   }
 
   ## (2) Determine the frequency value f_val of cur_freq corresponding to fname: ----
-
   if (lbl_type != "nam") {
 
-    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
+    if (fname %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
 
       # f_lbl <- fname  # initialize to fname
 
       # Derive current value corresponding to fname in cur_freq:
-      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      ix <- which(tolower(names(cur_freq)) == fname)  # index of fname in cur_freq
       f_val <- cur_freq[ix]  # current cur_freq value
 
       # Round f_val to n_digits:
@@ -221,7 +224,6 @@ label_freq <- function(fname,
   }
 
   ## (3) Compose f_lbl based on lbl_type: ---
-
   if (lbl_type == "num"){
 
     # (a) Value:
@@ -229,54 +231,54 @@ label_freq <- function(fname,
 
   } else if (lbl_type == "namnum"){
 
-    ## (b) Name AND value of cur_freq:
+    # (b) Name AND value of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
-    # if (tolower(fname) == "n") { f_lbl <- lbl_txt$popu_lbl }  # use general population label as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- lbl_txt$N_lbl }       # use new N_lbl as f_lbl
+    # if (fname == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (fname == "n") { f_lbl <- lbl_txt$popu_lbl }  # use general population label as f_lbl
+    if (fname == "n") { f_lbl <- lbl_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- lbl_txt$hi_lbl }
-    if (tolower(fname) == "mi") { f_lbl <- lbl_txt$mi_lbl }
-    if (tolower(fname) == "fa") { f_lbl <- lbl_txt$fa_lbl }
-    if (tolower(fname) == "cr") { f_lbl <- lbl_txt$cr_lbl }
+    if (fname == "hi") { f_lbl <- lbl_txt$hi_lbl }
+    if (fname == "mi") { f_lbl <- lbl_txt$mi_lbl }
+    if (fname == "fa") { f_lbl <- lbl_txt$fa_lbl }
+    if (fname == "cr") { f_lbl <- lbl_txt$cr_lbl }
 
-    if (tolower(fname) == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
-    if (tolower(fname) == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
+    if (fname == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
+    if (fname == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
 
-    if (tolower(fname) == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
-    if (tolower(fname) == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
+    if (fname == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
+    if (fname == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
 
-    if (tolower(fname) == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
-    if (tolower(fname) == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
+    if (fname == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
+    if (fname == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
 
     # Combine f_lbl with f_val (from above):
     f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
 
   } else if (lbl_type == "nam") {
 
-    ## (c) ONLY the name of cur_freq:
+    # (c) ONLY the name of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
-    # if (tolower(fname) == "n") { f_lbl <- lbl_txt$popu_lbl }  # use general population label as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- lbl_txt$N_lbl }       # use new N_lbl as f_lbl
+    # if (fname == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (fname == "n") { f_lbl <- lbl_txt$popu_lbl }  # use general population label as f_lbl
+    if (fname == "n") { f_lbl <- lbl_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- lbl_txt$hi_lbl }
-    if (tolower(fname) == "mi") { f_lbl <- lbl_txt$mi_lbl }
-    if (tolower(fname) == "fa") { f_lbl <- lbl_txt$fa_lbl }
-    if (tolower(fname) == "cr") { f_lbl <- lbl_txt$cr_lbl }
+    if (fname == "hi") { f_lbl <- lbl_txt$hi_lbl }
+    if (fname == "mi") { f_lbl <- lbl_txt$mi_lbl }
+    if (fname == "fa") { f_lbl <- lbl_txt$fa_lbl }
+    if (fname == "cr") { f_lbl <- lbl_txt$cr_lbl }
 
-    if (tolower(fname) == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
-    if (tolower(fname) == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
+    if (fname == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
+    if (fname == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
 
-    if (tolower(fname) == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
-    if (tolower(fname) == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
+    if (fname == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
+    if (fname == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
 
-    if (tolower(fname) == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
-    if (tolower(fname) == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
+    if (fname == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
+    if (fname == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
 
   } else {  ## "any"/"default":
 
-    ## (d) Any other lbl_type: Use basic fname + f_val as default:
+    # (d) Any other lbl_type: Use basic fname + f_val as default:
     f_lbl <- paste0(fname, lbl_sep, as.character(f_val))
 
   }
@@ -298,7 +300,7 @@ label_freq <- function(fname,
   ## (5) Return f_lbl: ----
   return(f_lbl)
 
-}
+} # label_freq() end.
 
 ## Check:
 
@@ -344,7 +346,7 @@ label_prob <- function(pname,
                        # accu = accu      # use current accuracy (now included in prob)
 ) {
 
-  ## Initialize:
+  ## (0) Initialize:
   p_lbl  <- pname  # initialize (in case of unknown prob)
   p_val  <- NA
   p_type <- NA
@@ -352,7 +354,7 @@ label_prob <- function(pname,
   ## Additional parameters (currently fixed):
   n_digits <- 1  # number of decimal digits to round percentage to.
 
-  ## (0) If pname is NA or lbl_type is NA/NULL/"no: ----
+  ## If pname is NA or lbl_type is NA/NULL/"no: ----
   if (is.na(pname) ||
       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "hide" ||
       tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "non" ||
@@ -363,12 +365,13 @@ label_prob <- function(pname,
 
   }
 
-  ## Robustness (after handling NA/NULL cases):
-  pname <- tolower(pname)
-
+  # Lowercase:
+  pname <- tolower(pname)  # to facilitate checks:
   lbl_type <- tolower(lbl_type)
+
+  ## Robustness (after handling NA/NULL cases):
   if (lbl_type == "val") (lbl_type <- "num")
-  if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
+  if (lbl_type == "namval" || lbl_type == "all" || lbl_type == "both" || lbl_type == "full") (lbl_type <- "namnum")
   if (lbl_type == "abbnum" || lbl_type == "def") (lbl_type <- "default")
 
   ## (1) Switch labels: Base label type on type of prob: ----
@@ -393,7 +396,7 @@ label_prob <- function(pname,
 
   } # if (lbl_type == "min")
 
-  ## (b) If lbl_type == "mix": Label key probs by name and numeric value, others only by numeric value (num):
+  # (b) If lbl_type == "mix": Label key probs by name and numeric value, others only by numeric value (num):
   if (lbl_type == "mix") {
 
     # Define lists of key probability names:
@@ -452,7 +455,7 @@ label_prob <- function(pname,
 
   } else if (lbl_type == "namnum"){
 
-    ## (b) Name AND value of prob:
+    # (b) Name AND value of prob:
 
     # Look up probability name:
     if (pname == "prev")  { p_lbl <- prob_lbl_def$prev }    # "Prevalence"
@@ -492,7 +495,7 @@ label_prob <- function(pname,
 
   } else if (lbl_type == "nam") {
 
-    ## (c) ONLY the name of prob:
+    # (c) ONLY the name of prob:
 
     # Look up probability name:
     if (pname == "prev")  { p_lbl <- prob_lbl_def$prev }    # "Prevalence"
@@ -524,10 +527,9 @@ label_prob <- function(pname,
 
   } else {  ## "any"/"def"/"default":
 
+    # (d) Any other lbl_type: Use basic pname + p_val as default:
 
-    ## (d) Any other lbl_type: Use basic pname + p_val as default:
-
-    ## Special cases: CHANGE pname to some other default value:
+    # Special cases: CHANGE pname to some other default value:
 
     # Capitalize some abbreviated names:
     if (pname == "ppv") { pname <- "PPV" }
@@ -579,10 +581,10 @@ label_prob <- function(pname,
     p_lbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
   }
 
-  ## (4) Return p_lbl: ----
+  ## (6) Return p_lbl: ----
   return(p_lbl)
 
-}
+} # label_prob() end.
 
 ## Check:
 # label_prob("prev", lbl_type = "default")
@@ -624,10 +626,11 @@ name_prob <- function(freq1, freq2) {
   ## ToDo: This function currently uses default names of freq.
   ##       To generalize it, consider adding user-defined names of txt.
 
-  # (0) Prepare:
+  # (0) Initialize:
   pname <- NA  # initialize
 
-  freq1 <- tolower(freq1)  # all lowercase
+  # Lowercase:
+  freq1 <- tolower(freq1)  # to facilitate checks
   freq2 <- tolower(freq2)
 
   # (1) by condition (bc):
@@ -693,7 +696,7 @@ name_prob <- function(freq1, freq2) {
   # (4) Return:
   return(pname)
 
-}
+}  # name_prob() end.
 
 ## Check:
 # name_prob("no", "nix")       # => NA
@@ -730,25 +733,25 @@ plot_ftype_label <- function(fname,               # name of a known freq
                              ...                  # other (graphical) parameters
 ){
 
-  ## Initialize ftype_lbl:
+  ## (0) Initialize ftype_lbl:
   # ftype_lbl <- ""
 
-  ## Determine ftype_lbl (freq_type corresponding to fname in lbl_txt):
+  ## (1) Determine ftype_lbl (freq_type corresponding to fname in lbl_txt):
   ftype_lbl <- paste0(comp_freq_type(fname = fname, lbl_txt = lbl_txt), suffix)
 
   ftype_lbl <- capitalise_1st(ftype_lbl)  # capitalize 1st letter
 
-  ## Plot ftype_lbl:
+  ## (2) Plot ftype_lbl:
   text(x, y,
        labels = ftype_lbl,
        xpd = TRUE,    # NA: plotting clipped to device region; T: figure region; F: plot region
        # col = col,   # pass on parameter
        ...)  # other parameters: pos, offset, etc.
 
-  ## Return ftype_lbl (as name):
+  ## (3) Return ftype_lbl (as name):
   # return(ftype_lbl)
 
-}
+} # plot_ftype_label() end.
 
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
@@ -768,6 +771,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("dec_cor", .7, .6, col = "gold", lbl_txt = txt_TF)
 
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
+
 plot_freq_label <- function(fname,                # name of a known freq
                             x, y,                 # coordinates
 
@@ -805,7 +809,7 @@ plot_freq_label <- function(fname,                # name of a known freq
   ## Return f_lbl (as character):
   # return(f_lbl)
 
-}
+} # plot_freq_label() end.
 
 ## ToDo: Allow for vectors or lists of lists?
 
@@ -962,7 +966,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
   } # if (show_freq)
 
-}
+} # plot_vbox() end.
 
 ## Check:
 # ## Preparation:
@@ -1069,7 +1073,7 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          font = font)
   }
 
-}
+} # plot_cbox() end.
 
 # ## Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
@@ -1119,7 +1123,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       # ...
 ) {
 
-  # Initialize:
+  # (0) Initialize:
   f_val <- NA
   f_type <- NA
   f_col <- NA
@@ -1178,7 +1182,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             # ...
   )
 
-}
+} # plot_fbox() end.
 
 ### Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
@@ -1249,12 +1253,12 @@ comp_freq_fbox <- function(fbox,
 
   if (is.list(fbox)) { # } && isTRUE(exists(fbox$name)) ) {
 
-    fname <- fbox$name
+    fname <- tolower(fbox$name)  # to facilitate checks:
 
-    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
+    if (fname %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
 
       # Derive current value corresponding to fname in freq:
-      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      ix <- which(tolower(names(cur_freq)) == fname)  # index of fname in cur_freq
       f_val <- cur_freq[ix]  # current freq value
 
       # Type of frequency:
@@ -1266,7 +1270,7 @@ comp_freq_fbox <- function(fbox,
 
   return(as.numeric(f_val))
 
-}
+} # comp_freq_fbox() end.
 
 ## Check:
 ## Define some boxes:
@@ -1328,7 +1332,7 @@ comp_freq_fbox_list <- function(fboxes, ...){
 
   return(box_freqs)
 
-}
+} # comp_freq_fbox_list() end.
 
 ## Check:
 ## Define some boxes:
@@ -1402,7 +1406,7 @@ plot_fbox_list <- function(fboxes,
 
   }
 
-}
+} # plot_fbox_list() end.
 
 ## Check:
 ## Define some boxes:
@@ -1483,7 +1487,7 @@ comp_lx <- function(ly, mf = 1, corf = 1) {
 
   return(lx)
 
-}
+} # comp_lx() end.
 
 ## Check:
 # comp_lx(ly = c(0, 1, NA, 3, NULL, 5), 2, 10) # =>  0  20  NA  60 100 (i.e., NULL dropped)
@@ -1519,11 +1523,13 @@ comp_lx_fbox <- function(fname, len_N,
 
   } else {  # scale = "f" or any other scale:
 
+    fname <- tolower(fname)  # to facilitate checks:
+
     # (2) scale by current freq cur_freq (rounded or non-rounded):
-    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in freq:
+    if (fname %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in freq:
 
       # (a) Get current freq value corresponding to fname in freq:
-      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      ix <- which(tolower(names(cur_freq)) == fname)  # index of fname in cur_freq
       fval <- cur_freq[ix]  # current freq value
       fval <- as.numeric(fval)  # ensure that fval is numeric
 
@@ -1539,7 +1545,7 @@ comp_lx_fbox <- function(fname, len_N,
 
   return(lx)
 
-}
+} # comp_lx_fbox() end.
 
 ## Check:
 # comp_lx_fbox("N",  len_N = 100)  # => 100 = lN
@@ -1585,11 +1591,13 @@ comp_ly_fsqr <- function(fname, area_N,
 
   } else {  # scale == "f" or any other scale:
 
+    fname <- tolower(fname)  # to facilitate checks:
+
     # (2) scale by current frequencies cur_freq (rounded or non-rounded):
-    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
+    if (fname %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
 
       # (a) Get current freq value corresponding to fname in cur_freq:
-      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      ix <- which(tolower(names(cur_freq)) == fname)  # index of fname in cur_freq
       val <- cur_freq[ix]     # current freq value
       val <- as.numeric(val)  # ensure that val is numeric
 
@@ -1605,7 +1613,7 @@ comp_ly_fsqr <- function(fname, area_N,
 
   return(ly)
 
-}
+} # comp_ly_fsqr() end.
 
 ## Check:
 # comp_ly_fsqr("N", area_N = 100)  # => 10
