@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2021 03 25
+## 2021 03 28
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -77,13 +77,13 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N  The number of individuals in the population.
+#' @param N The number of individuals in the population.
 #' (This value is not represented in the plot,
 #' but used when new frequency information \code{\link{freq}}
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
-#' @param by  A character code specifying the perspective
+#' @param by A character code specifying the perspective
 #' (or the dimension by which the population is split into 2 subsets)
 #' with the following options:
 #'   \enumerate{
@@ -93,30 +93,30 @@
 #'   \item \code{by = "all"} combines perspectives (5 bars, default).
 #'   }
 #'
-#' @param dir  Number of directions in which bars are plotted.
+#' @param dir Number of directions in which bars are plotted.
 #' Options:
 #' \enumerate{
 #'   \item \code{dir = 1}: uni-directional bars (all up, default);
 #'   \item \code{dir = 2}: bi-directional bars (up vs. down).
 #'   }
 #'
-#' @param scale  Scale the heights of bars either
+#' @param scale Scale the heights of bars either
 #' by current frequencies (\code{scale = "f"}) or
 #' by exact probabilities (\code{scale = "p"}).
 #' Default: \code{scale = "f"}.
 #' For large population sizes \code{\link{N}} and
 #' when \code{round = FALSE}, both settings yield the same bar heights.
 #'
-#' @param round  Boolean option specifying whether computed frequencies
+#' @param round Boolean option specifying whether computed frequencies
 #' are to be rounded to integers.
 #' Default: \code{round = TRUE}.
 #'
-#' @param sample  Boolean value that determines whether frequency values
+#' @param sample Boolean value that determines whether frequency values
 #' are sampled from \code{N}, given the probability values of
 #' \code{prev}, \code{sens}, and \code{spec}.
 #' Default: \code{sample = FALSE}.
 #'
-#' @param f_lbl  Type of frequency labels, as character code with the following options:
+#' @param f_lbl Type of frequency labels, as character code with the following options:
 #' \enumerate{
 #'   \item \code{f_lbl = "nam"}: names;
 #'   \item \code{f_lbl = "num"}: numeric values (default);
@@ -125,29 +125,29 @@
 #'   \item \code{f_lbl = "any"}: abbreviated names and numeric values (abb = num).
 #'   }
 #'
-#' @param f_lwd  Line width of frequency box (border).
+#' @param f_lwd Line width of frequency box (border).
 #' Values of \code{NA/NULL/0} set \code{lwd} to
 #' invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
 #' Default: \code{f_lwd = 1}.
 #'
-#' @param lty  Line type of frequency box (border).
+#' @param lty Line type of frequency box (border).
 #' Values of \code{NA/NULL/0} set \code{lty} to
 #' \code{lty <- 0}.
 #' Default: \code{lty = 0} (i.e., no line).
 #'
-#' @param title_lbl  Text label for current plot title.
+#' @param title_lbl Text label for current plot title.
 #' Default: \code{title_lbl = txt$scen_lbl}.
 #'
-#' @param lbl_txt  Current text information (for labels, titles, etc.).
+#' @param lbl_txt Current text information (for labels, titles, etc.).
 #' Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).
 #'
-#' @param col_pal  Current color palette.
+#' @param col_pal Current color palette.
 #' Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).
 #'
-#' @param mar_notes  Boolean option for showing margin notes.
+#' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = FALSE}.
 #'
-#' @param ...  Other (graphical) parameters
+#' @param ... Other (graphical) parameters
 #' (e.g., \code{cex}, \code{font}, \code{lty}, etc.).
 #'
 #' @examples

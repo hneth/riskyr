@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2021 03 25
+## 2021 03 28
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -27,36 +27,36 @@
 #' by removing the dependency on the R packages \code{vcd} and \code{grid}
 #' and providing many additional options.
 #'
-#' @param prev  The condition's prevalence \code{\link{prev}}
+#' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
-#' @param sens  The decision's sensitivity \code{\link{sens}}
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
 #'
-#' @param mirt  The decision's miss rate \code{\link{mirt}}
+#' @param mirt The decision's miss rate \code{\link{mirt}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{TRUE}).
 #' \code{mirt} is optional when its complement \code{sens} is provided.
 #'
-#' @param spec  The decision's specificity value \code{\link{spec}}
+#' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
 #'
-#' @param fart  The decision's false alarm rate \code{\link{fart}}
+#' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N  The number of individuals in the population.
+#' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #' Note: \code{\link{N}} is not represented in the plot,
 #' but used for computing frequency information \code{\link{freq}}
 #' from current probabilities \code{\link{prob}}.
 #'
-#' @param by  A character code specifying 2 perspectives that split the population into subsets,
+#' @param by A character code specifying 2 perspectives that split the population into subsets,
 #' with 6 options:
 #'   \enumerate{
 #'   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
@@ -67,21 +67,21 @@
 #'   \item \code{"acdc"}: by accuracy (ac) and by decision (dc).
 #'   }
 #'
-#' @param p_split  Primary perspective for population split,
+#' @param p_split Primary perspective for population split,
 #' with 2 options:
 #'   \enumerate{
 #'   \item \code{"v"}: vertical (default);
 #'   \item \code{"h"}: horizontal.
 #'   }
 #'
-#' @param area  A character code specifying the shape of the main area,
+#' @param area A character code specifying the shape of the main area,
 #' with 2 options:
 #'   \enumerate{
 #'   \item \code{"sq"}: main area is scaled to square (default);
 #'   \item \code{"no"}: no scaling (rectangular area fills plot size).
 #'   }
 #'
-#' @param scale  Scale probabilities and corresponding area dimensions either by
+#' @param scale Scale probabilities and corresponding area dimensions either by
 #' exact probability or by (rounded or non-rounded) frequency, with 2 options:
 #'   \enumerate{
 #'   \item \code{"p"}: scale main area dimensions by exact probability (default);
@@ -91,15 +91,15 @@
 #'  Note: \code{scale} setting matters for the display of probability values and for
 #'  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.
 #'
-#' @param round  A Boolean option specifying whether computed frequencies
+#' @param round A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
-#' @param sample  Boolean value that determines whether frequency values
+#' @param sample Boolean value that determines whether frequency values
 #' are sampled from \code{N}, given the probability values of
 #' \code{prev}, \code{sens}, and \code{spec}.
 #' Default: \code{sample = FALSE}.
 #'
-#' @param sum_w  Border width of 2 perspective summaries
+#' @param sum_w Border width of 2 perspective summaries
 #' (on top and left borders) of main area as a proportion of area size
 #' (i.e., in range \code{0 <= sum_w <= 1}).
 #' Default: \code{sum_w = .10}.
@@ -111,7 +111,7 @@
 #' Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
 #' \code{gaps = c(.00, .02)} for \code{p_split = "h"}.
 #'
-#' @param f_lbl  Type of label for showing frequency values in 4 main areas,
+#' @param f_lbl Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
 #'   \item \code{"def"}: abbreviated names and frequency values;
@@ -122,23 +122,23 @@
 #'   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param f_lbl_sep  Label separator for main frequencies
+#' @param f_lbl_sep Label separator for main frequencies
 #' (used for \code{f_lbl = "def" OR "namnum"}).
 #' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
 #' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
 #'
-#' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
+#' @param f_lbl_sum Type of label for showing frequency values in summary cells,
 #' with same 6 options as \code{f_lbl} (above).
 #' Default: \code{f_lbl_sum = "num"}: numeric values only.
 #'
-#' @param f_lbl_hd  Type of label for showing frequency values in header,
+#' @param f_lbl_hd Type of label for showing frequency values in header,
 #' with same 6 options as \code{f_lbl} (above).
 #' Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).
 #'
-#' @param f_lwd  Line width of areas.
+#' @param f_lwd Line width of areas.
 #' Default: \code{f_lwd = 0}.
 #'
-#' @param p_lbl  Type of label for showing 3 key probability links and values,
+#' @param p_lbl Type of label for showing 3 key probability links and values,
 #' with 7 options:
 #'   \enumerate{
 #'   \item \code{"def"}: show links and abbreviated names and probability values;
@@ -150,7 +150,7 @@
 #'   \item \code{NA}: show no labels or links (same for \code{p_lbl = NULL}, default).
 #'   }
 #'
-#' @param arr_c  Arrow code for symbols at ends of probability links
+#' @param arr_c Arrow code for symbols at ends of probability links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
 #' with the following options:
 #'   \itemize{
@@ -161,32 +161,32 @@
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
 #'
-#' @param col_p  Colors of probability links (as vector of 3 colors).
+#' @param col_p Colors of probability links (as vector of 3 colors).
 #' Default: \code{col_p = c(grey(.15, .99), "yellow", "yellow")}.
 #' (Also consider: "black", "cornsilk", "whitesmoke").
 #'
-#' @param brd_dis  Distance of probability links from area border
+#' @param brd_dis Distance of probability links from area border
 #' (as proportion of area width).
 #' Default: \code{brd_dis = .06}.
 #' Note: Adjust to avoid overlapping labels.
 #' Negative values show links outside of main area.
 #'
-#' @param lbl_txt  Default label set for text elements.
+#' @param lbl_txt Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param title_lbl  Text label for current plot title.
+#' @param title_lbl Text label for current plot title.
 #' Default: \code{title_lbl = txt$scen_lbl}.
 #'
-#' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
+#' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
 #'
-#' @param cex_p_lbl  Scaling factor for text labels (probabilities).
+#' @param cex_p_lbl Scaling factor for text labels (probabilities).
 #' Default: \code{cex_p_lbl = cex_lbl - .05}.
 #'
-#' @param col_pal  Color palette.
+#' @param col_pal Color palette.
 #' Default: \code{col_pal = \link{pal}}.
 #'
-#' @param mar_notes  Boolean option for showing margin notes.
+#' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.

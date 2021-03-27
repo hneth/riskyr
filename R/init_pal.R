@@ -290,7 +290,7 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #'
 #' @param txt_col Color used for text labels.
 #' @param brd_col Color used for borders (e.g., around bars or boxes).
-#' @param bg_col  Background color of plot (used to set \code{par(bg = bg_col)}).
+#' @param bg_col Background color of plot (used to set \code{par(bg = bg_col)}).
 #'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
