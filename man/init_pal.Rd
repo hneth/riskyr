@@ -19,8 +19,8 @@ init_pal(
   PPV_col = pal_def["ppv"],
   NPV_col = pal_def["npv"],
   txt_col = pal_def["txt"],
-  brd_col = pal_def["brd"],
-  bg_col = pal_def["bg"]
+  bg_col = pal_def["bg"],
+  brd_col = pal_def["brd"]
 )
 }
 \arguments{
@@ -58,9 +58,9 @@ the condition is FALSE, provided that the decision is negative).}
 
 \item{txt_col}{Color used for text labels.}
 
-\item{brd_col}{Color used for borders (e.g., around bars or boxes).}
-
 \item{bg_col}{Background color of plot (used to set \code{par(bg = bg_col)}).}
+
+\item{brd_col}{Color used for borders (e.g., around bars or boxes).}
 }
 \description{
 \code{init_pal} initializes basic color information
