@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2021 01 04
+## 2021 03 29
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -89,10 +89,10 @@
 #' @param phi Vertical rotation angle (used by \code{\link{persp}}).
 #' Default: \code{phi = 0}.
 #'
-#' @param lbl_txt  Labels and text elements.
+#' @param lbl_txt Labels and text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param p_lbl  Type of label for shown probability values,
+#' @param p_lbl Type of label for shown probability values,
 #' with the following options:
 #'   \enumerate{
 #'   \item \code{"abb"}: show abbreviated probability names;
@@ -103,17 +103,17 @@
 #'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param title_lbl  Main plot title.
+#' @param title_lbl Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
 #'
-#' @param cex_lbl  Scaling factor for the size of text labels
+#' @param cex_lbl Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
 #' Default: \code{cex_lbl = .85}.
 #'
-#' @param col_pal  Color palette (if what_col is unspecified).
+#' @param col_pal Color palette (if what_col is unspecified).
 #' Default: \code{col_pal = \link{pal}}.
 #'
-#' @param mar_notes  Boolean value for showing margin notes.
+#' @param mar_notes Boolean value for showing margin notes.
 #' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ... Other (graphical) parameters.

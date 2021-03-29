@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2021 03 28
+## 2021 03 29
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -189,7 +189,7 @@
 #' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = FALSE}.
 #'
-#' @param ...  Other (graphical) parameters.
+#' @param ... Other (graphical) parameters.
 #'
 #' @return Nothing (NULL).
 #'

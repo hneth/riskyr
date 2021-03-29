@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2021 03 27
+## 2021 03 29
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -289,8 +289,8 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #' the condition is FALSE, provided that the decision is negative).
 #'
 #' @param txt_col Color used for text labels.
-#' @param brd_col Color used for borders (e.g., around bars or boxes).
 #' @param bg_col Background color of plot (used to set \code{par(bg = bg_col)}).
+#' @param brd_col Color used for borders (e.g., around bars or boxes).
 #'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
@@ -343,8 +343,8 @@ init_pal <- function(N_col = pal_def["N"],          # population N
                      NPV_col = pal_def["npv"],      # negative predictive values
                      ## Text labels and borders:
                      txt_col = pal_def["txt"],      # text labels
-                     brd_col = pal_def["brd"],      # borders
-                     bg_col = pal_def["bg"]         # background
+                     bg_col = pal_def["bg"],        # background
+                     brd_col = pal_def["brd"]       # borders
 ) {
 
   ## 1. Initialize pal as a VECTOR:
