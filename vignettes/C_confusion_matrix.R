@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 # URLs:
-url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+url_riskyr_org <- "https://riskyr.org/" # WAS: "http://134.34.54.61:3838/spds/riskyr/"
 
 # Load pkg:
 library("riskyr")
