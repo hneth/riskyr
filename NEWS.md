@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9005
+# riskyr 0.3.0.9006
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
