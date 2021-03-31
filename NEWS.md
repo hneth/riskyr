@@ -28,12 +28,14 @@ Log of changes since last release:
 
 ## Minor changes
 
-- None yet. 
+- none yet. 
 
 <!-- Minor/details: --> 
 
 
-## Micro changes
+## Micro changes 
+
+- Update URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
 
 - Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
 
@@ -265,6 +267,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-27 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-31 by [hn](https://neth.de).) 
 
 <!-- eof -->
