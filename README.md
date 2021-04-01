@@ -718,10 +718,10 @@ We appreciate your feedback, comments, or questions.
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) -->
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
-To cite **riskyr** in derivations and publications please use:
+To cite **riskyr** in derivations and publications, please use:
 
   - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).  
-    riskyr: A toolbox for rendering risk literacy more transparent.  
+    riskyr: Rendering Risk Literacy more Transparent.  
     Social Psychology and Decision Sciences, University of Konstanz,
     Germany.  
     Computer software (R package version 0.3.0, Mar. 23, 2021).  
@@ -731,7 +731,7 @@ A BibTeX entry for LaTeX users is:
 
 ``` 
 @Manual{riskyr,
-  title = {riskyr: A toolbox for rendering risk literacy more transparent},
+  title = {riskyr: Rendering Risk Literacy more Transparent},
   author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
   year = {2021},
   organization = {Social Psychology and Decision Sciences, University of Konstanz},
@@ -834,7 +834,7 @@ information.
 
 <!-- Update: -->
 
-(`README.Rmd` updated on 2021-03-31 by [hn](https://neth.de).)
+(`README.Rmd` updated on 2021-04-01 by [hn](https://neth.de).)
 
 <!-- eof -->
 

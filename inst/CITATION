@@ -1,7 +1,7 @@
-citHeader("To cite riskyr in derivations and publications use:")
+citHeader("To cite riskyr in derivations and publications, please use:")
 
 citEntry(entry = "Manual",
-         title        = "riskyr: A toolbox for rendering risk literacy more transparent",
+         title        = "riskyr: Rendering Risk Literacy more Transparent",
          author       = personList(as.person("Hansjörg Neth"),
                                    as.person("Felix Gaisbauer"),
                                    as.person("Nico Gradwohl"),
@@ -14,7 +14,7 @@ citEntry(entry = "Manual",
 
          textVersion  =
            paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).",
-                 "riskyr: A toolbox for rendering risk literacy more transparent.",
+                 "riskyr: Rendering Risk Literacy more Transparent.",
                  "Social Psychology and Decision Sciences, University of Konstanz, Germany.",
                  "Computer software (R package version 0.3.0, Mar. 23, 2021).",
                  "Retrieved from <https://CRAN.R-project.org/package=riskyr>.")
