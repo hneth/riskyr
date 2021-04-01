@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9006
+# riskyr 0.3.0.9007
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -249,7 +249,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 To cite **riskyr** in derivations and publications please use:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021). 
-riskyr: A toolbox for rendering risk literacy more transparent.  
+riskyr: Rendering Risk Literacy more Transparent.  
   Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 23, 2021). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
@@ -267,6 +267,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-31 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-04-01 by [hn](https://neth.de).) 
 
 <!-- eof -->
