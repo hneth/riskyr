@@ -47,7 +47,7 @@ url_riskyr_org <- "https://riskyr.org/" # WAS: "http://134.34.54.61:3838/spds/ri
 
 <!-- Current package Description (updated on 2021-03-19): -->
 
-Risk-related information -- like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments -- can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent.
+Risk-related information --- like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments --- can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent.
 
 
 ## Motivation 
@@ -656,8 +656,10 @@ Bayesianisches Denken in der Schule.
 _Unterrichtswissenschaft_, _32_, 58–96.
 
 
-<!-- Update: -->
+<!-- Footer: -->
 
-(`README.Rmd` updated on `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).) 
+------ 
+
+[`README.Rmd` updated on `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).] 
 
 <!-- eof --> 
