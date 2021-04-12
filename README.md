@@ -814,7 +814,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2021-04-11 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2021-04-12 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
