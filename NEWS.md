@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9007
+# riskyr 0.3.0.9008
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -18,9 +18,9 @@ Log of changes since last release:
 
 - Allow conversion/translations between data and descriptions [2021-03-26]:
 
-    - `write_popu()` creates population data from description (riskyr scenario); 
+    - `write_popu()` creates population data from a description (a riskyr scenario); 
     
-    - `read_popu()` creates a description (riskyr scenario) from population data. 
+    - `read_popu()` creates a description (a riskyr scenario) from population data. 
 
 
 <!-- Minor: --> 
@@ -267,6 +267,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-04-01 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-04-28 by [hn](https://neth.de).) 
 
 <!-- eof -->
