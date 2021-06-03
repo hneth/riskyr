@@ -23,7 +23,8 @@
 # (a) Given raw data of cases: Assume that data contains individual cases
 #     (i.e., not a contingency table with a column of frequency counts)
 
-t_df <- FFTrees::titanic
+# t_df <- FFTrees::titanic  # binary variables with individual cases
+
 
 ## Documentation:
 # Inputs:
