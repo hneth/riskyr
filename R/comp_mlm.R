@@ -112,7 +112,7 @@ frame <- function(data, x, y,
 
 
   # Case 3: From description: ----
-  if (is.vector(data, mode = "numeric") && length(v == 4)) {
+  if (is.vector(data, mode = "numeric") && length(data == 4)) {
 
     # message("Creating mx from 4 basic values and description:")  # 4debugging
 
