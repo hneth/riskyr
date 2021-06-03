@@ -11,6 +11,7 @@
 
 ## ad 1.: From raw data:
 
+
 ## Filtering: ------
 
 # Tasks:
@@ -18,97 +19,203 @@
 # - optimize cut-off value given some criterion and metric
 # - binarize an entire dataset
 
+
 ## Framing: ------
 
 # (a) Given raw data of cases: Assume that data contains individual cases
 #     (i.e., not a contingency table with a column of frequency counts)
 
-# t_df <- FFTrees::titanic  # binary variables with individual cases
-
-
 ## Documentation:
-# Inputs:
-# - data = data with binary variables (after filter step)
-#
-# Output: Returns a 2x2 matrix
+
+# Inputs: data and description of desired 2x2 matrix
+
+# The input data can be:
+# 1. a raw data with binary variables x and y (and z)
+# 2. a contingency table
+# 3. a vector of 4 basic frequency counts
+
+# Output: Returns a 2x2 matrix (as a contingency table).
 
 frame <- function(data, x, y,
-                  z = NA, x_levels = NA, y_levels = NA, z_val = NA){
+                  z = NA,  z_val = NA,
+                  x_name = NA, y_name = NA,
+                  x_levels = NA, y_levels = NA){
 
-  # 0. Verify that
-  # a. data is binary
-  # b. x, y (and z) are variables in data
+  # Initialize:
+  mx <- NA
 
-  # conditionalize data on z:
-  if (!is.na(z) & !is.na(z_val)){
+  # Case 1: From binary raw data: ----
+  if (is.data.frame(data)){
 
-    ix_z  <- which(names(data) == z)
-    vec_z <- data[ , ix_z]
-    tof_z <- vec_z == z_val
+    # message("Creating mx from data:")  # 4debugging
 
-    data <- data[tof_z, ]  # filter cases for which condition z == z_val is TRUE
+    # 0. Verify that
+    # a. x, y (and z) are variables in data
+    # b. variables are binary
 
-  }
+    # Conditionalize data on z:
+    if (!is.na(z) & !is.na(z_val)){
 
-  ix_x <- which(names(data) == x)
-  ix_y <- which(names(data) == y)
+      ix_z  <- which(names(data) == z)
+      vec_z <- data[ , ix_z]
+      tof_z <- (vec_z == z_val)
 
-  nam_x <- names(data)[ix_x]
-  nam_y <- names(data)[ix_y]
+      data <- data[tof_z, ]  # filter cases for which condition z == z_val is TRUE
 
-  vec_x <- data[ , ix_x]
-  vec_y <- data[ , ix_y]
+    } # conditionalize end.
 
-  # Note non-binary variables:
-  nval_x <- length(unique(vec_x))
-  if (nval_x != 2){
-    message(paste0("frame: x is non-binary (", nval_x, " unique values)"))
-  }
+    # Column indices:
+    ix_x <- which(names(data) == x)
+    ix_y <- which(names(data) == y)
 
-  nval_y <- length(unique(vec_y))
-  if (nval_y != 2){
-    message(paste0("frame: y is non-binary (", nval_y, " unique values)"))
-  }
+    # Dimension names:
+    if (is.na(x_name)){
+      name_x <- names(data)[ix_x]  # variable name
+    } else {
+      name_x <- x_name  # provided name
+    }
 
-  # as factors:
-  if (!all(is.na(x_levels))){
-    vec_x <- factor(vec_x, levels = x_levels, ordered = FALSE)
-  }
+    if (is.na(y_name)){
+      name_y <- names(data)[ix_y]  # variable name
+    } else {
+      name_y <- y_name  # provided name
+    }
 
-  if (!all(is.na(y_levels))){
-    vec_y <- factor(vec_y, levels = y_levels, ordered = FALSE)
-  }
+    # As vectors:
+    vec_x <- data[ , ix_x]
+    vec_y <- data[ , ix_y]
 
-  table(vec_y, vec_x, dnn = c(nam_y, nam_x))
+    # Note non-binary variables:
+    nval_x <- length(unique(vec_x))
+    if (nval_x != 2){
+      message(paste0("frame: x is non-binary (", nval_x, " unique values)"))
+    }
+
+    nval_y <- length(unique(vec_y))
+    if (nval_y != 2){
+      message(paste0("frame: y is non-binary (", nval_y, " unique values)"))
+    }
+
+    # Vectors as factors:
+    if (!all(is.na(x_levels))){
+      vec_x <- factor(vec_x, levels = x_levels, ordered = FALSE)
+    }
+
+    if (!all(is.na(y_levels))){
+      vec_y <- factor(vec_y, levels = y_levels, ordered = FALSE)
+    }
+
+    # Cross-tabulate vectors:
+    mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
+
+  } # Case 1: raw data end.
+
+
+  # Case 3: From description: ----
+  if (is.vector(data, mode = "numeric") && length(v == 4)) {
+
+    # message("Creating mx from 4 basic values and description:")  # 4debugging
+
+    # Coerce data to integer:
+    data <- as.integer(data)
+
+    # Level names:
+    if (all(is.na(x_levels))){ x_levels <- c("c_1", "c_2") }
+    if (all(is.na(y_levels))){ y_levels <- c("r_1", "r_2") }
+    dim_list <- list(y_levels, x_levels)
+
+    # Dimension names:
+    if (is.na(x_name)){
+      name_x <- x  # variable name
+    } else {
+      name_x <- x_name  # provided name
+    }
+
+    if (is.na(y_name)){
+      name_y <- y  # variable name
+    } else {
+      name_y <- y_name  # provided name
+    }
+
+    names(dim_list) <- c(name_y, name_x)
+
+    # Define matrix:
+    mx <- matrix(data, nrow = 2, ncol = 2, byrow = TRUE, dimnames = dim_list)
+
+    # Coerce into table:
+    mx <- as.table(mx)
+
+  } # Case 3: description end.
+
+  # Output:
+  return(mx)
 
 } # frame().
 
-# ## Check:
+
+## Check: ------
+
+# ## Case 1. data = data with binary variables (after filter step)
+# df_raw <- FFTrees::titanic  # binary variables with individual cases
+#
 # # (a) Basics:
-# m_1 <- frame(data = t_df, x = "sex", y = "survived")
+# m_1 <- frame(data = df_raw, x = "sex", y = "survived")
 # m_1
 # sum(m_1)
 #
+# dim(m_1)
 # is.matrix(m_1)
+# is.table(m_1)
 # typeof(m_1)
+# dimnames(m_1)
+# summary(m_1)
 #
-#
-# # (b) with factors:
-# m_2 <- frame(data = t_df, x = "sex", y = "survived",
+# # (b) Arrange rows and columns with factors:
+# m_2 <- frame(data = df_raw, x = "sex", y = "survived",
 #              x_levels = c("male", "female"),
 #              y_levels = c(1, 0))
 # m_2
 # sum(m_2)
 #
-# # (c) factors and conditionalized:
-# (m_3 <- frame(t_df, x = "sex", y = "survived", z = "age", z_val = "child",
-#               x_levels = c("male", "female"),
-#               y_levels = c(1, 0)))
+# # (c) Using factors, names, and conditionalize on z:
+# (m_3 <- frame(df_raw, x = "sex", y = "survived",
+#               z = "age", z_val = "child",
+#               x_levels = c("male", "female"), y_levels = c(1, 0),
+#               x_name = "Gender", y_name = "Survival"))
 # sum(m_3)
+# dimnames(m_3)
 #
 # # (d) Note: Non-binary variables:
-# frame(t_df, x = "class", y = "survived")
-# frame(t_df, y = "class", x = "survived")
+# frame(df_raw, x = "class", y = "survived")
+# frame(df_raw, y = "class", x = "survived", x_name = "Survival",
+#       y_levels = c("first", "second", "third"))
+
+
+# ## Case 2: From contingency table (with a Freq variable):
+# df_con <- as.data.frame(Titanic)
+# df_con
+
+# +++ here now +++
+
+
+# ## Case 3: data = Vector of 4 basic values:
+# frame(data = c(126, 1364, 344, 367), x = "sex", y = "survived")
+#
+# m_4 <- frame(data = c(126, 1364, 344, 367), x = "sex", y = "survived",
+#              x_levels = c("female", "male"), y_levels = c(0, 1),
+#              x_name = "sex", y_name = "survived"
+# )
+# m_4
+#
+# sum(m_4)
+# is.matrix(m_4)
+# is.table(m_4)
+# typeof(m_4)
+# dimnames(m_4)
+# summary(m_4)
+#
+# all.equal(m_1, m_4)
+
 
 
 ## Transformations: ------
