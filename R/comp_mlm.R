@@ -1,5 +1,5 @@
 ## comp_mlm.R (based on comp_metrics.R) | riskyr
-## 2021 06 03
+## 2021 06 04
 ## -------------------------------------------
 
 ## (A) Matrix lens model: ----------
@@ -194,6 +194,31 @@ frame <- function(data, x, y,
 # ## Case 2: From contingency table (with a Freq variable):
 # df_con <- as.data.frame(Titanic)
 # df_con
+#
+# # ToDo:
+# # - Assume binary variables x and y (and z)
+# # - Group by x and y, sum count variable Freq
+#
+# ## (a) Tidyverse solution:
+# library(tidyverse)
+#
+# df_con %>%
+#   group_by(Sex, Survived) %>%
+#   summarise(n = n(),
+#             freq = sum(Freq))
+#
+# ## (b) Base R solution:
+# # ?aggregate()
+#
+# aggregate(x = df_con$Freq, list(df_con$Survived, df_con$Sex), FUN = "sum")
+#
+# by1 <- df_con$Sex
+# by2 <- df_con$Survived
+# aggregate(x = df_con$Freq, by = list(by2, by1), FUN = "sum")
+#
+# fby1 <- factor(df_con$Sex)
+# fby2 <- factor(df_con$Survived)
+# aggregate(x = df_con$Freq, by = list(fby2, fby1), FUN = "sum")
 
 # +++ here now +++
 
