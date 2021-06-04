@@ -4,10 +4,11 @@
 
 ## (A) Matrix lens model: ----------
 
-# Distinguish use cases:
-# 1. raw data: data frame with multiple variables (non-binary, 1 criterion) and individual cases
-# 2. contingency data: data frame with multiple variables (...) and 1 freq column (denoting case counts)
-# 3. description: 4-tuple of abcd values with description (dimensions and levels)
+# Frame a 2x2 matrix (as contingency table). Distinguish 3 use cases:
+#  1. from raw data: data frame with multiple variables (non-binary, 1 criterion) and individual cases
+#  2. from contingency data: data frame with multiple variables (...) and 1 numeric column (frequency counts)
+#  3. from description: 4-tuple of frequency values (vector abcd, in by-row direction)
+#     and corresponding layout specification (dimension names and names/order of levels)
 
 ## ad 1.: From raw data:
 
@@ -47,6 +48,7 @@ frame <- function(data, x, y,
   abcd <- NA
 
   # Case 1: From binary raw data: ----
+
   if (is.data.frame(data)){
 
     # message("Cases 1+2: Creating mx from data:")  # 4debugging
@@ -107,7 +109,7 @@ frame <- function(data, x, y,
       vec_y <- factor(vec_y, levels = y_levels, ordered = FALSE)
     }
 
-    # Two cases:
+    # Distinguish two sub-cases:
     if (is.na(freq_var)){ # Case 1: Raw data with rows of cases:
 
       message("Case 1: Creating mx from RAW data")  # 4debugging
@@ -116,23 +118,22 @@ frame <- function(data, x, y,
       mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
 
 
-    } else { # Case 2: From aggregated/contingency data with counts in freq_var:
+    } else { # Case 2: From aggregated/contingency data with frequency counts (freq_var): ----
 
       message("Case 2: Creating df from aggregated data")  # 4debugging
 
       ix_fv  <- which(names(data) == freq_var)
       vec_fv <- data[ , ix_fv]
 
-      # Aggregated df:
+      # Aggregate df:
       agg_df <- aggregate(x = vec_fv, list(vec_y, vec_x), FUN = "sum")
       names(agg_df) <- c(name_y, name_x, "freq")
 
-      print(agg_df)  # 4debugging
+      # print(agg_df)  # 4debugging
 
       # # Turn IVs into factors:
       # agg_df[ , 1] <- as.factor(agg_df[ , 1])
       # agg_df[ , 2] <- as.factor(agg_df[ , 2])
-
 
       # Get levels from agg_df (iff NA):
       if (all(is.na(x_levels))){
@@ -161,9 +162,10 @@ frame <- function(data, x, y,
 
 
   # Case 3: From description: ----
+
   if (is.vector(data, mode = "numeric") && length(data == 4)) {
 
-    message("Case 3: Creating mx from 4 basic values and description")  # 4debugging
+    message("Case 3: Creating mx from 4 frequency counts and layout description")  # 4debugging
 
     # Coerce data to integer:
     data <- as.integer(data)
