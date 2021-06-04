@@ -37,6 +37,87 @@
 
 # Output: Returns a 2x2 matrix (as a contingency table).
 
+## frame Documentation: ------
+
+#' Frame a 2x2 matrix (from data or description).
+#'
+#' \code{frame} creates a 2x2 matrix from data or description.
+#'
+#' \code{frame} allows for 3 basic use cases:
+#'
+#' 1. From raw data with
+#' each row of a data frame \code{data} denoting an individual case, and
+#' its columns containing at least 2 binary variables \code{x} and \code{y}.
+#'
+#' 2. From a contingency table with
+#' each row of a data frame \code{data} denoting a case description,
+#' a numeric variable/column \code{freq_var} denoting each case's frequency count,
+#' and other columns containing at least 2 binary variables \code{x} and \code{y}.
+#'
+#' 3. From a description that provides
+#' a numeric vector \code{data} as 4 basic frequency counts (abcd, read in by-row direction),
+#' and a description of the matrix layout (names of dimensions and names/orders of category levels).
+#'
+#' Use cases 2. and 3. allow conditionalizing \code{data} on a value \code{z_val} of a variable \code{z}.
+#'
+#' @return A 2x2 matrix (as a contingency \code{table} of integer values).
+#'
+#' @param data A data frame (with at least 2 binary variables \code{x} and \code{y},
+#' denoting individual cases or a contingency table with frequency counts)
+#' or a vector with 4 basic frequency counts (abcd, in by-row direction).
+#'
+#' @param x Variable of \code{data} used for x-dimension of 2x2 matrix.
+#' @param y Variable of \code{data} used for y-dimension of 2x2 matrix.
+#'
+#' @param z Variable of \code{data} used for conditionalizing \code{data}.
+#' @param z_val Value of \code{z} used for conditionalizing \code{data}.
+#'
+#' @param freq_var Variable containing the frequency count of each case
+#' when \code{data} provides a contingency table
+#' (i.e., each row provides a case description).
+#'
+#' @param x_name Name of x-dimension in 2x2 matrix.
+#' @param y_name Name of y-dimension in 2x2 matrix.
+#'
+#' @param x_levels Order of category levels on x-dimension
+#' (values must be present in \code{data}).
+#' @param y_levels Order of category levels on y-dimension
+#' (values must be present in \code{data}).
+#'
+#' @examples
+#' # 1. From raw data (denoting individual cases):
+#' s <- riskyr(hi = 1, mi = 2, fa = 3, cr = 4)
+#' d <- write_popu(s)
+#' frame(d, x = "True condition", y = "Outcome")
+#'
+#' # 2. From a contingency table (df) with a variable denoting
+#' #    the frequency counts of each case:
+#' c_tab <- as.data.frame(Titanic)
+#' frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq")
+#' frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
+#'       x_name = "Gender", y_name = "Alive",
+#'       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+#'
+#' # 3. From 4 frequency counts and layout description:
+#' frame(data = 1:4, x = "Condition", y = "Outcome")
+#'
+#' abcd <- c(344, 367, 126, 1364)
+#' frame(data = abcd, x = "sex", y = "survived",
+#'       x_levels = c("female", "male"), y_levels = c(1, 0))
+#' frame(data = abcd, x = "Gender", y = "Alive",
+#'       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+#'
+#' @importFrom stats aggregate
+#'
+#' @family matrix lens model functions
+#'
+#' @seealso
+#' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
+#' \code{\link{read_popu}} creates a scenario (description) from data (as df);
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
+#'
+#' @export
+
 frame <- function(data, x, y,
                   z = NA,  z_val = NA,
                   freq_var = NA,
