@@ -69,12 +69,13 @@ and a description of the matrix layout (names of dimensions and names/orders of 
 Use cases 2. and 3. allow conditionalizing \code{data} on a value \code{z_val} of a variable \code{z}.
 }
 \examples{
-# 1. From raw data (denoting cases):
+# 1. From raw data (denoting individual cases):
 s <- riskyr(hi = 1, mi = 2, fa = 3, cr = 4)
 d <- write_popu(s)
 frame(d, x = "True condition", y = "Outcome")
 
-# 2. From a contingency table (df):
+# 2. From a contingency table (df) with a variable denoting
+#    the frequency counts of each case:
 c_tab <- as.data.frame(Titanic)
 frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq")
 frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
