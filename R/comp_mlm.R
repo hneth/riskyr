@@ -339,33 +339,32 @@ frame <- function(data, x, y,
 
 ## Transformations: ------
 
-# Infos:
-m1_a
-dim(m1_a)
-
-is.matrix(m1_a)
-is.table(m1_a)
-typeof(m1_a)
-
-dimnames(m1_a)
-dimnames(m1_a)[[2]]
-
-# Sums:
-sum(m1_a)
-rowSums(m1_a)
-colSums(m1_a)
-
-summary(m1_a)
-
+# # Infos:
+# m1_a
+# dim(m1_a)
+#
+# is.matrix(m1_a)
+# is.table(m1_a)
+# typeof(m1_a)
+#
+# dimnames(m1_a)
+# dimnames(m1_a)[[2]]
+#
+# # Sums:
+# sum(m1_a)
+# rowSums(m1_a)
+# colSums(m1_a)
+#
+# summary(m1_a)
+#
 # # Get four basic values:
 # (abcd <- c(m1_a[1, 1], m1_a[1, 2], m1_a[2, 1], m1_a[2, 2]))
-
+#
 # # Probabilities and marginal probabilities:
 # prop.table(m1_a, margin = NULL) * 100  # by cells
 # prop.table(m1_a, margin = 1) * 100     # by rows
 # prop.table(m1_a, margin = 2) * 100     # by cols
 # # ToDo: Diagonal (margin = 3)
-
 
 
 ## Focusing: ------
@@ -374,6 +373,7 @@ summary(m1_a)
 # chisq.test(m1_a)
 # chisq.test(m2_a)
 # chisq.test(m3_a)
+
 
 ## Visualizations: ------
 
