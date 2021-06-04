@@ -1,11 +1,16 @@
 
-# riskyr 0.3.0.9008
+# riskyr 0.3.0.9011
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
 Log of changes since last release:
 
 ## Major changes
+
+- Enable matrix lens model functions [2021-06-04]: 
+
+    - `frame()` allows framing a 2x2 matrix (as contingency table). 
+    
 
 - Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
@@ -267,6 +272,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-04-28 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-06-04 by [hn](https://neth.de).) 
 
 <!-- eof -->
