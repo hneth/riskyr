@@ -228,7 +228,7 @@ frame <- function(data, x, y,
         # print(y_levels)  # 4debugging
       }
 
-      # HACK: Pass vector agg$freq (in abcd order) with description (Case 3):
+      # HACK: Pass vector agg$freq (as abcd values, by-row) with description (Case 3):
       acbd <- agg_df$freq          # 2x2 cell values (in by-column direction)
       abcd <- acbd[c(1, 3, 2, 4)]  # 2x2 cell values (in by-row direction)
 
