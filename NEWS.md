@@ -10,7 +10,8 @@ Log of changes since last release:
 - Enable matrix lens model functions [2021-06-04]: 
 
     - `frame()` allows framing a 2x2 matrix (as contingency table). 
-    
+
+<!-- Sampling from prob: -->     
 
 - Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
