@@ -38,29 +38,33 @@
 
 frame <- function(data, x, y,
                   z = NA,  z_val = NA,
+                  freq_var = NA,
                   x_name = NA, y_name = NA,
                   x_levels = NA, y_levels = NA){
 
   # Initialize:
-  mx <- NA
+  mx   <- NA
+  abcd <- NA
 
   # Case 1: From binary raw data: ----
   if (is.data.frame(data)){
 
-    # message("Creating mx from data:")  # 4debugging
+    # message("Cases 1+2: Creating mx from data:")  # 4debugging
 
     # 0. Verify that
     # a. x, y (and z) are variables in data
     # b. variables are binary
 
-    # Conditionalize data on z:
+    # Conditionalize data (on z == z_val):
     if (!is.na(z) & !is.na(z_val)){
 
       ix_z  <- which(names(data) == z)
       vec_z <- data[ , ix_z]
-      tof_z <- (vec_z == z_val)
+      ToF_z <- (vec_z == z_val)
 
-      data <- data[tof_z, ]  # filter cases for which condition z == z_val is TRUE
+      message(paste0("Conditionalizing data on ", z, " == ", z_val))  # 4debugging
+
+      data <- data[ToF_z, ]  # Filter: Only cases/rows for which condition z == z_val.
 
     } # conditionalize end.
 
@@ -81,7 +85,7 @@ frame <- function(data, x, y,
       name_y <- y_name  # provided name
     }
 
-    # As vectors:
+    # Vectors from data:
     vec_x <- data[ , ix_x]
     vec_y <- data[ , ix_y]
 
@@ -90,7 +94,6 @@ frame <- function(data, x, y,
     if (nval_x != 2){
       message(paste0("frame: x is non-binary (", nval_x, " unique values)"))
     }
-
     nval_y <- length(unique(vec_y))
     if (nval_y != 2){
       message(paste0("frame: y is non-binary (", nval_y, " unique values)"))
@@ -100,21 +103,67 @@ frame <- function(data, x, y,
     if (!all(is.na(x_levels))){
       vec_x <- factor(vec_x, levels = x_levels, ordered = FALSE)
     }
-
     if (!all(is.na(y_levels))){
       vec_y <- factor(vec_y, levels = y_levels, ordered = FALSE)
     }
 
-    # Cross-tabulate vectors:
-    mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
+    # Two cases:
+    if (is.na(freq_var)){ # Case 1: Raw data with rows of cases:
 
-  } # Case 1: raw data end.
+      message("Case 1: Creating mx from RAW data")  # 4debugging
+
+      # Cross-tabulate vectors:
+      mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
+
+
+    } else { # Case 2: From aggregated/contingency data with counts in freq_var:
+
+      message("Case 2: Creating df from aggregated data")  # 4debugging
+
+      ix_fv  <- which(names(data) == freq_var)
+      vec_fv <- data[ , ix_fv]
+
+      # Aggregated df:
+      agg_df <- aggregate(x = vec_fv, list(vec_y, vec_x), FUN = "sum")
+      names(agg_df) <- c(name_y, name_x, "freq")
+
+      print(agg_df)  # 4debugging
+
+      # # Turn IVs into factors:
+      # agg_df[ , 1] <- as.factor(agg_df[ , 1])
+      # agg_df[ , 2] <- as.factor(agg_df[ , 2])
+
+
+      # Get levels from agg_df (iff NA):
+      if (all(is.na(x_levels))){
+        x_factor <- as.factor(agg_df[, 2])
+        x_levels <- levels(x_factor)
+        # print(x_levels)  # 4debugging
+      }
+      if (all(is.na(y_levels))){
+        y_factor <- as.factor(agg_df[, 1])
+        y_levels <- levels(y_factor)
+        # print(y_levels)  # 4debugging
+      }
+
+      # HACK: Pass vector agg$freq (in abcd order) with description (Case 3):
+      acbd <- agg_df$freq          # 2x2 cell values (in by-column direction)
+      abcd <- acbd[c(1, 3, 2, 4)]  # 2x2 cell values (in by-row direction)
+
+      # mx <- frame(data = abcd, x = name_x, y = name_y) # basics only
+      mx <- frame(data = abcd, x = name_x, y = name_y,   # basics and
+                  x_name = x_name, x_levels = x_levels,  # change names and level order
+                  y_name = y_name, y_levels = y_levels)
+
+    } # Case 2: From aggregated/contingency data end.
+
+  } # Cases 1+2: From raw/contingency data end.
 
 
   # Case 3: From description: ----
   if (is.vector(data, mode = "numeric") && length(data == 4)) {
 
-    # message("Creating mx from 4 basic values and description:")  # 4debugging
+    message("Case 3: Creating mx from 4 basic values and description")  # 4debugging
 
     # Coerce data to integer:
     data <- as.integer(data)
@@ -145,9 +194,10 @@ frame <- function(data, x, y,
     # Coerce into table:
     mx <- as.table(mx)
 
-  } # Case 3: description end.
+  } # Case 3: From description end.
 
-  # Output:
+
+  # Output: ----
   return(mx)
 
 } # frame().
@@ -155,124 +205,179 @@ frame <- function(data, x, y,
 
 ## Check: ------
 
-# ## Case 1. data = data with binary variables (after filter step)
+# ## Frame a 2x2 matrix: Distinguish three general use cases:
+#
+# ## Case 1: From raw data (rows contain individual cases): ----
+# #  AE: data = data with binary variables (after filter step)
 # df_raw <- FFTrees::titanic  # binary variables with individual cases
+# # df_raw
 #
 # # (a) Basics:
-# m_1 <- frame(data = df_raw, x = "sex", y = "survived")
-# m_1
-# sum(m_1)
+# m1_a <- frame(data = df_raw, x = "sex", y = "survived")
+# m1_a
+# sum(m1_a)
 #
-# dim(m_1)
-# is.matrix(m_1)
-# is.table(m_1)
-# typeof(m_1)
-# dimnames(m_1)
-# summary(m_1)
+# # (b) Adding dimension names, and arrange rows/columns (by order of levels):
+# m1_b <- frame(data = df_raw, x = "sex", y = "survived",
+#               x_name = "Gender", y_name = "Alive",
+#               x_levels = c("female" ,"male"),
+#               y_levels = c(1, 0))
+# m1_b
 #
-# # (b) Arrange rows and columns with factors:
-# m_2 <- frame(data = df_raw, x = "sex", y = "survived",
-#              x_levels = c("male", "female"),
-#              y_levels = c(1, 0))
-# m_2
-# sum(m_2)
-#
-# # (c) Using factors, names, and conditionalize on z:
-# (m_3 <- frame(df_raw, x = "sex", y = "survived",
+# # (c) Conditionalize on z:
+# m1_c <- frame(df_raw, x = "sex", y = "survived",
 #               z = "age", z_val = "child",
-#               x_levels = c("male", "female"), y_levels = c(1, 0),
-#               x_name = "Gender", y_name = "Survival"))
-# sum(m_3)
-# dimnames(m_3)
+#               x_levels = c("female", "male"), y_levels = c(1, 0),
+#               x_name = "Gender", y_name = "Alive")
+# m1_c
+# sum(m1_c)
 #
 # # (d) Note: Non-binary variables:
 # frame(df_raw, x = "class", y = "survived")
 # frame(df_raw, y = "class", x = "survived", x_name = "Survival",
 #       y_levels = c("first", "second", "third"))
-
-
-# ## Case 2: From contingency table (with a Freq variable):
+#
+#
+# ## Case 2: From a data that provides a contingency table: ----
+# # AE: data = a contingency table (with a variable/column containing frequency counts):
 # df_con <- as.data.frame(Titanic)
 # df_con
 #
-# # ToDo:
-# # - Assume binary variables x and y (and z)
-# # - Group by x and y, sum count variable Freq
+# # (a) Basics:
+# (m2_a <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq"))
+# sum(m2_a)
 #
-# ## (a) Tidyverse solution:
-# library(tidyverse)
+# # (b) Add dimension names and re-arrange rows/columns:
+# m2_b <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#               x_name = "Gender", y_name = "Alive",
+#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# m2_b
+# sum(m2_b)
 #
-# df_con %>%
-#   group_by(Sex, Survived) %>%
-#   summarise(n = n(),
-#             freq = sum(Freq))
+# # (c) with conditionalization:
+# m2_c <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#               x_name = "Gender", y_name = "Alive",
+#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"),
+#               z = "Age", z_val = "Child")
+# m2_c
+# sum(m2_c)
 #
-# ## (b) Base R solution:
-# # ?aggregate()
+# ## Snippets (from aggregated/contingency table > summary table > 2x2 table):
 #
-# aggregate(x = df_con$Freq, list(df_con$Survived, df_con$Sex), FUN = "sum")
+# # ## (a) Tidyverse solution:
+# # library(tidyverse)
+# #
+# # df_con %>%
+# #   group_by(Sex, Survived) %>%
+# #   summarise(n = n(),
+# #             freq = sum(Freq))
+# #
+# # ## (b) Base R solution:
+# # # ?aggregate()
+# #
+# #
+# # agg <- aggregate(x = df_con$Freq, list(df_con$Survived, df_con$Sex), FUN = "sum")
+# # names(agg) <- c("dim_y", "dim_x", "freq")
+# # agg
+# #
+# # agg[, 1]
+# # is.factor(agg[, 1])
+# #
+# # frame(agg$freq, x = names(agg$dim_x), y = names(agg$dim_y),
+# #       x_name = "x_name", x_levels = unique(agg$dim_x),
+# #       y_name = "y_name", y_levels = unique(agg$dim_y))
+# #
+# # # Other stuff:
+# # by1 <- df_con$Sex
+# # by2 <- df_con$Survived
+# # aggregate(x = df_con$Freq, by = list(by2, by1), FUN = "sum")
+# #
+# # fby1 <- factor(df_con$Sex)
+# # fby2 <- factor(df_con$Survived)
+# # aggregate(x = df_con$Freq, by = list(fby2, fby1), FUN = "sum")
 #
-# by1 <- df_con$Sex
-# by2 <- df_con$Survived
-# aggregate(x = df_con$Freq, by = list(by2, by1), FUN = "sum")
 #
-# fby1 <- factor(df_con$Sex)
-# fby2 <- factor(df_con$Survived)
-# aggregate(x = df_con$Freq, by = list(fby2, fby1), FUN = "sum")
-
-# +++ here now +++
-
-
-# ## Case 3: data = Vector of 4 basic values:
-# frame(data = c(126, 1364, 344, 367), x = "sex", y = "survived")
+# ## Case 3: From 4 freq values and layout description: ----
+# # AE: data = Vector of 4 basic values (abcd, read in by-row direction):
+# abcd <- c(344, 367, 126, 1364)
 #
-# m_4 <- frame(data = c(126, 1364, 344, 367), x = "sex", y = "survived",
-#              x_levels = c("female", "male"), y_levels = c(0, 1),
-#              x_name = "sex", y_name = "survived"
-# )
-# m_4
+# # Basics:
+# (m3_a <- frame(data = abcd, x = "sex", y = "survived"))
 #
-# sum(m_4)
-# is.matrix(m_4)
-# is.table(m_4)
-# typeof(m_4)
-# dimnames(m_4)
-# summary(m_4)
+# # add level labels:
+# (m3_a <- frame(data = abcd, x = "sex", y = "survived",
+#                x_levels = c("female", "male"), y_levels = c(1, 0)))
 #
-# all.equal(m_1, m_4)
+# # Note: Levels must match abcd structure:
+# m1_a  # original to recreate:
+# m3_a <- frame(data = c(126, 1364, 344, 367),
+#               x = "sex", y = "survived",
+#               x_levels = c("female", "male"), y_levels = c(0, 1))
+# # m3_a
+# all.equal(m3_a, m1_a)
+#
+# # Recreate m1_c from description:
+# m1_c  # original to recreate:
+# m3_c <- frame(data = c(28, 29, 17, 35),
+#               x = "sex", y = "survived",
+#               x_name = "Gender", y_name = "Alive",
+#               x_levels = c("female", "male"), y_levels = c(1, 0))
+# # m3_c
+# all.equal(m1_c, m3_c)
+#
+# # Recreate m2_c from description:
+# m2_c  # original to recreate:
+# m3_d <- frame(data = c(28, 29, 17, 35),
+#               x = "sex", y = "survived",
+#               x_name = "Gender", y_name = "Alive",
+#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# all.equal(m2_c, m3_d)
 
 
 
 ## Transformations: ------
 
-# # Sums etc.:
-# m_1
-# rowSums(m_1)
-# colSums(m_1)
-# sum(m_1)
+# Infos:
+m1_a
+dim(m1_a)
+
+is.matrix(m1_a)
+is.table(m1_a)
+typeof(m1_a)
+
+dimnames(m1_a)
+dimnames(m1_a)[[2]]
+
+# Sums:
+sum(m1_a)
+rowSums(m1_a)
+colSums(m1_a)
+
+summary(m1_a)
 
 # # Get four basic values:
-# (abcd <- c(m_1[1, 1], m_1[1, 2], m_1[2, 1], m_1[2, 2]))
+# (abcd <- c(m1_a[1, 1], m1_a[1, 2], m1_a[2, 1], m1_a[2, 2]))
 
 # # Probabilities and marginal probabilities:
-# prop.table(m_1, margin = NULL) * 100  # by cells
-# prop.table(m_1, margin = 1) * 100     # by rows
-# prop.table(m_1, margin = 2) * 100     # by cols
-# # ToDo: Diagnonal (margin = 3)
+# prop.table(m1_a, margin = NULL) * 100  # by cells
+# prop.table(m1_a, margin = 1) * 100     # by rows
+# prop.table(m1_a, margin = 2) * 100     # by cols
+# # ToDo: Diagonal (margin = 3)
+
 
 
 ## Focusing: ------
 
 ## Test:
-# chisq.test(m_1)
-# chisq.test(m_2)
-# chisq.test(m_3)
+# chisq.test(m1_a)
+# chisq.test(m2_a)
+# chisq.test(m3_a)
 
 ## Visualizations: ------
 
 ## (a) Mosaic plot:
-# mosaicplot(t(m_2), color = c("skyblue1", "grey75"))
-# mosaicplot(t(m_3), color = c("skyblue1", "grey75"))
+# mosaicplot(t(m1_b), color = c("skyblue1", "grey75"))
+# mosaicplot(t(m1_c), color = c("skyblue1", "grey75"))
 
 ## (b) Tile plot:
 # (see ggplot code below)
