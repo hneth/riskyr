@@ -114,7 +114,7 @@
 #' # a. Basics:
 #' frame(data = 1:4, x = "Condition", y = "Outcome")
 #'
-#' # b. Mammography problem:
+#' # b. The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # 4 frequencies (Gigerenzer & Hoffrage, 1995)
 #' frame(data = abcd, x = "Condition", y = "Test",
 #'       x_levels = c("cancer", "no cancer"),
@@ -405,7 +405,7 @@ frame <- function(data, x, y,
 # ## Case 3: From 4 freq values and layout description:
 # # AE: data = Vector of 4 basic values (abcd, read in by-row direction):
 #
-# # 1. Mammography problem:
+# # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # (mp <- frame(data = abcd, x = "Condition", y = "Test",
 #              x_levels = c("cancer", "no cancer"),
@@ -496,7 +496,7 @@ riskyr_mx <- function(mx, ...){
 # riskyr_mx(mx = 1:4)
 # plot(riskyr_mx(frame(1:4, x = "X dim", y = "Y dim")))
 #
-# # 1. Mammography problem:
+# # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # mp <- frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
@@ -508,7 +508,7 @@ riskyr_mx <- function(mx, ...){
 
 ## (+) Transformations: ------
 
-# # 1. Mammography problem:
+# # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # mp <- frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
@@ -615,7 +615,7 @@ diaSums <- function(mx){
 #' @return A numeric 2x2 table.
 #'
 #' @examples
-#' # Mammography problem:
+#' # The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 #' mp <- frame(data = abcd, x = "Condition", y = "Test",
 #'             x_levels = c("cancer", "no cancer"),
@@ -717,7 +717,7 @@ trans <- function(mx,
 } # trans().
 
 ## Check:
-# # Mammography problem:
+# # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # mp <- frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
@@ -745,8 +745,126 @@ trans <- function(mx,
 
 ## (3) Focusing: ------
 
-## 4 frequency values:
-# (abcd <- c(mp[1, 1], mp[1, 2], mp[2, 1], mp[2, 2]))
+focus <- function(mx,
+                  measures = c("acc"),
+                  as_pc = FALSE, n_digits = 3){
+
+  # 0. Initialize: ----
+  out <- rep(NA, length(measures))
+  measures <- tolower(measures)  # for robustness
+
+  if (!is_matrix(mx)){  # verify mx:
+
+    # message("focus: mx is not a valid matrix.")  # 4debugging
+
+    return(NA)
+
+  } else {
+
+    # 1. Get 4 essential frequency values:
+    acbd <- as.vector(mx)  # values in by-col direction
+
+    a <- acbd[1]
+    c <- acbd[2]  # mx[2, 1]
+    b <- acbd[3]  # mx[1, 2]
+    d <- acbd[4]
+
+    N <- sum(acbd)
+
+  } # else end.
+
+
+  # 2. Main: ----
+
+  # (a) Frequencies:
+
+  if ("tp" %in% measures) { # tp/hi/a:
+
+    ix  <- which(measures == "tp")
+    out[ix] <- a
+
+  }
+
+  if ("fp" %in% measures) { # fp/fa/b:
+
+    ix  <- which(measures == "fp")
+    out[ix] <- b
+
+  }
+
+  if ("fn" %in% measures) { # fn/mi/c:
+
+    ix  <- which(measures == "fn")
+    out[ix] <- c
+
+  }
+
+  if ("tn" %in% measures) { # tn/cr/d:
+
+    ix  <- which(measures == "tn")
+    out[ix] <- d
+
+  }
+
+  # (b) Marginal probabilities:
+
+  if ("prev" %in% measures) {
+
+    ix  <- which(measures == "prev")
+    prev <- (a+c)/N
+    out[ix] <- prev
+
+  }
+
+  if ("bias" %in% measures) {
+
+    ix  <- which(measures == "bias")
+    bias <- (a+b)/N
+    out[ix] <- bias
+
+  }
+
+  if ("acc" %in% measures) {
+
+    ix  <- which(measures == "acc")
+    acc <- (a+d)/N
+    out[ix] <- acc
+
+  }
+
+  # +++ here now +++
+
+  # Output: ----
+
+  if (!all(is.na((out)))){
+
+    if (as_pc){  # as percentage:
+      out <- as_pc(out, n_digits = n_digits)
+    } else {  # rounding:
+      out <- round(out, digits = n_digits)
+    }
+
+  }
+
+  # sep <- "="
+  # out <- paste(measures, sep, out)
+
+  names(out) <- measures
+
+  return(out)
+
+} # focus().
+
+## Check:
+# # 1. The mammography problem:
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# mp <- frame(data = abcd, x = "Condition", y = "Test",
+#             x_levels = c("cancer", "no cancer"),
+#             y_levels = c("positive", "negative"))
+#
+# focus(mp, measures = c("tp", "fp", "fn", "tn"))  # 4 frequencies
+# focus(mp, measures = c("prev", "bias", "acc"))   # 3 marginal probabilities
+
 
 ## Test:
 # chisq.test(mp)
