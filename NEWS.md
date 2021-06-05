@@ -7,13 +7,15 @@ Log of changes since last release:
 
 ## Major changes
 
-- Enable matrix lens model functions [2021-06-04]: 
+- Added matrix lens model functions [2021-06-05]: 
 
-    - `frame()` allows framing a 2x2 matrix (as contingency table). 
+    - `frame()` allows creating a 2x2 matrix (as a numeric contingency table); 
+    
+    - `trans()` converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities.  
 
 <!-- Sampling from prob: -->     
 
-- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
+- Enabled _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
     - added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
@@ -22,7 +24,7 @@ Log of changes since last release:
 
 <!-- Conversion data vs. description: --> 
 
-- Allow conversion/translations between data and descriptions [2021-03-26]:
+- Allowed conversion/translations between data and descriptions [2021-03-26]:
 
     - `write_popu()` creates population data from a description (a riskyr scenario); 
     
@@ -31,23 +33,24 @@ Log of changes since last release:
 
 <!-- Minor: --> 
 
-
 ## Minor changes
 
-- none yet. 
+- Added `is_matrix()` to verify a 2x2 matrix (i.e., a numeric contingency table). 
 
-<!-- Minor/details: --> 
+
+<!-- Micro/details: --> 
 
 
 ## Micro changes 
 
-- Update URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
+- Updated URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
 
-- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
+- Increased options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
 
-- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
+- Reduced widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
 
-- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+- Renamed labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+
 
 <!-- Add blank line. --> 
 
@@ -107,15 +110,15 @@ Add utility function to verify a range of two probability values (to check new a
 
 - Using colors of `pal` for fill colors of symbols in `plot_icon()` [2021-02]. 
 
-- Add color palettes [2019-01]:   
+- Added color palettes [2019-01]:   
 
-    - Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+    - Added `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
     
-    - Add `pal_unikn` (based on color definitions of the **unikn** package). 
+    - Added `pal_unikn` (based on color definitions of the **unikn** package). 
 
 - Changes to color palettes [2019-01]:  
-Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
-Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
+Added a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
+Adopted `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
 
 ### Details
 
@@ -124,7 +127,7 @@ Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to hi
 - Bug fix in `plot_prism()`: Allow plotting simple trees for `nchar(by) == 2`.
 
 - Bug fix in `plot_icons()` [2019-01]: 
-Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
+Enforced 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
 
 ---------- 
@@ -273,6 +276,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-06-04 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-06-05 by [hn](https://neth.de).) 
 
 <!-- eof -->
