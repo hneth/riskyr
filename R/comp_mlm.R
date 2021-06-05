@@ -208,9 +208,9 @@ frame <- function(data, x, y,
     }
 
     # Distinguish two sub-cases:
-    if (is.na(freq_var)){ # Case 1: Raw data with rows of cases:
+    if (is.na(freq_var)){ # Case 1: Raw data with rows of individual cases:
 
-      message("Case 1: Creating mx from RAW data")  # 4debugging
+      message("frame (case 1): Creating mx from raw data (individual cases)")  # 4debugging
 
       # Cross-tabulate vectors:
       mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
@@ -218,7 +218,7 @@ frame <- function(data, x, y,
 
     } else { # Case 2: From aggregated/contingency data with frequency counts (freq_var): ----
 
-      message("Case 2: Creating df from aggregated data")  # 4debugging
+      message("frame (case 2): Creating df from aggregated data (contingency table)")  # 4debugging
 
       ix_fv  <- which(names(data) == freq_var)
       vec_fv <- data[ , ix_fv]
@@ -263,7 +263,7 @@ frame <- function(data, x, y,
 
   if (is.vector(data, mode = "numeric") && length(data == 4)) {
 
-    message("Case 3: Creating mx from 4 frequency counts and layout description")  # 4debugging
+    message("frame (case 3): Creating mx from frequency counts (abcd) and layout description")  # 4debugging
 
     # Coerce data to integer:
     data <- as.integer(data)
@@ -401,7 +401,7 @@ frame <- function(data, x, y,
 # # AE: data = Vector of 4 basic values (abcd, read in by-row direction):
 #
 # # 1. Mammography problem:
-# abcd <- c(8, 95, 2, 895)  # Frequencies by Gigerenzer & Hoffrage (1995)
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # (mp <- frame(data = abcd, x = "Condition", y = "Test",
 #              x_levels = c("cancer", "no cancer"),
 #              y_levels = c("positive", "negative")))
@@ -442,41 +442,102 @@ frame <- function(data, x, y,
 # all.equal(m2_c, m3_d)
 
 
+## riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
+
+## ToDo: Integrate riskyr_mx() into riskyr() function.
+
+riskyr_mx <- function(mx, ...){
+
+  # 0. Verify mx: ----
+  if (!is.table(mx)){
+
+    message("riskyr_mx: mx is not a contingency table.")
+
+    return(NA)
+
+  } else {
+
+
+  # 1. Extract info from mx: ----
+  acbd <- as.vector(mx)  # 4 essential frequency counts (by-column: hi, mi, fa, cr)
+
+  dim_list <- dimnames(mx)  # Names/labels: Dimension y before x in table!
+
+  dim_names <- names(dim_list)
+  y_name <- dim_names[1]
+  x_name <- dim_names[2]
+
+  y_levels <- dim_list[[1]]
+  x_levels <- dim_list[[2]]
+
+
+  # 2. Use info to create riskyr scenario: ----
+  riskyr(hi = acbd[1], mi = acbd[2], fa = acbd[3], cr = acbd[4],
+         cond_lbl = x_name, cond_true_lbl = x_levels[1], cond_false_lbl = x_levels[2],
+         dec_lbl = y_name, dec_pos_lbl = y_levels[1], dec_neg_lbl = y_levels[2],
+         ...)
+
+  } # else end.
+
+} # riskyr_mx().
+
+## Check:
+# riskyr_mx(mx = 1:4)
+# plot(riskyr_mx(frame(1:4, x = "X dim", y = "Y dim")))
+#
+# # 1. Mammography problem:
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# mp <- frame(data = abcd, x = "Condition", y = "Test",
+#             x_levels = c("cancer", "no cancer"),
+#             y_levels = c("positive", "negative"))
+#
+# smp <- riskyr_mx(mp)
+# plot(smp, type = "table")
+
 
 ## Transformations: ------
 
-# # Infos:
-# m1_a
-# dim(m1_a)
-#
-# is.matrix(m1_a)
-# is.table(m1_a)
-# typeof(m1_a)
-#
-# dimnames(m1_a)
-# dimnames(m1_a)[[2]]
-#
-# # Sums:
-# sum(m1_a)
-# rowSums(m1_a)
-# colSums(m1_a)
-#
-# summary(m1_a)
-#
-# # Get four basic values:
-# (abcd <- c(m1_a[1, 1], m1_a[1, 2], m1_a[2, 1], m1_a[2, 2]))
-#
+# 1. Mammography problem:
+abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+(mp <- frame(data = abcd, x = "Condition", y = "Test",
+             x_levels = c("cancer", "no cancer"),
+             y_levels = c("positive", "negative")))
+
+
+# Infos:
+mp
+dim(mp)
+
+is.matrix(mp)
+is.table(mp)
+typeof(mp)
+
+dimnames(mp)
+dimnames(mp)[[1]]
+
+# Sums and summary:
+sum(mp)
+rowSums(mp)
+colSums(mp)
+
+summary(mp)
+
 # # Probabilities and marginal probabilities:
-# prop.table(m1_a, margin = NULL) * 100  # by cells
-# prop.table(m1_a, margin = 1) * 100     # by rows
-# prop.table(m1_a, margin = 2) * 100     # by cols
+prop.table(mp, margin = NULL)  # by cells
+prop.table(mp, margin = 1)     # by rows
+prop.table(mp, margin = 2)     # by cols
 # # ToDo: Diagonal (margin = 3)
+
+
 
 
 ## Focusing: ------
 
+## 4 frequency values:
+# (abcd <- c(mp[1, 1], mp[1, 2], mp[2, 1], mp[2, 2]))
+
 ## Test:
-# chisq.test(m1_a)
+# chisq.test(mp)
 # chisq.test(m2_a)
 # chisq.test(m3_a)
 
@@ -484,7 +545,7 @@ frame <- function(data, x, y,
 ## Visualizations: ------
 
 ## (a) Mosaic plot:
-# mosaicplot(t(m1_b), color = c("skyblue1", "grey75"))
+# mosaicplot(t(mp), color = c("indianred2", "grey75"), main = "The mammography problem")
 # mosaicplot(t(m1_c), color = c("skyblue1", "grey75"))
 
 ## (b) Tile plot:
