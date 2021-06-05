@@ -45,6 +45,7 @@ is_freq(0:3)  # => TRUE (for vector)
 Other verification functions: 
 \code{\link{is_complement}()},
 \code{\link{is_extreme_prob_set}()},
+\code{\link{is_matrix}()},
 \code{\link{is_perc}()},
 \code{\link{is_prob}()},
 \code{\link{is_suff_prob_set}()},

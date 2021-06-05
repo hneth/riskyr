@@ -48,8 +48,9 @@ when \code{data} provides a contingency table
 A 2x2 matrix (as a contingency \code{table} of integer values).
 }
 \description{
-\code{frame} creates a 2x2 matrix from data or
-a description of its contents and layout.
+\code{frame} creates a 2x2 matrix
+(i.e., a numeric contingency table of frequency counts)
+from data or a description of its content and layout.
 }
 \details{
 \code{frame} supports 3 use cases:
@@ -110,8 +111,13 @@ frame(data = abcd, x = "Gender", y = "Alive",
 
 }
 \seealso{
+\code{\link{is_matrix}} for verifying a 2x2 matrix;
+\code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probablities);
 \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 \code{\link{read_popu}} creates a scenario (description) from data (as df);
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
+
+Other matrix lens model functions: 
+\code{\link{trans}()}
 }
 \concept{matrix lens model functions}

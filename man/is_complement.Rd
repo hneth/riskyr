@@ -77,6 +77,7 @@ is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 Other verification functions: 
 \code{\link{is_extreme_prob_set}()},
 \code{\link{is_freq}()},
+\code{\link{is_matrix}()},
 \code{\link{is_perc}()},
 \code{\link{is_prob}()},
 \code{\link{is_suff_prob_set}()},
