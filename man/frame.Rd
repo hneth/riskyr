@@ -96,7 +96,7 @@ frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
 # a. Basics:
 frame(data = 1:4, x = "Condition", y = "Outcome")
 
-# b. Mammography problem:
+# b. The mammography problem:
 abcd <- c(8, 95, 2, 895)  # 4 frequencies (Gigerenzer & Hoffrage, 1995)
 frame(data = abcd, x = "Condition", y = "Test",
       x_levels = c("cancer", "no cancer"),

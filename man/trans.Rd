@@ -40,7 +40,7 @@ The tables for \code{margin = 0} to \code{margin = 2}
 are computed by the \strong{base} R function \code{\link{prop.table}}.
 }
 \examples{
-# Mammography problem:
+# The mammography problem:
 abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 mp <- frame(data = abcd, x = "Condition", y = "Test",
             x_levels = c("cancer", "no cancer"),
