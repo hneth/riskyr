@@ -37,7 +37,8 @@
 
 # Output: Returns a 2x2 matrix (as a contingency table).
 
-## frame Documentation: ------
+
+## frame: Frame a 2x2 matrix (from data or description): ------
 
 #' Frame a 2x2 matrix (from data or description).
 #'
@@ -303,7 +304,7 @@ frame <- function(data, x, y,
 } # frame().
 
 
-## Check: ------
+## Check: ----
 
 # ## Frame a 2x2 matrix: Distinguish three general use cases:
 #
@@ -448,8 +449,10 @@ frame <- function(data, x, y,
 
 riskyr_mx <- function(mx, ...){
 
-  # 0. Verify mx: ----
-  if (!is.table(mx)){
+  # 0. Initialize: ----
+  out <- NA
+
+  if (!is.table(mx)){  # verify mx:
 
     message("riskyr_mx: mx is not a contingency table.")
 
@@ -458,26 +461,28 @@ riskyr_mx <- function(mx, ...){
   } else {
 
 
-  # 1. Extract info from mx: ----
-  acbd <- as.vector(mx)  # 4 essential frequency counts (by-column: hi, mi, fa, cr)
+    # 1. Extract info from mx: ----
+    acbd <- as.vector(mx)  # 4 essential frequency counts (by-column: hi, mi, fa, cr)
 
-  dim_list <- dimnames(mx)  # Names/labels: Dimension y before x in table!
+    dim_list <- dimnames(mx)  # Names/labels: Dimension y before x in table!
 
-  dim_names <- names(dim_list)
-  y_name <- dim_names[1]
-  x_name <- dim_names[2]
+    dim_names <- names(dim_list)
+    y_name <- dim_names[1]
+    x_name <- dim_names[2]
 
-  y_levels <- dim_list[[1]]
-  x_levels <- dim_list[[2]]
+    y_levels <- dim_list[[1]]
+    x_levels <- dim_list[[2]]
 
 
-  # 2. Use info to create riskyr scenario: ----
-  riskyr(hi = acbd[1], mi = acbd[2], fa = acbd[3], cr = acbd[4],
-         cond_lbl = x_name, cond_true_lbl = x_levels[1], cond_false_lbl = x_levels[2],
-         dec_lbl = y_name, dec_pos_lbl = y_levels[1], dec_neg_lbl = y_levels[2],
-         ...)
+    # 2. Use info to create riskyr scenario: ----
+    out <- riskyr(hi = acbd[1], mi = acbd[2], fa = acbd[3], cr = acbd[4],
+                  cond_lbl = x_name, cond_true_lbl = x_levels[1], cond_false_lbl = x_levels[2],
+                  dec_lbl = y_name, dec_pos_lbl = y_levels[1], dec_neg_lbl = y_levels[2],
+                  ...)
 
   } # else end.
+
+  return(out)
 
 } # riskyr_mx().
 
@@ -499,9 +504,9 @@ riskyr_mx <- function(mx, ...){
 
 # 1. Mammography problem:
 abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-(mp <- frame(data = abcd, x = "Condition", y = "Test",
-             x_levels = c("cancer", "no cancer"),
-             y_levels = c("positive", "negative")))
+mp <- frame(data = abcd, x = "Condition", y = "Test",
+            x_levels = c("cancer", "no cancer"),
+            y_levels = c("positive", "negative"))
 
 
 # Infos:
@@ -529,7 +534,78 @@ prop.table(mp, margin = 2)     # by cols
 # # ToDo: Diagonal (margin = 3)
 
 
+## trans: Transform a 2x2 matrix (into a table of probabilities or conditional probabilities): ------
 
+trans <- function(mx,
+                  margin = NULL, as_pc = TRUE, n_digits = 3){
+
+  # 0. Initialize: ----
+  out <- NA
+  if (is.null(margin)) { margin <- 0 }
+
+
+  if (!is.table(mx)){  # verify mx:
+
+    message("riskyr_mx: mx is not a contingency table.")
+
+    return(NA)
+
+  } else { # transform mx:
+
+    # Distinguish cases by margin value:
+    if (margin == 0){ # cell proportions/probabilities:
+
+      out <- prop.table(mx, margin = NULL)
+
+    } else if (margin == 1){ # conditionalize by-row:
+
+      out <- prop.table(mx, margin = 1)
+
+    } else if (margin == 2){ # conditionalize by-col:
+
+      out <- prop.table(mx, margin = 2)
+
+    } else if (margin == 3){ # conditionalize by-diagonal:
+
+      out <- "ToDo: Conditionalize by diagonals"
+
+    } else {
+
+      message("trans: Unknown margin value.")
+
+    } # if (margin) end.
+
+  } # else end.
+
+
+  # Output: ----
+
+  if (is.table(out)){
+
+    if (as_pc){  # format:
+      out <- as_pc(out, n_digits = n_digits)
+    } else {
+      out <- round(out, digits = n_digits)
+    }
+
+  }
+
+  return(out)
+
+} # trans().
+
+## Check:
+# 1. Mammography problem:
+abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+mp <- frame(data = abcd, x = "Condition", y = "Test",
+            x_levels = c("cancer", "no cancer"),
+            y_levels = c("positive", "negative"))
+
+trans(mp)
+trans(mp, margin = 0)  # by-cell: probabilities
+trans(mp, margin = 1)  # by-row
+trans(mp, margin = 2)  # by-col
+# trans(mp, margin = 3)  # by-diagonal
 
 ## Focusing: ------
 
