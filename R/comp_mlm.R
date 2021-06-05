@@ -132,7 +132,7 @@
 #'
 #' @seealso
 #' \code{\link{is_matrix}} for verifying a 2x2 matrix;
-#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probablities);
+#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
 #' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 #' \code{\link{read_popu}} creates a scenario (description) from data (as df);
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
@@ -603,7 +603,7 @@ diaSums <- function(mx){
 #' @param mx A 2x2 matrix (as numeric contingency table, required).
 #'
 #' @param margin Margin to conditionalize table values (numeric, from 0 to 3).
-#' Default: \code{margin = 0}.
+#' Default: \code{margin = 0} (i.e., unconditional probabilities).
 #'
 #' @param as_pc Boolean: Convert probabilities into percentages?
 #' Default: \code{as_pc = FALSE}.

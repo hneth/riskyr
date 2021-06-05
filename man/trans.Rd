@@ -10,7 +10,7 @@ trans(mx, margin = 0, as_pc = FALSE, n_digits = 3)
 \item{mx}{A 2x2 matrix (as numeric contingency table, required).}
 
 \item{margin}{Margin to conditionalize table values (numeric, from 0 to 3).
-Default: \code{margin = 0}.}
+Default: \code{margin = 0} (i.e., unconditional probabilities).}
 
 \item{as_pc}{Boolean: Convert probabilities into percentages?
 Default: \code{as_pc = FALSE}.}

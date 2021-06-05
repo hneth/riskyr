@@ -112,7 +112,7 @@ frame(data = abcd, x = "Gender", y = "Alive",
 }
 \seealso{
 \code{\link{is_matrix}} for verifying a 2x2 matrix;
-\code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probablities);
+\code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
 \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 \code{\link{read_popu}} creates a scenario (description) from data (as df);
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
