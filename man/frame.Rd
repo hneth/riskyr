@@ -50,7 +50,7 @@ A 2x2 matrix (as a contingency \code{table} of integer values).
 \description{
 \code{frame} creates a 2x2 matrix
 (i.e., a numeric contingency table of frequency counts)
-from data or a description of its content and layout.
+from data or a description of its contents and layout.
 }
 \details{
 \code{frame} supports 3 use cases:
