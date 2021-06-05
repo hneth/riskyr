@@ -2,6 +2,7 @@
 ## 2021 06 05
 ## -------------------------------------------
 
+
 ## (A) Matrix lens model: ----------
 
 # Frame a 2x2 matrix (as contingency table). Distinguish 3 use cases:
@@ -13,7 +14,7 @@
 ## ad 1.: From raw data:
 
 
-## Filtering: ------
+## (1) Filtering: ------
 
 # Tasks:
 # - binarize a variable with given cut-off value
@@ -21,7 +22,7 @@
 # - binarize an entire dataset
 
 
-## Framing: ------
+## (2) Framing: ------
 
 # (a) Given raw data of cases: Assume that data contains individual cases
 #     (i.e., not a contingency table with a column of frequency counts)
@@ -38,7 +39,7 @@
 # Output: Returns a 2x2 matrix (as a contingency table).
 
 
-## frame: Frame a 2x2 matrix (from data or description): ------
+# frame: Frame a 2x2 matrix (from data or description): ------
 
 #' Frame a 2x2 matrix (from data or description).
 #'
@@ -307,11 +308,11 @@ frame <- function(data, x, y,
 } # frame().
 
 
-## Check: ----
+## Check:
 
 # ## Frame a 2x2 matrix: Distinguish three general use cases:
 #
-# ## Case 1: From raw data (rows contain individual cases): ----
+# ## Case 1: From raw data (rows contain individual cases):
 # #  AE: data = data with binary variables (after filter step)
 # df_raw <- FFTrees::titanic  # binary variables with individual cases
 # # df_raw
@@ -342,7 +343,7 @@ frame <- function(data, x, y,
 #       y_levels = c("first", "second", "third"))
 #
 #
-# ## Case 2: From a data that provides a contingency table: ----
+# ## Case 2: From a data that provides a contingency table:
 # # AE: data = a contingency table (with a variable/column containing frequency counts):
 # df_con <- as.data.frame(Titanic)
 # df_con
@@ -401,7 +402,7 @@ frame <- function(data, x, y,
 # # aggregate(x = df_con$Freq, by = list(fby2, fby1), FUN = "sum")
 #
 #
-# ## Case 3: From 4 freq values and layout description: ----
+# ## Case 3: From 4 freq values and layout description:
 # # AE: data = Vector of 4 basic values (abcd, read in by-row direction):
 #
 # # 1. Mammography problem:
@@ -447,7 +448,7 @@ frame <- function(data, x, y,
 
 
 
-## riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
+# riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
 
 # ToDo: Integrate riskyr_mx() into riskyr() function.
 # (Currently NOT used or exported.)
@@ -505,7 +506,7 @@ riskyr_mx <- function(mx, ...){
 # plot(smp, type = "table")
 
 
-## Transformations: ------
+## (+) Transformations: ------
 
 # # 1. Mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
@@ -538,7 +539,7 @@ riskyr_mx <- function(mx, ...){
 # # # ToDo: Diagonal (margin = 3)
 
 
-## diaSums: Diagonal sums of a 2x2 matrix: ------
+# diaSums: Diagonal sums of a 2x2 matrix: ------
 
 # (Currently NOT used or exported.)
 
@@ -580,7 +581,7 @@ diaSums <- function(mx){
 # diaSums(frame(c(1, 3, 5, 9), x = "X", y = "Y"))
 
 
-## trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
+# trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
 
 #' Transform a 2x2 matrix (into a table of probabilities/conditional probabilities).
 #'
@@ -742,7 +743,7 @@ trans <- function(mx,
 
 
 
-## Focusing: ------
+## (3) Focusing: ------
 
 ## 4 frequency values:
 # (abcd <- c(mp[1, 1], mp[1, 2], mp[2, 1], mp[2, 2]))
@@ -753,7 +754,7 @@ trans <- function(mx,
 # chisq.test(m3_a)
 
 
-## Visualizations: ------
+## (4) Presenting/Visualizing: ------
 
 ## (a) Mosaic plot:
 # mosaicplot(t(mp), color = c("indianred2", "grey75"), main = "The mammography problem")
@@ -761,6 +762,8 @@ trans <- function(mx,
 
 ## (b) Tile plot:
 # (see ggplot code below)
+
+
 
 
 ## (B) comp_metrix: Compute key metrics from 4 basic frequencies: ----------
@@ -1313,7 +1316,7 @@ get_ARR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
 ## - Implement matrix lens model in 3 steps:
 ##   1. filtering: binarize variables, based on criterion variable and metric to maximize
-##   2. framing: 2 dimensions, map category levels
+##   2. framing: Select 2 dimensions, map category levels
 ##   3. focusing: provide a metric specified
 
 ## eof. ------------------------------------------
