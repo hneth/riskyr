@@ -1228,7 +1228,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 
 ## is_matrix: Verify that mx is a numeric 2x2 contingency table: ------
 
-#' Verify a 2x2 matrix as a numeric contingency table
+#' Verify a 2x2 matrix as a numeric contingency table.
 #'
 #' \code{is_matrix} verifies that \code{mx} is a
 #' valid 2x2 matrix (i.e., a numeric contingency table).
@@ -1254,7 +1254,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' @family verification functions
 #'
 #' @seealso
-#' \code{\link{frame}} allows creating a 2x2 matrix.
+#' \code{\link{frame}} for creating a 2x2 matrix.
 #'
 #' @export
 
