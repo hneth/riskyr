@@ -48,29 +48,38 @@ when \code{data} provides a contingency table
 A 2x2 matrix (as a contingency \code{table} of integer values).
 }
 \description{
-\code{frame} creates a 2x2 matrix from data or description.
+\code{frame} creates a 2x2 matrix from data or
+a description of its contents and layout.
 }
 \details{
-\code{frame} allows for 3 basic use cases:
+\code{frame} supports 3 use cases:
 
-1. From raw data with
-each row of a data frame \code{data} denoting an individual case, and
-its columns containing at least 2 binary variables \code{x} and \code{y}.
+\enumerate{
 
-2. From a contingency table with
-each row of a data frame \code{data} denoting a case description,
-a numeric variable/column \code{freq_var} denoting each case's frequency count,
-and other columns containing at least 2 binary variables \code{x} and \code{y}.
+\item From raw data (as data frame):
+Each row of \code{data} denotes an individual case,
+and the columns contain at least 2 binary variables \code{x} and \code{y}.
 
-3. From a description that provides
-a numeric vector \code{data} as 4 basic frequency counts (abcd, read in by-row direction),
-and a description of the matrix layout (names of dimensions and names/orders of category levels).
+\item From a contingency table (as data frame):
+Each row of \code{data} denotes a case description,
+a numeric variable \code{freq_var} denotes the frequency count per case,
+and other columns contain at least 2 binary variables \code{x} and \code{y}.
 
-Use cases 2. and 3. allow conditionalizing \code{data} on a value \code{z_val} of a variable \code{z}.
+\item From a description:
+A numeric vector \code{data} provides 4 basic frequency counts
+(i.e., abcd, read in by-row direction),
+and a specification of the matrix layout
+(i.e., names of dimensions \code{x} and \code{y},
+and the names/orders of category levels).
+
+}
+
+Use cases 1. and 2. allow conditionalizing \code{data}
+on a value \code{z_val} of a variable \code{z}.
 }
 \examples{
 # 1. From raw data (denoting individual cases):
-s <- riskyr(hi = 1, mi = 2, fa = 3, cr = 4)
+s <- riskyr(hi = 8, mi = 2, fa = 95, cr = 895)
 d <- write_popu(s)
 frame(d, x = "True condition", y = "Outcome")
 
@@ -82,9 +91,17 @@ frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
       x_name = "Gender", y_name = "Alive",
       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 
-# 3. From 4 frequency counts and layout description:
+# 3. From a description of 4 frequency counts and matrix layout:
+# a. Basics:
 frame(data = 1:4, x = "Condition", y = "Outcome")
 
+# b. Mammography problem:
+abcd <- c(8, 95, 2, 895)  # 4 frequencies (Gigerenzer & Hoffrage, 1995)
+frame(data = abcd, x = "Condition", y = "Test",
+      x_levels = c("cancer", "no cancer"),
+      y_levels = c("positive", "negative"))
+
+# c. Titanic passengers:
 abcd <- c(344, 367, 126, 1364)
 frame(data = abcd, x = "sex", y = "survived",
       x_levels = c("female", "male"), y_levels = c(1, 0))
