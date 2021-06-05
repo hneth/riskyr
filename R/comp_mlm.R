@@ -42,8 +42,9 @@
 
 #' Frame a 2x2 matrix (from data or description).
 #'
-#' \code{frame} creates a 2x2 matrix from data or
-#' a description of its contents and layout.
+#' \code{frame} creates a 2x2 matrix
+#' (i.e., a numeric contingency table of frequency counts)
+#' from data or a description of its content and layout.
 #'
 #' \code{frame} supports 3 use cases:
 #'
@@ -130,6 +131,8 @@
 #' @family matrix lens model functions
 #'
 #' @seealso
+#' \code{\link{is_matrix}} for verifying a 2x2 matrix;
+#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probablities);
 #' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 #' \code{\link{read_popu}} creates a scenario (description) from data (as df);
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
@@ -443,18 +446,20 @@ frame <- function(data, x, y,
 # all.equal(m2_c, m3_d)
 
 
+
 ## riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
 
-## ToDo: Integrate riskyr_mx() into riskyr() function.
+# ToDo: Integrate riskyr_mx() into riskyr() function.
+# (Currently NOT used or exported.)
 
 riskyr_mx <- function(mx, ...){
 
   # 0. Initialize: ----
   out <- NA
 
-  if (!is.table(mx)){  # verify mx:
+  if (!is_matrix(mx)){  # verify mx:
 
-    message("riskyr_mx: mx is not a contingency table.")
+    # message("riskyr_mx: mx is not a valid matrix.")  # 4debugging
 
     return(NA)
 
@@ -502,51 +507,150 @@ riskyr_mx <- function(mx, ...){
 
 ## Transformations: ------
 
-# 1. Mammography problem:
-abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-mp <- frame(data = abcd, x = "Condition", y = "Test",
-            x_levels = c("cancer", "no cancer"),
-            y_levels = c("positive", "negative"))
+# # 1. Mammography problem:
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# mp <- frame(data = abcd, x = "Condition", y = "Test",
+#             x_levels = c("cancer", "no cancer"),
+#             y_levels = c("positive", "negative"))
+#
+# # Infos:
+# mp
+# dim(mp)
+#
+# is.matrix(mp)
+# is.table(mp)
+# typeof(mp)
+#
+# dimnames(mp)
+# dimnames(mp)[[1]]
+#
+# # Sums and summary:
+# sum(mp)
+# rowSums(mp)
+# colSums(mp)
+#
+# summary(mp)
+#
+# # # Probabilities and marginal probabilities:
+# prop.table(mp, margin = NULL)  # by cells
+# prop.table(mp, margin = 1)     # by rows
+# prop.table(mp, margin = 2)     # by cols
+# # # ToDo: Diagonal (margin = 3)
 
 
-# Infos:
-mp
-dim(mp)
+## diaSums: Diagonal sums of a 2x2 matrix: ------
 
-is.matrix(mp)
-is.table(mp)
-typeof(mp)
+# (Currently NOT used or exported.)
 
-dimnames(mp)
-dimnames(mp)[[1]]
+diaSums <- function(mx){
 
-# Sums and summary:
-sum(mp)
-rowSums(mp)
-colSums(mp)
+  out <- NA
 
-summary(mp)
+  if (!is_matrix(mx)){  # verify mx:
 
-# # Probabilities and marginal probabilities:
-prop.table(mp, margin = NULL)  # by cells
-prop.table(mp, margin = 1)     # by rows
-prop.table(mp, margin = 2)     # by cols
-# # ToDo: Diagonal (margin = 3)
+    # message("diaSums: mx is not a valid matrix.")  # 4debugging
+
+    return(NA)
+
+  } else { # transform mx:
+
+    # 4 essential frequency values:
+    acbd <- as.vector(mx)  # values in by-col direction
+
+    a <- acbd[1]
+    c <- acbd[2]  # mx[2, 1]
+    b <- acbd[3]  # mx[1, 2]
+    d <- acbd[4]
+
+    sum_ad <- (a + d)
+    sum_bc <- (b + c)
+
+  } # else end.
+
+  # Output:
+  out <- c(sum_ad, sum_bc)
+  names(out) <- c("a+d", "b+c")
+
+  return(out)
+
+} # diaSums().
+
+## Check:
+# diaSums(1:4)
+# diaSums(frame(c(1, 3, 5, 9), x = "X", y = "Y"))
 
 
-## trans: Transform a 2x2 matrix (into a table of probabilities or conditional probabilities): ------
+## trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
+
+#' Transform a 2x2 matrix (into a table of probabilities/conditional probabilities).
+#'
+#' \code{trans} converts a 2x2 matrix \code{mx}
+#' (i.e., a numeric contingency table of frequency counts)
+#' into a table of probabilities or marginal probabilities.
+#'
+#' By default, \code{trans} converts a 2x2 matrix of frequency counts
+#' into the corresponding probability values (\code{margin = 0}).
+#'
+#' Setting \code{margin} to 1 to 3 computes
+#' conditional probabilities in a
+#' by row (\code{margin = 1}),
+#' by column (\code{margin = 2}), or
+#' by diagonal (\code{margin = 3}) fashion.
+#'
+#' The tables for \code{margin = 0} to \code{margin = 2}
+#' are computed by the \strong{base} R function \code{\link{prop.table}}.
+#'
+#' @param mx A 2x2 matrix (as numeric contingency table, required).
+#'
+#' @param margin Margin to conditionalize table values (numeric, from 0 to 3).
+#' Default: \code{margin = 0}.
+#'
+#' @param as_pc Boolean: Convert probabilities into percentages?
+#' Default: \code{as_pc = FALSE}.
+#'
+#' @param n_digits Number of decimal places to which result is rounded.
+#' Default: \code{n_digits = 3}.
+#'
+#' @return A numeric 2x2 table.
+#'
+#' @examples
+#' # Mammography problem:
+#' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+#' mp <- frame(data = abcd, x = "Condition", y = "Test",
+#'             x_levels = c("cancer", "no cancer"),
+#'             y_levels = c("positive", "negative"))
+#'
+#' trans(mp)
+#' trans(mp, margin = 0)  # by-cell: probabilities
+#' trans(mp, margin = 1)  # by-row: conditional prob
+#' trans(mp, margin = 2)  # by-col
+#' trans(mp, margin = 3)  # by-diagonals
+#'
+#' trans(mp, as_pc = TRUE, n_digits = 2)  # as percentages
+#'
+#' # The following must sum to 1:
+#' sum(trans(mp, margin = 0))      # 4 cell values
+#' rowSums(trans(mp, margin = 1))  # 2 row sums
+#' colSums(trans(mp, margin = 2))  # 2 col sums
+#'
+#' @family matrix lens model functions
+#'
+#' @seealso
+#' \code{\link{frame}} for creating a 2x2 matrix;
+#' \code{\link{is_matrix}} for verifying a 2x2 matrix.
+#'
+#' @export
 
 trans <- function(mx,
-                  margin = NULL, as_pc = TRUE, n_digits = 3){
+                  margin = 0, as_pc = FALSE, n_digits = 3){
 
   # 0. Initialize: ----
   out <- NA
-  if (is.null(margin)) { margin <- 0 }
+  if (is.null(margin)) { margin <- 0 }  # use default
 
+  if (!is_matrix(mx)){  # verify mx:
 
-  if (!is.table(mx)){  # verify mx:
-
-    message("riskyr_mx: mx is not a contingency table.")
+    # message("trans: mx is not a valid matrix.")  # 4debugging
 
     return(NA)
 
@@ -567,7 +671,24 @@ trans <- function(mx,
 
     } else if (margin == 3){ # conditionalize by-diagonal:
 
-      out <- "ToDo: Conditionalize by diagonals"
+      # 4 essential frequency values:
+      acbd <- as.vector(mx)  # values in by-col direction
+
+      a <- acbd[1]
+      c <- acbd[2]  # mx[2, 1]
+      b <- acbd[3]  # mx[1, 2]
+      d <- acbd[4]
+
+      sum_ad <- (a + d)
+      sum_bc <- (b + c)
+
+      out <- mx  # re-initialize out
+
+      # Change cell values:
+      out[1, 1] <- a/sum_ad
+      out[1, 2] <- b/sum_bc
+      out[2, 1] <- c/sum_bc
+      out[2, 2] <- d/sum_ad
 
     } else {
 
@@ -580,11 +701,11 @@ trans <- function(mx,
 
   # Output: ----
 
-  if (is.table(out)){
+  if (is.table(out)){  # more relaxed than is_matrix():
 
-    if (as_pc){  # format:
+    if (as_pc){  # as percentage:
       out <- as_pc(out, n_digits = n_digits)
-    } else {
+    } else {  # rounding:
       out <- round(out, digits = n_digits)
     }
 
@@ -595,17 +716,31 @@ trans <- function(mx,
 } # trans().
 
 ## Check:
-# 1. Mammography problem:
-abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-mp <- frame(data = abcd, x = "Condition", y = "Test",
-            x_levels = c("cancer", "no cancer"),
-            y_levels = c("positive", "negative"))
-
-trans(mp)
-trans(mp, margin = 0)  # by-cell: probabilities
-trans(mp, margin = 1)  # by-row
-trans(mp, margin = 2)  # by-col
+# # Mammography problem:
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# mp <- frame(data = abcd, x = "Condition", y = "Test",
+#             x_levels = c("cancer", "no cancer"),
+#             y_levels = c("positive", "negative"))
+#
+# mp
+# trans(mp)
+# trans(mp, margin = 0)  # by-cell: probabilities
+# trans(mp, margin = 1)  # by-row
+# trans(mp, margin = 2)  # by-col
 # trans(mp, margin = 3)  # by-diagonal
+#
+# # Note:
+# trans(mp, as_pc = TRUE, n_digits = 2)  # percentages
+# trans(NA)
+# trans(1:4)
+#
+# # The following must sum to 1:
+# sum(trans(mp, margin = 0))      # 4 cell values
+# rowSums(trans(mp, margin = 1))  # 2 row sums
+# colSums(trans(mp, margin = 2))  # 2 col sums
+# diaSums(trans(mp, margin = 3))  # 2 diagonal sums
+
+
 
 ## Focusing: ------
 
