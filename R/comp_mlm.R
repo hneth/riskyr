@@ -446,6 +446,24 @@ frame <- function(data, x, y,
 #               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 # all.equal(m2_c, m3_d)
 
+# # ReDo Figure 3: Frame 3 matrices of Titanic passengers (from data):
+# # <https://www.frontiersin.org/files/Articles/567817/fpsyg-11-567817-HTML-r4/image_m/fpsyg-11-567817-g003.jpg>
+#
+# df_con <- as.data.frame(Titanic)  # data as contingency table
+# head(df_con)
+# # A: x = Age, y = Sex:
+# fig_3a <- frame(df_con, x = "Age", y = "Sex", freq_var = "Freq",
+#                 x_levels = c("Adult", "Child"), y_levels = c("Female", "Male"))
+# # B: x = Age, y = Survival:
+# fig_3b <- frame(df_con, x = "Age", y = "Survived", freq_var = "Freq",
+#                 x_levels = c("Adult", "Child"), y_levels = c("Yes", "No"))
+# # C: x = Sex, y = Survival:
+# fig_3c <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#                 x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# # Show:
+# fig_3a
+# fig_3b
+# fig_3c
 
 
 # riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
@@ -741,6 +759,27 @@ trans <- function(mx,
 # colSums(trans(mp, margin = 2))  # 2 col sums
 # diaSums(trans(mp, margin = 3))  # 2 diagonal sums
 
+# # ReDo Figure 4: Define a 2x2 matrix (from description) and 4 typical transformations:
+# # <https://www.frontiersin.org/files/Articles/567817/fpsyg-11-567817-HTML-r4/image_m/fpsyg-11-567817-g004.jpg>
+#
+# # Frame matrix (from description):
+# fig_4_1 <- frame(data = c(8, 95, 2, 895),  # 4 frequencies
+#                  x = "True condition", y = "Test outcome",
+#                  x_levels = c("C+", "C-"),
+#                  y_levels = c("T+", "T-"))
+# # Transformations:
+# fig_4_2  <- trans(fig_4_1, margin = 0)  # as probabilities
+# fig_4_3a <- trans(fig_4_1, margin = 1)  # conditionalize (by row)
+# fig_4_3b <- trans(fig_4_1, margin = 2)  # conditionalize (by col)
+# fig_4_3c <- trans(fig_4_1, margin = 3)  # conditionalize (by diagonal)
+#
+# # Show:
+# fig_4_1
+# fig_4_2
+# fig_4_3a
+# fig_4_3b
+# fig_4_3c
+
 
 
 ## (3) Focusing: ------
@@ -776,7 +815,7 @@ focus <- function(mx,
 
   # 2. Main: ----
 
-  # (a) Frequencies:
+  # (a) Frequencies: ----
 
   if ("tp" %in% measures) { # tp/hi/a:
 
@@ -806,7 +845,7 @@ focus <- function(mx,
 
   }
 
-  # (b) Marginal probabilities:
+  # (b) Marginal probabilities: ----
 
   if ("prev" %in% measures) {
 
@@ -832,7 +871,84 @@ focus <- function(mx,
 
   }
 
+  # (c) Conditional probabilities: ----
+
+  # on X (by-col):
+
+  if ("sens" %in% measures) { # sens/TPR/hit rate/recall/1-beta/power/AR+/EER:
+
+    ix  <- which(measures == "sens")
+    sens <- a/(a+c)
+    out[ix] <- sens
+
+  }
+
+  if ("fpr" %in% measures) { # FPR/FAR/fart/fallout/alpha/AR-/CER:
+
+    ix  <- which(measures == "fpr")
+    fpr <- b/(b+d)
+    out[ix] <- fpr
+
+  }
+
+  if ("fnr" %in% measures) { # FNR/miss rate/beta:
+
+    ix  <- which(measures == "fnr")
+    fnr <- c/(a+c)
+    out[ix] <- fnr
+
+  }
+
+  if ("spec" %in% measures) { # spec/TNR/inverse recall/1-alpha:
+
+    ix  <- which(measures == "spec")
+    spec <- d/(b+d)
+    out[ix] <- spec
+
+  }
+
+  # on Y (by-row):
+
+  if ("ppv" %in% measures) { # PPV/precision/confidence/PPP:
+
+    ix  <- which(measures == "ppv")
+    ppv <- a/(a+b)
+    out[ix] <- ppv
+
+  }
+
+  if ("fdr" %in% measures) { # FDR:
+
+    ix  <- which(measures == "fdr")
+    fdr <- b/(a+b)
+    out[ix] <- fdr
+
+  }
+
+  if ("for" %in% measures) { # FOR:
+
+    ix  <- which(measures == "for")
+    FOR <- c/(c+d)
+    out[ix] <- FOR
+
+  }
+
+  if ("npv" %in% measures) { # NPV/inverse precision/spec_y:
+
+    ix  <- which(measures == "npv")
+    npv <- d/(c+d)
+    out[ix] <- npv
+
+  }
+
   # +++ here now +++
+
+  # Triangular scores:
+  # Mixed scores:
+  # Difference-based scores:
+  # Odds/simple odds:
+  # Odds ratios:
+
 
   # Output: ----
 
@@ -856,14 +972,28 @@ focus <- function(mx,
 } # focus().
 
 ## Check:
-# # 1. The mammography problem:
-# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# mp <- frame(data = abcd, x = "Condition", y = "Test",
-#             x_levels = c("cancer", "no cancer"),
-#             y_levels = c("positive", "negative"))
-#
-# focus(mp, measures = c("tp", "fp", "fn", "tn"))  # 4 frequencies
-# focus(mp, measures = c("prev", "bias", "acc"))   # 3 marginal probabilities
+# 1. The mammography problem:
+abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# abcd <- c(0, 0, 0, 0)  # test
+mp <- frame(data = abcd, x = "Condition", y = "Test",
+            x_levels = c("cancer", "no cancer"),
+            y_levels = c("positive", "negative"))
+
+# 4 frequencies:
+focus(mp, measures = c("tp", "fp", "fn", "tn"))
+
+# 3 marginal probabilities:
+focus(mp, measures = c("prev", "bias", "acc"))
+
+# 8 conditional probabilities:
+focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
+trans(mp, margin = 2)
+focus(mp, measures = c("ppv", "fdr", "for", "npv"))    # Y/by-row
+trans(mp, margin = 1)
+
+# Typical uses:
+focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+
 
 
 ## Test:
