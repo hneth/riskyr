@@ -972,27 +972,27 @@ focus <- function(mx,
 } # focus().
 
 ## Check:
-# 1. The mammography problem:
-abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# abcd <- c(0, 0, 0, 0)  # test
-mp <- frame(data = abcd, x = "Condition", y = "Test",
-            x_levels = c("cancer", "no cancer"),
-            y_levels = c("positive", "negative"))
-
-# 4 frequencies:
-focus(mp, measures = c("tp", "fp", "fn", "tn"))
-
-# 3 marginal probabilities:
-focus(mp, measures = c("prev", "bias", "acc"))
-
-# 8 conditional probabilities:
-focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
-trans(mp, margin = 2)
-focus(mp, measures = c("ppv", "fdr", "for", "npv"))    # Y/by-row
-trans(mp, margin = 1)
-
-# Typical uses:
-focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+# # 1. The mammography problem:
+# abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+# # abcd <- c(0, 0, 0, 0)  # test
+# mp <- frame(data = abcd, x = "Condition", y = "Test",
+#             x_levels = c("cancer", "no cancer"),
+#             y_levels = c("positive", "negative"))
+#
+# # 4 frequencies:
+# focus(mp, measures = c("tp", "fp", "fn", "tn"))
+#
+# # 3 marginal probabilities:
+# focus(mp, measures = c("prev", "bias", "acc"))
+#
+# # 8 conditional probabilities:
+# focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
+# trans(mp, margin = 2)
+# focus(mp, measures = c("ppv", "fdr", "for", "npv"))    # Y/by-row
+# trans(mp, margin = 1)
+#
+# # Typical uses:
+# focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 
 
 
