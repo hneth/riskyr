@@ -47,7 +47,7 @@
 #' (i.e., a numeric contingency table of frequency counts)
 #' from data or a description of its contents and layout.
 #'
-#' \code{frame} supports 3 use cases:
+#' \code{frame} supports 4 use cases:
 #'
 #' \enumerate{
 #'
@@ -66,6 +66,10 @@
 #' and a specification of the matrix layout
 #' (i.e., names of dimensions \code{x} and \code{y},
 #' and the names/orders of category levels).
+#'
+#' \item From a table (as text):
+#' A character string \code{data} that can be interpreted by
+#' \code{\link{read.ftable}} of the \strong{stats} package.
 #'
 #' }
 #'
@@ -127,7 +131,16 @@
 #' frame(data = abcd, x = "Gender", y = "Alive",
 #'       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 #'
+#' # 4. From a table (as text):
+#' tbl_txt <-
+#' "   Condition Cancer no_Cancer
+#' Test
+#' positive      8        95
+#' negative      2       895"
+#' frame(tbl_txt)
+#'
 #' @importFrom stats aggregate
+#' @importFrom stats read.ftable
 #'
 #' @family matrix lens model functions
 #'
@@ -302,6 +315,17 @@ frame <- function(data, x, y,
   } # Case 3: From description end.
 
 
+  # Case 4: From table as text: ----
+
+  if (is.character(data)) {
+
+    message("frame (case 4): Creating mx from text data")  # 4debugging
+
+    mx <- as.table(stats::read.ftable(textConnection(data, encoding = "UTF-8")))
+
+  } # Case 4: From table as text end.
+
+
   # Output: ----
   return(mx)
 
@@ -446,6 +470,28 @@ frame <- function(data, x, y,
 #               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 # all.equal(m2_c, m3_d)
 
+# # Case 4: From a table (as text):
+#
+# mam_pro <-
+# "   Condition Cancer no_Cancer
+# Test
+# positive      8        95
+# negative      2       895"
+# #
+# # as.table(stats::read.ftable(textConnection(mam_pro, encoding = "UTF-8")))
+#
+# (m4a <- frame(mam_pro))
+#
+# titanic_sx_sv <-
+#   "Sex Female Male
+# Survival
+# TRUE    344  367
+# FALSE   126 1364"
+#
+# (m4b <- frame(titanic_sx_sv))
+
+
+
 # # ReDo Figure 3: Frame 3 matrices of Titanic passengers (from data):
 # # <https://www.frontiersin.org/files/Articles/567817/fpsyg-11-567817-HTML-r4/image_m/fpsyg-11-567817-g003.jpg>
 #
@@ -464,6 +510,8 @@ frame <- function(data, x, y,
 # fig_3a
 # fig_3b
 # fig_3c
+
+
 
 
 # riskyr_mx: Convert a 2x2 matrix (as contingency table) into a riskyr scenario: ------
