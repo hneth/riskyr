@@ -1,5 +1,5 @@
 ## comp_mlm.R (based on comp_metrics.R) | riskyr
-## 2021 06 05
+## 2021 06 07
 ## -------------------------------------------
 
 
@@ -808,7 +808,9 @@ focus <- function(mx,
     b <- acbd[3]  # mx[1, 2]
     d <- acbd[4]
 
-    N <- sum(acbd)
+    # Key combinations:
+    N <- sum(acbd)            # population
+    ad_bc <- ((a*d) - (b*c))  # determinant
 
   } # else end.
 
@@ -941,13 +943,59 @@ focus <- function(mx,
 
   }
 
+
+  # (d) Triangular scores: ----
+
+  if ("jaccard" %in% measures) { # Jaccard score/TS/CSI:
+
+    ix  <- which(measures == "jaccard")
+    jacc <- a/(a+b+c)
+    out[ix] <- jacc
+
+  }
+
+  if ("f1" %in% measures) { # F1 score/dice coefficient/PS+:
+
+    ix  <- which(measures == "f1")
+    F1 <- (2 * a)/((2 * a) + b + c)
+    out[ix] <- F1
+
+  }
+
+  if ("g2" %in% measures) { # G(^2) score/cosine:
+
+    ix  <- which(measures == "g2")
+    G2 <- a/sqrt((a+b) * (a+c))
+    out[ix] <- G2
+
+  }
+
+
+  # (e) Mixed scores:
+
+  if ("lift" %in% measures) { # lift/interest:
+
+    ix  <- which(measures == "lift")
+    lift <- (N * a)/((a+b) * (a+c))
+    out[ix] <- lift
+
+  }
+
+  if ("ri" %in% measures) { # RI/Piatetsky-Shapiro's rule-interest:
+
+    ix  <- which(measures == "ri")
+    RI <- ad_bc/(N^2)
+    out[ix] <- RI
+
+  }
+
   # +++ here now +++
 
-  # Triangular scores:
-  # Mixed scores:
-  # Difference-based scores:
-  # Odds/simple odds:
-  # Odds ratios:
+
+
+  # (f) Difference-based scores:
+  # (g) Odds/simple odds:
+  # (h) Odds ratios:
 
 
   # Output: ----
@@ -991,6 +1039,11 @@ focus <- function(mx,
 # focus(mp, measures = c("ppv", "fdr", "for", "npv"))    # Y/by-row
 # trans(mp, margin = 1)
 #
+# # 3 triangular measures:
+# focus(mp, measures = c("jaccard", "f1", "g2"))
+# # 2 mixed scores:
+# focus(mp, measures = c("lift", "ri"))
+
 # # Typical uses:
 # focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 
