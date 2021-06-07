@@ -838,6 +838,8 @@ focus <- function(mx,
 
   # 0. Initialize: ----
   out <- rep(NA, length(measures))
+
+  measures_ORG <- measures       # store user inputs
   measures <- tolower(measures)  # for robustness
 
   if (!is_matrix(mx)){  # verify mx:
@@ -1037,11 +1039,78 @@ focus <- function(mx,
 
   }
 
+
+  # (f) Difference-based scores:
+
+  if ("dpc" %in% measures) { # delta Pc/contingency (columns)/BI/Bookmaker informedness/J/Youden's index/ARR/ARI/Attributable risk/Risk difference/Uplift:
+
+    ix  <- which(measures == "dpc")
+    dPc <- ad_bc/((a+c) * (b+d))  # cols in denominator
+    out[ix] <- dPc
+
+  }
+
+  if ("nnt" %in% measures) { # NNT/number needed to treat/NNH/number needed to harm:
+
+    ix  <- which(measures == "nnt")
+    NNT <- ((a+c) * (b+d))/ad_bc  # inverse of dPc
+    out[ix] <- NNT
+
+  }
+
+  if ("bacc" %in% measures) { # BACC/balanced accuracy:
+
+    ix  <- which(measures == "bacc")
+    BACC <- (ad_bc/((a+c) * (b+d)) + 1)/2
+    out[ix] <- BACC
+
+  }
+
+  if ("rrr" %in% measures) { # RRR/relative risk reduction/RRI/relative risk increase:
+
+    ix  <- which(measures == "rrr")
+    RRR <- ad_bc/((a*b) + (b*c))
+    out[ix] <- RRR
+
+  }
+
+  if ("dpr" %in% measures) { # delta Pr/contingency (rows)/MK/Markedness/E/Difference coefficient
+
+    ix  <- which(measures == "dpr")
+    dPr <- ad_bc/((a+d) * (c+d))  # rows in denominator
+    out[ix] <- dPr
+
+  }
+
+  if ("kappa" %in% measures) { # Cohen's kappa:
+
+    ix  <- which(measures == "kappa")
+    kappa <- (2 * ad_bc)/((a+b) * (c+d) * (a+c) * (b+d))   # (rows * cols) in denominator
+    out[ix] <- kappa
+
+  }
+
+  if ("mcc" %in% measures) { # MCC/Matthews correlation coefficient/r/Correlation coefficient/Root mean square contingency/Phi coefficient:
+
+    ix  <- which(measures == "mcc")
+    MCC <- ad_bc/sqrt((a+b) * (c+d) * (a+c) * (b+d))   # sqrt(rows * cols) in denominator
+    out[ix] <- MCC
+
+  }
+
+  if ("chi" %in% measures) { # chi^2/Chi-square contingency/Test for independence:
+
+    ix  <- which(measures == "chi")
+    chi2 <- (N * (ad_bc^2))/((a+b) * (c+d) * (a+c) * (b+d))   # (rows * cols) in denominator
+    out[ix] <- chi2
+
+  }
+
   # +++ here now +++
 
 
 
-  # (f) Difference-based scores:
+
   # (g) Odds/simple odds:
   # (h) Odds ratios:
 
@@ -1059,9 +1128,9 @@ focus <- function(mx,
   }
 
   # sep <- "="
-  # out <- paste(measures, sep, out)
+  # out <- paste(measures_ORG, sep, out)
 
-  names(out) <- measures
+  names(out) <- measures_ORG
 
   return(out)
 
@@ -1076,29 +1145,33 @@ focus <- function(mx,
 #             y_levels = c("positive", "negative"))
 #
 # # 4 frequencies:
-# focus(mp, measures = c("tp", "fp", "fn", "tn"))
+# focus(mp, measures = c("TP", "fp", "fn", "TN"))
 #
 # # 3 marginal probabilities:
-# focus(mp, measures = c("prev", "bias", "acc"))
+# focus(mp, measures = c("prev", "bias", "Acc"))
 #
 # # 8 conditional probabilities:
 # focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
 # trans(mp, margin = 2)
-# focus(mp, measures = c("ppv", "fdr", "for", "npv"))    # Y/by-row
+# focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
 # trans(mp, margin = 1)
 #
 # # 3 triangular measures:
-# focus(mp, measures = c("jaccard", "f1", "g2"))
+# focus(mp, measures = c("Jaccard", "F1", "G2"))
 # # 2 mixed scores:
-# focus(mp, measures = c("lift", "ri"))
+# focus(mp, measures = c("lift", "RI"))
+#
+# # 8 difference-based measures:
+# focus(mp, measures = c("dPc", "NNT", "BACC", "RRR", "dPr", "kappa", "MCC", "Chi"))
+
 
 # # Typical uses:
 # focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 
 
-
 ## Test:
 # chisq.test(mp)
+# chisq.test(mp, correct = FALSE)
 # chisq.test(m2_a)
 # chisq.test(m3_a)
 
