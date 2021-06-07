@@ -53,7 +53,7 @@ A 2x2 matrix (as a contingency \code{table} of integer values).
 from data or a description of its contents and layout.
 }
 \details{
-\code{frame} supports 3 use cases:
+\code{frame} supports 4 use cases:
 
 \enumerate{
 
@@ -72,6 +72,10 @@ A numeric vector \code{data} provides 4 basic frequency counts
 and a specification of the matrix layout
 (i.e., names of dimensions \code{x} and \code{y},
 and the names/orders of category levels).
+
+\item From a table (as text):
+A character string \code{data} that can be interpreted by
+\code{\link{read.ftable}} of the \strong{stats} package.
 
 }
 
@@ -108,6 +112,14 @@ frame(data = abcd, x = "sex", y = "survived",
       x_levels = c("female", "male"), y_levels = c(1, 0))
 frame(data = abcd, x = "Gender", y = "Alive",
       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+
+# 4. From a table (as text):
+tbl_txt <-
+"   Condition Cancer no_Cancer
+Test
+positive      8        95
+negative      2       895"
+frame(tbl_txt)
 
 }
 \seealso{
