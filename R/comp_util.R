@@ -1257,7 +1257,6 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' \code{\link{frame}} creates a 2x2 matrix;
 #' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
 #' \code{\link{focus}} computes measures for a 2x2 matrix.
-#' \code
 #'
 #' @export
 
