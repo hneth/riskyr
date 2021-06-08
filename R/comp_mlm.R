@@ -1,5 +1,5 @@
 ## comp_mlm.R (based on comp_metrics.R) | riskyr
-## 2021 06 07
+## 2021 06 08
 ## -------------------------------------------
 
 
@@ -833,22 +833,44 @@ trans <- function(mx,
 ## (3) Focusing: ------
 
 focus <- function(mx,
-                  measures = c("acc"),
+                  measures = c("all"),
                   as_pc = FALSE, n_digits = 3){
 
   # 0. Initialize: ----
-  out <- rep(NA, length(measures))
 
-  measures_ORG <- measures       # store user inputs
-  measures <- tolower(measures)  # for robustness
+  # Constant (of all current measure acronyms):
+  all_measures <-
+    c("TP", "FP", "FN", "TN",          # 4 frequencies
+      "prev", "bias", "Acc",           # 3 marginal probabilities
+      "sens", "fpr", "fnr", "spec",    # 4 conditional probabilities (by-col)
+      "PPV", "FDR", "FOR", "NPV",      # 4 conditional probabilities (by-row)
+      "Jaccard", "F1", "G2",           # 3 triangular measures
+      "lift", "RI",                    # 2 mixed scores
+      "dPc", "NNT", "BACC", "RRR",     # 8 difference-based measures
+      "dPr", "kappa", "MCC", "Chi",
+      "pre-test odds",                 # 3 simple odds
+      "post-test odds+", "post-test odds-",
+      "LR+", "LR-", "DOR", "Q", "Y")   # 5 odds ratios
+
+  if ("all" %in% tolower(measures)){ # reset user inputs:
+    measures_ORG <- all_measures       # provide ALL measures
+    measures <- tolower(all_measures)  # (in lowercase below)
+  } else { # use user inputs:
+    measures_ORG <- measures           # store user inputs
+    measures <- tolower(measures)      # (in lowercase below)
+  }
+
 
   if (!is_matrix(mx)){  # verify mx:
 
-    # message("focus: mx is not a valid matrix.")  # 4debugging
+    message("focus: mx is not a valid matrix.")  # 4debugging
 
     return(NA)
 
   } else {
+
+    # 0. Initialize output:
+    out <- rep(NA, length(measures))
 
     # 1. Get 4 essential frequency values:
     acbd <- as.vector(mx)  # values in by-col direction
@@ -865,7 +887,7 @@ focus <- function(mx,
   } # else end.
 
 
-  # 2. Main: ----
+  # 2. Main: Compute desired measures ----
 
   # (a) Frequencies: ----
 
@@ -1106,14 +1128,77 @@ focus <- function(mx,
 
   }
 
-  # +++ here now +++
-
-
-
 
   # (g) Odds/simple odds:
+
+  if ("pre-test odds" %in% measures) { # pre-test/prior odds/class ratio/skew/odds:
+
+    ix  <- which(measures == "pre-test odds")
+    pre_odds <- (a+c)/(b+d)  # ratio of columns
+    out[ix] <- pre_odds
+
+  }
+
+  if ("post-test odds+" %in% measures) { # post-test odds + (pos.):
+
+    ix  <- which(measures == "post-test odds+")
+    post_odds_p <- a/b  # ratio of row+
+    out[ix] <- post_odds_p
+
+  }
+
+  if ("post-test odds-" %in% measures) { # post-test odds - (neg.):
+
+    ix  <- which(measures == "post-test odds-")
+    post_odds_n <- c/d  # ratio of row-
+    out[ix] <- post_odds_n
+
+  }
+
+
   # (h) Odds ratios:
 
+  if ("lr+" %in% measures) { # LR+/positive likelihood ratio/Neyman-Pearson test/RR+/relative risk/risk ratio:
+
+    ix  <- which(measures == "lr+")
+    lr_p <- (a/(a + c))/(b/(b + d))  # by col, numerator+
+    out[ix] <- lr_p
+
+  }
+
+  if ("lr-" %in% measures) { # LR-/negative likelihood ratio:
+
+    ix  <- which(measures == "lr-")
+    lr_n <- (c/(a + c))/(d/(b + d))  # by col, numerator-
+    out[ix] <- lr_n
+
+  }
+
+  if ("dor" %in% measures) { # DOR/diagnostic odds ratio/OR/odds ratio/cross ratio/approximate relative risk:
+
+    ix  <- which(measures == "dor")
+    DOR <- (a*d)/(b*c)  # ratio of diagonal products
+    out[ix] <- DOR
+
+  }
+
+  if ("q" %in% measures) { # Q/Yule's Q:
+
+    ix  <- which(measures == "q")
+    Yule_Q <- ad_bc/((a*d) + (b*c))
+    out[ix] <- Yule_Q
+
+  }
+
+  if ("y" %in% measures) { # Y/Yule's Y:
+
+    ix  <- which(measures == "y")
+    Yule_Y <- (sqrt(a*d) - sqrt(b*c))/(sqrt(a*d) + sqrt(b*c))
+    out[ix] <- Yule_Y
+
+  }
+
+  # +++ here now +++
 
   # Output: ----
 
@@ -1144,8 +1229,15 @@ focus <- function(mx,
 #             x_levels = c("cancer", "no cancer"),
 #             y_levels = c("positive", "negative"))
 #
+# # 1. Computing ALL measures at once (and selecting afterwards):
+# focus(mp)
+# focus(mp)["PPV"]
+# focus(mp)[c("dPc", "dPr", "Chi")]
+#
+# # 2. Computing individual measures:
 # # 4 frequencies:
 # focus(mp, measures = c("TP", "fp", "fn", "TN"))
+# sum(focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
 #
 # # 3 marginal probabilities:
 # focus(mp, measures = c("prev", "bias", "Acc"))
@@ -1163,10 +1255,16 @@ focus <- function(mx,
 #
 # # 8 difference-based measures:
 # focus(mp, measures = c("dPc", "NNT", "BACC", "RRR", "dPr", "kappa", "MCC", "Chi"))
-
-
-# # Typical uses:
-# focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+#
+# # 3 simple odds:
+# focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
+#
+# # 5 odds ratios:
+# focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
+#
+#
+# # # Typical uses:
+# # focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 
 
 ## Test:
