@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9011
+# riskyr 0.3.0.9012
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -7,11 +7,13 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added matrix lens model functions [2021-06-05]: 
+- Added matrix lens model functions [2021-06-08]: 
 
     - `frame()` allows creating a 2x2 matrix (as a numeric contingency table); 
     
-    - `trans()` converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities.  
+    - `trans()` converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities;  
+    
+    - `focus()` computes various scientific measures (by adopting perspectives on a 2x2 matrix).  
 
 <!-- Sampling from prob: -->     
 
@@ -276,6 +278,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-06-05 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-06-08 by [hn](https://neth.de).) 
 
 <!-- eof -->
