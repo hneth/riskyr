@@ -61,10 +61,12 @@ colSums(trans(mp, margin = 2))  # 2 col sums
 
 }
 \seealso{
-\code{\link{frame}} for creating a 2x2 matrix;
-\code{\link{is_matrix}} for verifying a 2x2 matrix.
+\code{\link{frame}} creates a 2x2 matrix;
+\code{\link{focus}} computes measures for a 2x2 matrix;
+\code{\link{is_matrix}} verifies a 2x2 matrix.
 
 Other matrix lens model functions: 
+\code{\link{focus}()},
 \code{\link{frame}()}
 }
 \concept{matrix lens model functions}

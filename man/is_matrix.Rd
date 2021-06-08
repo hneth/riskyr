@@ -33,7 +33,9 @@ is_matrix(as.table(matrix(1:4, nrow = 2, ncol = 2)))
 
 }
 \seealso{
-\code{\link{frame}} for creating a 2x2 matrix.
+\code{\link{frame}} creates a 2x2 matrix;
+\code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+\code{\link{focus}} computes measures for a 2x2 matrix.
 
 Other verification functions: 
 \code{\link{is_complement}()},

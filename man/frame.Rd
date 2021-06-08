@@ -125,11 +125,13 @@ frame(tbl_txt)
 \seealso{
 \code{\link{is_matrix}} for verifying a 2x2 matrix;
 \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+\code{\link{focus}} computes measures for a 2x2 matrix;
 \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 \code{\link{read_popu}} creates a scenario (description) from data (as df);
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
 Other matrix lens model functions: 
+\code{\link{focus}()},
 \code{\link{trans}()}
 }
 \concept{matrix lens model functions}
