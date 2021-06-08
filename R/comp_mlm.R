@@ -147,6 +147,7 @@
 #' @seealso
 #' \code{\link{is_matrix}} for verifying a 2x2 matrix;
 #' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+#' \code{\link{focus}} computes measures for a 2x2 matrix;
 #' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 #' \code{\link{read_popu}} creates a scenario (description) from data (as df);
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
@@ -703,8 +704,9 @@ diaSums <- function(mx){
 #' @family matrix lens model functions
 #'
 #' @seealso
-#' \code{\link{frame}} for creating a 2x2 matrix;
-#' \code{\link{is_matrix}} for verifying a 2x2 matrix.
+#' \code{\link{frame}} creates a 2x2 matrix;
+#' \code{\link{focus}} computes measures for a 2x2 matrix;
+#' \code{\link{is_matrix}} verifies a 2x2 matrix.
 #'
 #' @export
 
@@ -831,6 +833,84 @@ trans <- function(mx,
 
 
 ## (3) Focusing: ------
+
+# focus: Focus on a 2x2 matrix to compute some measure(s): ------
+
+#' Focus on a 2x2 matrix to compute some measure(s).
+#'
+#' \code{focus} adopts particular perspectives on a 2x2 matrix \code{mx}
+#' to compute various scientific measures.
+#'
+#' If no subset of \code{measures} is specified,
+#' \code{focus} computes the 36 measures for a 2x2 matrix \code{mx}
+#' that are contained in Table 3 of Neth et al., (2021)
+#' (\url{https://doi.org/10.3389/fpsyg.2020.567817}).
+#'
+#' @param mx A 2x2 matrix (as numeric contingency table, required).
+#'
+#' @param measures A vector of the measure(s) to compute.
+#' Default: \code{measures = c("all")} (i.e., all available measures).
+#'
+#' @param as_pc Boolean: Convert probabilities into percentages?
+#' Default: \code{as_pc = FALSE}.
+#'
+#' @param n_digits Number of decimal places to which result is rounded.
+#' Default: \code{n_digits = 3}.
+#'
+#' @return A named numeric vector.
+#'
+#' @examples
+#' # 1. The mammography problem:
+#' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
+#' mp <- frame(data = abcd, x = "Condition", y = "Test",
+#'             x_levels = c("cancer", "no cancer"),
+#'             y_levels = c("positive", "negative"))
+#'
+#' # 1. Computing ALL measures at once (and selecting afterwards):
+#' focus(mp)
+#' focus(mp)["PPV"]
+#' focus(mp)[c("dPc", "dPr", "Chi")]
+#'
+#' # 2. Computing individual measures:
+#' # 4 frequencies:
+#' focus(mp, measures = c("TP", "fp", "fn", "TN"))
+#' sum(focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
+#'
+#' # 3 marginal probabilities:
+#' focus(mp, measures = c("prev", "bias", "Acc"))
+#'
+#' # 8 conditional probabilities:
+#' focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
+#' trans(mp, margin = 2)
+#' focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
+#' trans(mp, margin = 1)
+#'
+#' # 3 triangular measures:
+#' focus(mp, measures = c("Jaccard", "F1", "G2"))
+#' # 2 mixed scores:
+#' focus(mp, measures = c("lift", "RI"))
+#'
+#' # 8 difference-based measures:
+#' focus(mp, measures = c("dPc", "NNT", "BACC", "RRR",
+#'                        "dPr", "kappa", "MCC", "Chi"))
+#'
+#' # 3 simple odds:
+#' focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
+#'
+#' # 5 odds ratios:
+#' focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
+#'
+#' # Typical uses:
+#' focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+#'
+#' @family matrix lens model functions
+#'
+#' @seealso
+#' \code{\link{frame}} creates a 2x2 matrix;
+#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+#' \code{\link{is_matrix}} verifies a 2x2 matrix.
+#'
+#' @export
 
 focus <- function(mx,
                   measures = c("all"),
@@ -1198,8 +1278,6 @@ focus <- function(mx,
 
   }
 
-  # +++ here now +++
-
   # Output: ----
 
   if (!all(is.na((out)))){
@@ -1220,6 +1298,8 @@ focus <- function(mx,
   return(out)
 
 } # focus().
+
+# +++ here now +++
 
 ## Check:
 # # 1. The mammography problem:
@@ -1261,7 +1341,6 @@ focus <- function(mx,
 #
 # # 5 odds ratios:
 # focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
-#
 #
 # # # Typical uses:
 # # focus(mp, measures = c("sens", "spec", "ppv", "npv"))
