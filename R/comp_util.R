@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2020 06 08
+## 2021 09 13
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -307,14 +307,15 @@ is_freq <- function(freq) {
     warning(paste0(freq, " contains non-integer values. "))
   }
 
-  else {  # one way to succeed:
+  else { # one way to succeed:
 
     val <- TRUE
+
   }
 
   return(val)
 
-}
+} # is_freq().
 
 
 ## is_suff_prob_set: Verify that sufficient set of probabilities is provided ------
@@ -1264,13 +1265,9 @@ is_matrix <- function(mx){
 
   out <- FALSE  # initialize
 
-  if (!is.matrix(mx)){
+  if (!is.matrix(mx)){ # 1: Shape:
 
     message("is_matrix: mx is no matrix.")
-
-  } else if (!is.numeric(mx)){
-
-    message("is_matrix: mx is not numeric.")
 
   } else if (!is.table(mx)){
 
@@ -1284,7 +1281,19 @@ is_matrix <- function(mx){
 
     message("is_matrix: mx does not have 2 columns.")
 
-  } else { # mx is a numeric matrix and 2x2 contingency table:
+  } else if (!is.numeric(mx)){ # 2: Data type:
+
+    message("is_matrix: mx is not numeric.")
+
+  # NOT checked: Contingency table:
+  # Contents are only frequency counts (i.e., integers >= 0)
+  # to allow for probability matrices (i.e., non frequency values):
+
+  # } else if (!is_freq(mx)){ # Only contingency table contents:
+  #
+  #     message("is_matrix: mx contains non-frequency counts.")
+
+  } else { # mx is a numeric matrix:
 
     out <- TRUE
 
@@ -1294,14 +1303,15 @@ is_matrix <- function(mx){
 
 } # is_matrix().
 
-## Check:
+# ## Check:
 # is_matrix(NA)
 # is_matrix(1:4)
 # is_matrix(matrix("A"))
 # is_matrix(matrix(1:4))
 # is_matrix(as.table(matrix(1:4, nrow = 1, ncol = 4)))
 # is_matrix(as.table(matrix(1:4, nrow = 4, ncol = 1)))
-# is_matrix(as.table(matrix(1:4, nrow = 2, ncol = 2)))
+# is_matrix(as.table(matrix(1:4 + .1, nrow = 2, ncol = 2))) # non-frequency counts/not contingency table
+# is_matrix(as.table(matrix(0:3, nrow = 2, ncol = 2)))
 
 
 ## (C) Conversion functions: --------
