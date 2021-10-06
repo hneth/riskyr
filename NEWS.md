@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9012
+# riskyr 0.3.0.9014
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -19,9 +19,9 @@ Log of changes since last release:
 
 - Enabled _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
-    - added `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
+    - added a `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
-    - added `sample` argument to 6\ key plots:  
+    - added a `sample` argument to 6\ key plots:  
     `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
 <!-- Conversion data vs. description: --> 
@@ -278,6 +278,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-06-08 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-10-06 by [hn](https://neth.de).) 
 
 <!-- eof -->
