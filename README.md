@@ -32,9 +32,9 @@
 
 <!-- Current package Description (updated on 2021-03-19): -->
 
-Risk-related information — like the prevalence of conditions, the
+Risk-related information — like the prevalence of conditions, the
 sensitivity and specificity of diagnostic tests, or the effectiveness of
-interventions or treatments — can be expressed in terms of frequencies
+interventions or treatments — can be expressed in terms of frequencies
 or probabilities. By providing a toolbox of corresponding metrics and
 representations, **riskyr** computes, translates, and visualizes
 risk-related information in a variety of ways. Adopting multiple
@@ -514,7 +514,6 @@ s10$popu_lbl   # the current population
 #> [1] "Male patients with symptoms"
 s10$scen_apa   # scenario source (APA) 
 #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
-
 # summary(s10) # summarises a scenario
 ```
 
@@ -814,7 +813,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2021-04-12 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2021-10-28 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
