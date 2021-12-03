@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2021 09 13
+## 2021 12 03
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1495,6 +1495,18 @@ as_pb <- function(perc, n_digits = 4) {
 # # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
 # # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
 
+
+## incsum: Incremental sum (as inverse of cumsum): ------
+
+incsum <- function(cumsum){
+
+  diff(c(0, cumsum))
+
+}
+
+## Check:
+# v <- runif(10)
+# all.equal(incsum(cumsum(v)), v)
 
 
 ## (D) Color and plotting functions: --------
