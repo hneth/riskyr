@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2021 12 03
+## 2021 12 05
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1526,16 +1526,16 @@ make_transparent <- function(..., alpha = .50) {
 
   alpha <- floor(255 * alpha)
 
-  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
+  new_color <- col2rgb(col = unlist(list(...)), alpha = FALSE)
 
   .make_transparent <- function(col, alpha) {
     rgb(red = col[1], green = col[2], blue = col[3],
         alpha = alpha, maxColorValue = 255)
   }
 
-  newColor <- apply(newColor, 2, .make_transparent, alpha = alpha)
+  new_color <- apply(new_color, 2, .make_transparent, alpha = alpha)
 
-  return(newColor)
+  return(new_color)
 
 }
 
