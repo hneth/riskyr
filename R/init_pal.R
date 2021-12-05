@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2021 03 29
+## 2021 12 05
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -715,11 +715,11 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 #'
 #' @export
 
-pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
-                    cond_true_col = my_yellow, # col_sand_mid, # grey(.80, .99), # "wheat3", #
+pal_mod <- init_pal(N_col = grey(.90, .99),     # "wheat3", nearly white
+                    cond_true_col = my_yellow,  # col_sand_mid, # grey(.80, .99), # "wheat3", #
                     cond_false_col = grey(.75, .99), # col_sand_mid, # "wheat4"
-                    dec_pos_col = col_orange_1, # my_orange, # col_red_1, # grey(.85, .99), # col_grey_1,
-                    dec_neg_col = grey(.65, .99), # col_grey_2,
+                    dec_pos_col = col_orange_1,      # my_orange, # col_red_1, # grey(.85, .99), # col_grey_1,
+                    dec_neg_col = grey(.65, .99),    # col_grey_2,
                     dec_cor_col = my_green,
                     dec_err_col = my_blue,
                     hi_col = col_green_1,
