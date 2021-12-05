@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2021 03 27
+## 2021 11 05
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -1650,7 +1650,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       lbl = NA,             # string for text label
                       lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
                       lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                      lbl_pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl_pos = NULL,       # pos (NULL = default, 1 = bottom, 2 = left, etc.)
                       lbl_off = .75,        # offset of text label
                       ## Colors:
                       col_fill = pal["brd"], # if missing, color of fname freq is derived below
@@ -1753,7 +1753,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(0, 3, 9, 3, arr_code = 3,
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
 # plot_line(0, 2, 9, 2, lbl = "Label 2", arr_code = -3,
-#           lbl_pos = 4, lbl_off = 1,
+#           lbl_pos = 1, lbl_off = 1,
 #           col_fill = "firebrick", col_txt = "forestgreen", bg_col = "white",
 #           font = 2, cex = .8)  # basic with raised text label
 # plot_line(0, 1, 9, 9,  arr_code = -3,
@@ -1796,7 +1796,7 @@ plot_poly <- function(x1, y1, x2, y2,      # coordinates of edge 1 (p1 and p2)
                       lbl = NA,             # string for text label
                       lbl_x = NA,           # x-coord of label (default in middle)
                       lbl_y = NA,           # y-coord of label (default in middle)
-                      lbl_pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl_pos = NULL,       # pos (NULL = default, 1 = bottom, 2 = left, etc.)
                       lbl_off = .75,        # offset of text label
                       ## Colors:
                       col_fill = NA,        # if NA, color of fname freq is derived below
