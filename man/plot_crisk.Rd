@@ -231,8 +231,8 @@ probability density function (over risk increments
 expressed as a function of \code{x}).
 }
 \examples{
-plot_crisk(x = seq(0, 100, by = 10),
-           y = c(0, 0, 0, 10, 30, 50, 70, 80, 0, 0, 0))
+# plot_crisk(x = seq(0, 100, by = 10),
+#            y = c(0, 0, 0, 10, 30, 50, 70, 80, 0, 0, 0))
 
 }
 \seealso{
