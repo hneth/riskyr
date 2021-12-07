@@ -374,6 +374,7 @@ Other visualization functions:
 \code{\link{plot.riskyr}()},
 \code{\link{plot_area}()},
 \code{\link{plot_bar}()},
+\code{\link{plot_crisk}()},
 \code{\link{plot_curve}()},
 \code{\link{plot_icons}()},
 \code{\link{plot_mosaic}()},
