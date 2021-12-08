@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 07
+## 2021 12 08
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -18,14 +18,18 @@
 #'
 #'
 #' @param x Values on an x-dimension on which risk is expressed
-#' (as a vector).
+#' (required, as a vector).
 #'
 #' @param y Values of cumulative risks on an y-dimension
-#' (as a vector),
+#' (required, as a vector),
 #' as monotonically increasing percentage values
 #' (0 <= y <= 100).
 #' Pairs of \code{x} and \code{y} are assumed to
 #' correspond to each other.
+#'
+#' @param x_from Start value of risk increment.
+#'
+#' @param x_to End value of risk increment.
 #'
 #' +++ here now +++
 #'
@@ -222,6 +226,9 @@
 plot_crisk <- function(x,  # x-values (as vector)
                        y,  # y-values (as vector)
 
+                       x_from = NA, # start value of x-increment
+                       x_to = NA,   # end value of x-increment
+
                        ## Legacy:
                        prev = num$prev,    # probabilities
                        sens = num$sens, mirt = NA,
@@ -267,50 +274,63 @@ plot_crisk <- function(x,  # x-values (as vector)
                        ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
-  ## (0) Check data: ------
+  ## (0) Check data: --------
 
   if (length(x) != length(y)){
     message("plot_crisk: x and y must have the same length.")
     return(NA)
   }
 
-  ## Compute values:
+  if (any(diff(y) < 0)){ message("plot_crisk: y is assumed to be monotonically increasing.") }
 
-  x_min <-   0
-  x_max <- 100
+  if ((!is.na(x_from)) && (x_from < min(x))) { message("plot_crisk: x_from is lower than min(x).") }
 
-  y_min <-   0
-  y_max <- 100
+  if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
 
-  ## (1) Prepare parameters: ----------
+  ## (1) Compute values: --------
+
+  is <- incsum(y)  # y-increments
+
+  # Plot ranges:
+  x_min <- min(x, x_from, x_to)  # 0
+  x_max <- max(x, x_from, x_to)
+
+  y_min <-   0  # min(y)
+  y_max <- 100  # max(y)
+
+  x_range <- c(x_min, x_max)
+  y_range <- c(y_min, y_max)
+
+
+  ## (1) Plot parameters: --------
 
   ## (A) Generic:
 
   opar <- par(no.readonly = TRUE)  # copy of current settings
   on.exit(par(opar))  # par(opar)  # restore original settings
 
-  ## (B) Interpret current user input parameters:
+  ## (B) User input parameters:
 
-
-  ## x. Plot borders: ----
-
-  # sum_w: Must be a value in range 0 to 1:
-  if ( is.null(sum_w) || is.na(sum_w) ) { sum_w <- 0 }  # set to 0 (min)
-  sum_w_max <- 1  # maximal value
-  sum_w_min <- 0  # minimal value
-  if ( sum_w > sum_w_max ) { sum_w <- sum_w_max }  # set to sum_w_max
-  if ( sum_w < sum_w_min ) { sum_w <- sum_w_min }  # set to sum_w_min
-
-
-  ## 7. Additional parameters (currently fixed): ----
+  ## Additional parameters (currently fixed): ----
 
   lty <- 1  # default
 
-  # Correction values (as constants):
-  buffer  <- +.09  # blank buffer space (on top and left) of plotting area
-  v_shift <- +.03  # shifting vertical/rotated text labels (left)
-  h_shift <- -.01  # shifting horizontal text labels (up)
+  # Labels:
+  x_unit <- "years"
+  x_ax_lbl <- paste0("Age (in ", x_unit, ")")
+  y_ax_lbl <- "Risk"
+
+  # Sizes:
+  cex_axs  <- 1.0
+  cex_txt  <- .94
+  cex_pts  <- 1.8
+
+  # Switches:
+  show_inc  <- TRUE  # FALSE
+  show_pass <- TRUE  # FALSE
+  show_rem  <- TRUE  # FALSE
+  show_aux  <- TRUE  # FALSE
 
 
   ## (2) Define plot and margin areas: --------
