@@ -7,6 +7,8 @@
 plot_crisk(
   x,
   y,
+  x_from = NA,
+  x_to = NA,
   prev = num$prev,
   sens = num$sens,
   mirt = NA,
@@ -41,14 +43,18 @@ plot_crisk(
 }
 \arguments{
 \item{x}{Values on an x-dimension on which risk is expressed
-(as a vector).}
+(required, as a vector).}
 
 \item{y}{Values of cumulative risks on an y-dimension
-(as a vector),
+(required, as a vector),
 as monotonically increasing percentage values
 (0 <= y <= 100).
 Pairs of \code{x} and \code{y} are assumed to
-correspond to each other.
+correspond to each other.}
+
+\item{x_from}{Start value of risk increment.}
+
+\item{x_to}{End value of risk increment.
 
 +++ here now +++}
 
