@@ -58,9 +58,7 @@ correspond to each other.}
 \item{x_to}{End value of risk increment.}
 
 \item{fit_curve}{Boolean: Fit a curve to \code{x}-\code{y}-data?
-Default: \code{fit_curve = FALSE}.
-
-+++ here now +++}
+Default: \code{fit_curve = FALSE}.}
 
 \item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
