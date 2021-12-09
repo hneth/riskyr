@@ -301,6 +301,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
+  if (is.na(x_from) && (!is.na(x_to))){
+    message("plot_crisk: x_to without x_from. Using x_from <- min(x).")
+    x_from <- min(x)
+  }
+
   if (!is.na(x_from) && (!is.na(x_to))){ # x-interval specified:
 
     delta_x_specified <- TRUE
@@ -316,14 +321,13 @@ plot_crisk <- function(x,  # x-values (as vector)
     if (!fit_curve & (!(x_from %in% x) | !(x_to %in% x))){
 
       # Require fit_curve:
-      message("plot_crisk: x_from OR x_to NOT in x: Using fit_curve = TRUE.")
+      message("plot_crisk: x_from or x_to not in x: Using fit_curve = TRUE.")
       fit_curve <- TRUE
 
     }
 
     # Compute delta-x:
     delta_x <- (x_to - x_from)
-
 
   } # if x-interval specified.
 
@@ -333,16 +337,20 @@ plot_crisk <- function(x,  # x-values (as vector)
   # (a) Plot ranges:
 
   if (delta_x_specified){
-    x_min <- min(x, x_from, x_to)  # 0
-    x_max <- max(x, x_from, x_to)
+    x_min <- min(x, x_from)  # 0
+    x_max <- max(x, x_to)
   } else {
     x_min <- min(x)  # 0
     x_max <- max(x)
   }
 
-  y_min <-   0  # min(y)
-  y_max <- 100  # max(y)
-  if (max(y) < 50) { y_max <- max(y) }  # small y-values
+  y_min <- 0  # min(y)
+
+  if ((max(y) < 50) | (max(y) > 100)) { # small or large scale:
+    y_max <- max(y)
+  } else {
+    y_max <- 100
+  }
 
   x_range <- c(x_min, x_max)
   y_range <- c(y_min, y_max)
@@ -398,10 +406,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if fit_curve etc.
 
 
-  # (d) Compute y-interval:
-  if (delta_x_specified){
+  # (d) Compute y-values:
 
-    # y_from:
+  if (!is.na(x_from)){ # compute y_from:
+
     if (x_from %in% x){
 
       y_from <- y[x == x_from]  # use existing data value
@@ -416,7 +424,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     }
 
-    # y_to:
+  } # if (x_from) end.
+
+
+  if (!is.na(x_to)){ # compute y_to:
+
     if (x_to %in% x){
 
       y_to <- y[x == x_to]  # use existing data value
@@ -434,7 +446,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     # Compute delta-y:
     delta_y <- (y_to - y_from)
 
-  } # if (delta_x_specified) end.
+  } # if (x_to) end.
 
 
   ## (3) Plot parameters: --------
@@ -518,17 +530,24 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (+) Main: Custom crisk plot: ---------
 
-
   # +++ here now +++
 
-  # (+) Plot points: ------
 
-  if (delta_x_specified){
+
+  # (+) Plot from/to points: ------
+
+  if (!is.na(x_from)){
 
     col_from <- pal_seegruen[[4]]
-    col_to   <- pal_bordeaux[[4]]
 
     points(x_from, y_from, pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_from, alpha = .20), col = col_from)
+
+  }
+
+  if (!is.na(x_to)){
+
+    col_to   <- pal_bordeaux[[4]]
+
     points(x_to,   y_to,   pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_to,   alpha = .20), col = col_to)
 
   }
@@ -611,7 +630,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, x_from = 30, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 46, x_to = 65)  # predicted points
+# plot_crisk(x, y, x_from = 44, x_to = 65)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
