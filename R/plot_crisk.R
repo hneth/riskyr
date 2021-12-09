@@ -184,7 +184,7 @@
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen_lbl}.
+#' Default: \code{title_lbl = ""} (using "Cumulative risk").
 #'
 #' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -196,7 +196,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes Boolean option for showing margin notes.
-#' Default: \code{mar_notes = FALSE}.
+#' Default: \code{mar_notes = TRUE}.
 #'
 #' @param ... Other (graphical) parameters.
 #'
@@ -272,13 +272,13 @@ plot_crisk <- function(x,  # x-values (as vector)
 
                        ## Text and color:
                        lbl_txt = txt,        # labels and text elements
-                       title_lbl = "Title",  # main plot title
+                       title_lbl = "",       # main plot title
                        cex_lbl = .90,        # size of freq & text labels
                        cex_p_lbl = NA,       # size of prob labels (set to cex_lbl - .05 by default)
                        col_pal = pal_crisk,  # color palette
 
                        ## Generic options:
-                       mar_notes = FALSE,   # show margin notes?
+                       mar_notes = TRUE,    # show margin notes?
                        ...                  # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
@@ -471,8 +471,10 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## Define margin areas:
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
-  if (mar_notes) { n_lines_bot <- 5 } else { n_lines_bot <- 4 }
+  # if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
+  # if (mar_notes) { n_lines_bot <- 5 } else { n_lines_bot <- 4 }
+  n_lines_top <- 3
+  n_lines_bot <- 5
 
   par(mar = c(n_lines_bot, 4, n_lines_top, 3) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
@@ -556,20 +558,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (+) Title: ------
 
-  # Define parts:
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } else {
-    type_lbl <- paste0("Cumulative risk", " (by ", as.character("unit"), ")")  # plot type and unit
+  if (title_lbl != ""){
+    cur_title_lbl <- title_lbl
+  } else { # no title:
+    cur_title_lbl <- "Cumulative risk"
   }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
-
   # Plot title:
-  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
 
 
   ## (+) Margins: ------
@@ -577,16 +573,23 @@ plot_crisk <- function(x,  # x-values (as vector)
   if (mar_notes) {
 
     # Note:
-    note_lbl <- ""  # initialize
-
-    if (scale == "f") {
-      note_lbl <- label_note(area = area, scale = scale)
+    if (fit_curve){
+      note_lbl <- "(Using fitted data.)"
+    } else {
+      note_lbl <- "(Using data provided.)"
     }
 
-    plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
-             show_accu = TRUE, accu_from_freq = FALSE,
-             note = note_lbl,
-             cur_freq = freq, cur_prob = prob, lbl_txt = lbl_txt)
+    # parameters:
+    m_col <- "grey33"
+    m_cex <- (cex_txt - .02)
+
+    # mtext("side = 1, line = 2, adj = 0", side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # left 2 top
+    # mtext("side = 1, line = 3, adj = 0", side = 1, line = 3, adj = 0, col = m_col, cex = m_cex)  # left 3 mid
+    # mtext("side = 1, line = 4, adj = 0", side = 1, line = 4, adj = 0, col = m_col, cex = m_cex)  # left 4 bot
+
+    # mtext("side = 1, line = 2, adj = 1", side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)  # right 2 top
+    mtext(note_lbl, side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # right 4 mid
+    # mtext("side = 1, line = 3, adj = 1", side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # right 3 bot
 
   } # if (mar_notes) etc.
 
@@ -601,17 +604,18 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-# x <- seq(0, 100, by = 10)
-# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-#
-# plot_crisk(x, y)
-# plot_crisk(x, y, fit_curve = TRUE)
+x <- seq(0, 100, by = 10)
+y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+
+plot_crisk(x, y)
+plot_crisk(x, y, x_from = 30, x_to = 60)
+# plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 46, x_to = 65)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
-# plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4.5, x_to = 6.5)  # predicted points
+# plot_crisk(x = 2:10, y = seq(2, 10, by = 1), x_from = 4.5, x_to = 6.5)  # predicted points
 
 
 
