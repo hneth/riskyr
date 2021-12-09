@@ -342,6 +342,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   y_min <-   0  # min(y)
   y_max <- 100  # max(y)
+  if (max(y) < 50) { y_max <- max(y) }  # small y-values
 
   x_range <- c(x_min, x_max)
   y_range <- c(y_min, y_max)
@@ -608,9 +609,9 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 46, x_to = 65)  # predicted points
 #
-# # linear increase:
-# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4,   x_to = 6)    # provided points
-# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4.5, x_to = 6.5)  # predicted points
+# # small y-values and linear increase:
+# plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
+# plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4.5, x_to = 6.5)  # predicted points
 
 
 
