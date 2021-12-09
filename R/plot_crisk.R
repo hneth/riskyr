@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 08
+## 2021 12 09
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -31,7 +31,11 @@
 #'
 #' @param x_to End value of risk increment.
 #'
+#' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
+#' Default: \code{fit_curve = FALSE}.
+#'
 #' +++ here now +++
+#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -229,6 +233,8 @@ plot_crisk <- function(x,  # x-values (as vector)
                        x_from = NA, # start value of x-increment
                        x_to = NA,   # end value of x-increment
 
+                       fit_curve = FALSE,  # fit a curve to x-y-data?
+
                        ## Legacy:
                        prev = num$prev,    # probabilities
                        sens = num$sens, mirt = NA,
@@ -263,19 +269,20 @@ plot_crisk <- function(x,  # x-values (as vector)
                        brd_dis = .06,      # distance of prob links from border. (Adjust to avoid overlapping labels).
 
                        ## Text and color:
-                       lbl_txt = txt,      # labels and text elements
+                       lbl_txt = txt,        # labels and text elements
                        title_lbl = "Title",  # main plot title
-                       cex_lbl = .90,      # size of freq & text labels
-                       cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
-                       col_pal = pal,      # color palette
+                       cex_lbl = .90,        # size of freq & text labels
+                       cex_p_lbl = NA,       # size of prob labels (set to cex_lbl - .05 by default)
+                       col_pal = pal_crisk,  # color palette
 
                        ## Generic options:
                        mar_notes = FALSE,  # show margin notes?
                        ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
-  ## (0) Check data: --------
+  ## (1) Check inputs: --------
 
+  # (a) Data in x and y:
   if (length(x) != length(y)){
     message("plot_crisk: x and y must have the same length.")
     return(NA)
@@ -283,16 +290,31 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if (any(diff(y) < 0)){ message("plot_crisk: y is assumed to be monotonically increasing.") }
 
+  # (b) Values x_from and x_to:
   if ((!is.na(x_from)) && (x_from < min(x))) { message("plot_crisk: x_from is lower than min(x).") }
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
+  if (x_to < x_from){
+    message("x_from exceeds x_to (x_to < x_from). Swapping values:")
+    x_temp <- x_from
+    x_from <- x_to
+    x_to <- x_temp
+  }
 
-  ## (1) Compute values: --------
+  # (c) Fitting a curve to x-y-data:
+  if (!fit_curve & (!(x_from %in% x) | !(x_to %in% x))){
 
-  is <- incsum(y)  # y-increments
+    # Require fit_curve:
+    message("x_from OR x_to is NOT in x. Using fit_curve = TRUE:")
+    fit_curve <- TRUE
 
-  # Plot ranges:
+  }
+
+
+  ## (2) Compute values: --------
+
+  # (a) Plot ranges:
   x_min <- min(x, x_from, x_to)  # 0
   x_max <- max(x, x_from, x_to)
 
@@ -302,8 +324,11 @@ plot_crisk <- function(x,  # x-values (as vector)
   x_range <- c(x_min, x_max)
   y_range <- c(y_min, y_max)
 
+  # (b) # Risk increments (of y-values):
+  rinc_y <- incsum(y)
 
-  ## (1) Plot parameters: --------
+
+  ## (3) Plot parameters: --------
 
   ## (A) Generic:
 
@@ -333,7 +358,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   show_aux  <- TRUE  # FALSE
 
 
-  ## (2) Define plot and margin areas: --------
+  ## (4) Define plot and margin areas: --------
 
   ## Define margin areas:
 
@@ -349,13 +374,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   ## Orientation of the tick mark labels (and corresponding mtext captions below):
   par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
 
-  ## (3) Plot setup: --------
+
+  ## (5) Plot setup: --------
 
   ## Plot dimensions:
-
-  # sum_w <- .250  # border width (default)
-  # sum_w <- 0     # to HIDE borders
-
 
   ## Draw empty plot:
   plot(0, 0, type = "n",      # type = "n" hides the points
@@ -371,7 +393,8 @@ plot_crisk <- function(x,  # x-values (as vector)
   # grid(nx = NULL, ny = NA,  # x-axes only (at tick marks)
   #      col = grey(.75, .99), lty = 2, lwd = par("lwd"), equilogs = TRUE)
 
-  ## (4) Draw plot points: --------
+
+  ## (+) Draw plot points: --------
 
   ## Grid of points:
   # grid_x <- rep(seq(0, 1, by = .25), times = length(seq(0, 1, by = .25))) # x/horizontal
@@ -381,16 +404,17 @@ plot_crisk <- function(x,  # x-values (as vector)
   # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)  # grid points (scaled)
   # points(0, 0, pch = 1, col = grey(.33, .50), cex = 1)  # mark origin
 
-  ## (5) Main: Custom crisk plot: ---------
+
+  ## (+) Main: Custom crisk plot: ---------
 
 
-  ##   (f) Plot other stuff: --------
+  ## (+) Plot other stuff: --------
 
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
 
 
-  ## (6) Title: ------
+  ## (+) Title: ------
 
   # Define parts:
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
@@ -408,7 +432,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
 
 
-  ## (7) Margins: ------
+  ## (+) Margins: ------
 
   if (mar_notes) {
 
