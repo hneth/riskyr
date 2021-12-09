@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2021 12 05
+## 2021 12 09
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -690,6 +690,7 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Note: Check http://colorbrewer2.org for alternatives:
 ## http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=4
 
+
 ## pal_mod: A modern (green/blue/orange) color palette: --------
 
 #' Modern color palette (in green/blue/orange).
@@ -844,6 +845,7 @@ pal_kn <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Use uni.kn color scheme (as default):
 # pal <- pal_kn
 
+
 ## pal_unikn:  A unikn palette: --------
 
 #' Alternative color palette for unikn.
@@ -893,6 +895,7 @@ pal_unikn <- init_pal(N_col = grey(.95, 1),   # nearly white
 
 ## Use pal_unikn color scheme (as default):
 # pal <- pal_unikn
+
 
 ## pal_vir: A viridis color palette: ----------
 
@@ -974,10 +977,47 @@ pal <- pal_mod
 # pal <- pal_bwp
 # pal <- pal_unikn
 
-## (*) Done: ----------
 
-## - Clean up code.        [2018 09 01]
-## - Add some pre-defined color palettes.
+## Define a crisk color palette: --------
+
+# Define a mixed color palette:
+pal_mix <- c("deepskyblue", "deeppink",
+             col_green_1, col_green_2, col_orange_1, col_orange_2,
+             col_blue_1, col_blue_2, col_blue_3, col_blue_4,
+             col_red_1, col_red_2,
+             col_sand_light, col_sand_mid, col_sand_dark,
+             my_whitish, my_bluish, my_yellow, my_orange)
+
+names(pal_mix) <- c("deepskyblue", "deeppink", "lightgreen", "green", "lightorange", "orange",
+                    "blue1", "blue2", "blue3", "blue4",
+                    "red1", "red2",
+                    "sand1", "sand2", "sand3",
+                    "my_whitish", "my_bluish", "my_yellow", "my_orange")
+
+# unikn::seecol(pal_mix)
+
+# Select pal_crisk:
+pal_crisk <- c(pal_mix["deepskyblue"], pal_mix["red2"],
+               "black",
+               pal_mix["sand2"], pal_mix["my_yellow"],
+               pal_mix["blue4"], pal_mix["my_orange"], pal_mix["green"],
+               pal_mix["deeppink"])
+
+names(pal_crisk) <- c("cum", "rinc",
+                      "aux",
+                      "pass", "rem",
+                      "delta", "poly", "popu",
+                      "hi")
+
+pal_crisk["poly"] <- pal_crisk["cum"]  # make "poly"" same color as "cum"
+
+# unikn::seecol(pal_crisk)
+# knitr::kable(pal_crisk, caption = "The `pal_crisk` color palette.")
+
+# +++ here now +++
+
+
+## (*) Done: ----------
 
 ## - Addressed limitation: [2019 01 23]
 ##   Lack of an explicit background color (e.g., "white" or NA by default).
