@@ -222,6 +222,9 @@
 #' @importFrom graphics legend
 #' @importFrom graphics lines
 #'
+#' @importFrom stats smooth.spline
+#' @importFrom stats predict
+#'
 #' @family visualization functions
 
 
@@ -280,6 +283,10 @@ plot_crisk <- function(x,  # x-values (as vector)
                        ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
+  ## (0) Initialize: ------
+
+  delta_x_specified <- FALSE
+
   ## (1) Check inputs: --------
 
   # (a) Data in x and y:
@@ -295,28 +302,44 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
-  if (x_to < x_from){
-    message("x_from exceeds x_to (x_to < x_from). Swapping values:")
-    x_temp <- x_from
-    x_from <- x_to
-    x_to <- x_temp
-  }
+  if (!is.na(x_from) && (!is.na(x_to))){ # x-interval specified:
 
-  # (c) Fitting a curve to x-y-data:
-  if (!fit_curve & (!(x_from %in% x) | !(x_to %in% x))){
+    delta_x_specified <- TRUE
 
-    # Require fit_curve:
-    message("x_from OR x_to is NOT in x. Using fit_curve = TRUE:")
-    fit_curve <- TRUE
+    if (x_to < x_from){
+      message("plot_crisk: x_from exceeds x_to: Swapping values.")
+      x_temp <- x_from
+      x_from <- x_to
+      x_to <- x_temp
+    }
 
-  }
+    # Need to fit a curve to x-y-data?
+    if (!fit_curve & (!(x_from %in% x) | !(x_to %in% x))){
+
+      # Require fit_curve:
+      message("plot_crisk: x_from OR x_to NOT in x: Using fit_curve = TRUE.")
+      fit_curve <- TRUE
+
+    }
+
+    # Compute delta-x:
+    delta_x <- (x_to - x_from)
+
+
+  } # if x-interval specified.
 
 
   ## (2) Compute values: --------
 
   # (a) Plot ranges:
-  x_min <- min(x, x_from, x_to)  # 0
-  x_max <- max(x, x_from, x_to)
+
+  if (delta_x_specified){
+    x_min <- min(x, x_from, x_to)  # 0
+    x_max <- max(x, x_from, x_to)
+  } else {
+    x_min <- min(x)  # 0
+    x_max <- max(x)
+  }
 
   y_min <-   0  # min(y)
   y_max <- 100  # max(y)
@@ -324,8 +347,97 @@ plot_crisk <- function(x,  # x-values (as vector)
   x_range <- c(x_min, x_max)
   y_range <- c(y_min, y_max)
 
-  # (b) # Risk increments (of y-values):
+  # (b) Risk increments (of y-values):
   rinc_y <- incsum(y)
+
+  # (c) Fit curve:
+  if (fit_curve){
+
+    # 1. Fit a curve to x-y-values:
+    # plot(x, y)
+
+    ## (a) Loess:
+    # fit_loess <- stats::loess(y ~ x)
+    # lines(fit_loess, col = pal_seeblau[[2]], lwd = 1)
+    # lines(stats::predict(fit_loess), col = pal_seeblau[[4]], lwd = 1, lty = 2)
+
+    ## (b) smoothing spline:
+    fit_spline <- stats::smooth.spline(x, y, spar = .10)
+    # lines(fit_spline, col = pal_pinky[[2]], lwd = 1)
+    # lines(stats::predict(fit_spline), col = pal_pinky[[4]], lwd = 1, lty = 2)
+
+    ## (c) Predict a range of points:
+    # y_pred <- stats::predict(fit_spline, x = seq(10, 90, 1))
+    # y_pred
+
+    ## correct extreme predictions:
+    # y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
+    # y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
+    # y_pred
+
+
+    # 2. Predict y-values of delta-x-interval:
+    if (delta_x_specified){
+
+      ## (d) Predict a PAIR of y-values (for x_from and x_to):
+      # y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, length.out = 2))
+      # y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
+      # y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
+      # y_pred
+
+      ## (e) Predict a SEQUENCE of y-values (for x_from and x_to):
+      y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, by = 1))
+      y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
+      y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
+      # y_pred
+
+      # lines(y_pred, lwd = 2, col = make_transparent(Seeblau, alpha = 2/3))
+
+    }
+
+  } # if fit_curve etc.
+
+
+  # (d) Compute y-interval:
+  if (delta_x_specified){
+
+    # y_from:
+    if (x_from %in% x){
+
+      y_from <- y[x == x_from]  # use existing data value
+
+    } else {
+
+      if (fit_curve) {
+        y_from <- y_pred$y[1]  # use 1st predicted y-value
+      } else {
+        message("Either provide x_from data OR use fit_curve == TRUE.")
+      }
+
+    }
+
+    # y_to:
+    if (x_to %in% x){
+
+      y_to <- y[x == x_to]  # use existing data value
+
+    } else {
+
+      if (fit_curve) {
+        y_to <- y_pred$y[length(y_pred$y)]  # use last predicted y-value
+      } else {
+        message("Either provide x_to data OR use fit_curve == TRUE.")
+      }
+
+    }
+
+    # Compute delta-y:
+    delta_y <- (y_to - y_from)
+
+  } # if (delta_x_specified) end.
+
+
+  # +++ here now +++
 
 
   ## (3) Plot parameters: --------
