@@ -34,7 +34,6 @@
 #' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
 #' Default: \code{fit_curve = FALSE}.
 #'
-#' +++ here now +++
 #'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
@@ -437,9 +436,6 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if (delta_x_specified) end.
 
 
-  # +++ here now +++
-
-
   ## (3) Plot parameters: --------
 
   ## (A) Generic:
@@ -460,8 +456,8 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # Sizes:
   cex_axs  <- 1.0
-  cex_txt  <- .94
-  cex_pts  <- 1.8
+  cex_txt  <- .95
+  cex_pts  <- 2.0
 
   # Switches:
   show_inc  <- TRUE  # FALSE
@@ -520,7 +516,22 @@ plot_crisk <- function(x,  # x-values (as vector)
   ## (+) Main: Custom crisk plot: ---------
 
 
-  # (9) Cumulative curve: ------
+  # +++ here now +++
+
+  # (+) X and Y: ------
+
+  if (delta_x_specified){
+
+    col_from <- Seegruen
+    col_to   <- Bordeaux
+
+    points(x_from, y_from, pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_from, alpha = .20), col = col_from)
+    points(x_to,   y_to,   pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_to,   alpha = .20), col = col_to)
+
+  }
+
+
+  # (+) Cumulative curve: ------
 
   col_cum <- make_transparent(col_pal["cum"], alpha = 1)  # make_transparent(Seeblau, alpha = .90)
   alf_cum <- .85
@@ -531,7 +542,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     lines(fit_spline, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
   }
 
-  points(x = x, y = y, pch = 19, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
+  points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
 
 
 
@@ -594,9 +605,12 @@ plot_crisk <- function(x,  # x-values (as vector)
 #
 # plot_crisk(x, y)
 # plot_crisk(x, y, fit_curve = TRUE)
+# plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
+# plot_crisk(x, y, x_from = 46, x_to = 65)  # predicted points
 #
-# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4, x_to = 6)
-# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4.5, x_to = 6.5)
+# # linear increase:
+# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4,   x_to = 6)    # provided points
+# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4.5, x_to = 6.5)  # predicted points
 
 
 
