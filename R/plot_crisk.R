@@ -279,8 +279,8 @@ plot_crisk <- function(x,  # x-values (as vector)
                        col_pal = pal_crisk,  # color palette
 
                        ## Generic options:
-                       mar_notes = FALSE,  # show margin notes?
-                       ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
+                       mar_notes = FALSE,   # show margin notes?
+                       ...                  # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
   ## (0) Initialize: ------
@@ -474,10 +474,10 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## Define margin areas:
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
-  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
+  if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
+  if (mar_notes) { n_lines_bot <- 5 } else { n_lines_bot <- 4 }
 
-  par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(mar = c(n_lines_bot, 4, n_lines_top, 3) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
   ## Axis label locations:
@@ -498,12 +498,12 @@ plot_crisk <- function(x,  # x-values (as vector)
        axes = FALSE)
 
   ## Axes:
-  # axis(side = 1, las = 1) # x-axis, horizontal labels
-  # axis(side = 2, las = 2) # y-axis, horizontal labels
+  axis(side = 1, las = 1) # x-axis, horizontal labels
+  axis(side = 2, las = 2) # y-axis, horizontal labels
 
   ## Grid:
-  # grid(nx = NULL, ny = NA,  # x-axes only (at tick marks)
-  #      col = grey(.75, .99), lty = 2, lwd = par("lwd"), equilogs = TRUE)
+  grid(nx = NULL, ny = NULL,  # NULL: at tick marks, NA: no lines
+       col = grey(.75, .99), lty = 2, lwd = par("lwd"), equilogs = TRUE)
 
 
   ## (+) Draw plot points: --------
@@ -518,6 +518,22 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 
   ## (+) Main: Custom crisk plot: ---------
+
+
+  # (9) Cumulative curve: ------
+
+  col_cum <- make_transparent(col_pal["cum"], alpha = 1)  # make_transparent(Seeblau, alpha = .90)
+  alf_cum <- .85
+
+  if (!fit_curve){
+    lines(x = x, y = y, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
+  } else {
+    lines(fit_spline, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
+  }
+
+  points(x = x, y = y, pch = 19, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
+
+
 
 
   ## (+) Plot other stuff: --------
@@ -573,8 +589,15 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-# plot_crisk(x = seq(0, 100, by = 10),
-#            y = c(0, 0, 0, 10, 30, 50, 70, 80, 0, 0, 0))
+# x <- seq(0, 100, by = 10)
+# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+#
+# plot_crisk(x, y)
+# plot_crisk(x, y, fit_curve = TRUE)
+#
+# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4, x_to = 6)
+# plot_crisk(x = 0:10, y = seq(0, 100, by = 10), x_from = 4.5, x_to = 6.5)
+
 
 
 ## (+) ToDo: ------
