@@ -34,11 +34,11 @@ plot_crisk(
   col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.06,
   lbl_txt = txt,
-  title_lbl = "Title",
+  title_lbl = "",
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal_crisk,
-  mar_notes = FALSE,
+  mar_notes = TRUE,
   ...
 )
 }
@@ -208,7 +208,7 @@ Negative values show links outside of main area.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+Default: \code{title_lbl = ""} (using "Cumulative risk").}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -220,7 +220,7 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = FALSE}.}
+Default: \code{mar_notes = TRUE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
