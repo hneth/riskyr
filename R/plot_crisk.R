@@ -604,11 +604,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-x <- seq(0, 100, by = 10)
-y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-
-plot_crisk(x, y)
-plot_crisk(x, y, x_from = 30, x_to = 60)
+# x <- seq(0, 100, by = 10)
+# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+#
+# plot_crisk(x, y)
+# plot_crisk(x, y, x_from = 30, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 46, x_to = 65)  # predicted points
