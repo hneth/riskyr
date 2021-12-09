@@ -518,12 +518,12 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # +++ here now +++
 
-  # (+) X and Y: ------
+  # (+) Plot points: ------
 
   if (delta_x_specified){
 
-    col_from <- Seegruen
-    col_to   <- Bordeaux
+    col_from <- pal_seegruen[[4]]
+    col_to   <- pal_bordeaux[[4]]
 
     points(x_from, y_from, pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_from, alpha = .20), col = col_from)
     points(x_to,   y_to,   pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_to,   alpha = .20), col = col_to)
