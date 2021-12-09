@@ -9,6 +9,7 @@ plot_crisk(
   y,
   x_from = NA,
   x_to = NA,
+  fit_curve = FALSE,
   prev = num$prev,
   sens = num$sens,
   mirt = NA,
@@ -36,7 +37,7 @@ plot_crisk(
   title_lbl = "Title",
   cex_lbl = 0.9,
   cex_p_lbl = NA,
-  col_pal = pal,
+  col_pal = pal_crisk,
   mar_notes = FALSE,
   ...
 )
@@ -54,7 +55,10 @@ correspond to each other.}
 
 \item{x_from}{Start value of risk increment.}
 
-\item{x_to}{End value of risk increment.
+\item{x_to}{End value of risk increment.}
+
+\item{fit_curve}{Boolean: Fit a curve to \code{x}-\code{y}-data?
+Default: \code{fit_curve = FALSE}.
 
 +++ here now +++}
 
