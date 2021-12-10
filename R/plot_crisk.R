@@ -299,6 +299,8 @@ plot_crisk <- function(x,  # x-values (as vector)
   show_pass <- TRUE  # FALSE
   show_rem  <- TRUE  # FALSE
   show_aux  <- TRUE  # FALSE
+  show_poly  <- show_aux
+  show_delta <- show_aux
 
   # Others:
   delta_x_specified <- FALSE
@@ -545,7 +547,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (+) Main: Custom crisk plot: ---------
 
-  # (0) Colors:
+  # Colors:
   col_txt <- make_transparent(col_pal["txt"], alpha = 1)
   alf_txt <- 1.0
 
@@ -558,8 +560,12 @@ plot_crisk <- function(x,  # x-values (as vector)
   col_rem <- make_transparent(col_pal["rem"], alpha = 1)
   alf_rem <- .25
 
+  col_poly <- make_transparent(col_pal["poly"], alpha = 1)
+  alf_poly <- .25
+
+  col_delta <- make_transparent(col_pal["delta"], alpha = 1)
+
   col_rinc <- make_transparent(col_pal["rinc"], alpha = 1)
-  # alf_rinc <- 0
 
   col_cum <- make_transparent(col_pal["cum"], alpha = 1)
   alf_cum <- .85
@@ -591,6 +597,61 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
+  # (2) Polygon of risk increment: ------
+
+  if (show_poly & delta_x_specified){
+
+    # (a) Define polygon boundaries:
+    if ((x_from %in% x) & (x_to %in% x)){
+
+      # use existing data values:
+      y_upper <- y[(x >= x_from) & (x <= x_to)]
+      x_upper <- x[(x >= x_from) & (x <= x_to)]
+
+    } else {
+
+      if (fit_curve) {
+
+        y_upper <- y_pred$y  # use predicted y-values
+        x_upper <- y_pred$x  # use predictors
+
+      } else {
+        message("Either provide x_from data OR use fit_curve == TRUE.")
+      }
+
+    } # if (x_from/x_to in x) end.
+
+    y_lower <- rep(y_from, length(y_upper))
+    x_lower <- rev(x_upper)
+
+    xxp <- c(x_upper, x_lower)  # x-values
+    yyp <- c(y_upper, y_lower)  # y-values
+
+    # (b) Draw polygon:
+
+    # polygon(xxp, yyp, border = NA, density = 20, col = make_transparent(col_delta, alpha = 1))  # lined polygon, OR
+    polygon(xxp, yyp, border = NA, density = NA, col = make_transparent(col_poly, alpha = alf_poly))  # filled polygon
+
+  } # if (show_poly) end.
+
+
+  # (+) Delta-x and delta-y segments: ------
+
+  if (show_delta){
+
+    # (a) delta-x (horizontal):
+    segments(x0 = x_from, y0 = (y_from * f_1), x1 = x_to, y1 = (y_from * f_1), lwd = 1.5, lty = 1, col = col_delta)
+    text(x = (x_from + delta_x/2), y = (y_from * f_1), labels = paste0("dx = ", round(delta_x, 1)),
+         col = col_delta, cex = cex_txt, pos = 1)  # delta-x label
+
+    # (b) delta-y (vertical):
+    segments(x0 = x_to, y0 = y_from, x1 = x_to, y1 = y_to, lwd = 1.5, lty = 1, col = col_delta)
+    text(x = x_to, y = (y_from + delta_y/2), labels = paste0("dy = ", round(delta_y, 1), "%"),
+         col = col_delta, cex = cex_txt, pos = 4)  # delta-y label
+
+  }
+
+
   # (+) Y-increments: ------
 
   if (show_inc){
@@ -600,7 +661,6 @@ plot_crisk <- function(x,  # x-values (as vector)
     points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
-
 
 
   # +++ here now +++
@@ -718,7 +778,7 @@ y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
+plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
