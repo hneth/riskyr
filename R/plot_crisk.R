@@ -643,14 +643,16 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if (show_delta & delta_x_specified){
 
+    f_1  <- 1/2  # scaling factor for delta label position
+
     # (a) delta-x (horizontal):
-    segments(x0 = x_from, y0 = (y_from * f_1), x1 = x_to, y1 = (y_from * f_1), lwd = 1.5, lty = 1, col = col_delta)
-    text(x = (x_from + delta_x/2), y = (y_from * f_1), labels = paste0("dx = ", round(delta_x, 1)),
+    segments(x0 = x_from, y0 = y_from, x1 = x_to, y1 = y_from, lwd = 1.5, lty = 1, col = col_delta)
+    text(x = (x_from + (delta_x * f_1)), y = y_from, labels = paste0("dx = ", round(delta_x, 1)),
          col = col_delta, cex = cex_txt, pos = 1)  # delta-x label
 
     # (b) delta-y (vertical):
     segments(x0 = x_to, y0 = y_from, x1 = x_to, y1 = y_to, lwd = 1.5, lty = 1, col = col_delta)
-    text(x = x_to, y = (y_from + delta_y/2), labels = paste0("dy = ", round(delta_y, 1), "%"),
+    text(x = x_to, y = (y_from + (delta_y * f_2)), labels = paste0("dy = ", round(delta_y, 1), "%"),
          col = col_delta, cex = cex_txt, pos = 4)  # delta-y label
 
   }
@@ -735,7 +737,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       # lower segment (passed risk):
       x_lo <- x_min  # x_from  # x of lower population part (vertical)
-      f_2  <- 1/2     # scaling factor for labels
+      f_2  <- 1/2     # scaling factor for population label position
 
       segments(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = y_from, lwd = 2, lty = 1,
                col = make_transparent(col_pass, alpha = 1))  # passed-y (vertical)
