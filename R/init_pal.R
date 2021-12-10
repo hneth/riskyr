@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2021 12 09
+## 2021 12 10
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -998,13 +998,13 @@ names(pal_mix) <- c("deepskyblue", "deeppink", "lightgreen", "green", "lightoran
 
 # Select pal_crisk:
 pal_crisk <- c(pal_mix["deepskyblue"], pal_mix["red2"],
-               "black",
+               "black", "grey50",
                pal_mix["sand2"], pal_mix["my_yellow"],
                pal_mix["blue4"], pal_mix["my_orange"], pal_mix["green"],
                pal_mix["deeppink"])
 
 names(pal_crisk) <- c("cum", "rinc",
-                      "aux",
+                      "txt", "aux",
                       "pass", "rem",
                       "delta", "poly", "popu",
                       "hi")
