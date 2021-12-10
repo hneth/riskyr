@@ -650,7 +650,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # (+) 2nd axis (on right): ------
+  # (+) Remaining risk (as 2nd axis on right): ------
 
   if (show_rem){
 
@@ -658,7 +658,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
     y2_lbl <- seq(0, 100, length.out = (n_aiv + 1))  # label all intervals
-    # y2_lbl <- c("0", rep(NA, n_aiv - 1), "100")    # label only extrema
+    y2_lbl <- c("0", rep(NA, n_aiv - 1), "100")      # label only extrema
 
     axis(side = 4, pos = (x_max + 0), at = y2_seq, labels = y2_lbl,
          las = 1, cex.axis = cex_axs)  # y at right
@@ -713,7 +713,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     }
 
-    # (c) Aux lines to right scale:
+    # (c) Aux lines for remaining risk (to right axis):
     if (show_rem & delta_x_specified){
 
       segments(x0 = x_from, y0 = y_from, x1 = x_max, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
@@ -736,6 +736,22 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
   points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
+
+
+  # (+) Highlight remaining risk (on right axis): ------
+
+  if (show_aux & delta_x_specified){
+
+    y2_val <- round((delta_y / (100 - y_from)) * 100, 1)  # y2 value of solution (rounded)
+    x_adj  <- 2  # x-value adjustment
+
+    segments(x0 = x_to, y0 = y_to, x1 = (x_max + x_adj), y1 = y_to, lwd = 1, lty = 2,
+             col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y-to (horizontal)
+
+    text(x = (x_max + x_adj), y = y_to, labels = paste0(y2_val, "%"), pos = 4,
+         cex = cex_axs, font = 2, col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y2_val label (on right axis)
+
+  }
 
 
   ## (+) Plot other stuff: --------
@@ -792,14 +808,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-x <- seq(0, 100, by = 10)
-y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-
+# x <- seq(0, 100, by = 10)
+# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+#
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
+# plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
