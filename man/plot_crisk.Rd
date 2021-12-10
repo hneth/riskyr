@@ -10,7 +10,7 @@ plot_crisk(
   x_from = NA,
   x_to = NA,
   fit_curve = FALSE,
-  show_inc = TRUE,
+  show_inc = FALSE,
   show_pas = TRUE,
   show_rem = TRUE,
   show_aux = TRUE,
@@ -39,7 +39,7 @@ plot_crisk(
   brd_dis = 0.06,
   lbl_txt = txt,
   title_lbl = "",
-  cex_lbl = 0.9,
+  cex_lbl = 0.95,
   cex_p_lbl = NA,
   col_pal = pal_crisk,
   mar_notes = TRUE,
@@ -65,7 +65,7 @@ correspond to each other.}
 Default: \code{fit_curve = FALSE}.}
 
 \item{show_inc}{Boolean: Show risk increments?
-Default: \code{show_inc = TRUE}.}
+Default: \code{show_inc = FALSE}.}
 
 \item{show_pas}{Boolean: Show past/passed risk?
 Default: \code{show_pas = TRUE}.}
@@ -226,8 +226,8 @@ Default: \code{lbl_txt = \link{txt}}.}
 \item{title_lbl}{Text label for current plot title.
 Default: \code{title_lbl = ""} (using "Cumulative risk").}
 
-\item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
-Default: \code{cex_lbl = .90}.}
+\item{cex_lbl}{Scaling factor for text labels.
+Default: \code{cex_lbl = .95}.}
 
 \item{cex_p_lbl}{Scaling factor for text labels (probabilities).
 Default: \code{cex_p_lbl = cex_lbl - .05}.}
