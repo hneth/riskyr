@@ -545,14 +545,12 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (+) Main: Custom crisk plot: ---------
 
-  # +++ here now +++
-
   # (0) Colors:
   col_txt <- make_transparent(col_pal["txt"], alpha = 1)
   alf_txt <- 1.0
 
   col_aux <- make_transparent(col_pal["aux"], alpha = 1)
-  alf_aux <- .85
+  alf_aux <- .90
 
   col_pass <- make_transparent(col_pal["pass"], alpha = 1)
   alf_pass <- .25
@@ -602,6 +600,10 @@ plot_crisk <- function(x,  # x-values (as vector)
     points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
+
+
+
+  # +++ here now +++
 
 
   # (+) Auxiliary elements: ------
