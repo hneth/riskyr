@@ -656,14 +656,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     n_aiv <- 5  # number of axis intervals
 
-    y2_seq <- seq(y_from, y_max, length.out = n_aiv + 1)
-    y2_lbl <- seq(0, 100, length.out = n_aiv + 1)  # all intervals
-    # y2_lbl <- c("0", rep(NA, n_aiv - 1), "100")  # only extremes
+    y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
+    y2_lbl <- seq(0, 100, length.out = (n_aiv + 1))  # label all intervals
+    # y2_lbl <- c("0", rep(NA, n_aiv - 1), "100")    # label only extrema
 
     axis(side = 4, pos = (x_max + 0), at = y2_seq, labels = y2_lbl,
          las = 1, cex.axis = cex_axs)  # y at right
 
-    mtext("Remaining risk", adj = (x_from + delta_y/2)/100, side = 4, line = 2)
+    # mtext("Remaining risk", adj = (x_from + delta_y/2)/100, side = 4, line = 2)
 
   }
 
@@ -798,8 +798,8 @@ y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
-plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
+# plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
+plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
