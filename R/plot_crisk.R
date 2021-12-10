@@ -560,6 +560,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   col_rem <- make_transparent(col_pal["rem"], alpha = 1)
   alf_rem <- .25
 
+  col_rinc <- make_transparent(col_pal["rinc"], alpha = 1)
+  # alf_rinc <- 0
+
   col_cum <- make_transparent(col_pal["cum"], alpha = 1)
   alf_cum <- .85
 
@@ -600,6 +603,17 @@ plot_crisk <- function(x,  # x-values (as vector)
     col_to   <- pal_bordeaux[[4]]
 
     points(x_to,   y_to,   pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_to,   alpha = .20), col = col_to)
+
+  }
+
+
+  # (+) Y-increments: ------
+
+  if (show_inc){
+
+    # lines(x = x, y = rinc_y, lwd = 2, lty = 1, col = col_rinc)
+    segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = 2, lty = 1, col = col_rinc)
+    points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
 
@@ -669,11 +683,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-# x <- seq(0, 100, by = 10)
-# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-#
+x <- seq(0, 100, by = 10)
+y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+
 # plot_crisk(x, y)
-# plot_crisk(x, y, x_from = 30, x_to = 60)
+plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
