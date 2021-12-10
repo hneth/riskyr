@@ -294,15 +294,14 @@ plot_crisk <- function(x,  # x-values (as vector)
   cex_txt  <- .95
   cex_pts  <- 2.0
 
-  # Switches:
+  # Boolean switches:
   show_inc  <- TRUE  # FALSE
   show_pass <- TRUE  # FALSE
   show_rem  <- TRUE  # FALSE
-  show_aux  <- TRUE  # FALSE
+  show_aux  <- TRUE
   show_poly  <- show_aux
   show_delta <- show_aux
 
-  # Others:
   delta_x_specified <- FALSE
 
 
@@ -505,7 +504,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   n_lines_top <- 3
   n_lines_bot <- 5
 
-  par(mar = c(n_lines_bot, 4, n_lines_top, 3) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(mar = c(n_lines_bot, 4, n_lines_top, 3.4) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
   ## Axis label locations:
@@ -526,8 +525,8 @@ plot_crisk <- function(x,  # x-values (as vector)
        axes = FALSE)
 
   ## Axes:
-  axis(side = 1, las = 1, cex.axis = cex_axs) # x-axis, horizontal labels
-  axis(side = 2, las = 1, cex.axis = cex_axs) # y-axis, horizontal labels
+  axis(side = 1, las = 1, cex.axis = cex_axs)  # x-axis, horizontal labels
+  axis(side = 2, las = 1, cex.axis = cex_axs)  # y-axis, horizontal labels
 
   ## Grid:
   grid(nx = NULL, ny = NULL,  # NA: no lines; NULL: at tick marks
@@ -596,7 +595,6 @@ plot_crisk <- function(x,  # x-values (as vector)
          col = make_transparent(col_txt, alpha = alf_aux), cex = cex_txt, pos = 1)
   }
 
-
   # (2) Polygon of risk increment: ------
 
   if (show_poly & delta_x_specified){
@@ -637,7 +635,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # (+) Delta-x and delta-y segments: ------
 
-  if (show_delta){
+  if (show_delta & delta_x_specified){
 
     # (a) delta-x (horizontal):
     segments(x0 = x_from, y0 = (y_from * f_1), x1 = x_to, y1 = (y_from * f_1), lwd = 1.5, lty = 1, col = col_delta)
@@ -648,6 +646,24 @@ plot_crisk <- function(x,  # x-values (as vector)
     segments(x0 = x_to, y0 = y_from, x1 = x_to, y1 = y_to, lwd = 1.5, lty = 1, col = col_delta)
     text(x = x_to, y = (y_from + delta_y/2), labels = paste0("dy = ", round(delta_y, 1), "%"),
          col = col_delta, cex = cex_txt, pos = 4)  # delta-y label
+
+  }
+
+
+  # (+) 2nd axis (on right): ------
+
+  if (show_rem){
+
+    n_aiv <- 5  # number of axis intervals
+
+    y2_seq <- seq(y_from, y_max, length.out = n_aiv + 1)
+    y2_lbl <- seq(0, 100, length.out = n_aiv + 1)  # all intervals
+    # y2_lbl <- c("0", rep(NA, n_aiv - 1), "100")  # only extremes
+
+    axis(side = 4, pos = (x_max + 0), at = y2_seq, labels = y2_lbl,
+         las = 1, cex.axis = cex_axs)  # y at right
+
+    mtext("Remaining risk", adj = (x_from + delta_y/2)/100, side = 4, line = 2)
 
   }
 
@@ -683,9 +699,6 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3), col = col_aux, bg = make_transparent(col_pass, alpha = .40), lwd = 1.5)
 
-      # segments(x0 = x_from, y0 = y_from, x1 = x_max, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
-      #          col = make_transparent(col_aux, alpha = alf_aux))  # y-from to right (horizontal)
-
     }
 
     # (b) Aux lines and point (x_to, y_to):
@@ -698,10 +711,18 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       points(x_to, y_to, pch = 21, cex = (cex_pts - 0.3), col = col_aux, bg = make_transparent(col_rem, alpha = .40), lwd = 1.5)
 
-      # segments(x0 = x_to, y0 = y_to, x1 = x_max, y1 = y_to, lwd = lwd_aux, lty = lty_aux,
-      #          col = make_transparent(col_aux, alpha = alf_aux))  # y-to to right (horizontal)
+    }
+
+    # (c) Aux lines to right scale:
+    if (show_rem & delta_x_specified){
+
+      segments(x0 = x_from, y0 = y_from, x1 = x_max, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # x/y-from to right (horizontal)
+      segments(x0 = x_to, y0 = y_to, x1 = x_max, y1 = y_to, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # x/y-to to right (horizontal)
 
     }
+
 
   } # if (show_aux) end.
 
@@ -777,8 +798,8 @@ y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
-# plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
+plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
+# plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
