@@ -218,8 +218,9 @@
 #' @importFrom graphics text
 #' @importFrom graphics title
 #' @importFrom graphics mtext
-#' @importFrom graphics legend
 #' @importFrom graphics lines
+#' @importFrom graphics segments
+#' @importFrom graphics legend
 #'
 #' @importFrom stats smooth.spline
 #' @importFrom stats predict
