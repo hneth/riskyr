@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 09
+## 2021 12 10
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -285,9 +285,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   ## (0) Initialize: ------
 
   # Labels:
-  x_unit <- "years"
+  x_unit   <- "years"
   x_ax_lbl <- paste0("Age (in ", x_unit, ")")
-  y_ax_lbl <- "Risk"
+  y_ax_lbl <- "Population risk"
 
   # Sizes:
   cex_axs  <- 1.0
@@ -298,9 +298,12 @@ plot_crisk <- function(x,  # x-values (as vector)
   show_inc  <- TRUE  # FALSE
   show_pass <- TRUE  # FALSE
   show_rem  <- TRUE  # FALSE
-  show_aux  <- TRUE
+  show_aux  <- TRUE  # FALSE
+
   show_poly  <- show_aux
   show_delta <- show_aux
+  show_popu  <- show_aux
+  show_hi    <- show_aux
 
   delta_x_specified <- FALSE
 
@@ -562,6 +565,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   col_poly <- make_transparent(col_pal["poly"], alpha = 1)
   alf_poly <- .25
 
+  col_popu <- make_transparent(col_pal["popu"], alpha = 1)
+  alf_popu <- 1
+
   col_delta <- make_transparent(col_pal["delta"], alpha = 1)
 
   col_rinc <- make_transparent(col_pal["rinc"], alpha = 1)
@@ -724,6 +730,29 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
 
+    # (d) Population segments:
+    if (show_popu & !is.na(x_from)){
+
+      # lower segment (passed risk):
+      x_lo <- x_min  # x_from  # x of lower population part (vertical)
+      f_2  <- 1/2     # scaling factor for labels
+
+      segments(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = y_from, lwd = 2, lty = 1,
+               col = make_transparent(col_pass, alpha = 1))  # passed-y (vertical)
+      text(x = x_lo, y = (y_from * f_2), labels = paste0(round(y_from, 1), "%"),
+           col = make_transparent(col_txt, alpha = alf_aux), cex = cex_txt, pos = 4)  # y-from/passed risk label
+
+      # upper segment (remaining risk):
+      x_up <- x_from # x_lo  # x of upper population part (vertical)
+      y_up <- y_from + (y_max - y_from) * f_2  # y of remaining population label
+
+      segments(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max, lwd = 2, lty = 1,
+               col = make_transparent(col_popu, alpha = alf_popu))  # remaining-y (vertical)
+      text(x = x_up, y = y_up, labels = paste0(round(y_max - y_from, 1), "%"),
+           col = make_transparent(col_popu, alpha = 1), cex = cex_txt, pos = 2)  # remaining population proportion label
+
+    }
+
   } # if (show_aux) end.
 
 
@@ -740,13 +769,13 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # (+) Highlight remaining risk (on right axis): ------
 
-  if (show_aux & delta_x_specified){
+  if (show_hi & delta_x_specified){
 
     y2_val <- round((delta_y / (100 - y_from)) * 100, 1)  # y2 value of solution (rounded)
     x_adj  <- 2  # x-value adjustment
 
-    segments(x0 = x_to, y0 = y_to, x1 = (x_max + x_adj), y1 = y_to, lwd = 1, lty = 2,
-             col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y-to (horizontal)
+    segments(x0 = x_from, y0 = y_to, x1 = (x_max + x_adj), y1 = y_to, lwd = 1, lty = 2,
+             col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y-to level (horizontal)
 
     text(x = (x_max + x_adj), y = y_to, labels = paste0(y2_val, "%"), pos = 4,
          cex = cex_axs, font = 2, col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y2_val label (on right axis)
@@ -808,6 +837,12 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
+## 1. Dense data:
+# x <- seq(from = 0, to = 100, by = 5)
+# i <- c(0, 0, 0, 0, 0, .035, .070, .145, .160, .120, .07, .03, .02, .0150, .0150, .0125, .0075, 0, 0, 0, 0)
+# y <- cumsum(i) * 100  # as percentages
+#
+## 2. sparse data:
 # x <- seq(0, 100, by = 10)
 # y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
 #
@@ -815,12 +850,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 45, x_to = 75)  # predicted points
+# plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
 # plot_crisk(x = 2:10, y = seq(2, 10, by = 1), x_from = 4.5, x_to = 6.5)  # predicted points
-
 
 
 ## (+) ToDo: ------
