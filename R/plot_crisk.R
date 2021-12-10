@@ -284,7 +284,25 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (0) Initialize: ------
 
+  # Labels:
+  x_unit <- "years"
+  x_ax_lbl <- paste0("Age (in ", x_unit, ")")
+  y_ax_lbl <- "Risk"
+
+  # Sizes:
+  cex_axs  <- 1.0
+  cex_txt  <- .95
+  cex_pts  <- 2.0
+
+  # Switches:
+  show_inc  <- TRUE  # FALSE
+  show_pass <- TRUE  # FALSE
+  show_rem  <- TRUE  # FALSE
+  show_aux  <- TRUE  # FALSE
+
+  # Others:
   delta_x_specified <- FALSE
+
 
   ## (1) Check inputs: --------
 
@@ -300,6 +318,21 @@ plot_crisk <- function(x,  # x-values (as vector)
   if ((!is.na(x_from)) && (x_from < min(x))) { message("plot_crisk: x_from is lower than min(x).") }
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
+
+  if ((is.na(x_from)) && (show_pass)) {
+    message("plot_crisk: Showing passed risk requires x_from.")
+    show_pass <- FALSE
+  }
+
+  if ((is.na(x_from)) && (show_pass)) {
+    message("plot_crisk: Showing passed risk requires x_from.")
+    show_pass <- FALSE
+  }
+
+  if ((is.na(x_from)) && (show_rem)) {
+    message("plot_crisk: Showing remaining risk requires x_from.")
+    show_rem <- FALSE
+  }
 
   if (is.na(x_from) && (!is.na(x_to))){
     message("plot_crisk: x_to without x_from. Using x_from <- min(x).")
@@ -456,27 +489,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   opar <- par(no.readonly = TRUE)  # copy of current settings
   on.exit(par(opar))  # par(opar)  # restore original settings
 
-  ## (B) User input parameters:
-
-  ## Additional parameters (currently fixed): ----
+  ## (B) Additional plot parameters (currently fixed): ----
 
   lty <- 1  # default
-
-  # Labels:
-  x_unit <- "years"
-  x_ax_lbl <- paste0("Age (in ", x_unit, ")")
-  y_ax_lbl <- "Risk"
-
-  # Sizes:
-  cex_axs  <- 1.0
-  cex_txt  <- .95
-  cex_pts  <- 2.0
-
-  # Switches:
-  show_inc  <- TRUE  # FALSE
-  show_pass <- TRUE  # FALSE
-  show_rem  <- TRUE  # FALSE
-  show_aux  <- TRUE  # FALSE
 
 
   ## (4) Define plot and margin areas: --------
@@ -532,7 +547,43 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # +++ here now +++
 
+  # (0) Colors:
+  col_txt <- make_transparent(col_pal["txt"], alpha = 1)
+  alf_txt <- 1.0
 
+  col_aux <- make_transparent(col_pal["aux"], alpha = 1)
+  alf_aux <- .85
+
+  col_pass <- make_transparent(col_pal["pass"], alpha = 1)
+  alf_pass <- .25
+
+  col_rem <- make_transparent(col_pal["rem"], alpha = 1)
+  alf_rem <- .25
+
+  col_cum <- make_transparent(col_pal["cum"], alpha = 1)
+  alf_cum <- .85
+
+  # (1) Rectangles: ------
+
+  x_rfin <- x_max  # right end of rectangles
+
+  # (a) passed risk:
+  if (show_pass){
+
+    rect(xleft = x_min, ybottom = y_min, xright = x_rfin, ytop = y_from,
+         border = NA, density = NA, col = make_transparent(col_pass, alpha = alf_pass))
+    text(x = (x_min + x_from/2), y = y_from, labels = "Passed risk",
+         col = make_transparent(col_txt, alpha = alf_aux), cex = cex_txt, pos = 1)
+  }
+
+  # (b) remaining risk:
+  if (show_rem){
+
+    rect(xleft = x_from, ybottom = y_from, xright = x_rfin, ytop = y_max,
+         border = NA, density = NA, col = make_transparent(col_rem, alpha = alf_rem))
+    text(x = (x_from + (x_max - x_from)/2), y = y_max, labels = "Remaining risk",
+         col = make_transparent(col_txt, alpha = alf_aux), cex = cex_txt, pos = 1)
+  }
 
   # (+) Plot from/to points: ------
 
@@ -555,9 +606,6 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # (+) Cumulative curve: ------
 
-  col_cum <- make_transparent(col_pal["cum"], alpha = 1)  # make_transparent(Seeblau, alpha = .90)
-  alf_cum <- .85
-
   if (!fit_curve){
     lines(x = x, y = y, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
   } else {
@@ -565,8 +613,6 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
   points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
-
-
 
 
   ## (+) Plot other stuff: --------
@@ -583,23 +629,23 @@ plot_crisk <- function(x,  # x-values (as vector)
     cur_title_lbl <- "Cumulative risk"
   }
 
-  # Plot title:
-  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  # Plot title: # (left, not raised, normal font)
+  title(cur_title_lbl, col = col_txt, adj = 0, line = 1, font.main = 1, cex.main = 1.2)
 
 
   ## (+) Margins: ------
 
   if (mar_notes) {
 
-    # Note:
+    # Content of note:
     if (fit_curve){
       note_lbl <- "(Using fitted data.)"
     } else {
-      note_lbl <- "(Using data provided.)"
+      note_lbl <- NA # "(Using data provided.)"
     }
 
     # parameters:
-    m_col <- "grey33"
+    m_col <- make_transparent(col_txt, alpha = alf_aux)
     m_cex <- (cex_txt - .02)
 
     # mtext("side = 1, line = 2, adj = 0", side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # left 2 top
@@ -623,14 +669,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-x <- seq(0, 100, by = 10)
-y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-
+# x <- seq(0, 100, by = 10)
+# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+#
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 30, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
+# plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
