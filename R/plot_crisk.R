@@ -296,10 +296,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   cex_pts  <- 2.0
 
   # Boolean switches:
-  show_inc  <- TRUE  # FALSE
-  show_pass <- TRUE  # FALSE
-  show_rem  <- TRUE  # FALSE
-  show_aux  <- TRUE  # FALSE
+  show_inc <- TRUE  # FALSE
+  show_pas <- TRUE  # FALSE
+  show_rem <- TRUE  # FALSE
+  show_aux <- TRUE  # FALSE
 
   show_poly  <- show_aux
   show_delta <- show_aux
@@ -324,14 +324,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
-  if ((is.na(x_from)) && (show_pass)) {
+  if ((is.na(x_from)) && (show_pas)) {
     message("plot_crisk: Showing passed risk requires x_from.")
-    show_pass <- FALSE
+    show_pas <- FALSE
   }
 
-  if ((is.na(x_from)) && (show_pass)) {
+  if ((is.na(x_from)) && (show_pas)) {
     message("plot_crisk: Showing passed risk requires x_from.")
-    show_pass <- FALSE
+    show_pas <- FALSE
   }
 
   if ((is.na(x_from)) && (show_rem)) {
@@ -585,7 +585,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   x_rfin <- x_max  # right end of rectangles
 
   # (a) passed risk:
-  if (show_pass){
+  if (show_pas){
 
     rect(xleft = x_min, ybottom = y_min, xright = x_rfin, ytop = y_from,
          border = NA, density = NA, col = make_transparent(col_pass, alpha = alf_pass))
