@@ -504,27 +504,27 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## Draw empty plot:
   plot(0, 0, type = "n",      # type = "n" hides the points
-       xlab = "x", ylab = "y",
+       xlab = x_ax_lbl, ylab = y_ax_lbl, cex.axis = cex_axs,
        xlim = c(x_min, x_max), ylim = c(y_min, y_max),
        axes = FALSE)
 
   ## Axes:
-  axis(side = 1, las = 1) # x-axis, horizontal labels
-  axis(side = 2, las = 2) # y-axis, horizontal labels
+  axis(side = 1, las = 1, cex.axis = cex_axs) # x-axis, horizontal labels
+  axis(side = 2, las = 1, cex.axis = cex_axs) # y-axis, horizontal labels
 
   ## Grid:
-  grid(nx = NULL, ny = NULL,  # NULL: at tick marks, NA: no lines
-       col = grey(.75, .99), lty = 2, lwd = par("lwd"), equilogs = TRUE)
+  grid(nx = NULL, ny = NULL,  # NA: no lines; NULL: at tick marks
+       col = grey(.50, alpha = .50), lty = 1, lwd = par("lwd")/3, equilogs = TRUE)
 
 
   ## (+) Draw plot points: --------
 
-  ## Grid of points:
-  # grid_x <- rep(seq(0, 1, by = .25), times = length(seq(0, 1, by = .25))) # x/horizontal
-  # grid_y <- rep(seq(0, 1, by = .25), each =  length(seq(0, 1, by = .25))) # y/vertical
+  # # Grid of points:
+  # grid_x <- rep(seq(x_min, x_max, by = 10), times = length(seq(x_min, x_max, by = 10))) # x/horizontal
+  # grid_y <- rep(seq(y_min, y_max, by = 10), each =  length(seq(y_min, y_max, by = 10))) # y/vertical
   # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)        # grid points
-
-  # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)  # grid points (scaled)
+  #
+  # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)  # grid points (scaled)
   # points(0, 0, pch = 1, col = grey(.33, .50), cex = 1)  # mark origin
 
 
@@ -623,14 +623,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (3) Check: ------
 
-# x <- seq(0, 100, by = 10)
-# y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
-#
+x <- seq(0, 100, by = 10)
+y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
+
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 30, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 44, x_to = 65)  # predicted points
+plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
