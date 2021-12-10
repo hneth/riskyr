@@ -932,7 +932,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
-plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
+# plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
 #
 # # Small x- and y-values and linear increases:
