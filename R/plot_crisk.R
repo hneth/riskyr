@@ -28,11 +28,22 @@
 #' correspond to each other.
 #'
 #' @param x_from Start value of risk increment.
-#'
 #' @param x_to End value of risk increment.
 #'
 #' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
 #' Default: \code{fit_curve = FALSE}.
+#'
+#' @param show_inc Boolean: Show risk increments?
+#' Default: \code{show_inc = TRUE}.
+#'
+#' @param show_pas Boolean: Show past/passed risk?
+#' Default: \code{show_pas = TRUE}.
+#'
+#' @param show_rem Boolean: Show remaining risk?
+#' Default: \code{show_rem = TRUE}.
+#'
+#' @param show_aux Boolean: Show auxiliary elements (lines and points)?
+#' Default: \code{show_aux = TRUE}.
 #'
 #'
 #'
@@ -238,6 +249,12 @@ plot_crisk <- function(x,  # x-values (as vector)
 
                        fit_curve = FALSE,  # fit a curve to x-y-data?
 
+                       show_inc = TRUE,  # Boolean: Show risk increments?
+                       show_pas = TRUE,  # Boolean: Show past/passed risk?
+                       show_rem = TRUE,  # Boolean: Show remaining risk?
+                       show_aux = TRUE,  # Boolean: Show auxiliary elements (lines and points)?
+
+
                        ## Legacy:
                        prev = num$prev,    # probabilities
                        sens = num$sens, mirt = NA,
@@ -296,10 +313,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   cex_pts  <- 2.0
 
   # Boolean switches:
-  show_inc <- TRUE  # FALSE
-  show_pas <- TRUE  # FALSE
-  show_rem <- TRUE  # FALSE
-  show_aux <- TRUE  # FALSE
+  # show_inc <- TRUE  # FALSE
+  # show_pas <- TRUE  # FALSE
+  # show_rem <- TRUE  # FALSE
+  # show_aux <- TRUE  # FALSE
 
   show_poly  <- show_aux
   show_delta <- show_aux
