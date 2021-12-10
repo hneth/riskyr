@@ -566,6 +566,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   col_cum <- make_transparent(col_pal["cum"], alpha = 1)
   alf_cum <- .85
 
+  col_hi <- make_transparent(col_pal["hi"], alpha = 1)  # Pinky
+  alf_hi <- .85
+
+
   # (1) Rectangles: ------
 
   x_rfin <- x_max  # right end of rectangles
@@ -588,24 +592,6 @@ plot_crisk <- function(x,  # x-values (as vector)
          col = make_transparent(col_txt, alpha = alf_aux), cex = cex_txt, pos = 1)
   }
 
-  # (+) Plot from/to points: ------
-
-  if (!is.na(x_from)){
-
-    col_from <- pal_seegruen[[4]]
-
-    points(x_from, y_from, pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_from, alpha = .20), col = col_from)
-
-  }
-
-  if (!is.na(x_to)){
-
-    col_to   <- pal_bordeaux[[4]]
-
-    points(x_to,   y_to,   pch = 21, cex = (cex_pts + 0), bg = make_transparent(col_to,   alpha = .20), col = col_to)
-
-  }
-
 
   # (+) Y-increments: ------
 
@@ -616,6 +602,46 @@ plot_crisk <- function(x,  # x-values (as vector)
     points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
+
+
+  # (+) Auxiliary elements: ------
+
+  if (show_aux){
+
+    lwd_aux <- 1
+    lty_aux <- 2
+
+    # (a) Lines and point (x_from, y_from):
+    if (!is.na(x_from)){
+
+      segments(x0 = x_from, y0 = 0, x1 = x_from, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # x-from from bot (vertical)
+      segments(x0 = x_from, y0 = y_from, x1 = x_min, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # y-from to left (horizontal)
+
+      points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3), col = col_aux, bg = make_transparent(col_pass, alpha = .40), lwd = 1.5)
+
+      # segments(x0 = x_from, y0 = y_from, x1 = x_max, y1 = y_from, lwd = lwd_aux, lty = lty_aux,
+      #          col = make_transparent(col_aux, alpha = alf_aux))  # y-from to right (horizontal)
+
+    }
+
+    # (b) Aux lines and point (x_to, y_to):
+    if (!is.na(x_to)){
+
+      segments(x0 = x_to, y0 = 0, x1 = x_to, y1 = y_to, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # x-to from bot (vertical)
+      segments(x0 = x_to, y0 = y_to, x1 = x_min, y1 = y_to, lwd = lwd_aux, lty = lty_aux,
+               col = make_transparent(col_aux, alpha = alf_aux))  # y-to to left (horizontal)
+
+      points(x_to, y_to, pch = 21, cex = (cex_pts - 0.3), col = col_aux, bg = make_transparent(col_rem, alpha = .40), lwd = 1.5)
+
+      # segments(x0 = x_to, y0 = y_to, x1 = x_max, y1 = y_to, lwd = lwd_aux, lty = lty_aux,
+      #          col = make_transparent(col_aux, alpha = alf_aux))  # y-to to right (horizontal)
+
+    }
+
+  } # if (show_aux) end.
 
 
   # (+) Cumulative curve: ------
@@ -687,10 +713,10 @@ x <- seq(0, 100, by = 10)
 y <- c(0, 0, 0, 10, 25, 50, 75, 80, 85, 85, 85)
 
 # plot_crisk(x, y)
-plot_crisk(x, y, x_from = 40, x_to = 60)
+# plot_crisk(x, y, x_from = 40, x_to = 60)
 # plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
+plot_crisk(x, y, x_from = 45, x_to = 65)  # predicted points
 #
 # # small y-values and linear increase:
 # plot_crisk(x = 1:10, y = seq(1, 10, by = 1), x_from = 4,   x_to = 6)    # provided points
