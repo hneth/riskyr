@@ -10,6 +10,10 @@ plot_crisk(
   x_from = NA,
   x_to = NA,
   fit_curve = FALSE,
+  show_inc = TRUE,
+  show_pas = TRUE,
+  show_rem = TRUE,
+  show_aux = TRUE,
   prev = num$prev,
   sens = num$sens,
   mirt = NA,
@@ -59,6 +63,18 @@ correspond to each other.}
 
 \item{fit_curve}{Boolean: Fit a curve to \code{x}-\code{y}-data?
 Default: \code{fit_curve = FALSE}.}
+
+\item{show_inc}{Boolean: Show risk increments?
+Default: \code{show_inc = TRUE}.}
+
+\item{show_pas}{Boolean: Show past/passed risk?
+Default: \code{show_pas = TRUE}.}
+
+\item{show_rem}{Boolean: Show remaining risk?
+Default: \code{show_rem = TRUE}.}
+
+\item{show_aux}{Boolean: Show auxiliary elements (lines and points)?
+Default: \code{show_aux = TRUE}.}
 
 \item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
