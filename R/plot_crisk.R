@@ -46,6 +46,8 @@
 #' @param show_inc Boolean: Show risk increments?
 #' Default: \code{show_inc = FALSE}.
 #'
+#' @param col_pal Color palette (as a named vector).
+#' Default: \code{col_pal = pal_crisk}.
 #'
 #' @param arr_c Arrow code for symbols at ends of probability links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
@@ -148,10 +150,9 @@ plot_crisk <- function(x,  # x-values (as vector)
                        show_aux = TRUE,   # Boolean: Show auxiliary elements (lines and points)?
                        show_inc = FALSE,  # Boolean: Show risk increments?
 
-                       arr_c = -3,        # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
-
                        # Colors and text labels:
-                       col_pal = pal_crisk,  # color palette
+                       col_pal = pal_crisk,  # color palette (as a named vector)
+                       arr_c = -3,           # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
 
                        title_lbl = "Cumulative risk", # plot title
                        x_lbl  = "Age (in years)",     # label of x-axis (at bottom)
@@ -555,7 +556,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if (show_delta & delta_x_specified){
 
-    f_1 <- 1/2  # scaling factor for delta label position
+    f_1 <- 1/2  # scaling factor for label position
 
     # (a) delta-x (horizontal):
     segments(x0 = x_from, y0 = y_from, x1 = x_to, y1 = y_from, lwd = 1.5, lty = 1, col = col_delta)
@@ -573,7 +574,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     dy_lbl <- paste0(round(delta_y, 1), "%")  # paste0("dy = ", round(delta_y, 1), "%")
 
     if (show_vals){
-      text(x = x_to, y = (y_from + (delta_y * f_2)), labels = dy_lbl,
+      text(x = x_to, y = (y_from + (delta_y * f_1)), labels = dy_lbl,
            col = col_delta, cex = cex_lbl, font = 2, pos = 4)  # delta-y label
     }
   }
@@ -692,7 +693,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     if (show_popu & !is.na(x_from)){
 
       # 1. lower segment (passed risk):
-      f_2  <- 1/2      # scaling factor for population label position
+      f_2  <- 1/2      # scaling factor for label position
       # x_lo <- x_min  # x of lower population part (vertical)
 
       # segments(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas, lwd = 2, lty = 1,
