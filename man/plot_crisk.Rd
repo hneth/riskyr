@@ -38,7 +38,10 @@ plot_crisk(
   col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.06,
   lbl_txt = txt,
-  title_lbl = "",
+  title_lbl = "Cumulative risk",
+  x_lbl = "Age (in years)",
+  y_lbl = "Population risk",
+  y2_lbl = "",
   cex_lbl = 0.95,
   cex_p_lbl = NA,
   col_pal = pal_crisk,
@@ -224,7 +227,16 @@ Negative values show links outside of main area.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = ""} (using "Cumulative risk").}
+Default: \code{title_lbl = "Cumulative risk"}.}
+
+\item{x_lbl}{Text label of x-axis (at bottom).
+Default: \code{x_lbl = "Age (in years)"}.}
+
+\item{y_lbl}{Text label of y-axis (on left).
+Default: \code{y_lbl = "Population risk"}.}
+
+\item{y2_lbl}{Text label of 2nd y-axis (on right).
+Default: \code{y2_lbl = ""} (formerly "Remaining risk").}
 
 \item{cex_lbl}{Scaling factor for text labels.
 Default: \code{cex_lbl = .95}.}
