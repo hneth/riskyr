@@ -13,7 +13,9 @@ plot_crisk(
   show_pas = TRUE,
   show_rem = TRUE,
   show_aux = TRUE,
+  show_num = TRUE,
   show_inc = FALSE,
+  show_grid = FALSE,
   col_pal = pal_crisk,
   arr_c = -3,
   title_lbl = "Cumulative risk",
@@ -49,11 +51,19 @@ Default: \code{show_pas = TRUE}.}
 \item{show_rem}{Boolean: Show remaining risk?
 Default: \code{show_rem = TRUE}.}
 
-\item{show_aux}{Boolean: Show auxiliary elements (lines and points)?
+\item{show_aux}{Boolean: Show auxiliary elements
+(i.e., lines, points, and text labels)?
 Default: \code{show_aux = TRUE}.}
+
+\item{show_num}{Boolean: Show numeric values,
+provided that \code{show_aux = TRUE}.
+Default: \code{show_num = TRUE}.}
 
 \item{show_inc}{Boolean: Show risk increments?
 Default: \code{show_inc = FALSE}.}
+
+\item{show_grid}{Boolean: Show grid lines?
+Default: \code{show_grid = FALSE}.}
 
 \item{col_pal}{Color palette (as a named vector).
 Default: \code{col_pal = pal_crisk}.}
@@ -123,10 +133,11 @@ plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc
 plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)
 plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)
 plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE)
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_num = FALSE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE)
 
 # Note: Showing all may overplot/overwhelm:
-plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
+plot_crisk(x, y, x_from = 48, x_to = 68, show_inc = TRUE, show_grid = TRUE)
 
 }
 \seealso{
