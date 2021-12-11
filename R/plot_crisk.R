@@ -46,6 +46,9 @@
 #' @param show_rem Boolean: Show remaining risk?
 #' Default: \code{show_rem = TRUE}.
 #'
+#' @param show_pop Boolean: Show population parts?
+#' Default: \code{show_pop = TRUE}.
+#'
 #' @param show_aux Boolean: Show auxiliary elements
 #' (i.e., lines, points, and text labels)?
 #' Default: \code{show_aux = TRUE}.
@@ -88,9 +91,6 @@
 #'
 #' @param y2_lbl Text label of 2nd y-axis (on right).
 #' Default: \code{y2_lbl = ""} (formerly "Remaining risk").
-#'
-#' @param cex_lbl Scaling factor for text labels.
-#' Default: \code{cex_lbl = .95}.
 #'
 #'
 #' @param mar_notes Boolean option for showing margin notes.
@@ -164,6 +164,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                        # Boolean plot options:
                        show_pas = TRUE,  # Boolean: Show past/passed risk?
                        show_rem = TRUE,  # Boolean: Show remaining risk?
+                       show_pop = TRUE,  # Boolean: Show population partitions?
                        show_aux = TRUE,  # Boolean: Show auxiliary elements (lines and points)?
                        show_num = TRUE,  # Boolean: Show numeric values?
 
@@ -179,28 +180,16 @@ plot_crisk <- function(x,  # x-values (as vector)
                        y_lbl  = "Population risk",    # label of y-axis (on left)
                        y2_lbl = "",                   # label of 2nd y-axis (on right)
 
-                       cex_lbl = .95,       # size of text labels
                        mar_notes = TRUE,    # show margin notes?
                        ...                  # other (graphical) parameters (passed to plot_line)
 ) {
 
   ## (0) Initialize: ------
 
-  # Labels:
-  # x_unit  <- "years"
-  x_ax_lbl  <- x_lbl   # paste0("Age (in ", x_unit, ")")
-  y_ax_lbl  <- y_lbl   # "Population risk"
-  y2_ax_lbl <- y2_lbl  # "Remaining risk"
-
-  # Sizes:
-  cex_axs  <- 1.0
-  cex_pts  <- 2.0
-
   # Boolean switches:
   show_poly  <- show_aux  # show polygon of risk increment?
   show_delta <- show_aux  # show x- and y-increments?
-  show_popu  <- show_aux  # show population partitions?
-  show_high  <- show_aux  # highlight numeric solution?
+  show_high  <- show_aux  # highlight numeric value of risk increment?
 
   delta_x_specified <- FALSE
 
@@ -396,18 +385,78 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (3) Plot parameters: --------
 
-  ## (A) Generic:
+  ## (A) Generic: ----
 
   opar <- par(no.readonly = TRUE)  # copy of current settings
   on.exit(par(opar))  # par(opar)  # restore original settings
 
+  # (B) Additional plot parameters (currently fixed): ----
 
-  ## (B) Additional plot parameters (currently fixed): ----
-
-  lty <- 1  # default
+  # Text labels:
   # if (is.na(title_lbl)) {title_lbl <- ""}
+  # x_unit  <- "years" # Defaults:
+  x_ax_lbl  <- x_lbl   # paste0("Age (in ", x_unit, ")")
+  y_ax_lbl  <- y_lbl   # "Population risk"
+  y2_ax_lbl <- y2_lbl  # "Remaining risk"
 
-  ## (4) Define plot and margin areas: --------
+  # Line parameters:
+  lty_main <- 1
+  lty_aux  <- 2
+  lty_grid <- 1
+
+  lwd_main <- par("lwd") * 2
+  lwd_aux  <- par("lwd") * 2/3
+  lwd_grid <- par("lwd") * 1/3
+
+  # Sizes:
+  cex_lbl <- par("cex") * .95
+  cex_axs <- par("cex")
+  cex_pts <- par("cex") * 2.0
+  cex_tit <- par("cex") * 1.2  # main title
+  cex_mar <- par("cex") * .92  # margin notes
+
+  # Positions:
+  x_adj  <- (3 * x_max/100)  # x-value adjustment (for labels next to y-axes)
+
+  # X-values of population parts (vertical):
+  x_lo <- x_from  # x_min # x_max # x of lower population part (vertical)
+  x_up <- x_from  # x_lo  # x of upper population part (vertical)
+
+  pos_aux <- NULL   # NULL or 1: bot, 2: left, 3: top, 4: right
+
+  # Colors (named colors from col_pal = pal_crisk):
+  col_cum <- make_transparent(col_pal["cum"], alpha = 1)  # cumulative risk curve
+  alf_cum <- .85
+
+  col_rinc <- make_transparent(col_pal["rinc"], alpha = 1)  # relative risk increments
+
+  col_txt <- make_transparent(col_pal["txt"], alpha = 1)
+  alf_txt <- 1.0
+
+  col_aux <- make_transparent(col_pal["aux"], alpha = 1)
+  alf_aux <- .90
+
+  col_hi <- make_transparent(col_pal["high"], alpha = 1)  # highlighting
+  alf_hi <- .85
+
+  col_pas <- make_transparent(col_pal["pas"], alpha = 1)
+  alf_pas <- .25
+
+  col_rem <- make_transparent(col_pal["rem"], alpha = 1)
+  alf_rem <- .25
+
+  col_poly <- make_transparent(col_pal["poly"], alpha = 1)
+  alf_poly <- .25
+
+  col_delta <- make_transparent(col_pal["delta"], alpha = 1)
+
+  col_popu <- make_transparent(col_pal["popu"], alpha = 1)
+  alf_popu <- 1
+
+  col_mar <- make_transparent(col_txt, alpha = alf_aux)  # margin notes
+
+
+  ## (C) Plot and margin areas: ----
 
   ## Define margin areas:
 
@@ -426,7 +475,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
 
 
-  ## (5) Plot setup: --------
+  ## (4) Plot setup: --------
 
   # Plot dimensions:
 
@@ -443,10 +492,10 @@ plot_crisk <- function(x,  # x-values (as vector)
   # Grid:
   if (show_grid){
     grid(nx = NULL, ny = NULL,  # NA: no lines; NULL: at tick marks
-         col = grey(.50, alpha = .50), lty = 1, lwd = par("lwd")/3, equilogs = TRUE)
+         col = grey(.50, alpha = .50), lty = lty_grid, lwd = lwd_grid, equilogs = TRUE)
   }
 
-  ## (+) Draw plot points: --------
+  # Draw plot points:
 
   # # Grid of points:
   # grid_x <- rep(seq(x_min, x_max, by = 10), times = length(seq(x_min, x_max, by = 10))) # x/horizontal
@@ -457,42 +506,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   # points(0, 0, pch = 1, col = grey(.33, .50), cex = 1)  # mark origin
 
 
-  ## (+) Main: Custom crisk plot: ---------
+  ## (5) Main: Custom crisk plot: ---------
 
-  # Constants:
-  x_adj  <- (3 * x_max/100)  # x-value adjustment (for labels next to y-axes)
-
-  # Colors:
-  col_txt <- make_transparent(col_pal["txt"], alpha = 1)
-  alf_txt <- 1.0
-
-  col_aux <- make_transparent(col_pal["aux"], alpha = 1)
-  alf_aux <- .90
-
-  col_pass <- make_transparent(col_pal["pass"], alpha = 1)
-  alf_pass <- .25
-
-  col_rem <- make_transparent(col_pal["rem"], alpha = 1)
-  alf_rem <- .25
-
-  col_poly <- make_transparent(col_pal["poly"], alpha = 1)
-  alf_poly <- .25
-
-  col_popu <- make_transparent(col_pal["popu"], alpha = 1)
-  alf_popu <- 1
-
-  col_delta <- make_transparent(col_pal["delta"], alpha = 1)
-
-  col_rinc <- make_transparent(col_pal["rinc"], alpha = 1)
-
-  col_cum <- make_transparent(col_pal["cum"], alpha = 1)
-  alf_cum <- .85
-
-  col_hi <- make_transparent(col_pal["hi"], alpha = 1)  # Pinky
-  alf_hi <- .85
-
-
-  # (1) Rectangles: ------
+  # 1. Rectangles: ------
 
   x_rfin <- x_max  # right end of rectangles
 
@@ -500,13 +516,13 @@ plot_crisk <- function(x,  # x-values (as vector)
   if (!is.na(x_from) & show_pas){
 
     rect(xleft = x_min, ybottom = y_min, xright = x_rfin, ytop = y_from,
-         border = NA, density = NA, col = make_transparent(col_pass, alpha = alf_pass))
+         border = NA, density = NA, col = make_transparent(col_pas, alpha = alf_pas))
     text(x = (x_min + x_from/2), y = y_from, labels = "Passed risk",
          col = make_transparent(col_txt, alpha = alf_aux), cex = cex_lbl, font = 1, pos = 1, xpd = TRUE)  # past/passed risk label
 
     # Show 1st point (x_from y_from):
     points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-           col = col_aux, bg = make_transparent(col_pass, alpha = .40), lwd = 1.5)
+           col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
 
   } # if (show_pas) end.
 
@@ -521,13 +537,13 @@ plot_crisk <- function(x,  # x-values (as vector)
     # Show 1st point (x_from y_from):
     if (!is.na(x_from) & !show_pas){  # 1st point not yet drawn:
       points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-             col = col_aux, bg = make_transparent(col_pass, alpha = .40), lwd = 1.5)
+             col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
     }
 
   } # if (show_rem) end.
 
 
-  # (2) Polygon of risk increment: ------
+  # 2. Polygon of risk increment: ------
 
   if (show_poly & delta_x_specified){
 
@@ -567,7 +583,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if (show_poly) end.
 
 
-  # (+) Delta-x and delta-y segments: ------
+  # 3. Delta-x and delta-y segments: ------
 
   if (show_delta & delta_x_specified){
 
@@ -595,7 +611,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # (+) Show 2nd point (x_to y_to): ------
+  # 4. Show 2nd point (x_to y_to): ------
 
   if (delta_x_specified & (show_aux | show_poly | show_high)){
 
@@ -606,7 +622,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # (+) 2nd axis for remaining risk (y2-axis on right): ------
+  # 5. 2nd axis for remaining risk (y2-axis on right): ------
 
   if (show_rem){
 
@@ -633,24 +649,21 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # (+) Y-increments: ------
+  # 6. Y-increments: ------
 
   if (show_inc){
 
-    # lines(x = x, y = rinc_y, lwd = 2, lty = 1, col = col_rinc)
-    segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = 2, lty = 1, col = col_rinc)
+    # lines(x = x, y = rinc_y, lwd = lwd_aux, lty = lty_aux, col = col_rinc)
+    segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = lwd_main, lty = lty_main, col = col_rinc)
     points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
 
 
-  # (+) Auxiliary elements: ------
+  # 7. Auxiliary elements: ------
 
   if (show_aux){
 
-    lwd_aux <- 1
-    lty_aux <- 2
-    lbl_pos <- NULL   # NULL or 1: bot, 2: left, 3: top, 4: right
     x_lbl_l <- (x_min + x_adj)  # x-value of text labels (on left)
 
     # (a) Aux lines and label for (x_from, y_from):
@@ -663,7 +676,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux))  # y-from to left (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_from, labels = paste0(round(y_from, 1), "%"), pos = lbl_pos,
+        text(x = x_lbl_l, y = y_from, labels = paste0(round(y_from, 1), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_from label (on left axis)
       }
     }
@@ -678,7 +691,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux), xpd = TRUE)  # y-to to left (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_to, labels = paste0(round(y_to, 1), "%"), pos = lbl_pos,
+        text(x = x_lbl_l, y = y_to, labels = paste0(round(y_to, 1), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_to label (on left axis)
       }
     }
@@ -690,7 +703,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux))  # y_max on top (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_max, labels = paste0(round(y_max, 1), "%"), pos = lbl_pos,
+        text(x = x_lbl_l, y = y_max, labels = paste0(round(y_max, 1), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_max label (on left axis)
       }
     }
@@ -705,22 +718,20 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
     # (e) Population segments:
-    if (show_popu & !is.na(x_from)){
+    if (show_pop & !is.na(x_from)){
 
       # 1. lower segment (passed risk):
-      x_lo <- x_from  # x_min # x of lower population part (vertical)
       f_2  <- 1/2     # scaling factor for label position
 
       # segments(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas, lwd = 2, lty = 1,
-      #          col = make_transparent(col_pass, alpha = 1))  # passed-y (vertical)
+      #          col = make_transparent(col_pas, alpha = 1))  # passed-y (vertical)
 
       # Plot lower arrow/line segment:
       plot_line(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas,
-                lbl = "affected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
+                lbl = "affected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = lwd_aux,
                 arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt, ...)
 
       # 2. upper segment (remaining risk):
-      x_up <- x_from  # x_lo  # x of upper population part (vertical)
       y_up <- y_from + (y_max - y_from) * f_2  # y of remaining population label
 
       # segments(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max, lwd = 2, lty = 1,
@@ -729,14 +740,15 @@ plot_crisk <- function(x,  # x-values (as vector)
       if (y_max < 100){ # upper arrow/line segement does not include entire population:
 
         # Adjust top y-value and arrow code:
-        y_adj <- 5/y_max
-        arr_2 <- arr_c
-        if ((arr_c == 3) | (arr_c == 6)) { arr_2 <- (arr_c - 2) }
-        if (arr_c == -3) {  arr_2 <- -2 }
+        y_adj <- y_max/20
+        # arr_2 <- arr_c
+        # if ((arr_c == 3) | (arr_c == 6)) { arr_2 <- (arr_c - 2) }
+        # if (arr_c == -3) {  arr_2 <- -2 }
+        arr_2 <- 4  # 4: lower T, upper line
 
         # Plot upper arrow/line segment (with open top):
         plot_line(x0 = x_up, y0 = y_from, x1 = x_up, y1 = (y_max + y_adj),
-                  lbl = "unaffected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
+                  lbl = "unaffected", srt = 90, lbl_x = (x_up - x_adj), cex = cex_lbl, lwd = lwd_aux,
                   arr_code = arr_2, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt, xpd = TRUE, ...)
 
       } else { # default case:
@@ -763,29 +775,29 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       # Show 1st point (x_from y_from):
       points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-             col = col_aux, bg = make_transparent(col_pass, alpha = .40), lwd = 1.5)
+             col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
 
     }
 
   } # if (show_aux) end.
 
 
-  # (+) Cumulative curve: ------
+  # 8. Cumulative risk curve: ------
 
   if (!fit_curve){
-    lines(x = x, y = y, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
+    lines(x = x, y = y, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
   } else {
-    lines(fit_spline, lwd = 2, lty = 1, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
+    lines(fit_spline,   lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
   }
 
   points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
 
 
-  # (+) Highlight remaining risk delta_risk (on right axis): ------
+  # 9. Highlight remaining risk delta_risk (on right axis): ------
 
   if (show_high & delta_x_specified){
 
-    segments(x0 = x_from, y0 = y_to, x1 = (x_max + x_adj), y1 = y_to, lwd = 1, lty = 2,
+    segments(x0 = x_from, y0 = y_to, x1 = (x_max + x_adj), y1 = y_to, lwd = 1, lty = lty_aux,
              col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # y-to level (horizontal)
 
     if (show_num){
@@ -796,25 +808,20 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  ## (+) Plot other stuff: --------
+  ## (6) Plot other stuff: --------
+
+  # (A) Miscellanea:
 
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
 
-
-  ## (+) Title: ------
-
-  # if (is.na(title_lbl) || (title_lbl == "")){
-  #   cur_title_lbl <- ""  # empty title
-  # } else {
-  #   cur_title_lbl <- title_lbl
-  # }
+  # (B) Title:
 
   # Plot title: # (left, not raised, normal font)
-  title(title_lbl, col = col_txt, adj = 0, line = 1, font.main = 1, cex.main = 1.2)
+  title(title_lbl, col = col_txt, adj = 0, line = 1, font.main = 1, cex.main = cex_tit)
 
 
-  ## (+) Margins: ------
+  # (C) Margin notes:
 
   if (mar_notes) {
 
@@ -825,22 +832,15 @@ plot_crisk <- function(x,  # x-values (as vector)
       note_lbl <- NA # "(Using data provided.)"
     }
 
-    # parameters:
-    m_col <- make_transparent(col_txt, alpha = alf_aux)
-    m_cex <- (cex_lbl - .02)
+    # mtext("side = 1, line = 3, adj = 0", side = 1, line = 3, adj = 0, col = col_mar, cex = cex_mar)  # left 3 mid
 
-    # mtext("side = 1, line = 2, adj = 0", side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # left 2 top
-    # mtext("side = 1, line = 3, adj = 0", side = 1, line = 3, adj = 0, col = m_col, cex = m_cex)  # left 3 mid
-    # mtext("side = 1, line = 4, adj = 0", side = 1, line = 4, adj = 0, col = m_col, cex = m_cex)  # left 4 bot
+    mtext(note_lbl, side = 1, line = 3, adj = 1, col = col_mar, cex = cex_mar)  # right 4 mid
 
-    # mtext("side = 1, line = 2, adj = 1", side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)  # right 2 top
-    mtext(note_lbl, side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # right 4 mid
-    # mtext("side = 1, line = 3, adj = 1", side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # right 3 bot
 
   } # if (mar_notes) etc.
 
 
-  ## Finish: -----
+  ## (7) Finish: -----
 
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
@@ -874,6 +874,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)  # show past/passed risk only
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)  # show remaining risk only
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE) # hide auxiliary info
+# plot_crisk(x, y, x_from = 42, x_to = 62, show_pop = FALSE) # hide population parts
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_num = FALSE) # hide numeric values
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE) # show only auxiliary info
 #
