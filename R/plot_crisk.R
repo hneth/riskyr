@@ -841,30 +841,39 @@ plot_crisk <- function(x,  # x-values (as vector)
     # (e) Population segments:
     if (show_popu & !is.na(x_from)){
 
-      # lower segment (passed risk):
-      x_lo <- x_min  # x_from  # x of lower population part (vertical)
-      f_2  <- 1/2     # scaling factor for population label position
+      # 1. lower segment (passed risk):
+      f_2  <- 1/2      # scaling factor for population label position
+      # x_lo <- x_min  # x of lower population part (vertical)
 
       # segments(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas, lwd = 2, lty = 1,
       #          col = make_transparent(col_pass, alpha = 1))  # passed-y (vertical)
-      #
-      # if (show_vals){
-      #   text(x = x_lo, y = (y_from * f_2), labels = paste0(round(popu_pas, 1), "%"),
-      #        col = make_transparent(col_txt, alpha = alf_aux), cex = cex_lbl, font = 2, pos = 4, xpd = TRUE)  # y-from/passed risk label
-      # }
 
-      # upper segment (remaining risk):
-      x_up <- x_from # x_lo  # x of upper population part (vertical)
+      x_lo <- x_from
+      plot_line(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas,
+                lbl = "affected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
+                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt)
+
+      # 2. upper segment (remaining risk):
+
+      x_up <- x_from  # x_lo  # x of upper population part (vertical)
       y_up <- y_from + (y_max - y_from) * f_2  # y of remaining population label
 
-      segments(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max, lwd = 2, lty = 1,
-               col = make_transparent(col_popu, alpha = alf_popu))  # remaining-y (vertical)
+      # segments(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max, lwd = 2, lty = 1,
+      #          col = make_transparent(col_popu, alpha = alf_popu))  # remaining-y (vertical)
 
-      if (show_vals){
+      plot_line(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max,
+                lbl = "unaffected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
+                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt)
+
+      if (show_vals){ # label numeric values:
+
+        text(x = x_lo, y = (y_from * f_2), labels = paste0(round(popu_pas, 1), "%"),
+             col = make_transparent(col_popu, alpha = 1), cex = cex_lbl, font = 2, pos = 4, xpd = TRUE)  # y-from/passed risk label
+
         text(x = x_up, y = y_up, labels = paste0(round(popu_rem, 1), "%"),
-             col = make_transparent(col_popu, alpha = 1), cex = cex_lbl, font = 2, pos = 2, xpd = TRUE)  # remaining population proportion label
-      }
+             col = make_transparent(col_popu, alpha = 1), cex = cex_lbl, font = 2, pos = 4, xpd = TRUE)  # remaining population proportion label
 
+      }
     }
 
     # (e) 1st point (x_from x_to):
@@ -985,8 +994,8 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE) # hide auxiliary info
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE) # show only auxiliary info
 #
-# # Note: Showing everything may overwhelm viewers:
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
+# # Note: Showing everything may overwhelm:
+# plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE, arr_c = -3)
 #
 # # Text labels:
 # plot_crisk(x, y, 40, 60, title_lbl = "Title", x_lbl = "X-label", y_lbl = "Y-label", y2_lbl = "Alternative Y")
