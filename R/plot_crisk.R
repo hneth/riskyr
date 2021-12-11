@@ -222,8 +222,29 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' # plot_crisk(x = seq(0, 100, by = 10),
-#' #            y = c(0, 0, 0, 10, 30, 50, 70, 80, 0, 0, 0))
+#' # Data:
+#' x <- seq(0, 100, by = 10)
+#' y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
+#'
+#' plot_crisk(x, y)
+#' plot_crisk(x, y, x_from = 40)
+#' plot_crisk(x, y, x_from = 40, x_to = 60)
+#' plot_crisk(x, y, fit_curve = FALSE, title = "My title", mar_notes = TRUE)
+#' plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
+#' plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
+#'
+#' # Small x- and y-values and linear increases:
+#' plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)    # provided points
+#' plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)  # predicted points
+#'
+#' # Good combinations:
+#' plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)  # show past/passed risk only
+#' plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)  # show remaining risk only
+#' plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE) # hide auxiliary info
+#' plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE) # show only auxiliary info
+#'
+#' # Note: Showing everything may overwhelm:
+#' plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -973,20 +994,20 @@ plot_crisk <- function(x,  # x-values (as vector)
 # i <- c(0, 0, 0, 0, 0, .035, .070, .145, .160, .120, .07, .03, .02, .0150, .0150, .0125, .0075, 0, 0, 0, 0)
 # y <- cumsum(i) * 100  # as percentages
 #
-# # 2. sparse data:
+# 2. sparse data:
 # x <- seq(0, 100, by = 10)
 # y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 #
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40)
 # plot_crisk(x, y, x_from = 40, x_to = 60)
-# plot_crisk(x, y, fit_curve = FALSE, title = "Plot title", mar_notes = TRUE)
+# plot_crisk(x, y, fit_curve = FALSE, title = "My title", mar_notes = TRUE)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 # plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
 #
 # # Small x- and y-values and linear increases:
-# plot_crisk(x = 1:10, y = seq( 2, 20, by = 2), x_from = 4,   x_to = 8)    # provided points
-# plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5)  # predicted points
+# plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)    # provided points
+# plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)  # predicted points
 #
 # # Good combinations:
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)  # show past/passed risk only
