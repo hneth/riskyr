@@ -933,6 +933,7 @@ vir_12 <- c("#440154FF", "#482173FF", "#433E85FF", "#38598CFF",
 #' pal_vir["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_vir["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 #'
+#' @family color palettes
 #' @family lists containing current scenario information
 #'
 #' @seealso
@@ -1010,6 +1011,27 @@ names(pal_crisk) <- c("cum", "rinc",
                       "hi")
 
 pal_crisk["poly"] <- pal_crisk["cum"]  # make "poly"" same color as "cum"
+
+
+#' Color palette for cumulative risk curve.
+#'
+#' \code{pal_crisk} defines a default color palette
+#' (as a named vector)
+#' for the \code{\link{plot_crisk}} function.
+#'
+#' @examples
+#' pal_crisk  # show color palette (and names)
+#'
+#' @family color palettes
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_crisk
 
 # unikn::seecol(pal_crisk)
 # knitr::kable(pal_crisk, caption = "The `pal_crisk` color palette.")
