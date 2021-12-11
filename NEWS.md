@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9015
+# riskyr 0.3.0.9017
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -7,7 +7,14 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added matrix lens model functions [2021-06-08]: 
+- Add function for plotting cumulative risk curves [2021-12-10]:
+
+    - `plot_crisk()` plots curves and auxiliary information for visualizing cumulative risks and risk increments; 
+    
+    - `pal_crisk` provides a corresponding color palette (as a named vector).  
+    
+
+- Add matrix lens model functions [2021-06-08]: 
 
     - `frame()` allows creating a 2x2 matrix (as a numeric contingency table); 
     
@@ -17,7 +24,7 @@ Log of changes since last release:
 
 <!-- Sampling from prob: -->     
 
-- Enabled _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
+- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
 
     - added a `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
@@ -26,7 +33,7 @@ Log of changes since last release:
 
 <!-- Conversion data vs. description: --> 
 
-- Allowed conversion/translations between data and descriptions [2021-03-26]:
+- Allow conversion/translations between data and descriptions [2021-03-26]:
 
     - `write_popu()` creates population data from a description (a riskyr scenario); 
     
@@ -37,7 +44,7 @@ Log of changes since last release:
 
 ## Minor changes
 
-- Added `is_matrix()` to verify a 2x2 matrix (i.e., a numeric contingency table). 
+- Add `is_matrix()` to verify a 2x2 matrix (i.e., a numeric contingency table). 
 
 
 <!-- Micro/details: --> 
@@ -45,13 +52,13 @@ Log of changes since last release:
 
 ## Micro changes 
 
-- Updated URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
+- Update URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
 
-- Increased options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
+- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
 
-- Reduced widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
+- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
 
-- Renamed labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
 
 
 <!-- Add blank line. --> 
@@ -67,14 +74,14 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added `plot_fnet()` for plotting _frequency nets_ ([Binder et al., 2020](https://www.frontiersin.org/articles/10.3389/fpsyg.2020.00750/full)) [2020-12]. 
+- Add `plot_fnet()` for plotting _frequency nets_ ([Binder et al., 2020](https://www.frontiersin.org/articles/10.3389/fpsyg.2020.00750/full)) [2020-12]. 
 
 
 ## Minor changes
 
 ### Changes to existing visualization functions 
 
-- Changed default setting of `mar_notes` in all plotting functions [2021-01]: 
+- Change default setting of `mar_notes` in all plotting functions [2021-01]: 
 Using `mar_notes = FALSE` as those details are not needed and can be distracting in visualizations. 
 
 - Change default arguments for `plot_area()` and `plot_tab()` [2019-01]:   
@@ -112,19 +119,21 @@ Add utility function to verify a range of two probability values (to check new a
 
 - Using colors of `pal` for fill colors of symbols in `plot_icon()` [2021-02]. 
 
-- Added color palettes [2019-01]:   
+- Add more color palettes [2019-01]:   
 
-    - Added `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+    - Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
     
-    - Added `pal_unikn` (based on color definitions of the **unikn** package). 
+    - Add `pal_unikn` (based on color definitions of the **unikn** package). 
 
 - Changes to color palettes [2019-01]:  
-Added a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
-Adopted `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
+
+    - Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
+    
+    - Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
 
 ### Details
 
-- Added reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
+- Add reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
 
 - Bug fix in `plot_prism()`: Allow plotting simple trees for `nchar(by) == 2`.
 
@@ -172,13 +181,14 @@ a variant of `plot_area` that does not scale area sizes.
 - New `plot_bar` function [2018-08]:   
 Show scenario frequencies as vertical bars (in various configurations). 
 
+
 ### Under the hood
 
 - Create `plot_util.R` collection of graphical utility functions [2018-08]:   
 Define a new `box` object type and various functions for plotting, labeling, and linking them in graphs 
 (to remove dependencies on and limitations imposed by other packages). 
 
-- Updated `riskyr` function [2018-03]:   
+- Update `riskyr` function [2018-03]:   
 As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities). 
 
 
@@ -186,7 +196,7 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 
 ### Changes to existing visualization functions 
 
-- Improved `plot_icons` function [2018-12]:   
+- Improve `plot_icons` function [2018-12]:   
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions.
 
 - `plot_curve` and `plot_plane` functions [2018-11]:   
@@ -278,6 +288,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-12-02 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-12-10 by [hn](https://neth.de).) 
 
 <!-- eof -->
