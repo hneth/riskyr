@@ -960,9 +960,9 @@ plot_crisk <- function(x,  # x-values (as vector)
 ## (3) Check: ------
 
 # # 1. Dense data:
-x <- seq(from = 0, to = 100, by = 5)
-i <- c(0, 0, 0, 0, 0, .035, .070, .145, .160, .120, .07, .03, .02, .0150, .0150, .0125, .0075, 0, 0, 0, 0)
-y <- cumsum(i) * 100  # as percentages
+# x <- seq(from = 0, to = 100, by = 5)
+# i <- c(0, 0, 0, 0, 0, .035, .070, .145, .160, .120, .07, .03, .02, .0150, .0150, .0125, .0075, 0, 0, 0, 0)
+# y <- cumsum(i) * 100  # as percentages
 #
 # # 2. sparse data:
 # x <- seq(0, 100, by = 10)
@@ -986,7 +986,7 @@ y <- cumsum(i) * 100  # as percentages
 # plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE) # show only auxiliary info
 #
 # # Note: Showing everything may overwhelm viewers:
-plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
+# plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
 #
 # # Text labels:
 # plot_crisk(x, y, 40, 60, title_lbl = "Title", x_lbl = "X-label", y_lbl = "Y-label", y2_lbl = "Alternative Y")
