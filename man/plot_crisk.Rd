@@ -12,6 +12,7 @@ plot_crisk(
   fit_curve = FALSE,
   show_pas = TRUE,
   show_rem = TRUE,
+  show_pop = TRUE,
   show_aux = TRUE,
   show_num = TRUE,
   show_inc = FALSE,
@@ -22,7 +23,6 @@ plot_crisk(
   x_lbl = "Age (in years)",
   y_lbl = "Population risk",
   y2_lbl = "",
-  cex_lbl = 0.95,
   mar_notes = TRUE,
   ...
 )
@@ -50,6 +50,9 @@ Default: \code{show_pas = TRUE}.}
 
 \item{show_rem}{Boolean: Show remaining risk?
 Default: \code{show_rem = TRUE}.}
+
+\item{show_pop}{Boolean: Show population parts?
+Default: \code{show_pop = TRUE}.}
 
 \item{show_aux}{Boolean: Show auxiliary elements
 (i.e., lines, points, and text labels)?
@@ -90,9 +93,6 @@ Default: \code{y_lbl = "Population risk"}.}
 
 \item{y2_lbl}{Text label of 2nd y-axis (on right).
 Default: \code{y2_lbl = ""} (formerly "Remaining risk").}
-
-\item{cex_lbl}{Scaling factor for text labels.
-Default: \code{cex_lbl = .95}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
