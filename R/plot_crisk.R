@@ -108,13 +108,8 @@
 #' plot_crisk(x, y)
 #' plot_crisk(x, y, x_from = 40)
 #' plot_crisk(x, y, x_from = 40, x_to = 60)
-#' plot_crisk(x, y, fit_curve = FALSE, title = "My title", mar_notes = TRUE)
 #' plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 #' plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
-#'
-#' # Small x- and y-values and linear increases:
-#' plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
-#' plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
 #'
 #' # Versions:
 #' plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)
@@ -126,20 +121,23 @@
 #' # Note: Showing all may overplot/overwhelm:
 #' plot_crisk(x, y, x_from = 48, x_to = 68, show_inc = TRUE, show_grid = TRUE)
 #'
+#' # Small x- and y-values and linear increases:
+#' plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
+#' plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
+#'
 #' @importFrom graphics par
 #' @importFrom graphics plot
-#' @importFrom graphics box
 #' @importFrom graphics axis
 #' @importFrom graphics grid
 #' @importFrom graphics abline
 #' @importFrom graphics rect
+#' @importFrom graphics lines
+#' @importFrom graphics segments
 #' @importFrom graphics arrows
 #' @importFrom graphics points
 #' @importFrom graphics text
 #' @importFrom graphics title
 #' @importFrom graphics mtext
-#' @importFrom graphics lines
-#' @importFrom graphics segments
 #' @importFrom graphics legend
 #' @importFrom stats smooth.spline
 #' @importFrom stats predict
