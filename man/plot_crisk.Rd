@@ -14,8 +14,8 @@ plot_crisk(
   show_rem = TRUE,
   show_aux = TRUE,
   show_inc = FALSE,
-  arr_c = -3,
   col_pal = pal_crisk,
+  arr_c = -3,
   title_lbl = "Cumulative risk",
   x_lbl = "Age (in years)",
   y_lbl = "Population risk",
@@ -54,6 +54,9 @@ Default: \code{show_aux = TRUE}.}
 
 \item{show_inc}{Boolean: Show risk increments?
 Default: \code{show_inc = FALSE}.}
+
+\item{col_pal}{Color palette (as a named vector).
+Default: \code{col_pal = pal_crisk}.}
 
 \item{arr_c}{Arrow code for symbols at ends of probability links
 (as a numeric value \code{-3 <= arr_c <= +6}),
