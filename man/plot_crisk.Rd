@@ -127,13 +127,8 @@ y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 plot_crisk(x, y)
 plot_crisk(x, y, x_from = 40)
 plot_crisk(x, y, x_from = 40, x_to = 60)
-plot_crisk(x, y, fit_curve = FALSE, title = "My title", mar_notes = TRUE)
 plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
-
-# Small x- and y-values and linear increases:
-plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
-plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
 
 # Versions:
 plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)
@@ -144,6 +139,10 @@ plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE)
 
 # Note: Showing all may overplot/overwhelm:
 plot_crisk(x, y, x_from = 48, x_to = 68, show_inc = TRUE, show_grid = TRUE)
+
+# Small x- and y-values and linear increases:
+plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
+plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
 
 }
 \seealso{
