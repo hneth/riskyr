@@ -31,6 +31,17 @@ pal_rgb["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 \code{\link{pal}} contains current color information;
 \code{\link{init_pal}} initializes color information.
 
+Other color palettes: 
+\code{\link{pal_bwp}},
+\code{\link{pal_bw}},
+\code{\link{pal_crisk}},
+\code{\link{pal_kn}},
+\code{\link{pal_mbw}},
+\code{\link{pal_mod}},
+\code{\link{pal_org}},
+\code{\link{pal_unikn}},
+\code{\link{pal_vir}}
+
 Other lists containing current scenario information: 
 \code{\link{accu}},
 \code{\link{freq}},
@@ -49,5 +60,6 @@ Other lists containing current scenario information:
 \code{\link{txt_org}},
 \code{\link{txt}}
 }
+\concept{color palettes}
 \concept{lists containing current scenario information}
 \keyword{datasets}

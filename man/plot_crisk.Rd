@@ -113,20 +113,22 @@ plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
 
 # Small x- and y-values and linear increases:
-plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)    # provided points
-plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)  # predicted points
+plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
+plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
 
-# Good combinations:
-plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)  # show past/passed risk only
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)  # show remaining risk only
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE) # hide auxiliary info
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE) # show only auxiliary info
+# Versions:
+plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE, show_aux = TRUE)
 
-# Note: Showing everything may overwhelm:
+# Note: Showing all may overplot/overwhelm:
 plot_crisk(x, y, x_from = 42, x_to = 62, show_inc = TRUE)
 
 }
 \seealso{
+\code{\link{pal_crisk}} corresponding color palette.
+
 Other visualization functions: 
 \code{\link{plot.riskyr}()},
 \code{\link{plot_area}()},
