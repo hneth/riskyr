@@ -66,7 +66,7 @@ Default: \code{show_inc = FALSE}.}
 Default: \code{show_grid = FALSE}.}
 
 \item{col_pal}{Color palette (as a named vector).
-Default: \code{col_pal = pal_crisk}.}
+Default: \code{col_pal = \link{pal_crisk}}.}
 
 \item{arr_c}{Arrow code for symbols at ends of probability links
 (as a numeric value \code{-3 <= arr_c <= +6}),
@@ -112,6 +112,12 @@ which correspond to each other so that
 \code{y} is a (monotonically increasing)
 probability density function (over risk increments
 expressed as a function of \code{x}).
+
+\code{plot_crisk} provides various options for
+showing/hiding elements for instructional purposes.
+
+All color information is based on a vector with named
+colors \code{col_pal = \link{pal_crisk}}.
 }
 \examples{
 # Data:
