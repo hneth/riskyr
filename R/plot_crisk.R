@@ -33,8 +33,6 @@
 #' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
 #' Default: \code{fit_curve = FALSE}.
 #'
-#' @param show_inc Boolean: Show risk increments?
-#' Default: \code{show_inc = FALSE}.
 #'
 #' @param show_pas Boolean: Show past/passed risk?
 #' Default: \code{show_pas = TRUE}.
@@ -45,129 +43,9 @@
 #' @param show_aux Boolean: Show auxiliary elements (lines and points)?
 #' Default: \code{show_aux = TRUE}.
 #'
+#' @param show_inc Boolean: Show risk increments?
+#' Default: \code{show_inc = FALSE}.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
-#'
-#' @param N The number of individuals in the population.
-#' A suitable value of \code{\link{N}} is computed, if not provided.
-#' Note: \code{\link{N}} is not represented in the plot,
-#' but used for computing frequency information \code{\link{freq}}
-#' from current probabilities \code{\link{prob}}.
-#'
-#' @param by A character code specifying 2 perspectives that split the population into subsets,
-#' with 6 options:
-#'   \enumerate{
-#'   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
-#'   \item \code{"cdac"}: by condition (cd) and by accuracy (ac);
-#'   \item \code{"dccd"}: by decision (dc) and by condition (cd);
-#'   \item \code{"dcac"}: by decision (dc) and by accuracy (ac);
-#'   \item \code{"accd"}: by accuracy (ac) and by condition (cd);
-#'   \item \code{"acdc"}: by accuracy (ac) and by decision (dc).
-#'   }
-#'
-#' @param p_split Primary perspective for population split,
-#' with 2 options:
-#'   \enumerate{
-#'   \item \code{"v"}: vertical (default);
-#'   \item \code{"h"}: horizontal.
-#'   }
-#'
-#' @param area A character code specifying the shape of the main area,
-#' with 2 options:
-#'   \enumerate{
-#'   \item \code{"sq"}: main area is scaled to square (default);
-#'   \item \code{"no"}: no scaling (rectangular area fills plot size).
-#'   }
-#'
-#' @param scale Scale probabilities and corresponding area dimensions either by
-#' exact probability or by (rounded or non-rounded) frequency, with 2 options:
-#'   \enumerate{
-#'   \item \code{"p"}: scale main area dimensions by exact probability (default);
-#'   \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
-#'   and scale main area dimensions by their frequency.
-#'   }
-#'  Note: \code{scale} setting matters for the display of probability values and for
-#'  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.
-#'
-#' @param round A Boolean option specifying whether computed frequencies
-#' are rounded to integers. Default: \code{round = TRUE}.
-#'
-#' @param sample Boolean value that determines whether frequency values
-#' are sampled from \code{N}, given the probability values of
-#' \code{prev}, \code{sens}, and \code{spec}.
-#' Default: \code{sample = FALSE}.
-#'
-#' @param sum_w Border width of 2 perspective summaries
-#' (on top and left borders) of main area as a proportion of area size
-#' (i.e., in range \code{0 <= sum_w <= 1}).
-#' Default: \code{sum_w = .10}.
-#' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
-#' setting \code{sum_w = 1} scales summaries to same size as main areas.
-#'
-#' @param gaps Size of gaps (as binary numeric vector) specifying
-#' the width of vertical and horizontal gaps as proportions of area size.
-#' Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
-#' \code{gaps = c(.00, .02)} for \code{p_split = "h"}.
-#'
-#' @param f_lbl Type of label for showing frequency values in 4 main areas,
-#' with 6 options:
-#'   \enumerate{
-#'   \item \code{"def"}: abbreviated names and frequency values;
-#'   \item \code{"abb"}: abbreviated frequency names only (as specified in code);
-#'   \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
-#'   \item \code{"num"}: numeric frequency values only (default);
-#'   \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
-#'   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
-#'   }
-#'
-#' @param f_lbl_sep Label separator for main frequencies
-#' (used for \code{f_lbl = "def" OR "namnum"}).
-#' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
-#' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
-#'
-#' @param f_lbl_sum Type of label for showing frequency values in summary cells,
-#' with same 6 options as \code{f_lbl} (above).
-#' Default: \code{f_lbl_sum = "num"}: numeric values only.
-#'
-#' @param f_lbl_hd Type of label for showing frequency values in header,
-#' with same 6 options as \code{f_lbl} (above).
-#' Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).
-#'
-#' @param f_lwd Line width of areas.
-#' Default: \code{f_lwd = 0}.
-#'
-#' @param p_lbl Type of label for showing 3 key probability links and values,
-#' with 7 options:
-#'   \enumerate{
-#'   \item \code{"def"}: show links and abbreviated names and probability values;
-#'   \item \code{"abb"}: show links and abbreviated probability names;
-#'   \item \code{"nam"}: show links and probability names (as specified in code);
-#'   \item \code{"num"}: show links and numeric probability values;
-#'   \item \code{"namnum"}: show links with names and numeric probability values;
-#'   \item \code{"no"}: show links with no labels;
-#'   \item \code{NA}: show no labels or links (same for \code{p_lbl = NULL}, default).
-#'   }
 #'
 #' @param arr_c Arrow code for symbols at ends of probability links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
@@ -180,18 +58,6 @@
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
 #'
-#' @param col_p Colors of probability links (as vector of 3 colors).
-#' Default: \code{col_p = c(grey(.15, .99), "yellow", "yellow")}.
-#' (Also consider: "black", "cornsilk", "whitesmoke").
-#'
-#' @param brd_dis Distance of probability links from area border
-#' (as proportion of area width).
-#' Default: \code{brd_dis = .06}.
-#' Note: Adjust to avoid overlapping labels.
-#' Negative values show links outside of main area.
-#'
-#' @param lbl_txt Default label set for text elements.
-#' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param title_lbl Text label for current plot title.
 #' Default: \code{title_lbl = "Cumulative risk"}.
@@ -208,11 +74,6 @@
 #' @param cex_lbl Scaling factor for text labels.
 #' Default: \code{cex_lbl = .95}.
 #'
-#' @param cex_p_lbl Scaling factor for text labels (probabilities).
-#' Default: \code{cex_p_lbl = cex_lbl - .05}.
-#'
-#' @param col_pal Color palette.
-#' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = TRUE}.
@@ -278,60 +139,25 @@ plot_crisk <- function(x,  # x-values (as vector)
 
                        fit_curve = FALSE,  # fit a curve to x-y-data?
 
-                       show_inc = FALSE,  # Boolean: Show risk increments?
+                       # Plot options:
                        show_pas = TRUE,   # Boolean: Show past/passed risk?
                        show_rem = TRUE,   # Boolean: Show remaining risk?
                        show_aux = TRUE,   # Boolean: Show auxiliary elements (lines and points)?
+                       show_inc = FALSE,  # Boolean: Show risk increments?
 
+                       arr_c = -3,        # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
 
-                       ## Legacy:
-                       prev = num$prev,    # probabilities
-                       sens = num$sens, mirt = NA,
-                       spec = num$spec, fart = NA,
-                       N = num$N,          # population size N
-
-                       ## Plot options:
-                       by = "cddc",        # 2 perspectives (top + left): by = "cd" "dc" "ac"  (default: "cddc")
-                       p_split = "v",      # primary/perspective split: "v": vertical vs. "h": horizontal
-                       area = "sq",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr" )
-                       scale = "p",        # "p": exact probabilities (default) vs. "f": Re-compute prob from (rounded or non-rounded) freq.
-                       round = TRUE,       # round freq values to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
-                       sample = FALSE,     # sample freq values from probabilities?
-
-                       ## Freq boxes:
-                       sum_w = .10,        # border width: (default: sum_w = .10), setting sum_w = NULL/NA/<=0  hides top and left panels.
-                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
-
-                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
-                       f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
-                       f_lbl_sum = "num",  # freq label of summary cells (bottom row and right column)
-                       f_lbl_hd  = "nam",  # freq labels of headers at top (for columns) and left (for rows)
-                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
-                       # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
-
-                       ## Prob links:
-                       p_lbl = NA,         # prob label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide prob lines).
-                       # p_lwd,            # lwd of prob links: set to default = 1 (currently not used)
-                       # p_lty,            # lty of prob links: set to default = 1 (currently not used)
-                       arr_c = -3,         # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
-                       col_p = c(grey(.15, .99), "yellow", "yellow"),  # colors for prob-links: use 1-3 bright colors (visible on SDT rectangles). WAS: "black", "cornsilk", "whitesmoke"
-                       brd_dis = .06,      # distance of prob links from border. (Adjust to avoid overlapping labels).
-
-                       ## Text and color:
-                       lbl_txt = txt,        # labels and text elements
+                       # Colors and text labels:
+                       col_pal = pal_crisk,  # color palette
 
                        title_lbl = "Cumulative risk", # plot title
                        x_lbl  = "Age (in years)",     # label of x-axis (at bottom)
                        y_lbl  = "Population risk",    # label of y-axis (on left)
                        y2_lbl = "",                   # label of 2nd y-axis (on right)
 
-                       cex_lbl = .95,        # size of text labels
-                       cex_p_lbl = NA,       # size of prob labels (set to cex_lbl - .05 by default)
-                       col_pal = pal_crisk,  # color palette
-
-                       ## Generic options:
+                       cex_lbl = .95,       # size of text labels
                        mar_notes = TRUE,    # show margin notes?
-                       ...                  # other (graphical) parameters (passed to plot_line and plot_ftype_label)
+                       ...                  # other (graphical) parameters (passed to plot_line)
 ) {
 
   ## (0) Initialize: ------
@@ -872,7 +698,7 @@ plot_crisk <- function(x,  # x-values (as vector)
       x_lo <- x_from
       plot_line(x0 = x_lo, y0 = y_min, x1 = x_lo, y1 = popu_pas,
                 lbl = "affected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
-                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt)
+                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt, ...)
 
       # 2. upper segment (remaining risk):
 
@@ -884,7 +710,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       plot_line(x0 = x_up, y0 = y_from, x1 = x_up, y1 = y_max,
                 lbl = "unaffected", srt = 90, lbl_x = (x_lo - x_adj), cex = cex_lbl, lwd = 2,
-                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt)
+                arr_code = arr_c, col_brd = col_txt, col_fill = col_popu, col_txt = col_txt, ...)
 
       if (show_vals){ # label numeric values:
 
