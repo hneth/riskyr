@@ -306,7 +306,8 @@ plot_crisk <- function(x,  # x-values (as vector)
     # 0. Use margin notes:
     mar_notes <- TRUE
 
-    # 1. Fit a curve to x-y-values:
+    # 1. Fit a curve to x-y-values: ----
+
     # plot(x, y)
 
     ## (a) Loess:
@@ -329,23 +330,28 @@ plot_crisk <- function(x,  # x-values (as vector)
     # y_pred
 
 
-    # 2. Predict y-values of delta-x-interval:
+    # 2. Predict y-values: ----
+
+    # (2a) y_from corresponding ONLY to x_from:
+    if (!is.na(x_from) & is.na(x_to)){
+      y_pred <- stats::predict(fit_spline, x = x_from)
+    }
+
+    # (2b) y_to corresponding ONLY to x_to:
+    if (!is.na(x_to) & is.na(x_from)){
+      y_pred <- stats::predict(fit_spline, x = x_to)
+    }
+
+    # (2c) Predict a SEQUENCE of y-values for risk increment (from x_from to x_to):
     if (delta_x_specified){
 
-      ## (d) Predict a PAIR of y-values (for x_from and x_to):
-      # y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, length.out = 2))
-      # y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
-      # y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
-      # y_pred
-
-      ## (e) Predict a SEQUENCE of y-values (for x_from and x_to):
       y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, by = 1))
+
+      # Corrections:
       y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
       y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
-      # y_pred
 
       # lines(y_pred, lwd = 2, col = make_transparent(Seeblau, alpha = 2/3))
-
     }
 
   } # if fit_curve etc.
@@ -370,9 +376,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     }
 
+    # print(y_from) # +++ here now +++
+
     # Population parts:
     popu_pas <- y_from          # past/passed population proportion
-    popu_rem <- (100 - y_from)  # remaining population proportion
+    popu_rem <- (100 - y_from)  # remaining population proportion (TODO: Add population decrements)
 
     # Remaining risk:
     risk_max <- ((y_max - y_from)/popu_rem) * 100  # maximum remaining risk
@@ -384,7 +392,8 @@ plot_crisk <- function(x,  # x-values (as vector)
   # 2. Compute y_to and the deltas/increments of y and risk:
   if (!is.na(x_to)){
 
-    if (x_to %in% x){ # a. y_to:
+    # a. Compute y_to:
+    if (x_to %in% x){
 
       y_to <- y[x == x_to]  # use existing data value
 
@@ -398,11 +407,13 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     }
 
-    # b. Compute delta-y:
-    delta_y <- (y_to - y_from)
+    # b. Compute delta-y and risk increment (of delta_y):
+    if (delta_x_specified){
 
-    # c. Compute risk increment (of delta_y):
-    risk_delta <- (delta_y / popu_rem) * 100  # current risk increment (from y_from to y_to)
+      delta_y    <- (y_to - y_from)
+      risk_delta <- (delta_y / popu_rem) * 100  # current risk increment (from y_from to y_to)
+
+    }
 
   } # if (x_to) end.
 
@@ -722,7 +733,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
     # (e) Population segments:
-    if (show_pop & !is.na(x_from)){
+    if (!is.na(x_from) & show_pop){
 
       # 1. lower segment (passed risk):
       f_2  <- 1/2     # scaling factor for label position
@@ -773,15 +784,6 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       }
     }
-
-    # # (e) 1st point (x_from x_to):
-    # if (!is.na(x_from) & !show_pas & !show_rem){  # 1st point not yet drawn:
-    #
-    # # Draw 1st point (x_from y_from):
-    # points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-    #        col = col_popu, bg = make_transparent(col_pas, alpha = 0), lwd = lwd_emph)
-    #
-    # }
 
   } # if (show_aux) end.
 
@@ -889,24 +891,36 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y)
 # plot_crisk(x, y, x_from = 40)
 # plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
+# plot_crisk(x, y, x_from = 44, x_to = 74)  # predicted points
 # plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
 #
 # # Versions:
-# plot_crisk(x, y, 42, 62, show_pas = TRUE)  # past/passed risk only
-# plot_crisk(x, y, 42, 62, show_rem = TRUE)  # remaining risk only
-# plot_crisk(x, y, 42, 62, show_pas = TRUE, show_rem = TRUE) # both risks
-# plot_crisk(x, y, 42, 62, show_aux = TRUE)  # auxiliary lines + axis
-# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
-# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
-# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
+# plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
+# plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
+# plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
+# plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
+# plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
+# plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
+# plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 #
-# # Note: Showing ALL is likely to overplot/overwhelm:
-# plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = TRUE, show_rem = TRUE, show_aux = TRUE,
-#            show_pop = TRUE, show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
+# # Notes:
+# # Showing ALL is likely to overplot/overwhelm:
+# plot_crisk(x, y, x_from = 44, x_to = 64, fit_curve = TRUE,
+#            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+#            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #
+# # Omitting risk interval prevents from showing additional info:
+# plot_crisk(x, y, # x_from = 44, x_to = 64, fit_curve = TRUE,
+#            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+#            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
+
+# # Omitting x_to prevents from showing SOME additional info:
+# plot_crisk(x, y, x_from = 44, # x_to = 64, fit_curve = TRUE,
+#            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+#            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
+
 # # Small x- and y-values and linear increases:
-# plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8,    # provided points
+# plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4, x_to = 8,    # provided points
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 # plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
@@ -918,15 +932,20 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (+) ToDo: ------
 
-# - test calculations with diverse data, contents, and extreme cases
+# - add real data
+
+# - test function with diverse data, contents, and extreme cases
 # - explore better fitting options (and modularize curve fitting parts)
+
+# - add data/option for population decrements (on top)
 # - add user-defined margin label
+
 # - explore alternative color options
-# - add a legend.
-# - clean up code.
+# - add a legend option
+
 
 ## (*) Done: ----------
 
-## - initial version of function [2021-12-04]
+## - initial function [2021-12-04]
 
 ## eof. ----------
