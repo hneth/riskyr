@@ -243,6 +243,17 @@ plot_crisk <- function(x,  # x-values (as vector)
     x_from <- min(x)
   }
 
+  # Need to fit a curve to x-y-data:
+  if (!fit_curve && !(x_from %in% x)){  # (a) Require fit_curve for x_from:
+    message("plot_crisk: x_from is not in x: Using fit_curve = TRUE.")
+    fit_curve <- TRUE
+  }
+
+  if (!fit_curve & !(x_to %in% x)){  # (b) Require fit_curve for x_to:
+    message("plot_crisk: x_to is not in x: Using fit_curve = TRUE.")
+    fit_curve <- TRUE
+  }
+
 
   ## (2) Compute required values: --------
 
@@ -259,18 +270,10 @@ plot_crisk <- function(x,  # x-values (as vector)
       x_to <- x_temp
     }
 
-    # Need to fit a curve to x-y-data?
-    if (!fit_curve & (!(x_from %in% x) | !(x_to %in% x))){
-
-      # Require fit_curve:
-      message("plot_crisk: x_from or x_to not in x: Using fit_curve = TRUE.")
-      fit_curve <- TRUE
-    }
-
     # Compute delta-x:
     delta_x <- (x_to - x_from)
 
-  } # if x-interval specified.
+  } # if delta_x_specified end.
 
 
   # (b) Plot ranges: ----
@@ -909,16 +912,16 @@ plot_crisk <- function(x,  # x-values (as vector)
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #
-# # Omitting risk interval prevents from showing additional info:
-# plot_crisk(x, y, # x_from = 44, x_to = 64, fit_curve = TRUE,
+# # Omitting risk interval prevents from showing MOST additional info:
+# plot_crisk(x, y, # x_from = 44, x_to = 64, fit_curve = FALSE,
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
-
-# # Omitting x_to prevents from showing SOME additional info:
-# plot_crisk(x, y, x_from = 44, # x_to = 64, fit_curve = TRUE,
+#
+# # Omitting ONLY x_to allows showing SOME additional info:
+# plot_crisk(x, y, x_from = 44, # x_to = 64, fit_curve = FALSE,
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
-
+#
 # # Small x- and y-values and linear increases:
 # plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4, x_to = 8,    # provided points
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
