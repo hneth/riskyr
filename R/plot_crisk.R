@@ -30,7 +30,6 @@
 #' Color information is based on a vector with named
 #' colors \code{col_pal = \link{pal_crisk}}.
 #'
-#'
 #' @param x Values on an x-dimension on which risk is expressed
 #' (required, as a vector).
 #'
@@ -45,10 +44,8 @@
 #'
 #' @param x_to End value of risk increment.
 #'
-#'
 #' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
 #' Default: \code{fit_curve = FALSE}.
-#'
 #'
 #' @param show_pas Boolean: Show past/passed risk?
 #' Default: \code{show_pas = FALSE}.
@@ -67,18 +64,16 @@
 #' provided that \code{show_aux = TRUE}.
 #' Default: \code{show_num = FALSE}.
 #'
-#'
 #' @param show_inc Boolean: Show risk increments?
 #' Default: \code{show_inc = FALSE}.
 #'
 #' @param show_grid Boolean: Show grid lines?
 #' Default: \code{show_grid = FALSE}.
 #'
-#'
 #' @param col_pal Color palette (as a named vector).
 #' Default: \code{col_pal = \link{pal_crisk}}.
 #'
-#' @param arr_c Arrow code for symbols at ends of probability links
+#' @param arr_c Arrow code for symbols at ends of population links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
 #' with the following options:
 #'   \itemize{
@@ -88,7 +83,6 @@
 #'   \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
-#'
 #'
 #' @param title_lbl Text label for current plot title.
 #' Default: \code{title_lbl = "Cumulative risk"}.
@@ -102,7 +96,6 @@
 #' @param y2_lbl Text label of 2nd y-axis (on right).
 #' Default: \code{y2_lbl = ""} (formerly "Remaining risk").
 #'
-#'
 #' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = FALSE}.
 #'
@@ -115,23 +108,25 @@
 #' x <- seq(0, 100, by = 10)
 #' y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 #'
-#' plot_crisk(x, y)
-#' plot_crisk(x, y, x_from = 40)
-#' plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-#' plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
-#' plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
+#' # Basic versions:
+#' plot_crisk(x, y)  # using data provided
+#' plot_crisk(x, y, x_from = 40)  # use and mark 1 provided point
+#' plot_crisk(x, y, x_from = 44)  # use and mark 1 provided point
+#' plot_crisk(x, y, x_from = 40, x_to = 60)  # use 2 provided points
+#' plot_crisk(x, y, x_from = 44, x_to = 74)  # use 2 predicted points
+#' plot_crisk(x, y, fit_curve = TRUE)  # fitting curve to provided data
 #'
-#' # Versions:
+#' # Training versions:
 #' plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
 #' plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
 #' plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
-#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # +
+#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 #'
 #' # Note: Showing ALL is likely to overplot/overwhelm:
-#' plot_crisk(x, y, x_from = 44, x_to = 64, fit_curve = TRUE,
+#' plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
 #'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #'            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #'
@@ -243,13 +238,14 @@ plot_crisk <- function(x,  # x-values (as vector)
     x_from <- min(x)
   }
 
-  # Need to fit a curve to x-y-data:
-  if (!fit_curve && !(x_from %in% x)){  # (a) Require fit_curve for x_from:
+  # Need to fit a curve to x-y-data?
+
+  if (!fit_curve && !is.na(x_from) && !(x_from %in% x)){  # (a) Require fit_curve for x_from:
     message("plot_crisk: x_from is not in x: Using fit_curve = TRUE.")
     fit_curve <- TRUE
   }
 
-  if (!fit_curve & !(x_to %in% x)){  # (b) Require fit_curve for x_to:
+  if (!fit_curve && !is.na(x_to) && !(x_to %in% x)){  # (b) Require fit_curve for x_to:
     message("plot_crisk: x_to is not in x: Using fit_curve = TRUE.")
     fit_curve <- TRUE
   }
@@ -891,13 +887,15 @@ plot_crisk <- function(x,  # x-values (as vector)
 # x <- seq(0, 100, by = 10)
 # y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 #
-# plot_crisk(x, y)
-# plot_crisk(x, y, x_from = 40)
-# plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-# plot_crisk(x, y, x_from = 44, x_to = 74)  # predicted points
-# plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
+# # Basic versions:
+# plot_crisk(x, y)  # using data provided
+# plot_crisk(x, y, x_from = 40)  # use and mark 1 provided point
+# plot_crisk(x, y, x_from = 44)  # use and mark 1 provided point
+# plot_crisk(x, y, x_from = 40, x_to = 60)  # use 2 provided points
+# plot_crisk(x, y, x_from = 44, x_to = 74)  # use 2 predicted points
+# plot_crisk(x, y, fit_curve = TRUE)  # fitting curve to provided data
 #
-# # Versions:
+# # Training versions:
 # plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
 # plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
 # plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
@@ -906,9 +904,8 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
 # plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 #
-# # Notes:
-# # Showing ALL is likely to overplot/overwhelm:
-# plot_crisk(x, y, x_from = 44, x_to = 64, fit_curve = TRUE,
+# # Note: Showing ALL is likely to overplot/overwhelm:
+# plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #
