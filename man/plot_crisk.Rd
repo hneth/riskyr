@@ -71,7 +71,7 @@ Default: \code{show_grid = FALSE}.}
 \item{col_pal}{Color palette (as a named vector).
 Default: \code{col_pal = \link{pal_crisk}}.}
 
-\item{arr_c}{Arrow code for symbols at ends of probability links
+\item{arr_c}{Arrow code for symbols at ends of population links
 (as a numeric value \code{-3 <= arr_c <= +6}),
 with the following options:
   \itemize{
@@ -132,23 +132,25 @@ colors \code{col_pal = \link{pal_crisk}}.
 x <- seq(0, 100, by = 10)
 y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 
-plot_crisk(x, y)
-plot_crisk(x, y, x_from = 40)
-plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
-plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
-plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
+# Basic versions:
+plot_crisk(x, y)  # using data provided
+plot_crisk(x, y, x_from = 40)  # use and mark 1 provided point
+plot_crisk(x, y, x_from = 44)  # use and mark 1 provided point
+plot_crisk(x, y, x_from = 40, x_to = 60)  # use 2 provided points
+plot_crisk(x, y, x_from = 44, x_to = 74)  # use 2 predicted points
+plot_crisk(x, y, fit_curve = TRUE)  # fitting curve to provided data
 
-# Versions:
+# Training versions:
 plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
 plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
 plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
 plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
 plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
 plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
-plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # +
+plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 
 # Note: Showing ALL is likely to overplot/overwhelm:
-plot_crisk(x, y, x_from = 44, x_to = 64, fit_curve = TRUE,
+plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 
