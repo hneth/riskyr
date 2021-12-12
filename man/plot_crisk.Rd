@@ -153,7 +153,7 @@ plot_crisk(x, y, x_from = 44, x_to = 64,
            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 
 # Small x- and y-values and linear increases:
-plot_crisk(x = 2:10, y = seq(12, 28, by = 2), # x_from = 4.5, x_to = 8.5,
+plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,
            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
            show_num = TRUE, show_inc = TRUE)
 
