@@ -122,23 +122,23 @@
 #' plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
 #'
 #' # Versions:
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE)  # show past/passed risk only
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = TRUE)  # show remaining risk only
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE, show_rem = TRUE) # show passed + remaining risk
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE)  # show auxiliary lines + axis
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
-#' plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = T, show_pop = T, show_num = T) # + aux/pop/num
+#' plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
+#' plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
+#' plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
+#' plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
+#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
+#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
+#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # +
 #'
 #' # Note: Showing ALL is likely to overplot/overwhelm:
-#' plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = T, show_rem = T, show_aux = T,
-#'            show_pop = T, show_num = T, show_inc = T, show_grid = T, mar_notes = T)
+#' plot_crisk(x, y, x_from = 44, x_to = 64,
+#'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+#'            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #'
 #' # Small x- and y-values and linear increases:
-#' plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8,    # provided points
-#'            show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
-#' plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
-#'            show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
+#' plot_crisk(x = 2:10, y = seq(12, 28, by = 2), # x_from = 4.5, x_to = 8.5,
+#'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+#'            show_num = TRUE, show_inc = TRUE)
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -626,7 +626,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # 4. 2nd axis for remaining risk (y2-axis on right): ------
 
-  if (show_aux | show_rem){
+  if ((!is.na(x_from)) & (show_aux | show_rem)){
 
     n_aiv  <- 5  # number of axis intervals
 
@@ -648,10 +648,11 @@ plot_crisk <- function(x,  # x-values (as vector)
     if (!is.na(y2_ax_lbl) && (nchar(y2_ax_lbl) > 0)){  # label y2-axis (on right):
       mtext(y2_ax_lbl, adj = pos_y2, side = 4, line = 2)
     }
+
   }
 
 
-  # 5. Risk/y-increments: ------
+  # 5. Risk/y-increments (on x): ------
 
   if (show_inc){
 
@@ -662,7 +663,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # 6. Auxiliary elements: ------
+  # 6. Auxiliary elements: Lines and text labels ------
 
   if (show_aux){
 
@@ -773,14 +774,14 @@ plot_crisk <- function(x,  # x-values (as vector)
       }
     }
 
-    # (e) 1st point (x_from x_to):
-    if (!is.na(x_from) & !show_pas & !show_rem){  # 1st point not yet drawn:
-
-      # Show 1st point (x_from y_from):
-      points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-             col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
-
-    }
+    # # (e) 1st point (x_from x_to):
+    # if (!is.na(x_from) & !show_pas & !show_rem){  # 1st point not yet drawn:
+    #
+    #   # Show 1st point (x_from y_from):
+    #   points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
+    #          col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
+    #
+    # }
 
   } # if (show_aux) end.
 
@@ -892,23 +893,23 @@ plot_crisk <- function(x,  # x-values (as vector)
 # plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
 #
 # # Versions:
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE)  # show past/passed risk only
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = TRUE)  # show remaining risk only
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE, show_rem = TRUE) # show passed + remaining risk
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE)  # show auxiliary lines + axis
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
-# plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = T, show_pop = T, show_num = T) # + aux/pop/num
+# plot_crisk(x, y, 42, 62, show_pas = TRUE)  # past/passed risk only
+# plot_crisk(x, y, 42, 62, show_rem = TRUE)  # remaining risk only
+# plot_crisk(x, y, 42, 62, show_pas = TRUE, show_rem = TRUE) # both risks
+# plot_crisk(x, y, 42, 62, show_aux = TRUE)  # auxiliary lines + axis
+# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
+# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
+# plot_crisk(x, y, 42, 62, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 #
 # # Note: Showing ALL is likely to overplot/overwhelm:
-# plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = T, show_rem = T, show_aux = T,
-#            show_pop = T, show_num = T, show_inc = T, show_grid = T, mar_notes = T)
+# plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = TRUE, show_rem = TRUE, show_aux = TRUE,
+#            show_pop = TRUE, show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #
 # # Small x- and y-values and linear increases:
 # plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8,    # provided points
-#            show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
+#            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 # plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
-#            show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
+#            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 #
 # # Text labels:
 # plot_crisk(x, y, x_from = 32, x_to = 47, show_aux = TRUE, title_lbl = "The title",
