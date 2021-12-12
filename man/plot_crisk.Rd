@@ -139,23 +139,23 @@ plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
 plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
 
 # Versions:
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE)  # show past/passed risk only
-plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = TRUE)  # show remaining risk only
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE, show_rem = TRUE) # show passed + remaining risk
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE)  # show auxiliary lines + axis
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = T, show_pop = T, show_num = T) # + aux/pop/num
+plot_crisk(x, y, 44, 64, show_pas = TRUE)  # past/passed risk only
+plot_crisk(x, y, 44, 64, show_rem = TRUE)  # remaining risk only
+plot_crisk(x, y, 44, 64, show_pas = TRUE, show_rem = TRUE) # both risks
+plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
+plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
+plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
+plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # +
 
 # Note: Showing ALL is likely to overplot/overwhelm:
-plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = T, show_rem = T, show_aux = T,
-           show_pop = T, show_num = T, show_inc = T, show_grid = T, mar_notes = T)
+plot_crisk(x, y, x_from = 44, x_to = 64,
+           show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+           show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 
 # Small x- and y-values and linear increases:
-plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8,    # provided points
-           show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
-plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
-           show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
+plot_crisk(x = 2:10, y = seq(12, 28, by = 2), # x_from = 4.5, x_to = 8.5,
+           show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
+           show_num = TRUE, show_inc = TRUE)
 
 }
 \seealso{
