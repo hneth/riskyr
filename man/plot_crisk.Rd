@@ -10,11 +10,11 @@ plot_crisk(
   x_from = NA,
   x_to = NA,
   fit_curve = FALSE,
-  show_pas = TRUE,
-  show_rem = TRUE,
-  show_pop = TRUE,
-  show_aux = TRUE,
-  show_num = TRUE,
+  show_pas = FALSE,
+  show_rem = FALSE,
+  show_pop = FALSE,
+  show_aux = FALSE,
+  show_num = FALSE,
   show_inc = FALSE,
   show_grid = FALSE,
   col_pal = pal_crisk,
@@ -23,7 +23,7 @@ plot_crisk(
   x_lbl = "Age (in years)",
   y_lbl = "Population risk",
   y2_lbl = "",
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -46,21 +46,21 @@ correspond to each other.}
 Default: \code{fit_curve = FALSE}.}
 
 \item{show_pas}{Boolean: Show past/passed risk?
-Default: \code{show_pas = TRUE}.}
+Default: \code{show_pas = FALSE}.}
 
 \item{show_rem}{Boolean: Show remaining risk?
-Default: \code{show_rem = TRUE}.}
+Default: \code{show_rem = FALSE}.}
 
-\item{show_pop}{Boolean: Show population parts?
-Default: \code{show_pop = TRUE}.}
+\item{show_pop}{Boolean: Show population partitions?
+Default: \code{show_pop = FALSE}.}
 
 \item{show_aux}{Boolean: Show auxiliary elements
-(i.e., lines, points, and text labels)?
-Default: \code{show_aux = TRUE}.}
+(i.e., explanatory lines, points, and labels)?
+Default: \code{show_aux = FALSE}.}
 
 \item{show_num}{Boolean: Show numeric values,
 provided that \code{show_aux = TRUE}.
-Default: \code{show_num = TRUE}.}
+Default: \code{show_num = FALSE}.}
 
 \item{show_inc}{Boolean: Show risk increments?
 Default: \code{show_inc = FALSE}.}
@@ -95,7 +95,7 @@ Default: \code{y_lbl = "Population risk"}.}
 Default: \code{y2_lbl = ""} (formerly "Remaining risk").}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
@@ -110,13 +110,21 @@ cumulative risks.
 Assumes data inputs \code{x} and \code{y},
 which correspond to each other so that
 \code{y} is a (monotonically increasing)
-probability density function (over risk increments
-expressed as a function of \code{x}).
+probability density function (over cumulative risk
+amounts represented by \code{y} as a function of \code{x}).
 
-\code{plot_crisk} provides various options for
-showing/hiding elements for instructional purposes.
+A cumulative risk increment is computed for
+an interval ranging from \code{x_from} to \code{x_to}.
+If risk values for \code{x_from} or \code{x_to} are not provided
+(i.e., in \code{x} and \code{y}),
+a curve is fitted to predict \code{y} by \code{x}
+(by \code{fit_curve = TRUE}).
 
-All color information is based on a vector with named
+\code{plot_crisk} provides options for
+showing/hiding various elements required for computing the
+cumulative risk increment for instructional purposes.
+
+Color information is based on a vector with named
 colors \code{col_pal = \link{pal_crisk}}.
 }
 \examples{
@@ -126,23 +134,28 @@ y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 
 plot_crisk(x, y)
 plot_crisk(x, y, x_from = 40)
-plot_crisk(x, y, x_from = 40, x_to = 60)
 plot_crisk(x, y, x_from = 40, x_to = 60)  # provided points
 plot_crisk(x, y, x_from = 46, x_to = 76)  # predicted points
+plot_crisk(x, y, fit_curve = TRUE, title = "A fitted cumulative risk curve")
 
 # Versions:
-plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = FALSE, show_aux = FALSE)
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_aux = FALSE)
-plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = FALSE)
-plot_crisk(x, y, x_from = 42, x_to = 62, show_num = FALSE)
-plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = FALSE, show_rem = FALSE)
+plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE)  # show past/passed risk only
+plot_crisk(x, y, x_from = 42, x_to = 62, show_rem = TRUE)  # show remaining risk only
+plot_crisk(x, y, x_from = 42, x_to = 62, show_pas = TRUE, show_rem = TRUE) # show passed + remaining risk
+plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE)  # show auxiliary lines + axis
+plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_pop = TRUE)  # + population parts
+plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = TRUE, show_num = TRUE)  # + numeric values
+plot_crisk(x, y, x_from = 42, x_to = 62, show_aux = T, show_pop = T, show_num = T) # + aux/pop/num
 
-# Note: Showing all may overplot/overwhelm:
-plot_crisk(x, y, x_from = 48, x_to = 68, show_inc = TRUE, show_grid = TRUE)
+# Note: Showing ALL is likely to overplot/overwhelm:
+plot_crisk(x, y, x_from = 48, x_to = 68, show_pas = T, show_rem = T, show_aux = T,
+           show_pop = T, show_num = T, show_inc = T, show_grid = T, mar_notes = T)
 
 # Small x- and y-values and linear increases:
-plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8, show_inc = TRUE)
-plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5, show_inc = TRUE)
+plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4,   x_to = 8,    # provided points
+           show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
+plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
+           show_pas = T, show_rem = T, show_aux = T, show_pop = T, show_num = T, show_inc = T)
 
 }
 \seealso{
