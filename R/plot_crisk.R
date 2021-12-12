@@ -614,22 +614,38 @@ plot_crisk <- function(x,  # x-values (as vector)
     segments(x0 = x_from, y0 = y_from, x1 = x_to, y1 = y_from,
              lty = lty_main, lwd = lwd_emph, col = col_delta)
 
-    dx_lbl <- round(delta_x, 1)  # paste0("dx = ", round(delta_x, 1))
-
     if (show_num){ # delta-x label:
+
+      dx_lbl <- round(delta_x, 1)  # paste0("dx = ", round(delta_x, 1))
+
+      # Label position:
+      if (y_from > .10 * y_max){ # default:
+        pos_dx <- 1  # bottom
+      } else { # switch to top:
+        pos_dx <- 3  # top
+      }
+
       text(x = (x_from + (delta_x * f_1)), y = y_from, labels = dx_lbl,
-           col = col_delta, cex = cex_lbl, font = 2, pos = 1)
+           col = col_delta, cex = cex_lbl, font = 2, pos = pos_dx, xpd = TRUE)
     }
 
     # (b) delta-y (vertical):
     segments(x0 = x_to, y0 = y_from, x1 = x_to, y1 = y_to,
              lty = lty_main, lwd = lwd_emph, col = col_delta)
 
-    dy_lbl <- paste0(round(delta_y, 1), "%")  # paste0("dy = ", round(delta_y, 1), "%")
-
     if (show_num){ # delta-y label:
+
+      dy_lbl <- paste0(round(delta_y, 1), "%")  # paste0("dy = ", round(delta_y, 1), "%")
+
+      # Label position:
+      if (x_to < .90 * x_max){ # default:
+        pos_dy <- 4  # right
+      } else { # switch to left:
+        pos_dy <- 2  # left
+      }
+
       text(x = x_to, y = (y_from + (delta_y * f_1)), labels = dy_lbl,
-           col = col_delta, cex = cex_lbl, font = 2, pos = 4)
+           col = col_delta, cex = cex_lbl, font = 2, pos = pos_dy, xpd = TRUE)
     }
   }
 
@@ -811,7 +827,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
     if (show_num){
-      text(x = (x_max + x_adj/2), y = y_to, labels = paste0(round(risk_delta, 1), "%"), pos = 4,
+      text(x = (x_max + x_adj/2), y = y_to, labels = paste0(round(risk_delta, 0), "%"), pos = 4,
            cex = cex_lbl, font = 2, col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # risk_delta label (on right axis)
     }
 
