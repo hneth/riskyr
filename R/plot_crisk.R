@@ -777,9 +777,9 @@ plot_crisk <- function(x,  # x-values (as vector)
     # # (e) 1st point (x_from x_to):
     # if (!is.na(x_from) & !show_pas & !show_rem){  # 1st point not yet drawn:
     #
-    #   # Show 1st point (x_from y_from):
-    #   points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
-    #          col = col_aux, bg = make_transparent(col_pas, alpha = .40), lwd = 1.5)
+    # # Draw 1st point (x_from y_from):
+    # points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
+    #        col = col_popu, bg = make_transparent(col_pas, alpha = 0), lwd = lwd_emph)
     #
     # }
 
@@ -819,7 +819,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   # 9. Show increment points (x_from/x_to) on cum curve: ------
 
-  # (a) Show 1st point (x_from y_from):
+  # (a) Draw 1st point (x_from y_from):
   if (!is.na(x_from)){
 
     points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
@@ -828,7 +828,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if (!is.na(x_from)) end.
 
 
-  # (b) # Show 2nd point (x_to y_to):
+  # (b) # Draw 2nd point (x_to y_to):
   if (!is.na(x_to)){
 
     points(x_to, y_to, pch = 21, cex = (cex_pts - 0.3),
