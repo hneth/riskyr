@@ -131,7 +131,7 @@
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # +
 #'
 #' # Note: Showing ALL is likely to overplot/overwhelm:
-#' plot_crisk(x, y, x_from = 44, x_to = 64,
+#' plot_crisk(x, y, x_from = 44, x_to = 64, fit_curve = TRUE,
 #'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #'            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #'
