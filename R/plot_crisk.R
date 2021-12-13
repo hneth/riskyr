@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 12
+## 2021 12 13
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -445,9 +445,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   lwd_grid <- par("lwd") * 1/3
 
   # Sizes:
-  cex_lbl <- par("cex") * .95
   cex_axs <- par("cex")
   cex_pts <- par("cex") * 2.0
+  cex_lbl <- par("cex") * .95
   cex_tit <- par("cex") * 1.2  # main title
   cex_mar <- par("cex") * .92  # margin notes
 
