@@ -372,8 +372,8 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
     # Correction 2: Allow for new overall extremes:
-    y_min <- min(y_min, y_pred$y)  # new predicted minimum
-    y_max <- max(y_max, y_pred$y)  # new predicted maximum
+    if (!is.na(x_from)) { y_min <- min(y_min, y_pred$y) }  # new predicted minimum
+    if (!is.na(x_to  )) { y_max <- max(y_max, y_pred$y) }  # new predicted maximum
 
   } # if fit_curve etc.
 
