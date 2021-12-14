@@ -106,14 +106,14 @@
 #' @examples
 #' # Data:
 #' x <- seq(0, 100, by = 10)
-#' y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
+#' y <- c(0, 0, 0, 8, 24, 50, 70, 80, 83, 85, 85)
 #'
 #' # Basic versions:
 #' plot_crisk(x, y)  # using data provided
 #' plot_crisk(x, y, x_from = 40)  # use and mark 1 provided point
 #' plot_crisk(x, y, x_from = 44)  # use and mark 1 provided point
 #' plot_crisk(x, y, x_from = 40, x_to = 60)  # use 2 provided points
-#' plot_crisk(x, y, x_from = 44, x_to = 74)  # use 2 predicted points
+#' plot_crisk(x, y, x_from = 44, x_to = 64)  # use 2 predicted points
 #' plot_crisk(x, y, fit_curve = TRUE)  # fitting curve to provided data
 #'
 #' # Training versions:
@@ -123,7 +123,7 @@
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE)  # auxiliary lines + axis
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE)  # + population parts
 #' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_num = TRUE)  # + numeric values
-#' plot_crisk(x, y, 44, 64, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
+#' plot_crisk(x, y, 44, 85, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + aux/pop/num
 #'
 #' # Note: Showing ALL is likely to overplot/overwhelm:
 #' plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
@@ -290,8 +290,9 @@ plot_crisk <- function(x,  # x-values (as vector)
     y_max <- 100
   }
 
-  x_range <- c(x_min, x_max)
-  y_range <- c(y_min, y_max)
+  # x_range <- c(x_min, x_max)
+  # y_range <- c(y_min, y_max)
+
 
   # (c) Risk increments (of y-values): ----
 
@@ -329,29 +330,50 @@ plot_crisk <- function(x,  # x-values (as vector)
     # y_pred
 
 
-    # 2. Predict y-values: ----
+    # 2. Predict y-values (for x_from and x_to): ----
 
     # (2a) y_from corresponding ONLY to x_from:
     if (!is.na(x_from) & is.na(x_to)){
+
       y_pred <- stats::predict(fit_spline, x = x_from)
+
+      # Correction 1a: Predicted values in x-range must be within y-range:
+      if (x_from >= x_min){
+        y_pred$y[y_pred$y < min(y)] <- min(y)  # reset minima
+      }
+
     }
 
     # (2b) y_to corresponding ONLY to x_to:
     if (!is.na(x_to) & is.na(x_from)){
+
       y_pred <- stats::predict(fit_spline, x = x_to)
+
+      # Correction 1b: Predicted values in x-range must be within y-range:
+      if (x_to <= x_max){
+        y_pred$y[y_pred$y > max(y)] <- max(y)  # reset maxima
+      }
+
     }
 
     # (2c) Predict a SEQUENCE of y-values for risk increment (from x_from to x_to):
     if (delta_x_specified){
 
-      y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, by = 1))
+      # y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, by = 1))
+      y_pred <- stats::predict(fit_spline, x = seq(x_from, x_to, length.out = 10))
 
-      # Corrections:
-      y_pred$y[y_pred$y < min(y)] <- min(y)  # minima
-      y_pred$y[y_pred$y > max(y)] <- max(y)  # maxima
+      # Correction 1c: Predicted values in x-range must be within y-range:
+      if ((x_from >= x_min) & (x_to <= x_max)){
+        y_pred$y[y_pred$y < min(y)] <- min(y)  # reset minima
+        y_pred$y[y_pred$y > max(y)] <- max(y)  # reset maxima
+      }
 
       # lines(y_pred, lwd = 2, col = make_transparent(Seeblau, alpha = 2/3))
     }
+
+    # Correction 2: Allow for new overall extremes:
+    y_min <- min(y_min, y_pred$y)  # new predicted minimum
+    y_max <- max(y_max, y_pred$y)  # new predicted maximum
 
   } # if fit_curve etc.
 
@@ -375,7 +397,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     }
 
-    # print(y_from) # +++ here now +++
+    # print(y_from)
 
     # Population parts:
     popu_pas <- y_from          # past/passed population proportion
@@ -952,13 +974,14 @@ plot_crisk <- function(x,  # x-values (as vector)
 ## (+) ToDo: ------
 
 # - add real data
+# - test function with diverse data, contents, and extreme values
 
-# - test function with diverse data, contents, and extreme cases
-# - explore better fitting options (and modularize curve fitting parts)
+# - explore better curve fitting options (e.g., linear/cubic fits, rather than splines)
+#   and modularize fitting parts (as separate functions)
+# - add data/option for population decrements (on top of plot)
 
-# - add data/option for population decrements (on top)
 # - add user-defined margin label
-
+# - add more dynamic label positions
 # - explore alternative color options
 # - add a legend option
 
