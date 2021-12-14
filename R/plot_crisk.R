@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 13
+## 2021 12 14
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -427,6 +427,9 @@ plot_crisk <- function(x,  # x-values (as vector)
   # (b) Additional plot parameters (currently fixed): ----
 
   # Text labels:
+
+  n_dig <- 1  # Number of digits used to display/print values
+
   # if (is.na(title_lbl)) {title_lbl <- ""}
   # x_unit  <- "years" # Defaults:
   x_ax_lbl  <- x_lbl   # paste0("Age (in ", x_unit, ")")
@@ -460,7 +463,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   pos_aux <- NULL   # NULL or 1: bot, 2: left, 3: top, 4: right
 
-  # Colors (named colors from col_pal = pal_crisk):
+  # Colors: Named colors from col_pal = pal_crisk:
   col_cum <- make_transparent(col_pal["cum"], alpha = 1)  # cumulative risk curve
   alf_cum <- .85
 
@@ -616,7 +619,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     if (show_num){ # delta-x label:
 
-      dx_lbl <- round(delta_x, 1)  # paste0("dx = ", round(delta_x, 1))
+      dx_lbl <- round(delta_x, n_dig)  # paste0("dx = ", round(delta_x, n_dig))
 
       # Label position:
       if (y_from > .10 * y_max){ # default:
@@ -635,7 +638,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     if (show_num){ # delta-y label:
 
-      dy_lbl <- paste0(round(delta_y, 1), "%")  # paste0("dy = ", round(delta_y, 1), "%")
+      dy_lbl <- paste0(round(delta_y, n_dig), "%")  # paste0("dy = ", round(delta_y, n_dig), "%")
 
       # Label position:
       if (x_to < .90 * x_max){ # default:
@@ -657,8 +660,8 @@ plot_crisk <- function(x,  # x-values (as vector)
     n_aiv  <- 5  # number of axis intervals
 
     y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
-    y2_lbl <- seq(0, round(risk_max, 1), length.out = (n_aiv + 1))  # label all intervals
-    y2_lbl <- c("0", rep(NA, n_aiv - 1), round(risk_max, 1))        # label only extrema
+    y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_aiv + 1))  # label all intervals
+    y2_lbl <- c("0", rep(NA, n_aiv - 1), round(risk_max, n_dig))        # label only extrema
 
     axis(side = 4, pos = (x_max + 0), at = y2_seq, labels = y2_lbl, las = 1,
          lwd = lwd_axs, cex.axis = cex_axs)  # y at right
@@ -705,7 +708,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux))  # y-from to left (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_from, labels = paste0(round(y_from, 1), "%"), pos = pos_aux,
+        text(x = x_lbl_l, y = y_from, labels = paste0(round(y_from, n_dig), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_from label (on left axis)
       }
     }
@@ -720,7 +723,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux), xpd = TRUE)  # y-to to left (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_to, labels = paste0(round(y_to, 1), "%"), pos = pos_aux,
+        text(x = x_lbl_l, y = y_to, labels = paste0(round(y_to, n_dig), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_to label (on left axis)
       }
     }
@@ -732,7 +735,7 @@ plot_crisk <- function(x,  # x-values (as vector)
                col = make_transparent(col_aux, alpha = alf_aux))  # y_max on top (horizontal)
 
       if (show_num){
-        text(x = x_lbl_l, y = y_max, labels = paste0(round(y_max, 1), "%"), pos = pos_aux,
+        text(x = x_lbl_l, y = y_max, labels = paste0(round(y_max, n_dig), "%"), pos = pos_aux,
              cex = cex_lbl, font = 2, col = make_transparent(col_txt, alpha = 1), xpd = TRUE)  # y_max label (on left axis)
       }
     }
@@ -791,10 +794,10 @@ plot_crisk <- function(x,  # x-values (as vector)
 
       if (show_num){ # label numeric values:
 
-        text(x = x_lo, y = (y_from * f_2), labels = paste0(round(popu_pas, 1), "%"),
+        text(x = x_lo, y = (y_from * f_2), labels = paste0(round(popu_pas, n_dig), "%"),
              col = make_transparent(col_popu, alpha = 1), cex = cex_lbl, font = 2, pos = 4, xpd = TRUE)  # y-from/passed risk label
 
-        text(x = x_up, y = y_up, labels = paste0(round(popu_rem, 1), "%"),
+        text(x = x_up, y = y_up, labels = paste0(round(popu_rem, n_dig), "%"),
              col = make_transparent(col_popu, alpha = 1), cex = cex_lbl, font = 2, pos = 4, xpd = TRUE)  # remaining population proportion label
 
       }
@@ -827,7 +830,7 @@ plot_crisk <- function(x,  # x-values (as vector)
     }
 
     if (show_num){
-      text(x = (x_max + x_adj/2), y = y_to, labels = paste0(round(risk_delta, 0), "%"), pos = 4,
+      text(x = (x_max + x_adj/2), y = y_to, labels = paste0(round(risk_delta, n_dig), "%"), pos = 4,
            cex = cex_lbl, font = 2, col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # risk_delta label (on right axis)
     }
 
