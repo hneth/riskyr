@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 14
+## 2021 12 15
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -973,18 +973,21 @@ plot_crisk <- function(x,  # x-values (as vector)
 
 ## (+) ToDo: ------
 
+# (a) testing function:
 # - add real data
 # - test function with diverse data, contents, and extreme values
 
+# (b) adding functionality:
+# - add an option for only plotting remaining risk area?
 # - explore better curve fitting options (e.g., linear/cubic fits, rather than splines)
 #   and modularize fitting parts (as separate functions)
 # - add data/option for population decrements (on top of plot)
+# - add a legend option
 
+# (c) aesthetics/details:
 # - add user-defined margin label
 # - add more dynamic label positions
 # - explore alternative color options
-# - add a legend option
-
 
 ## (*) Done: ----------
 
