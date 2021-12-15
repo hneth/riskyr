@@ -527,31 +527,88 @@ plot_crisk <- function(x,  # x-values (as vector)
   par(oma = c(0, 0, 0, 0) + 0.2)                        # outer margins; default: par("oma") = 0 0 0 0.
 
   # Axis label locations:
-  par(mgp = c(3, 1, 0))  # default: c(3, 1, 0)
+  par(mgp = c(3, 1, 0))  # margin line of title and x/y-axes: default: c(3, 1, 0) with mgp[1] = title, mgp[2:3] = axis.
 
   # Orientation of the tick mark labels (and corresponding mtext captions below):
   par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
 
 
-  ## (4) Plot setup: --------
+  ## (4) Create basic plot: --------
 
-  # Draw empty plot:
+  # (+) HACK: Only show remaining risk part of plat: ------
+  only_remaining_risk <- FALSE # TRUE
+
+  if (only_remaining_risk & !is.na(x_from)){
+
+    # adjust plot origin:
+    x_min <- x_from
+    y_min <- y_from
+
+    # remove some stuff:
+    show_pas <- FALSE
+
+  }
+
+
+  # (A) Prepare empty plot: ------
+
   plot(0, 0, type = "n",      # type = "n" hides the points
        xlab = x_ax_lbl, ylab = y_ax_lbl, cex.axis = cex_axs,
        xlim = c(x_min, x_max), ylim = c(y_min, y_max),
        axes = FALSE)
 
-  # Axes:
-  axis(side = 1, las = 1, lwd = lwd_axs, cex.axis = cex_axs)  # x-axis, horizontal labels
-  axis(side = 2, las = 1, lwd = lwd_axs, cex.axis = cex_axs)  # y-axis, horizontal labels
 
-  # Grid:
+  # (B) Axes: ------
+
+  # (a) Primary X- and Y-axis: ----
+
+  ax_pos_adj <- NA  # use NA (for default) or 0 (for no gaps)
+
+  # 1. X-axis at bottom, horizontal labels:
+  axis(side = 1, pos = (y_min - ax_pos_adj),
+       las = 1, lwd = lwd_axs, cex.axis = cex_axs)
+
+  # 2. Y-axis on left, horizontal labels:
+  axis(side = 2, pos = (x_min - ax_pos_adj),
+       las = 1, lwd = lwd_axs, cex.axis = cex_axs)
+
+
+  # (b) Alternative Y-axis for remaining risk (2nd axis y2 on right): ------
+
+  if ((!is.na(x_from)) & (show_aux | show_rem)){
+
+    n_aiv  <- 5  # number of axis intervals (4 or 5)
+    y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
+    y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_aiv + 1))  # label all intervals
+    y2_lbl <- c("0", rep(NA, n_aiv - 1), round(risk_max, n_dig))        # label only extrema
+
+    axis(side = 4, pos = (x_max + 0),        # NO gap between x_max and vertical y2-axis
+         at = y2_seq, labels = y2_lbl, las = 1,
+         lwd = lwd_axs, cex.axis = cex_axs)  # y at right
+
+
+    # # Adjust y-value of y2_lbl (as an adj-value ranging from 0 to 1):
+    # if (y_max < 100){ # scale label position by risk_max:
+    #   adj_y2_lbl <- (y_max - (.50 * (y_max - y_from)))/y_max
+    # } else { # scale label position by y_max (default):
+    adj_y2_lbl <- (y_max - (.35 * (y_max - y_from)))/y_max
+    # }
+
+    if (!is.na(y2_ax_lbl) && (nchar(y2_ax_lbl) > 0)){  # label y2-axis (on right):
+      mtext(y2_ax_lbl, adj = adj_y2_lbl, side = 4, line = 2)
+    }
+
+  }
+
+  # (C) Grid: ------
+
   if (show_grid){
     grid(nx = NULL, ny = NULL,  # NA: no lines; NULL: at tick marks
          col = grey(.50, alpha = .50), lty = lty_grid, lwd = lwd_grid, equilogs = TRUE)
   }
 
-  # Draw plot points:
+
+  # (+) Draw plot points: ------
 
   # # Grid of points:
   # grid_x <- rep(seq(x_min, x_max, by = 10), times = length(seq(x_min, x_max, by = 10))) # x/horizontal
@@ -675,35 +732,8 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # 4. 2nd axis for remaining risk (y2-axis on right): ------
 
-  if ((!is.na(x_from)) & (show_aux | show_rem)){
-
-    n_aiv  <- 5  # number of axis intervals
-
-    y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
-    y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_aiv + 1))  # label all intervals
-    y2_lbl <- c("0", rep(NA, n_aiv - 1), round(risk_max, n_dig))        # label only extrema
-
-    axis(side = 4, pos = (x_max + 0), at = y2_seq, labels = y2_lbl, las = 1,
-         lwd = lwd_axs, cex.axis = cex_axs)  # y at right
-
-
-    # # y-value of y2_lbl (as adj-value from 0 to 1):
-    # if (y_max < 100){ # scale label position by risk_max:
-    #   pos_y2 <- (y_max - (.50 * (y_max - y_from)))/y_max
-    # } else { # scale label position by y_max (default):
-    pos_y2 <- (y_max - (.35 * (y_max - y_from)))/y_max
-    # }
-
-    if (!is.na(y2_ax_lbl) && (nchar(y2_ax_lbl) > 0)){  # label y2-axis (on right):
-      mtext(y2_ax_lbl, adj = pos_y2, side = 4, line = 2)
-    }
-
-  }
-
-
-  # 5. Risk/y-increments (on x): ------
+  # 4. Risk/y-increments (on x): ------
 
   if (show_inc){
 
@@ -714,7 +744,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # 6. Auxiliary elements: Lines and text labels ------
+  # 5. Auxiliary elements: Lines and text labels ------
 
   if (show_aux){
 
@@ -828,7 +858,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if (show_aux) end.
 
 
-  # 7. Cumulative risk curve: ------
+  # 6. Cumulative risk curve: ------
 
   if (!fit_curve){
     lines(x = x, y = y, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
@@ -859,7 +889,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # 9. Show increment points (x_from/x_to) on cum curve: ------
+  # 7. Show increment points (x_from/x_to) on cum curve: ------
 
   # (a) Draw 1st point (x_from y_from):
   if (!is.na(x_from)){
@@ -882,7 +912,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (6) Plot other stuff: --------
 
-  # (A) Miscellanea:
+  # (A) Miscellanea: ------
 
   # box_else <- make_box("else_box", 2, 2, 4, 3)  # define some arbitrary box
   # plot(box_else, col = "firebrick2", cex = 1/2, font = 2)  # plot box
@@ -893,7 +923,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   title(title_lbl, col = col_txt, adj = 0, line = 1, font.main = 1, cex.main = cex_tit)
 
 
-  # (C) Margin notes:
+  # (C) Margin notes: ------
 
   if (mar_notes) {
 
@@ -909,7 +939,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   } # if (mar_notes) etc.
 
 
-  ## (7) Finish: -----
+  ## (7) Finish: --------
 
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
@@ -917,7 +947,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 } # plot_crisk end.
 
 
-## (3) Check: ------
+## (3) Check: --------
 
 # # 1. Dense data:
 # x <- seq(from = 0, to = 100, by = 5)
