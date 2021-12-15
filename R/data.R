@@ -1,7 +1,9 @@
 ## data.R | riskyr
-## 2018 12 20
+## 2021 12 15
 ## Document the scenarios of ./data
 ## -----------------------------------------------
+
+# (1) riskyr scenarios: -------
 
 #' A collection of riskyr scenarios from various sources (as df).
 #'
@@ -26,6 +28,8 @@
 #' The variables \code{scen_src} and \code{scen_apa}
 #' provide a scenario's source information.
 #'
+#' @family datasets
+#'
 #' @seealso
 #' \code{\link{scenarios}} contains all scenarios as \code{riskyr} objects;
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario;
@@ -37,5 +41,55 @@
 #' \code{\link{init_pal}} initializes color information.
 
 "df_scenarios"
+
+
+# (2) Cumulative risks: -------
+
+# 1. BRCA1: ----
+
+#' Cumulative risk of breast cancer in women with the BRCA1 mutation.
+#'
+#' \code{BRCA1} provides the cumulative risk of breast cancer
+#' in a population of women with the BRCA1 mutation
+#' as a function of their age (in years).
+#'
+#' @format A data frame (11 x 2).
+#'
+#' \code{x}: age (in years).
+#'
+#' \code{y}: cumulative risk of developing breast
+#' cancer in this (BRCA1) population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"BRCA1"
+
+
+# 2. BRCA2: ----
+
+#' Cumulative risk of breast cancer in women with the BRCA2 mutation.
+#'
+#' \code{BRCA2} provides the cumulative risk of breast cancer
+#' in a population of women with the BRCA2 mutation
+#' as a function of their age (in years).
+#'
+#' @format A data frame (11 x 2).
+#'
+#' \code{x}: age (in years).
+#'
+#' \code{y}: cumulative risk of developing breast
+#' cancer in this (BRCA2) population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"BRCA2"
+
+
 
 ## eof. ------------------------------------------
