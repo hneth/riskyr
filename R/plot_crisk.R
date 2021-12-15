@@ -577,10 +577,18 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if ((!is.na(x_from)) & (show_aux | show_rem)){
 
-    n_aiv  <- 5  # number of axis intervals (4 or 5)
-    y2_seq <- seq(y_from, y_max, length.out = (n_aiv + 1))
-    y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_aiv + 1))  # label all intervals
-    y2_lbl <- c("0", rep(NA, n_aiv - 1), round(risk_max, n_dig))        # label only extrema
+    # number of axis intervals:
+    if ((y_max - y_from)/(y_max - y_min) > .60){
+      n_axiv <- 10  #  more intervals
+    } else {
+      n_axiv <- 4   #  fewer intervals
+    }
+
+    n_im_tics <- (n_axiv - 2)/2  # number of intermediate axis ticks
+
+    y2_seq <- seq(y_from, y_max, length.out = (n_axiv + 1))
+    # y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_axiv + 1))  # label all intervals
+    y2_lbl <- c("0", rep(NA, n_im_tics), round(risk_max/2, n_dig), rep(NA, n_im_tics), round(risk_max, n_dig)) # label only extrema and mid-point
 
     axis(side = 4, pos = (x_max + 0),        # NO gap between x_max and vertical y2-axis
          at = y2_seq, labels = y2_lbl, las = 1,
@@ -954,7 +962,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 # i <- c(0, 0, 0, 0, 0, .035, .070, .145, .160, .120, .07, .03, .02, .0150, .0150, .0125, .0075, 0, 0, 0, 0)
 # y <- cumsum(i) * 100  # as percentages
 #
-# 2. sparse data:
+# # 2. sparse data:
 # x <- seq(0, 100, by = 10)
 # y <- c(0, 0, 0, 10, 24, 50, 72, 80, 83, 85, 85)
 #
@@ -997,7 +1005,7 @@ plot_crisk <- function(x,  # x-values (as vector)
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 #
 # # Text labels:
-# plot_crisk(x, y, x_from = 32, x_to = 47, show_aux = TRUE, title_lbl = "The title",
+# plot_crisk(x, y, x_from = 37, x_to = 57, show_aux = TRUE, show_num = TRUE, title_lbl = "The title",
 #            x_lbl = "X-lab", y_lbl = "Y-lab", y2_lbl = "Alt-Y-lab", mar_notes = TRUE)
 
 
