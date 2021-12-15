@@ -40,5 +40,10 @@ When loading \code{riskyr}, all scenarios contained in
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{pal}} contains current color information;
 \code{\link{init_pal}} initializes color information.
+
+Other datasets: 
+\code{\link{BRCA1}},
+\code{\link{BRCA2}}
 }
+\concept{datasets}
 \keyword{datasets}
