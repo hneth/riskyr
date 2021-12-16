@@ -116,7 +116,7 @@
 #' # Basic versions:
 #' plot_crisk(x, y)  # using data provided
 #' plot_crisk(x, y, x_from = 40)  # use and mark 1 provided point
-#' plot_crisk(x, y, x_from = 44)  # use and mark 1 provided point
+#' plot_crisk(x, y, x_from = 44)  # use and mark 1 predicted point
 #' plot_crisk(x, y, x_from = 40, x_to = 60)  # use 2 provided points
 #' plot_crisk(x, y, x_from = 44, x_to = 64)  # use 2 predicted points
 #' plot_crisk(x, y, fit_curve = TRUE)  # fitting curve to provided data
