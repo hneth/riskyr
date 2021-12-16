@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 15
+## 2021 12 16
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -138,6 +138,7 @@
 #' @importFrom graphics par
 #' @importFrom graphics plot
 #' @importFrom graphics axis
+#' @importFrom graphics rug
 #' @importFrom graphics grid
 #' @importFrom graphics abline
 #' @importFrom graphics rect
@@ -579,9 +580,9 @@ plot_crisk <- function(x,  # x-values (as vector)
 
     # number of axis intervals:
     if ((y_max - y_from)/(y_max - y_min) > .60){
-      n_axiv <- 10  #  more intervals
+      n_axiv <- 2  #  more intervals: 10, 4, or 2
     } else {
-      n_axiv <- 4   #  fewer intervals
+      n_axiv <- 2  #  fewer intervals: 4 or 2
     }
 
     n_im_tics <- (n_axiv - 2)/2  # number of intermediate axis ticks
@@ -590,9 +591,11 @@ plot_crisk <- function(x,  # x-values (as vector)
     # y2_lbl <- seq(0, round(risk_max, n_dig), length.out = (n_axiv + 1))  # label all intervals
     y2_lbl <- c("0", rep(NA, n_im_tics), round(risk_max/2, n_dig), rep(NA, n_im_tics), round(risk_max, n_dig)) # label only extrema and mid-point
 
-    axis(side = 4, pos = (x_max + 0),        # NO gap between x_max and vertical y2-axis
+    axis(side = 4, pos = (x_max + 0),        # NO gap between x_max and vertical y2-axis, NA uses standard line
          at = y2_seq, labels = y2_lbl, las = 1,
          lwd = lwd_axs, cex.axis = cex_axs)  # y at right
+    rug(x = seq(y_from, y_max, length.out = (10 + 1)),
+        side = 4, pos = (x_max + 0), ticksize = -.02, lwd = lwd_aux)
 
 
     # # Adjust y-value of y2_lbl (as an adj-value ranging from 0 to 1):
