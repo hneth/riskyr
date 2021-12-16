@@ -748,9 +748,18 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if (show_inc){
 
+    # (a) increments as intervals at bottom (on x-axis):
     # lines(x = x, y = rinc_y, lwd = lwd_aux, lty = lty_aux, col = col_rinc)
     segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = lwd_main, lty = lty_main, col = col_rinc)
     points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
+
+    # # (b) increments as steps (on curve):
+    # y_prev <- c(0, y)[1:length(y)]
+    # x_next <- c(x, x[length(x)])[-1]
+    #
+    # segments(x0 = x, y0 = y, x1 = x_next, y1 = y, lwd = lwd_aux, lty = lty_main, col = col_aux)  # horizontal step part
+    # segments(x0 = x, y0 = y_prev, x1 = x, y1 = (y_prev + rinc_y), lwd = lwd_main, lty = lty_main, col = col_rinc)  # vertical step part
+    # points(x = x, y = (y_prev + rinc_y), pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
   }
 
