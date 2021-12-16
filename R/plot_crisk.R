@@ -219,9 +219,9 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
 
-  if ((is.na(x_from)) && (show_pas)) {
-    message("plot_crisk: Showing passed risk requires x_from.")
-    show_pas <- FALSE
+  if (is.na(x_from) && (!is.na(x_to))){
+    message("plot_crisk: x_to without x_from. Using x_from <- min(x).")
+    x_from <- min(x)
   }
 
   if ((is.na(x_from)) && (show_pas)) {
@@ -234,10 +234,11 @@ plot_crisk <- function(x,  # x-values (as vector)
     show_rem <- FALSE
   }
 
-  if (is.na(x_from) && (!is.na(x_to))){
-    message("plot_crisk: x_to without x_from. Using x_from <- min(x).")
-    x_from <- min(x)
+  if ((is.na(x_from)) && (show_pop)) {
+    message("plot_crisk: Showing population parts requires x_from.")
+    show_pop <- FALSE
   }
+
 
   # Need to fit a curve to x-y-data?
 
