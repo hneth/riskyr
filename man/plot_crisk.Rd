@@ -107,11 +107,16 @@ Nothing (NULL).
 cumulative risks.
 }
 \details{
-Assumes data inputs \code{x} and \code{y},
-which correspond to each other so that
-\code{y} is a (monotonically increasing)
-probability density function (over cumulative risk
-amounts represented by \code{y} as a function of \code{x}).
+\code{plot_crisk} assumes data inputs \code{x} and \code{y}
+that correspond to each other so that \code{y} is a
+(monotonically increasing) probability density function
+(over cumulative risk amounts represented by \code{y}
+as a function of \code{x}).
+
+The risk events expressed by the cumulative risk values (\code{y})
+are assumed to be uni-directional and non-reversible.
+Thus, an element in the population can only switch its status
+(from unaffected to affected) once.
 
 A cumulative risk increment is computed for
 an interval ranging from \code{x_from} to \code{x_to}.
