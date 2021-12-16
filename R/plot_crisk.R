@@ -1019,6 +1019,11 @@ plot_crisk <- function(x,  # x-values (as vector)
 # # Text labels:
 # plot_crisk(x, y, x_from = 37, x_to = 57, show_aux = TRUE, show_num = TRUE, title_lbl = "The title",
 #            x_lbl = "X-lab", y_lbl = "Y-lab", y2_lbl = "Alt-Y-lab", mar_notes = TRUE)
+#
+# # Using BRCA data:
+# plot_crisk(BRCA1$x, BRCA1$y, x_from = 37, x_to = 47,
+#            show_pas = T, show_rem = T, show_aux = T, show_num = T,
+#            show_pop = T, title_lbl = "Cumulative risk (BRCA1, 10 years)")
 
 
 ## (+) ToDo: ------
