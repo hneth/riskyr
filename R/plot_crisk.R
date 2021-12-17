@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 16
+## 2021 12 17
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -16,10 +16,14 @@
 #' (over cumulative risk amounts represented by \code{y}
 #' as a function of \code{x}).
 #'
-#' The risk events expressed by the cumulative risk values (\code{y})
+#' Inputs to \code{x} and \code{y} must typically be of the same
+#' length and are interpreted by the generic function
+#' \code{\link{xy.coords}}.
+#'
+#' The risk events quantified by the cumulative risk values (\code{y})
 #' are assumed to be uni-directional and non-reversible.
-#' Thus, an element in the population can only switch its status
-#' (from unaffected to affected) once.
+#' Thus, an element in the population can only switch its status once
+#' (from 'unaffected' to 'affected' by the risk factor).
 #'
 #' A cumulative risk increment is computed for
 #' an interval ranging from \code{x_from} to \code{x_to}.
@@ -28,22 +32,20 @@
 #' a curve is fitted to predict \code{y} by \code{x}
 #' (by \code{fit_curve = TRUE}).
 #'
-#' \code{plot_crisk} provides options for
-#' showing/hiding various elements required for computing the
-#' cumulative risk increment for instructional purposes.
+#' For instructional purposes, \code{plot_crisk} provides
+#' options for showing/hiding various elements required
+#' for computing the cumulative risk increment.
 #'
 #' Color information is based on a vector with named
 #' colors \code{col_pal = \link{pal_crisk}}.
 #'
 #' @param x Values on an x-dimension on which risk is expressed
-#' (required, as a vector).
+#' (required).
 #'
 #' @param y Values of cumulative risks on an y-dimension
-#' (required, as a vector),
+#' (optional, if x is an appropriate structure),
 #' as monotonically increasing percentage values
 #' (0 <= y <= 100).
-#' Pairs of \code{x} and \code{y} are assumed to
-#' correspond to each other.
 #'
 #' @param x_from Start value of risk increment.
 #'
@@ -140,6 +142,7 @@
 #'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #'            show_num = TRUE, show_inc = TRUE)
 #'
+#' @importFrom grDevices xy.coords
 #' @importFrom graphics par
 #' @importFrom graphics plot
 #' @importFrom graphics axis
@@ -167,8 +170,8 @@
 
 ## (2) plot_crisk: Definition ------
 
-plot_crisk <- function(x,  # x-values (as vector)
-                       y,  # y-values (as vector)
+plot_crisk <- function(x,         # x-values (as vector)
+                       y = NULL,  # y-values (as vector)
 
                        x_from = NA, # start value of x-increment
                        x_to = NA,   # end value of x-increment
@@ -211,7 +214,20 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   ## (1) Check user inputs: --------
 
-  # (a) Data in x and y:
+  # (a) Get x/y coordinates: ----
+
+  if (!is.null(x) & is.null(y)){
+
+    # Get x and y via generic function (allowing for df and formula, etc.):
+    xy_coords <- grDevices::xy.coords(x = x, y = y)
+
+    x <- xy_coords$x
+    y <- xy_coords$y
+
+  }
+
+  # (b) Check x and y: ----
+
   if (length(x) != length(y)){
     message("plot_crisk: x and y must have the same length.")
     return(NA)
@@ -219,7 +235,9 @@ plot_crisk <- function(x,  # x-values (as vector)
 
   if (any(diff(y) < 0)){ message("plot_crisk: y is assumed to be monotonically increasing.") }
 
-  # (b) Values x_from and x_to:
+
+  # (c) Values x_from and x_to: ----
+
   if ((!is.na(x_from)) && (x_from < min(x))) { message("plot_crisk: x_from is lower than min(x).") }
 
   if ((!is.na(x_to)) && (x_to > max(x))) { message("plot_crisk: x_to exceeds max(x).") }
@@ -245,7 +263,7 @@ plot_crisk <- function(x,  # x-values (as vector)
   }
 
 
-  # Need to fit a curve to x-y-data?
+  # (d) Need to fit a curve to x-y-data? ----
 
   if (!fit_curve && !is.na(x_from) && !(x_from %in% x)){  # (a) Require fit_curve for x_from:
     message("plot_crisk: x_from is not in x: Using fit_curve = TRUE.")
