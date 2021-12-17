@@ -6,7 +6,7 @@
 \usage{
 plot_crisk(
   x,
-  y,
+  y = NULL,
   x_from = NA,
   x_to = NA,
   fit_curve = FALSE,
@@ -29,14 +29,12 @@ plot_crisk(
 }
 \arguments{
 \item{x}{Values on an x-dimension on which risk is expressed
-(required, as a vector).}
+(required).}
 
 \item{y}{Values of cumulative risks on an y-dimension
-(required, as a vector),
+(optional, if x is an appropriate structure),
 as monotonically increasing percentage values
-(0 <= y <= 100).
-Pairs of \code{x} and \code{y} are assumed to
-correspond to each other.}
+(0 <= y <= 100).}
 
 \item{x_from}{Start value of risk increment.}
 
@@ -113,10 +111,14 @@ that correspond to each other so that \code{y} is a
 (over cumulative risk amounts represented by \code{y}
 as a function of \code{x}).
 
-The risk events expressed by the cumulative risk values (\code{y})
+Inputs to \code{x} and \code{y} must typically be of the same
+length and are interpreted by the generic function
+\code{\link{xy.coords}}.
+
+The risk events quantified by the cumulative risk values (\code{y})
 are assumed to be uni-directional and non-reversible.
-Thus, an element in the population can only switch its status
-(from unaffected to affected) once.
+Thus, an element in the population can only switch its status once
+(from 'unaffected' to 'affected' by the risk factor).
 
 A cumulative risk increment is computed for
 an interval ranging from \code{x_from} to \code{x_to}.
@@ -125,9 +127,9 @@ If risk values for \code{x_from} or \code{x_to} are not provided
 a curve is fitted to predict \code{y} by \code{x}
 (by \code{fit_curve = TRUE}).
 
-\code{plot_crisk} provides options for
-showing/hiding various elements required for computing the
-cumulative risk increment for instructional purposes.
+For instructional purposes, \code{plot_crisk} provides
+options for showing/hiding various elements required
+for computing the cumulative risk increment.
 
 Color information is based on a vector with named
 colors \code{col_pal = \link{pal_crisk}}.
