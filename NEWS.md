@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9018
+# riskyr 0.3.0.9020
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -288,6 +288,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-12-12 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-12-16 by [hn](https://neth.de).) 
 
 <!-- eof -->
