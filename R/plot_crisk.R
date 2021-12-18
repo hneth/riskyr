@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 17
+## 2021 12 18
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -1043,11 +1043,30 @@ plot_crisk <- function(x,         # x-values (as vector)
 # # Text labels:
 # plot_crisk(x, y, x_from = 37, x_to = 57, show_aux = TRUE, show_num = TRUE, title_lbl = "The title",
 #            x_lbl = "X-lab", y_lbl = "Y-lab", y2_lbl = "Alt-Y-lab", mar_notes = TRUE)
-#
+
 # # Using BRCA data:
-# plot_crisk(BRCA1$x, BRCA1$y, x_from = 37, x_to = 47,
+#
+# plot_crisk(x = BRCA1, x_from = 37, x_to = 47,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T,
 #            show_pop = T, title_lbl = "Cumulative risk (BRCA1, 10 years)")
+#
+# plot_crisk(x = BRCA2, x_from = 37, x_to = 47,
+#            show_pas = T, show_rem = T, show_aux = T, show_num = T,
+#            show_pop = T, title_lbl = "Cumulative risk (BRCA1, 10 years)")
+
+# # mamRiskViz studies:
+#
+# plot_crisk(df_I, x_from = 40,
+#            show_pas = T, show_aux = T, show_num = T,
+#            title_lbl = "mamRiskViz (Introductory task I)")
+#
+# plot_crisk(df_A, x_from = 50, x_to = 80,
+#            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
+#            title_lbl = "mamRiskViz (Main/transfer task A)")
+#
+# plot_crisk(df_B, x_from = 50, x_to = 80,
+#            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
+#            title_lbl = "mamRiskViz (Main/transfer task B)")
 
 
 ## (+) ToDo: ------
