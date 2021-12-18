@@ -25,10 +25,10 @@ as a function of their age (in years).
 
 Other datasets: 
 \code{\link{BRCA1}},
-\code{\link{df_A}},
-\code{\link{df_B}},
-\code{\link{df_I}},
-\code{\link{df_scenarios}}
+\code{\link{df_scenarios}},
+\code{\link{t_A}},
+\code{\link{t_B}},
+\code{\link{t_I}}
 }
 \concept{datasets}
 \keyword{datasets}
