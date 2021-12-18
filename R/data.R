@@ -95,7 +95,7 @@
 
 #' Cumulative risk curve I (introductory task).
 #'
-#' \code{df_I} provides the cumulative risk of
+#' \code{t_I} provides the cumulative risk of
 #' some genetic risk factor for developing a disease
 #' in some target population as a function of age.
 #'
@@ -111,14 +111,14 @@
 #' @seealso
 #' \code{\link{plot_crisk}} plots cumulative risk curves.
 
-"df_I"
+"t_I"
 
 
 # 3b. mamRiskViz: Main/transfer Task A ----
 
 #' Cumulative risk curve A (main/transfer task A).
 #'
-#' \code{df_A} provides the cumulative risk of
+#' \code{t_A} provides the cumulative risk of
 #' some genetic risk factor for developing disease A
 #' in some target population as a function of age.
 #'
@@ -134,14 +134,14 @@
 #' @seealso
 #' \code{\link{plot_crisk}} plots cumulative risk curves.
 
-"df_A"
+"t_A"
 
 
 # 3c. mamRiskViz: Main/transfer Task B ----
 
 #' Cumulative risk curve B (main/transfer task B).
 #'
-#' \code{df_B} provides the cumulative risk of
+#' \code{t_B} provides the cumulative risk of
 #' some genetic risk factor for developing disease B
 #' in some target population as a function of age.
 #'
@@ -157,7 +157,7 @@
 #' @seealso
 #' \code{\link{plot_crisk}} plots cumulative risk curves.
 
-"df_B"
+"t_B"
 
 
 ## eof. ------------------------------------------
