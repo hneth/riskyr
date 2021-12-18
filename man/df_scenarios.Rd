@@ -43,7 +43,10 @@ When loading \code{riskyr}, all scenarios contained in
 
 Other datasets: 
 \code{\link{BRCA1}},
-\code{\link{BRCA2}}
+\code{\link{BRCA2}},
+\code{\link{df_A}},
+\code{\link{df_B}},
+\code{\link{df_I}}
 }
 \concept{datasets}
 \keyword{datasets}
