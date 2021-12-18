@@ -1,5 +1,5 @@
 ## data.R | riskyr
-## 2021 12 15
+## 2021 12 18
 ## Document the scenarios of ./data
 ## -----------------------------------------------
 
@@ -90,6 +90,74 @@
 
 "BRCA2"
 
+
+# 3a. mamRiskViz: Introductory task ----
+
+#' Cumulative risk curve I (introductory task).
+#'
+#' \code{df_I} provides the cumulative risk of
+#' some genetic risk factor for developing a disease
+#' in some target population as a function of age.
+#'
+#' @format A data frame (17 x 2).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{crisk_I}: cumulative risk of developing
+#' some disease in the target population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"df_I"
+
+
+# 3b. mamRiskViz: Main/transfer Task A ----
+
+#' Cumulative risk curve A (main/transfer task A).
+#'
+#' \code{df_A} provides the cumulative risk of
+#' some genetic risk factor for developing disease A
+#' in some target population as a function of age.
+#'
+#' @format A data frame (17 x 2).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{crisk_A}: cumulative risk of developing
+#' some disease A in the target population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"df_A"
+
+
+# 3c. mamRiskViz: Main/transfer Task B ----
+
+#' Cumulative risk curve B (main/transfer task B).
+#'
+#' \code{df_B} provides the cumulative risk of
+#' some genetic risk factor for developing disease B
+#' in some target population as a function of age.
+#'
+#' @format A data frame (17 x 2).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{crisk_B}: cumulative risk of developing
+#' some disease B in the target population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"df_B"
 
 
 ## eof. ------------------------------------------
