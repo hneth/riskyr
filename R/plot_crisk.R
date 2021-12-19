@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 18
+## 2021 12 19
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -209,6 +209,7 @@ plot_crisk <- function(x,         # x-values (as vector)
   show_delta <- show_aux  # show x- and y-increments?
   show_high  <- show_aux  # highlight numeric value of risk increment?
 
+  show_max_rem_risk <- FALSE
   delta_x_specified <- FALSE
 
 
@@ -431,6 +432,20 @@ plot_crisk <- function(x,         # x-values (as vector)
     # Remaining risk:
     risk_max <- ((y_max - y_from)/popu_rem) * 100  # maximum remaining risk
 
+    # Remaining population and maximum risk (as a curve y, as function of x):
+    if (show_max_rem_risk){
+
+      # if (fit_curve) {
+      #  popu_rem_fn <- (100 - y_pred$y)
+      #  risk_max_fn <- ((max(y) - y_pred$y)/popu_rem_fn) * 100
+      # } else {
+      popu_rem_fn <- (100 - y)
+      risk_max_fn <- ((max(y) - y)/popu_rem_fn) * 100
+      # }
+
+      # print(risk_max_fn)  # 4debugging
+
+    }
 
   } # if (x_from) end.
 
@@ -907,13 +922,13 @@ plot_crisk <- function(x,         # x-values (as vector)
   if (!fit_curve){
     lines(x = x, y = y, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
   } else {
-    lines(fit_spline,   lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
+    lines(x = fit_spline, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
   }
 
   points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
 
 
-  # 8. Highlight remaining risk delta_risk (on right axis): ------
+  # 7. Highlight remaining risk delta_risk (on right axis): ------
 
   if (delta_x_specified & show_high){
 
@@ -926,14 +941,43 @@ plot_crisk <- function(x,         # x-values (as vector)
     }
 
     if (show_num){
-      text(x = (x_max + x_adj/2), y = y_to, labels = paste0(round(risk_delta, n_dig), "%"), pos = 4,
+
+      if ( ((risk_delta %% 50) <= 5) | ((risk_delta %% 50) >= 45) ){  # near y2-axis label:
+        x_lbl_val <- (x_max + 2 * x_adj)  # shift label (to right)
+      } else { # not near y2-axis label:
+        x_lbl_val <- (x_max + x_adj/2)  # default label position
+      }
+
+      text(x = x_lbl_val, y = y_to, labels = paste0(round(risk_delta, n_dig), "%"), pos = 4,
            cex = cex_lbl, font = 2, col = make_transparent(col_hi, alpha = alf_hi), xpd = TRUE)  # risk_delta label (on right axis)
     }
 
   }
 
 
-  # 7. Show increment points (x_from/x_to) on cum curve: ------
+  # 8. Show remaining population and maximum remaining risk (as curves): ------
+
+  # # (a) remaining population curve:
+  # lines(x = x, y = popu_rem_fn, lwd = lwd_main, lty = lty_main, col = make_transparent(col_popu, alpha = alf_popu))
+  # points(x = x, y = popu_rem_fn, pch = 20, cex = cex_pts, col = make_transparent(col_popu, alpha = alf_popu))
+
+  # (b) remaining max risk curve:
+  if (show_max_rem_risk){
+
+    col_risk_max <- my_orange
+
+    # if (!fit_curve){
+    lines(x = x,  y = risk_max_fn, lwd = lwd_main, lty = lty_main, col = make_transparent(col_risk_max, alpha = .80))  # actual values
+    points(x = x, y = risk_max_fn, pch = 20, cex = cex_pts, col = make_transparent(col_risk_max, alpha = .80))
+    # } else {
+    #  lines(x = y_pred$x,  y = risk_max_fn, lwd = lwd_main, lty = lty_main, col = make_transparent(col_risk_max, alpha = .80))  # predicted values
+    #  points(x = y_pred$x, y = risk_max_fn, pch = 20, cex = cex_pts, col = make_transparent(col_risk_max, alpha = .80))
+    # }
+
+  }
+
+
+  # 9. Show increment points (x_from/x_to) on cum curve: ------
 
   # (a) Draw 1st point (x_from y_from):
   if (!is.na(x_from)){
@@ -1076,6 +1120,7 @@ plot_crisk <- function(x,         # x-values (as vector)
 # - test function with diverse data, contents, and extreme values
 
 # (b) adding functionality:
+# - compute and show curve of all remainin
 # - add an option for only plotting remaining risk area?
 # - explore better curve fitting options (e.g., linear/cubic fits, rather than splines)
 #   and modularize fitting parts (as separate functions)
