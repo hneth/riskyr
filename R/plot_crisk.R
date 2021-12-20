@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 19
+## 2021 12 20
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -209,7 +209,7 @@ plot_crisk <- function(x,         # x-values (as vector)
   show_delta <- show_aux  # show x- and y-increments?
   show_high  <- show_aux  # highlight numeric value of risk increment?
 
-  show_max_rem_risk <- FALSE
+  show_max_rem_risk <- FALSE # TRUE #
   delta_x_specified <- FALSE
 
 
@@ -432,20 +432,7 @@ plot_crisk <- function(x,         # x-values (as vector)
     # Remaining risk:
     risk_max <- ((y_max - y_from)/popu_rem) * 100  # maximum remaining risk
 
-    # Remaining population and maximum risk (as a curve y, as function of x):
-    if (show_max_rem_risk){
 
-      # if (fit_curve) {
-      #  popu_rem_fn <- (100 - y_pred$y)
-      #  risk_max_fn <- ((max(y) - y_pred$y)/popu_rem_fn) * 100
-      # } else {
-      popu_rem_fn <- (100 - y)
-      risk_max_fn <- ((max(y) - y)/popu_rem_fn) * 100
-      # }
-
-      # print(risk_max_fn)  # 4debugging
-
-    }
 
   } # if (x_from) end.
 
@@ -477,6 +464,22 @@ plot_crisk <- function(x,         # x-values (as vector)
     }
 
   } # if (x_to) end.
+
+
+  # (f) Compute remaining population and maximum risk (as a curve y, as function of x): ----
+  if (show_max_rem_risk){
+
+    # if (fit_curve) {
+    #  popu_rem_fn <- (100 - y_pred$y)
+    #  risk_max_fn <- ((max(y) - y_pred$y)/popu_rem_fn) * 100
+    # } else {
+    popu_rem_fn <- (100 - y)
+    risk_max_fn <- ((max(y) - y)/popu_rem_fn) * 100
+    # }
+
+    # print(risk_max_fn)  # 4debugging
+
+  }
 
 
   ## (3) Plot parameters: --------
@@ -964,7 +967,7 @@ plot_crisk <- function(x,         # x-values (as vector)
   # (b) remaining max risk curve:
   if (show_max_rem_risk){
 
-    col_risk_max <- my_orange
+    col_risk_max <- "darkorange" # my_orange
 
     # if (!fit_curve){
     lines(x = x,  y = risk_max_fn, lwd = lwd_main, lty = lty_main, col = make_transparent(col_risk_max, alpha = .80))  # actual values
@@ -1079,6 +1082,8 @@ plot_crisk <- function(x,         # x-values (as vector)
 #            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #
 # # Small x- and y-values and linear increases:
+# plot_crisk(x = 0:10, y = 10:20, x_from = 3, x_to = 8,    # provided points
+#            show_pas = F, show_rem = F, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_grid = TRUE)
 # plot_crisk(x = 1:10, y = seq( 1, 20, by = 2), x_from = 4, x_to = 8,    # provided points
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 # plot_crisk(x = 2:10, y = seq(12, 28, by = 2), x_from = 4.5, x_to = 8.5,  # predicted points
