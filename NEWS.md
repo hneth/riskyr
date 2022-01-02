@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9020
+# riskyr 0.3.0.9024
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -7,12 +7,15 @@ Log of changes since last release:
 
 ## Major changes
 
+<!-- Cumulative risks (crisk): -->  
+
 - Add function for plotting cumulative risk curves [2021-12-10]:
 
     - `plot_crisk()` plots curves and auxiliary information for visualizing cumulative risks and risk increments; 
     
     - `pal_crisk` provides a corresponding color palette (as a named vector).  
-    
+
+<!-- MLM: -->      
 
 - Add matrix lens model functions [2021-06-08]: 
 
@@ -288,6 +291,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2021-12-16 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2022-01-02 by [hn](https://neth.de).) 
 
 <!-- eof -->
