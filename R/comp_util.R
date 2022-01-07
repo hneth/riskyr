@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2021 12 14
+## 2022 07 01
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1359,7 +1359,7 @@ is_matrix <- function(mx){
 #'
 #' @export
 
-## Probability as percentage (2 decimals):
+# Probability as percentage (2 decimals):
 
 as_pc <- function(prob, n_digits = 2) {
 
@@ -1380,7 +1380,8 @@ as_pc <- function(prob, n_digits = 2) {
   }
 
   return(perc)  # return (numeric)
-}
+
+} # as_pc().
 
 ## Check:
 # as_pc(1/2)                # =>  50
