@@ -127,6 +127,11 @@ If risk values for \code{x_from} or \code{x_to} are not provided
 a curve is fitted to predict \code{y} by \code{x}
 (by \code{fit_curve = TRUE}).
 
+Note that naive interpretations allow for both
+overestimation (e.g., reading off population values)
+and underestimation (e.g., reading off future risk increases without
+re-scaling to remaining population).
+
 For instructional purposes, \code{plot_crisk} provides
 options for showing/hiding various elements required
 for computing the cumulative risk increment.
