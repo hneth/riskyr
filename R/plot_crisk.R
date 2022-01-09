@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2021 12 20
+## 2022 01 09
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -31,6 +31,11 @@
 #' (i.e., in \code{x} and \code{y}),
 #' a curve is fitted to predict \code{y} by \code{x}
 #' (by \code{fit_curve = TRUE}).
+#'
+#' Note that naive interpretations allow for both
+#' overestimation (e.g., reading off population values)
+#' and underestimation (e.g., reading off future risk increases without
+#' re-scaling to remaining population).
 #'
 #' For instructional purposes, \code{plot_crisk} provides
 #' options for showing/hiding various elements required
@@ -1105,15 +1110,15 @@ plot_crisk <- function(x,         # x-values (as vector)
 
 # # mamRiskViz studies:
 #
-# plot_crisk(df_I, x_from = 40,
+# plot_crisk(t_I, x_from = 40,
 #            show_pas = T, show_aux = T, show_num = T,
 #            title_lbl = "mamRiskViz (Introductory task I)")
 #
-# plot_crisk(df_A, x_from = 50, x_to = 80,
+# plot_crisk(t_A, x_from = 50, x_to = 70,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
 #            title_lbl = "mamRiskViz (Main/transfer task A)")
 #
-# plot_crisk(df_B, x_from = 50, x_to = 80,
+# plot_crisk(t_B, x_from = 50, x_to = 80,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
 #            title_lbl = "mamRiskViz (Main/transfer task B)")
 
@@ -1123,6 +1128,7 @@ plot_crisk <- function(x,         # x-values (as vector)
 # (a) testing function:
 # - add real data
 # - test function with diverse data, contents, and extreme values
+# - test and show boundary cases and relational properties
 
 # (b) adding functionality:
 # - compute and show curve of all remainin
