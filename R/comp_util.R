@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2022 07 01
+## 2022 02 10
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1285,13 +1285,13 @@ is_matrix <- function(mx){
 
     message("is_matrix: mx is not numeric.")
 
-  # NOT checked: Contingency table:
-  # Contents are only frequency counts (i.e., integers >= 0)
-  # to allow for probability matrices (i.e., non frequency values):
+    # NOT checked: Contingency table:
+    # Contents are only frequency counts (i.e., integers >= 0)
+    # to allow for probability matrices (i.e., non frequency values):
 
-  # } else if (!is_freq(mx)){ # Only contingency table contents:
-  #
-  #     message("is_matrix: mx contains non-frequency counts.")
+    # } else if (!is_freq(mx)){ # Only contingency table contents:
+    #
+    #     message("is_matrix: mx contains non-frequency counts.")
 
   } else { # mx is a numeric matrix:
 
@@ -1497,7 +1497,7 @@ as_pb <- function(perc, n_digits = 4) {
 # # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
 
 
-## incsum: Incremental sum (as inverse of cumsum): ------
+## incsum: Incremental sum (as an inverse of cumsum): ------
 
 incsum <- function(cumsum){
 
@@ -1527,11 +1527,11 @@ make_transparent <- function(..., alpha = .50) {
 
   alpha <- floor(255 * alpha)
 
-  new_color <- col2rgb(col = unlist(list(...)), alpha = FALSE)
+  new_color <- grDevices::col2rgb(col = unlist(list(...)), alpha = FALSE)
 
   .make_transparent <- function(col, alpha) {
-    rgb(red = col[1], green = col[2], blue = col[3],
-        alpha = alpha, maxColorValue = 255)
+    grDevices::rgb(red = col[1], green = col[2], blue = col[3],
+                   alpha = alpha, maxColorValue = 255)
   }
 
   new_color <- apply(new_color, 2, .make_transparent, alpha = alpha)
@@ -1541,7 +1541,9 @@ make_transparent <- function(..., alpha = .50) {
 }
 
 ## Check:
-# make_transparent("black")
+# make_transparent(c("black", "red"), alpha =  0)
+# make_transparent(c("black", "red"), alpha = .5)
+# make_transparent(c("black", "red"), alpha =  1)
 
 ## See also:
 # grDevices::adjustcolor(col = "green", alpha.f = .50)
