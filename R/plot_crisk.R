@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2022 01 20
+## 2022 02 10
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -600,7 +600,7 @@ plot_crisk <- function(x,         # x-values (as vector)
 
   # (A) Prepare empty plot: ------
 
-  plot(0, 0, type = "n",      # type = "n" hides the points
+  plot(0, 0, type = "n",      # type = "n" hides any points
        xlab = x_ax_lbl, ylab = y_ax_lbl, cex.axis = cex_axs,
        xlim = c(x_min, x_max), ylim = c(y_min, y_max),
        axes = FALSE)
@@ -990,7 +990,7 @@ plot_crisk <- function(x,         # x-values (as vector)
   # (a) Draw 1st point (x_from y_from):
   if (!is.na(x_from)){
 
-    points(x_from, y_from, pch = 21, cex = (cex_pts - 0.3),
+    points(x = x_from, y = y_from, pch = 21, cex = (cex_pts - 0.3),
            col = col_popu, bg = make_transparent(col_pas, alpha = 0), lwd = lwd_emph)
 
   } # if (!is.na(x_from)) end.
@@ -999,7 +999,7 @@ plot_crisk <- function(x,         # x-values (as vector)
   # (b) # Draw 2nd point (x_to y_to):
   if (!is.na(x_to)){
 
-    points(x_to, y_to, pch = 21, cex = (cex_pts - 0.3),
+    points(x = x_to, y = y_to, pch = 21, cex = (cex_pts - 0.3),
            col = col_hi, bg = make_transparent(col_rem, alpha = 0), lwd = lwd_emph)
 
   } # if (!is.na(x_to)) end.
