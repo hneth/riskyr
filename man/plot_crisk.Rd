@@ -28,13 +28,17 @@ plot_crisk(
 )
 }
 \arguments{
-\item{x}{Values on an x-dimension on which risk is expressed
-(required).}
+\item{x}{Data or values of an x-dimension on which risk is expressed
+(required).
+If \code{x} but not \code{y} is provided,
+\code{\link{xy.coords}} from \strong{grDevices}
+is used to determine \code{x}- and \code{y}-values.}
 
-\item{y}{Values of cumulative risks on an y-dimension
-(optional, if x is an appropriate structure),
+\item{y}{Values of cumulative risks on a y-dimension
+(optional, if \code{x} is an appropriate structure),
 as monotonically increasing percentage values
-(0 <= y <= 100).}
+(ranging from 0 to 100).
+Default: \code{y = NULL}.}
 
 \item{x_from}{Start value of risk increment.}
 
@@ -111,12 +115,14 @@ that correspond to each other so that \code{y} is a
 (over cumulative risk amounts represented by \code{y}
 as a function of \code{x}).
 
-Inputs to \code{x} and \code{y} must typically be of the same
-length and are interpreted by the generic function
-\code{\link{xy.coords}}.
+Inputs to \code{x} and \code{y} must typically be of the same length.
+If \code{x} but not \code{y} is provided,
+\code{\link{xy.coords}} from \strong{grDevices}
+is used to determine \code{x}- and \code{y}-values.
 
-The risk events quantified by the cumulative risk values (\code{y})
-are assumed to be uni-directional and non-reversible.
+The risk events quantified by the cumulative risk values in \code{y}
+are assumed to be uni-directional, non-reversible, and
+expressed as percentages (ranging from 0 to 100).
 Thus, an element in the population can only switch its status once
 (from 'unaffected' to 'affected' by the risk factor).
 
@@ -134,7 +140,7 @@ re-scaling to remaining population).
 
 For instructional purposes, \code{plot_crisk} provides
 options for showing/hiding various elements required
-for computing the cumulative risk increment.
+for computing or comprehending cumulative risk increments.
 
 Color information is based on a vector with named
 colors \code{col_pal = \link{pal_crisk}}.
