@@ -40,9 +40,11 @@ as monotonically increasing percentage values
 (ranging from 0 to 100).
 Default: \code{y = NULL}.}
 
-\item{x_from}{Start value of risk increment.}
+\item{x_from}{Start value of risk increment.
+Default: \code{x_from = NA}.}
 
-\item{x_to}{End value of risk increment.}
+\item{x_to}{End value of risk increment.
+Default: \code{x_to = NA}.}
 
 \item{fit_curve}{Boolean: Fit a curve to \code{x}-\code{y}-data?
 Default: \code{fit_curve = FALSE}.}
