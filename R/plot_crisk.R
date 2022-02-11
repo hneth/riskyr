@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2022 02 10
+## 2022 02 11
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -16,12 +16,14 @@
 #' (over cumulative risk amounts represented by \code{y}
 #' as a function of \code{x}).
 #'
-#' Inputs to \code{x} and \code{y} must typically be of the same
-#' length and are interpreted by the generic function
-#' \code{\link{xy.coords}}.
+#' Inputs to \code{x} and \code{y} must typically be of the same length.
+#' If \code{x} but not \code{y} is provided,
+#' \code{\link{xy.coords}} from \strong{grDevices}
+#' is used to determine \code{x}- and \code{y}-values.
 #'
-#' The risk events quantified by the cumulative risk values (\code{y})
-#' are assumed to be uni-directional and non-reversible.
+#' The risk events quantified by the cumulative risk values in \code{y}
+#' are assumed to be uni-directional, non-reversible, and
+#' expressed as percentages (ranging from 0 to 100).
 #' Thus, an element in the population can only switch its status once
 #' (from 'unaffected' to 'affected' by the risk factor).
 #'
@@ -39,18 +41,22 @@
 #'
 #' For instructional purposes, \code{plot_crisk} provides
 #' options for showing/hiding various elements required
-#' for computing the cumulative risk increment.
+#' for computing or comprehending cumulative risk increments.
 #'
 #' Color information is based on a vector with named
 #' colors \code{col_pal = \link{pal_crisk}}.
 #'
-#' @param x Values on an x-dimension on which risk is expressed
+#' @param x Data or values of an x-dimension on which risk is expressed
 #' (required).
+#' If \code{x} but not \code{y} is provided,
+#' \code{\link{xy.coords}} from \strong{grDevices}
+#' is used to determine \code{x}- and \code{y}-values.
 #'
-#' @param y Values of cumulative risks on an y-dimension
-#' (optional, if x is an appropriate structure),
+#' @param y Values of cumulative risks on a y-dimension
+#' (optional, if \code{x} is an appropriate structure),
 #' as monotonically increasing percentage values
-#' (0 <= y <= 100).
+#' (ranging from 0 to 100).
+#' Default: \code{y = NULL}.
 #'
 #' @param x_from Start value of risk increment.
 #'
@@ -175,7 +181,7 @@
 
 ## (2) plot_crisk: Definition ------
 
-plot_crisk <- function(x,         # x-values (as vector)
+plot_crisk <- function(x,         # x-values (as vector or df)
                        y = NULL,  # y-values (as vector)
 
                        x_from = NA, # start value of x-increment
@@ -209,12 +215,15 @@ plot_crisk <- function(x,         # x-values (as vector)
 
   ## (0) Initialize: ------
 
-  # Boolean switches:
+  # Additional Boolean switches:
+  show_cum_curve <- TRUE  # main cumulative curve?
+  show_step  <- FALSE     # risk increments as steps?
+
   show_poly  <- show_aux  # show polygon of risk increment?
   show_delta <- show_aux  # show x- and y-increments?
   show_high  <- show_aux  # highlight numeric value of risk increment?
 
-  show_max_rem_risk <- FALSE # TRUE #
+  show_max_rem_risk <- FALSE
   delta_x_specified <- FALSE
 
 
@@ -790,24 +799,28 @@ plot_crisk <- function(x,         # x-values (as vector)
   }
 
 
-
   # 4. Risk/y-increments (on x): ------
 
   if (show_inc){
 
-    # (a) increments as intervals at bottom (on x-axis):
-    # lines(x = x, y = rinc_y, lwd = lwd_aux, lty = lty_aux, col = col_rinc)
-    segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = lwd_main, lty = lty_main, col = col_rinc)
-    points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
+    if (!show_step){ # default case:
 
-    # # (b) increments as steps (on curve):
-    # y_prev <- c(0, y)[1:length(y)]
-    # x_next <- c(x, x[length(x)])[-1]
-    #
-    # segments(x0 = x, y0 = y, x1 = x_next, y1 = y, lwd = lwd_aux, lty = lty_main, col = col_aux)  # horizontal step part
-    # segments(x0 = x, y0 = y_prev, x1 = x, y1 = (y_prev + rinc_y), lwd = lwd_main, lty = lty_main, col = col_rinc)  # vertical step part
-    # points(x = x, y = (y_prev + rinc_y), pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
+      # (a) increments as vertical intervals at bottom (on x-axis):
+      lines(x = x, y = rinc_y, lwd = lwd_aux, lty = lty_aux, col = col_aux)  # horizontal
+      segments(x0 = x, y0 = 0, x1 = x, y1 = rinc_y, lwd = lwd_main, lty = lty_main, col = col_rinc)  # vertical
+      points(x = x, y = rinc_y, pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
 
+    } else { # special case:
+
+      # (b) increments as step function (on cumulative curve):
+      y_prev <- c(0, y)[1:length(y)]
+      x_next <- c(x, x[length(x)])[-1]
+
+      segments(x0 = x, y0 = y, x1 = x_next, y1 = y, lwd = lwd_aux, lty = lty_aux, col = col_aux)  # horizontal
+      segments(x0 = x, y0 = y_prev, x1 = x, y1 = (y_prev + rinc_y), lwd = lwd_main, lty = lty_main, col = col_rinc)  # vertical
+      points(x = x, y = (y_prev + rinc_y), pch = 21, cex = (cex_pts - 0.3), col = col_rinc, bg = NA, lwd = 1.5)
+
+    }
   }
 
 
@@ -927,13 +940,17 @@ plot_crisk <- function(x,         # x-values (as vector)
 
   # 6. Cumulative risk curve: ------
 
-  if (!fit_curve){
-    lines(x = x, y = y, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
-  } else {
-    lines(x = fit_spline, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
-  }
+  if (show_cum_curve){
 
-  points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
+    if (!fit_curve){
+      lines(x = x, y = y, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # actual values
+    } else {
+      lines(x = fit_spline, lwd = lwd_main, lty = lty_main, col = make_transparent(col_cum, alpha = alf_cum))  # fitted values
+    }
+
+    points(x = x, y = y, pch = 20, cex = cex_pts, col = make_transparent(col_cum, alpha = alf_cum))
+
+  }
 
 
   # 7. Highlight remaining risk delta_risk (on right axis): ------
