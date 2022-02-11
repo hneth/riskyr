@@ -59,8 +59,10 @@
 #' Default: \code{y = NULL}.
 #'
 #' @param x_from Start value of risk increment.
+#' Default: \code{x_from = NA}.
 #'
 #' @param x_to End value of risk increment.
+#' Default: \code{x_to = NA}.
 #'
 #' @param fit_curve Boolean: Fit a curve to \code{x}-\code{y}-data?
 #' Default: \code{fit_curve = FALSE}.
