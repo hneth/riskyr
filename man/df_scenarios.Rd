@@ -42,6 +42,7 @@ When loading \code{riskyr}, all scenarios contained in
 \code{\link{init_pal}} initializes color information.
 
 Other datasets: 
+\code{\link{BRCA1_mam}},
 \code{\link{BRCA1}},
 \code{\link{BRCA2}},
 \code{\link{t_A}},
