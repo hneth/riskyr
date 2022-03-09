@@ -160,4 +160,33 @@
 "t_B"
 
 
+# 4a. Breast cancer risk with BRCA1: ------
+
+#' Cumulative risk of breast cancer in women with the BRCA1 mutation.
+#'
+#' \code{BRCA1_mam} provides the cumulative risk of breast cancer
+#' in a population of women with the BRCA1 mutation
+#' as a function of their age (in years).
+#'
+#' @source Based on Figure 2 (p. 2408) of
+#' Kuchenbaecker, K. B., Hopper, J. L., Barnes, D. R., Phillips, K. A., Mooij, T. M., Roos-Blom, M. J., ... & BRCA1 and BRCA2 Cohort Consortium (2017).
+#' Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. JAMA, 317 (23), 2402--2416.
+#' doi: 10.1001/jama.2017.7112
+#'
+#' @format A data frame (63 x 4).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{cumRisk}: cumulative risk of developing breast
+#' cancer in this (BRCA1) population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"BRCA1_mam"
+
+
+
 ## eof. ------------------------------------------
