@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2022 02 11
+## 2022 04 22
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -530,7 +530,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 
   # Sizes:
   cex_axs <- par("cex")
-  cex_pts <- par("cex") * 2.0
+  cex_pts <- par("cex") * 2.0  # main curve points
   cex_lbl <- par("cex") * .95
   cex_tit <- par("cex") * 1.2  # main title
   cex_mar <- par("cex") * .92  # margin notes
