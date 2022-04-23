@@ -5,7 +5,7 @@
 \alias{BRCA1_mam}
 \title{Cumulative risk of breast cancer in women with the BRCA1 mutation.}
 \format{
-A data frame (63 x 4).
+A data frame (63 x 2).
 
 \code{age}: age (in years).
 
@@ -15,7 +15,7 @@ cancer in this (BRCA1) population.
 \source{
 Based on Figure 2 (p. 2408) of
 Kuchenbaecker, K. B., Hopper, J. L., Barnes, D. R., Phillips, K. A., Mooij, T. M., Roos-Blom, M. J., ... & BRCA1 and BRCA2 Cohort Consortium (2017).
-Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. JAMA, 317 (23), 2402--2416.
+Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. \emph{JAMA}, \emph{317} (23), 2402--2416.
 doi: 10.1001/jama.2017.7112
 }
 \usage{
