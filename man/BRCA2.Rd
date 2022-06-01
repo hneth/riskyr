@@ -26,6 +26,7 @@ as a function of their age (in years).
 Other datasets: 
 \code{\link{BRCA1_mam}},
 \code{\link{BRCA1}},
+\code{\link{BRCA2_mam}},
 \code{\link{df_scenarios}},
 \code{\link{t_A}},
 \code{\link{t_B}},

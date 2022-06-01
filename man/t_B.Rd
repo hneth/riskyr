@@ -26,6 +26,7 @@ in some target population as a function of age.
 Other datasets: 
 \code{\link{BRCA1_mam}},
 \code{\link{BRCA1}},
+\code{\link{BRCA2_mam}},
 \code{\link{BRCA2}},
 \code{\link{df_scenarios}},
 \code{\link{t_A}},
