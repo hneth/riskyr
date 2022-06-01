@@ -165,7 +165,7 @@
 "t_B"
 
 
-# (4) Scientific data from Kuchenbaecker et al. (2017): ------
+# (4) Scientific data from Kuchenbaecker et al. (2017). JAMA: ------
 
 # 4a. Breast cancer risk with BRCA1: ------
 
@@ -223,6 +223,60 @@
 "BRCA2_mam"
 
 
+# 4c. Ovarian cancer risk with BRCA1: ------
+
+#' Cumulative risk of ovarian cancer in women with the BRCA1 mutation.
+#'
+#' \code{BRCA1_ova} provides the cumulative risk of ovarian cancer
+#' in a population of women with the BRCA1 mutation
+#' as a function of their age (in years).
+#'
+#' @source Based on Figure 2 (p. 2408) of
+#' Kuchenbaecker, K. B., Hopper, J. L., Barnes, D. R., Phillips, K. A., Mooij, T. M., Roos-Blom, M. J., ... & BRCA1 and BRCA2 Cohort Consortium (2017).
+#' Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. \emph{JAMA}, \emph{317} (23), 2402--2416.
+#' doi: 10.1001/jama.2017.7112
+#'
+#' @format A data frame (63 x 2).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{cumRisk}: cumulative risk of developing ovarian
+#' cancer in this (BRCA1) population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"BRCA1_ova"
+
+
+# 4d. Ovarian cancer risk with BRCA2: ------
+
+#' Cumulative risk of ovarian cancer in women with the BRCA2 mutation.
+#'
+#' \code{BRCA2_ova} provides the cumulative risk of ovarian cancer
+#' in a population of women with the BRCA2 mutation
+#' as a function of their age (in years).
+#'
+#' @source Based on Figure 2 (p. 2408) of
+#' Kuchenbaecker, K. B., Hopper, J. L., Barnes, D. R., Phillips, K. A., Mooij, T. M., Roos-Blom, M. J., ... & BRCA1 and BRCA2 Cohort Consortium (2017).
+#' Risks of breast, ovarian, and contralateral breast cancer for BRCA1 and BRCA2 mutation carriers. \emph{JAMA}, \emph{317} (23), 2402--2416.
+#' doi: 10.1001/jama.2017.7112
+#'
+#' @format A data frame (63 x 2).
+#'
+#' \code{age}: age (in years).
+#'
+#' \code{cumRisk}: cumulative risk of developing ovarian
+#' cancer in this (BRCA2) population.
+#'
+#' @family datasets
+#'
+#' @seealso
+#' \code{\link{plot_crisk}} plots cumulative risk curves.
+
+"BRCA2_ova"
 
 
 ## eof. ------------------------------------------
