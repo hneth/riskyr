@@ -268,7 +268,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 ---------- 
 
-# References
+## References 
 
 To cite **riskyr** in derivations and publications please use:
 
@@ -279,7 +279,7 @@ riskyr: Rendering Risk Literacy more Transparent.
 
 <!-- Background article: -->
 
-The following article provides details on the conceptual and theoretical background: 
+The following **article** provides details on the conceptual and theoretical background: 
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies.  
@@ -291,6 +291,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2022-01-02 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2022-07-28 by [hn](https://neth.de).) 
 
 <!-- eof -->
