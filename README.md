@@ -172,8 +172,9 @@ three essential probabilities:
 2.  The device’s or diagnostic decision’s *sensitivity* is 80%:
     `sens = .80`.  
 3.  The device’s or diagnostic decision’s *false alarm rate* is 5%:
-    `fart = .05`, implying a *specificity* of (100% − 5%) = 95%:
-    `spec = .95`.
+    `fart = .05`, implying a *specificity* of (100%
+    ![-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;- "-")
+    5%) = 95%: `spec = .95`.
 
 #### Understanding the questions asked
 
@@ -514,6 +515,7 @@ s10$popu_lbl   # the current population
 #> [1] "Male patients with symptoms"
 s10$scen_apa   # scenario source (APA) 
 #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
+
 # summary(s10) # summarises a scenario
 ```
 
@@ -813,7 +815,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2021-10-28 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2022-07-28 by [hn](https://neth.de).\]
 
 <!-- eof -->
 

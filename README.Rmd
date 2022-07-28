@@ -18,15 +18,17 @@ output: github_document
 
 -->
 
-```{r knitr-opts-chunk, echo = FALSE}
+```{r setup, echo = FALSE}
+# Chunk options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "inst/pix/README-"
+  fig.path = "inst/pix/README-",
+  fig.align = "center"
 )
 
 # URLs:
-url_riskyr_org <- "https://riskyr.org/" # WAS: "http://134.34.54.61:3838/spds/riskyr/"
+url_riskyr_org <- "https://riskyr.org/"  # WAS: "http://134.34.54.61:3838/spds/riskyr/"
 ```
 
 <!-- riskyr logo: -->
