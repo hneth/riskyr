@@ -1,7 +1,8 @@
 ## comp_mlm.R (based on comp_metrics.R) | riskyr
-## 2021 12 18
+## 2022 07 31
 ## -------------------------------------------
 
+# See new R package MLM.
 
 ## (A) Matrix lens model: ----------
 
@@ -39,15 +40,15 @@
 # Output: Returns a 2x2 matrix (as a contingency table).
 
 
-# frame: Frame a 2x2 matrix (from data or description): ------
+# mlm_frame: Frame a 2x2 matrix (from data or description): ------
 
 #' Frame a 2x2 matrix (from data or description).
 #'
-#' \code{frame} creates a 2x2 matrix
+#' \code{mlm_frame} creates a 2x2 matrix
 #' (i.e., a numeric contingency table of frequency counts)
 #' from data or a description of its contents and layout.
 #'
-#' \code{frame} supports 4 use cases:
+#' \code{mlm_frame} supports 4 use cases:
 #'
 #' \enumerate{
 #'
@@ -104,32 +105,32 @@
 #' # 1. From raw data (denoting individual cases):
 #' s <- riskyr(hi = 8, mi = 2, fa = 95, cr = 895)
 #' d <- write_popu(s)
-#' frame(d, x = "True condition", y = "Outcome")
+#' mlm_frame(d, x = "True condition", y = "Outcome")
 #'
 #' # 2. From a contingency table (df) with a variable denoting
 #' #    the frequency counts of each case:
 #' c_tab <- as.data.frame(Titanic)
-#' frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq")
-#' frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
-#'       x_name = "Gender", y_name = "Alive",
-#'       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+#' mlm_frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq")
+#' mlm_frame(c_tab, x = "Sex", y = "Survived", freq_var = "Freq",
+#'           x_name = "Gender", y_name = "Alive",
+#'           x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 #'
 #' # 3. From a description of 4 frequency counts and matrix layout:
 #' # a. Basics:
-#' frame(data = 1:4, x = "Condition", y = "Outcome")
+#' mlm_frame(data = 1:4, x = "Condition", y = "Outcome")
 #'
 #' # b. The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # 4 frequencies (Gigerenzer & Hoffrage, 1995)
-#' frame(data = abcd, x = "Condition", y = "Test",
-#'       x_levels = c("cancer", "no cancer"),
-#'       y_levels = c("positive", "negative"))
+#' mlm_frame(data = abcd, x = "Condition", y = "Test",
+#'           x_levels = c("cancer", "no cancer"),
+#'           y_levels = c("positive", "negative"))
 #'
 #' # c. Titanic passengers:
 #' abcd <- c(344, 367, 126, 1364)
-#' frame(data = abcd, x = "sex", y = "survived",
-#'       x_levels = c("female", "male"), y_levels = c(1, 0))
-#' frame(data = abcd, x = "Gender", y = "Alive",
-#'       x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+#' mlm_frame(data = abcd, x = "sex", y = "survived",
+#'           x_levels = c("female", "male"), y_levels = c(1, 0))
+#' mlm_frame(data = abcd, x = "Gender", y = "Alive",
+#'           x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 #'
 #' # 4. From a table (as text):
 #' tbl_txt <-
@@ -137,7 +138,7 @@
 #' Test
 #' positive      8        95
 #' negative      2       895"
-#' frame(tbl_txt)
+#' mlm_frame(tbl_txt)
 #'
 #' @importFrom stats aggregate
 #' @importFrom stats read.ftable
@@ -146,19 +147,19 @@
 #'
 #' @seealso
 #' \code{\link{is_matrix}} for verifying a 2x2 matrix;
-#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
-#' \code{\link{focus}} computes measures for a 2x2 matrix;
+#' \code{\link{mlm_trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+#' \code{\link{mlm_focus}} computes measures for a 2x2 matrix;
 #' \code{\link{comp_popu}} creates data (as df) from description (frequencies);
 #' \code{\link{read_popu}} creates a scenario (description) from data (as df);
 #' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 #'
 #' @export
 
-frame <- function(data, x, y,
-                  z = NA,  z_val = NA,
-                  freq_var = NA,
-                  x_name = NA, y_name = NA,
-                  x_levels = NA, y_levels = NA){
+mlm_frame <- function(data, x, y,
+                      z = NA,  z_val = NA,
+                      freq_var = NA,
+                      x_name = NA, y_name = NA,
+                      x_levels = NA, y_levels = NA){
 
   # Initialize:
   mx   <- NA
@@ -211,11 +212,11 @@ frame <- function(data, x, y,
     # Note non-binary variables:
     nval_x <- length(unique(vec_x))
     if (nval_x != 2){
-      message(paste0("frame: x is non-binary (", nval_x, " unique values)"))
+      message(paste0("mlm_frame: x is non-binary (", nval_x, " unique values)"))
     }
     nval_y <- length(unique(vec_y))
     if (nval_y != 2){
-      message(paste0("frame: y is non-binary (", nval_y, " unique values)"))
+      message(paste0("mlm_frame: y is non-binary (", nval_y, " unique values)"))
     }
 
     # Vectors as factors:
@@ -229,7 +230,7 @@ frame <- function(data, x, y,
     # Distinguish two sub-cases:
     if (is.na(freq_var)){ # Case 1: Raw data with rows of individual cases:
 
-      message("frame (case 1): Creating mx from raw data (individual cases)")  # 4debugging
+      message("mlm_frame (case 1): Creating mx from raw data (individual cases)")  # 4debugging
 
       # Cross-tabulate vectors:
       mx <- table(vec_y, vec_x, dnn = c(name_y, name_x))
@@ -237,7 +238,7 @@ frame <- function(data, x, y,
 
     } else { # Case 2: From aggregated/contingency data with frequency counts (freq_var): ----
 
-      message("frame (case 2): Creating df from aggregated data (contingency table)")  # 4debugging
+      message("mlm_frame (case 2): Creating df from aggregated data (contingency table)")  # 4debugging
 
       ix_fv  <- which(names(data) == freq_var)
       vec_fv <- data[ , ix_fv]
@@ -268,10 +269,10 @@ frame <- function(data, x, y,
       acbd <- agg_df$freq          # 2x2 cell values (in by-column direction)
       abcd <- acbd[c(1, 3, 2, 4)]  # 2x2 cell values (in by-row direction)
 
-      # mx <- frame(data = abcd, x = name_x, y = name_y) # basics only
-      mx <- frame(data = abcd, x = name_x, y = name_y,   # basics and
-                  x_name = x_name, x_levels = x_levels,  # change names and level order
-                  y_name = y_name, y_levels = y_levels)
+      # mx <- mlm_frame(data = abcd, x = name_x, y = name_y) # basics only
+      mx <- mlm_frame(data = abcd, x = name_x, y = name_y,   # basics and
+                      x_name = x_name, x_levels = x_levels,  # change names and level order
+                      y_name = y_name, y_levels = y_levels)
 
     } # Case 2: From aggregated/contingency data end.
 
@@ -282,7 +283,7 @@ frame <- function(data, x, y,
 
   if (is.vector(data, mode = "numeric") && length(data == 4)) {
 
-    message("frame (case 3): Creating mx from frequency counts (abcd) and layout description")  # 4debugging
+    message("mlm_frame (case 3): Creating mx from frequency counts (abcd) and layout description")  # 4debugging
 
     # Coerce data to integer:
     data <- as.integer(data)
@@ -320,7 +321,7 @@ frame <- function(data, x, y,
 
   if (is.character(data)) {
 
-    message("frame (case 4): Creating mx from text data")  # 4debugging
+    message("mlm_frame (case 4): Creating mx from text data")  # 4debugging
 
     mx <- as.table(stats::read.ftable(textConnection(data, encoding = "UTF-8")))
 
@@ -330,7 +331,7 @@ frame <- function(data, x, y,
   # Output: ----
   return(mx)
 
-} # frame().
+} # mlm_frame().
 
 
 ## Check:
@@ -343,19 +344,19 @@ frame <- function(data, x, y,
 # # df_raw
 #
 # # (a) Basics:
-# m1_a <- frame(data = df_raw, x = "sex", y = "survived")
+# m1_a <- mlm_frame(data = df_raw, x = "sex", y = "survived")
 # m1_a
 # sum(m1_a)
 #
 # # (b) Adding dimension names, and arrange rows/columns (by order of levels):
-# m1_b <- frame(data = df_raw, x = "sex", y = "survived",
+# m1_b <- mlm_frame(data = df_raw, x = "sex", y = "survived",
 #               x_name = "Gender", y_name = "Alive",
 #               x_levels = c("female" ,"male"),
 #               y_levels = c(1, 0))
 # m1_b
 #
 # # (c) Conditionalize on z:
-# m1_c <- frame(df_raw, x = "sex", y = "survived",
+# m1_c <- mlm_frame(df_raw, x = "sex", y = "survived",
 #               z = "age", z_val = "child",
 #               x_levels = c("female", "male"), y_levels = c(1, 0),
 #               x_name = "Gender", y_name = "Alive")
@@ -363,8 +364,8 @@ frame <- function(data, x, y,
 # sum(m1_c)
 #
 # # (d) Note: Non-binary variables:
-# frame(df_raw, x = "class", y = "survived")
-# frame(df_raw, y = "class", x = "survived", x_name = "Survival",
+# mlm_frame(df_raw, x = "class", y = "survived")
+# mlm_frame(df_raw, y = "class", x = "survived", x_name = "Survival",
 #       y_levels = c("first", "second", "third"))
 #
 #
@@ -374,21 +375,21 @@ frame <- function(data, x, y,
 # df_con
 #
 # # (a) Basics:
-# (m2_a <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq"))
+# (m2_a <- mlm_frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq"))
 # sum(m2_a)
 #
 # # (b) Add dimension names and re-arrange rows/columns:
-# m2_b <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
-#               x_name = "Gender", y_name = "Alive",
-#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# m2_b <- mlm_frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#                   x_name = "Gender", y_name = "Alive",
+#                   x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 # m2_b
 # sum(m2_b)
 #
 # # (c) with conditionalization:
-# m2_c <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
-#               x_name = "Gender", y_name = "Alive",
-#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"),
-#               z = "Age", z_val = "Child")
+# m2_c <- mlm_frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#                   x_name = "Gender", y_name = "Alive",
+#                   x_levels = c("Female", "Male"), y_levels = c("Yes", "No"),
+#                   z = "Age", z_val = "Child")
 # m2_c
 # sum(m2_c)
 #
@@ -413,9 +414,9 @@ frame <- function(data, x, y,
 # # agg[, 1]
 # # is.factor(agg[, 1])
 # #
-# # frame(agg$freq, x = names(agg$dim_x), y = names(agg$dim_y),
-# #       x_name = "x_name", x_levels = unique(agg$dim_x),
-# #       y_name = "y_name", y_levels = unique(agg$dim_y))
+# # mlm_frame(agg$freq, x = names(agg$dim_x), y = names(agg$dim_y),
+# #           x_name = "x_name", x_levels = unique(agg$dim_x),
+# #           y_name = "y_name", y_levels = unique(agg$dim_y))
 # #
 # # # Other stuff:
 # # by1 <- df_con$Sex
@@ -432,43 +433,43 @@ frame <- function(data, x, y,
 #
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# (mp <- frame(data = abcd, x = "Condition", y = "Test",
-#              x_levels = c("cancer", "no cancer"),
-#              y_levels = c("positive", "negative")))
+# (mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
+#                  x_levels = c("cancer", "no cancer"),
+#                  y_levels = c("positive", "negative")))
 #
 # # 2. Titanic passengers:
 # abcd <- c(344, 367, 126, 1364)
 #
 # # Basics:
-# (m3_a <- frame(data = abcd, x = "sex", y = "survived"))
+# (m3_a <- mlm_frame(data = abcd, x = "sex", y = "survived"))
 #
 # # add level labels:
-# (m3_a <- frame(data = abcd, x = "sex", y = "survived",
-#                x_levels = c("female", "male"), y_levels = c(1, 0)))
+# (m3_a <- mlm_frame(data = abcd, x = "sex", y = "survived",
+#                    x_levels = c("female", "male"), y_levels = c(1, 0)))
 #
 # # Note: Levels must match abcd structure:
 # m1_a  # original to recreate:
-# m3_a <- frame(data = c(126, 1364, 344, 367),
-#               x = "sex", y = "survived",
-#               x_levels = c("female", "male"), y_levels = c(0, 1))
+# m3_a <- mlm_frame(data = c(126, 1364, 344, 367),
+#                   x = "sex", y = "survived",
+#                   x_levels = c("female", "male"), y_levels = c(0, 1))
 # # m3_a
 # all.equal(m3_a, m1_a)
 #
 # # Recreate m1_c from description:
 # m1_c  # original to recreate:
-# m3_c <- frame(data = c(28, 29, 17, 35),
-#               x = "sex", y = "survived",
-#               x_name = "Gender", y_name = "Alive",
-#               x_levels = c("female", "male"), y_levels = c(1, 0))
+# m3_c <- mlm_frame(data = c(28, 29, 17, 35),
+#                   x = "sex", y = "survived",
+#                   x_name = "Gender", y_name = "Alive",
+#                   x_levels = c("female", "male"), y_levels = c(1, 0))
 # # m3_c
 # all.equal(m1_c, m3_c)
 #
 # # Recreate m2_c from description:
 # m2_c  # original to recreate:
-# m3_d <- frame(data = c(28, 29, 17, 35),
-#               x = "sex", y = "survived",
-#               x_name = "Gender", y_name = "Alive",
-#               x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# m3_d <- mlm_frame(data = c(28, 29, 17, 35),
+#                   x = "sex", y = "survived",
+#                   x_name = "Gender", y_name = "Alive",
+#                   x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 # all.equal(m2_c, m3_d)
 
 # # Case 4: From a table (as text):
@@ -481,7 +482,7 @@ frame <- function(data, x, y,
 # #
 # # as.table(stats::read.ftable(textConnection(mam_pro, encoding = "UTF-8")))
 #
-# (m4a <- frame(mam_pro))
+# (m4a <- mlm_frame(mam_pro))
 #
 # titanic_sx_sv <-
 #   "Sex Female Male
@@ -489,7 +490,7 @@ frame <- function(data, x, y,
 # TRUE    344  367
 # FALSE   126 1364"
 #
-# (m4b <- frame(titanic_sx_sv))
+# (m4b <- mlm_frame(titanic_sx_sv))
 
 
 
@@ -499,14 +500,14 @@ frame <- function(data, x, y,
 # df_con <- as.data.frame(Titanic)  # data as contingency table
 # head(df_con)
 # # A: x = Age, y = Sex:
-# fig_3a <- frame(df_con, x = "Age", y = "Sex", freq_var = "Freq",
-#                 x_levels = c("Adult", "Child"), y_levels = c("Female", "Male"))
+# fig_3a <- mlm_frame(df_con, x = "Age", y = "Sex", freq_var = "Freq",
+#                     x_levels = c("Adult", "Child"), y_levels = c("Female", "Male"))
 # # B: x = Age, y = Survival:
-# fig_3b <- frame(df_con, x = "Age", y = "Survived", freq_var = "Freq",
-#                 x_levels = c("Adult", "Child"), y_levels = c("Yes", "No"))
+# fig_3b <- mlm_frame(df_con, x = "Age", y = "Survived", freq_var = "Freq",
+#                     x_levels = c("Adult", "Child"), y_levels = c("Yes", "No"))
 # # C: x = Sex, y = Survival:
-# fig_3c <- frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
-#                 x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
+# fig_3c <- mlm_frame(df_con, x = "Sex", y = "Survived", freq_var = "Freq",
+#                     x_levels = c("Female", "Male"), y_levels = c("Yes", "No"))
 # # Show:
 # fig_3a
 # fig_3b
@@ -561,11 +562,11 @@ riskyr_mx <- function(mx, ...){
 
 ## Check:
 # riskyr_mx(mx = 1:4)
-# plot(riskyr_mx(frame(1:4, x = "X dim", y = "Y dim")))
+# plot(riskyr_mx(mlm_frame(1:4, x = "X dim", y = "Y dim")))
 #
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# mp <- frame(data = abcd, x = "Condition", y = "Test",
+# mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
 #             y_levels = c("positive", "negative"))
 #
@@ -577,7 +578,7 @@ riskyr_mx <- function(mx, ...){
 
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# mp <- frame(data = abcd, x = "Condition", y = "Test",
+# mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
 #             y_levels = c("positive", "negative"))
 #
@@ -645,18 +646,18 @@ diaSums <- function(mx){
 
 ## Check:
 # diaSums(1:4)
-# diaSums(frame(c(1, 3, 5, 9), x = "X", y = "Y"))
+# diaSums(mlm_frame(c(1, 3, 5, 9), x = "X", y = "Y"))
 
 
-# trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
+# mlm_trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
 
 #' Transform a 2x2 matrix (into a table of probabilities/conditional probabilities).
 #'
-#' \code{trans} converts a 2x2 matrix \code{mx}
+#' \code{mlm_trans} converts a 2x2 matrix \code{mx}
 #' (i.e., a numeric contingency table of frequency counts)
 #' into a table of probabilities or marginal probabilities.
 #'
-#' By default, \code{trans} converts a 2x2 matrix of frequency counts
+#' By default, \code{mlm_trans} converts a 2x2 matrix of frequency counts
 #' into the corresponding probability values (\code{margin = 0}).
 #'
 #' Setting \code{margin} to 1 to 3 computes
@@ -684,34 +685,34 @@ diaSums <- function(mx){
 #' @examples
 #' # The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-#' mp <- frame(data = abcd, x = "Condition", y = "Test",
+#' mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #'             x_levels = c("cancer", "no cancer"),
 #'             y_levels = c("positive", "negative"))
 #'
-#' trans(mp)
-#' trans(mp, margin = 0)  # by-cell: probabilities
-#' trans(mp, margin = 1)  # by-row: conditional prob
-#' trans(mp, margin = 2)  # by-col
-#' trans(mp, margin = 3)  # by-diagonals
+#' mlm_trans(mp)
+#' mlm_trans(mp, margin = 0)  # by-cell: probabilities
+#' mlm_trans(mp, margin = 1)  # by-row: conditional prob
+#' mlm_trans(mp, margin = 2)  # by-col
+#' mlm_trans(mp, margin = 3)  # by-diagonals
 #'
-#' trans(mp, as_pc = TRUE, n_digits = 2)  # as percentages
+#' mlm_trans(mp, as_pc = TRUE, n_digits = 2)  # as percentages
 #'
 #' # The following must sum to 1:
-#' sum(trans(mp, margin = 0))      # 4 cell values
-#' rowSums(trans(mp, margin = 1))  # 2 row sums
-#' colSums(trans(mp, margin = 2))  # 2 col sums
+#' sum(mlm_trans(mp, margin = 0))      # 4 cell values
+#' rowSums(mlm_trans(mp, margin = 1))  # 2 row sums
+#' colSums(mlm_trans(mp, margin = 2))  # 2 col sums
 #'
 #' @family matrix lens model functions
 #'
 #' @seealso
-#' \code{\link{frame}} creates a 2x2 matrix;
-#' \code{\link{focus}} computes measures for a 2x2 matrix;
+#' \code{\link{mlm_frame}} creates a 2x2 matrix;
+#' \code{\link{mlm_focus}} computes measures for a 2x2 matrix;
 #' \code{\link{is_matrix}} verifies a 2x2 matrix.
 #'
 #' @export
 
-trans <- function(mx,
-                  margin = 0, as_pc = FALSE, n_digits = 3){
+mlm_trans <- function(mx,
+                      margin = 0, as_pc = FALSE, n_digits = 3){
 
   # 0. Initialize: ----
   out <- NA
@@ -719,7 +720,7 @@ trans <- function(mx,
 
   if (!is_matrix(mx)){  # verify mx:
 
-    # message("trans: mx is not a valid matrix.")  # 4debugging
+    # message("mlm_trans: mx is not a valid matrix.")  # 4debugging
 
     return(NA)
 
@@ -761,7 +762,7 @@ trans <- function(mx,
 
     } else {
 
-      message("trans: Unknown margin value.")
+      message("mlm_trans: Unknown margin value.")
 
     } # if (margin) end.
 
@@ -782,46 +783,46 @@ trans <- function(mx,
 
   return(out)
 
-} # trans().
+} # mlm_trans().
 
 ## Check:
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-# mp <- frame(data = abcd, x = "Condition", y = "Test",
+# mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
 #             y_levels = c("positive", "negative"))
 #
 # mp
-# trans(mp)
-# trans(mp, margin = 0)  # by-cell: probabilities
-# trans(mp, margin = 1)  # by-row
-# trans(mp, margin = 2)  # by-col
-# trans(mp, margin = 3)  # by-diagonal
+# mlm_trans(mp)
+# mlm_trans(mp, margin = 0)  # by-cell: probabilities
+# mlm_trans(mp, margin = 1)  # by-row
+# mlm_trans(mp, margin = 2)  # by-col
+# mlm_trans(mp, margin = 3)  # by-diagonal
 #
 # # Note:
-# trans(mp, as_pc = TRUE, n_digits = 2)  # percentages
-# trans(NA)
-# trans(1:4)
+# mlm_trans(mp, as_pc = TRUE, n_digits = 2)  # percentages
+# mlm_trans(NA)
+# mlm_trans(1:4)
 #
 # # The following must sum to 1:
-# sum(trans(mp, margin = 0))      # 4 cell values
-# rowSums(trans(mp, margin = 1))  # 2 row sums
-# colSums(trans(mp, margin = 2))  # 2 col sums
-# diaSums(trans(mp, margin = 3))  # 2 diagonal sums
+# sum(mlm_trans(mp, margin = 0))      # 4 cell values
+# rowSums(mlm_trans(mp, margin = 1))  # 2 row sums
+# colSums(mlm_trans(mp, margin = 2))  # 2 col sums
+# diaSums(mlm_trans(mp, margin = 3))  # 2 diagonal sums
 
 # # ReDo Figure 4: Define a 2x2 matrix (from description) and 4 typical transformations:
 # # <https://www.frontiersin.org/files/Articles/567817/fpsyg-11-567817-HTML-r4/image_m/fpsyg-11-567817-g004.jpg>
 #
 # # Frame matrix (from description):
-# fig_4_1 <- frame(data = c(8, 95, 2, 895),  # 4 frequencies
+# fig_4_1 <- mlm_frame(data = c(8, 95, 2, 895),  # 4 frequencies
 #                  x = "True condition", y = "Test outcome",
 #                  x_levels = c("C+", "C-"),
 #                  y_levels = c("T+", "T-"))
 # # Transformations:
-# fig_4_2  <- trans(fig_4_1, margin = 0)  # as probabilities
-# fig_4_3a <- trans(fig_4_1, margin = 1)  # conditionalize (by row)
-# fig_4_3b <- trans(fig_4_1, margin = 2)  # conditionalize (by col)
-# fig_4_3c <- trans(fig_4_1, margin = 3)  # conditionalize (by diagonal)
+# fig_4_2  <- mlm_trans(fig_4_1, margin = 0)  # as probabilities
+# fig_4_3a <- mlm_trans(fig_4_1, margin = 1)  # conditionalize (by row)
+# fig_4_3b <- mlm_trans(fig_4_1, margin = 2)  # conditionalize (by col)
+# fig_4_3c <- mlm_trans(fig_4_1, margin = 3)  # conditionalize (by diagonal)
 #
 # # Show:
 # fig_4_1
@@ -834,15 +835,15 @@ trans <- function(mx,
 
 ## (3) Focusing: ------
 
-# focus: Focus on a 2x2 matrix to compute some measure(s): ------
+# mlm_focus: Focus on a 2x2 matrix to compute some measure(s): ------
 
 #' Focus on a 2x2 matrix to compute some measure(s).
 #'
-#' \code{focus} adopts particular perspectives on a 2x2 matrix \code{mx}
+#' \code{mlm_focus} adopts particular perspectives on a 2x2 matrix \code{mx}
 #' to compute various scientific measures.
 #'
 #' If no subset of \code{measures} is specified,
-#' \code{focus} computes the 36 measures for a 2x2 matrix \code{mx}
+#' \code{mlm_focus} computes the 36 measures for a 2x2 matrix \code{mx}
 #' that are contained in Table 3 of Neth et al., (2021)
 #' (\url{https://doi.org/10.3389/fpsyg.2020.567817}).
 #'
@@ -862,59 +863,59 @@ trans <- function(mx,
 #' @examples
 #' # 1. The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
-#' mp <- frame(data = abcd, x = "Condition", y = "Test",
+#' mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #'             x_levels = c("cancer", "no cancer"),
 #'             y_levels = c("positive", "negative"))
 #'
 #' # 1. Computing ALL measures at once (and selecting afterwards):
-#' focus(mp)
-#' focus(mp)["PPV"]
-#' focus(mp)[c("dPc", "dPr", "Chi")]
+#' mlm_focus(mp)
+#' mlm_focus(mp)["PPV"]
+#' mlm_focus(mp)[c("dPc", "dPr", "Chi")]
 #'
 #' # 2. Computing individual measures:
 #' # 4 frequencies:
-#' focus(mp, measures = c("TP", "fp", "fn", "TN"))
-#' sum(focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
+#' mlm_focus(mp, measures = c("TP", "fp", "fn", "TN"))
+#' sum(mlm_focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
 #'
 #' # 3 marginal probabilities:
-#' focus(mp, measures = c("prev", "bias", "Acc"))
+#' mlm_focus(mp, measures = c("prev", "bias", "Acc"))
 #'
 #' # 8 conditional probabilities:
-#' focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
-#' trans(mp, margin = 2)
-#' focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
-#' trans(mp, margin = 1)
+#' mlm_focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
+#' mlm_trans(mp, margin = 2)
+#' mlm_focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
+#' mlm_trans(mp, margin = 1)
 #'
 #' # 3 triangular measures:
-#' focus(mp, measures = c("Jaccard", "F1", "G2"))
+#' mlm_focus(mp, measures = c("Jaccard", "F1", "G2"))
 #' # 2 mixed scores:
-#' focus(mp, measures = c("lift", "RI"))
+#' mlm_focus(mp, measures = c("lift", "RI"))
 #'
 #' # 8 difference-based measures:
-#' focus(mp, measures = c("dPc", "NNT", "BACC", "RRR",
+#' mlm_focus(mp, measures = c("dPc", "NNT", "BACC", "RRR",
 #'                        "dPr", "kappa", "MCC", "Chi"))
 #'
 #' # 3 simple odds:
-#' focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
+#' mlm_focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
 #'
 #' # 5 odds ratios:
-#' focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
+#' mlm_focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
 #'
 #' # Typical uses:
-#' focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+#' mlm_focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 #'
 #' @family matrix lens model functions
 #'
 #' @seealso
-#' \code{\link{frame}} creates a 2x2 matrix;
-#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+#' \code{\link{mlm_frame}} creates a 2x2 matrix;
+#' \code{\link{mlm_trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
 #' \code{\link{is_matrix}} verifies a 2x2 matrix.
 #'
 #' @export
 
-focus <- function(mx,
-                  measures = c("all"),
-                  as_pc = FALSE, n_digits = 3){
+mlm_focus <- function(mx,
+                      measures = c("all"),
+                      as_pc = FALSE, n_digits = 3){
 
   # 0. Initialize: ----
 
@@ -943,7 +944,7 @@ focus <- function(mx,
 
   if (!is_matrix(mx)){  # verify mx:
 
-    message("focus: mx is not a valid matrix.")  # 4debugging
+    message("mlm_focus: mx is not a valid matrix.")  # 4debugging
 
     return(NA)
 
@@ -1297,7 +1298,7 @@ focus <- function(mx,
 
   return(out)
 
-} # focus().
+} # mlm_focus().
 
 # +++ here now +++
 
@@ -1305,45 +1306,45 @@ focus <- function(mx,
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # # abcd <- c(0, 0, 0, 0)  # test
-# mp <- frame(data = abcd, x = "Condition", y = "Test",
+# mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
 #             x_levels = c("cancer", "no cancer"),
 #             y_levels = c("positive", "negative"))
 #
 # # 1. Computing ALL measures at once (and selecting afterwards):
-# focus(mp)
-# focus(mp)["PPV"]
-# focus(mp)[c("dPc", "dPr", "Chi")]
+# mlm_focus(mp)
+# mlm_focus(mp)["PPV"]
+# mlm_focus(mp)[c("dPc", "dPr", "Chi")]
 #
 # # 2. Computing individual measures:
 # # 4 frequencies:
-# focus(mp, measures = c("TP", "fp", "fn", "TN"))
-# sum(focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
+# mlm_focus(mp, measures = c("TP", "fp", "fn", "TN"))
+# sum(mlm_focus(mp, measures = c("TP", "fp", "fn", "TN")))  # N
 #
 # # 3 marginal probabilities:
-# focus(mp, measures = c("prev", "bias", "Acc"))
+# mlm_focus(mp, measures = c("prev", "bias", "Acc"))
 #
 # # 8 conditional probabilities:
-# focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
-# trans(mp, margin = 2)
-# focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
-# trans(mp, margin = 1)
+# mlm_focus(mp, measures = c("sens", "fpr", "fnr", "spec"))  # X/by-col
+# mlm_trans(mp, margin = 2)
+# mlm_focus(mp, measures = c("PPV", "FDR", "FOR", "NPV"))    # Y/by-row
+# mlm_trans(mp, margin = 1)
 #
 # # 3 triangular measures:
-# focus(mp, measures = c("Jaccard", "F1", "G2"))
+# mlm_focus(mp, measures = c("Jaccard", "F1", "G2"))
 # # 2 mixed scores:
-# focus(mp, measures = c("lift", "RI"))
+# mlm_focus(mp, measures = c("lift", "RI"))
 #
 # # 8 difference-based measures:
-# focus(mp, measures = c("dPc", "NNT", "BACC", "RRR", "dPr", "kappa", "MCC", "Chi"))
+# mlm_focus(mp, measures = c("dPc", "NNT", "BACC", "RRR", "dPr", "kappa", "MCC", "Chi"))
 #
 # # 3 simple odds:
-# focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
+# mlm_focus(mp, measures = c("pre-test odds", "post-test odds+", "post-test odds-"))
 #
 # # 5 odds ratios:
-# focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
+# mlm_focus(mp, measures = c("LR+", "LR-", "DOR", "Q", "Y"))
 #
 # # # Typical uses:
-# # focus(mp, measures = c("sens", "spec", "ppv", "npv"))
+# # mlm_focus(mp, measures = c("sens", "spec", "ppv", "npv"))
 
 
 ## Test:
