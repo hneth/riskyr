@@ -686,8 +686,8 @@ diaSums <- function(mx){
 #' # The mammography problem:
 #' abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 #' mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
-#'             x_levels = c("cancer", "no cancer"),
-#'             y_levels = c("positive", "negative"))
+#'                 x_levels = c("cancer", "no cancer"),
+#'                 y_levels = c("positive", "negative"))
 #'
 #' mlm_trans(mp)
 #' mlm_trans(mp, margin = 0)  # by-cell: probabilities
@@ -701,6 +701,7 @@ diaSums <- function(mx){
 #' sum(mlm_trans(mp, margin = 0))      # 4 cell values
 #' rowSums(mlm_trans(mp, margin = 1))  # 2 row sums
 #' colSums(mlm_trans(mp, margin = 2))  # 2 col sums
+#'
 #'
 #' @family matrix lens model functions
 #'
@@ -789,8 +790,8 @@ mlm_trans <- function(mx,
 # # 1. The mammography problem:
 # abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 # mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
-#             x_levels = c("cancer", "no cancer"),
-#             y_levels = c("positive", "negative"))
+#                 x_levels = c("cancer", "no cancer"),
+#                 y_levels = c("positive", "negative"))
 #
 # mp
 # mlm_trans(mp)
@@ -815,9 +816,9 @@ mlm_trans <- function(mx,
 #
 # # Frame matrix (from description):
 # fig_4_1 <- mlm_frame(data = c(8, 95, 2, 895),  # 4 frequencies
-#                  x = "True condition", y = "Test outcome",
-#                  x_levels = c("C+", "C-"),
-#                  y_levels = c("T+", "T-"))
+#                      x = "True condition", y = "Test outcome",
+#                      x_levels = c("C+", "C-"),
+#                      y_levels = c("T+", "T-"))
 # # Transformations:
 # fig_4_2  <- mlm_trans(fig_4_1, margin = 0)  # as probabilities
 # fig_4_3a <- mlm_trans(fig_4_1, margin = 1)  # conditionalize (by row)

@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2022 02 10
+## 2022 07 31
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1255,9 +1255,9 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' @family verification functions
 #'
 #' @seealso
-#' \code{\link{frame}} creates a 2x2 matrix;
-#' \code{\link{trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
-#' \code{\link{focus}} computes measures for a 2x2 matrix.
+#' \code{\link{mlm_frame}} creates a 2x2 matrix;
+#' \code{\link{mlm_trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
+#' \code{\link{mlm_focus}} computes measures for a 2x2 matrix.
 #'
 #' @export
 
