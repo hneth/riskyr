@@ -43,8 +43,8 @@ are computed by the \strong{base} R function \code{\link{prop.table}}.
 # The mammography problem:
 abcd <- c(8, 95, 2, 895)  # Frequencies (Gigerenzer & Hoffrage, 1995)
 mp <- mlm_frame(data = abcd, x = "Condition", y = "Test",
-            x_levels = c("cancer", "no cancer"),
-            y_levels = c("positive", "negative"))
+                x_levels = c("cancer", "no cancer"),
+                y_levels = c("positive", "negative"))
 
 mlm_trans(mp)
 mlm_trans(mp, margin = 0)  # by-cell: probabilities
@@ -58,6 +58,7 @@ mlm_trans(mp, as_pc = TRUE, n_digits = 2)  # as percentages
 sum(mlm_trans(mp, margin = 0))      # 4 cell values
 rowSums(mlm_trans(mp, margin = 1))  # 2 row sums
 colSums(mlm_trans(mp, margin = 2))  # 2 col sums
+
 
 }
 \seealso{
