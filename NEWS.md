@@ -15,6 +15,7 @@ Log of changes since last release:
     
     - `pal_crisk` provides a corresponding color palette (as a named vector).  
 
+
 <!-- MLM: -->      
 
 - Add matrix lens model functions [2021-06-08]: 
@@ -24,6 +25,12 @@ Log of changes since last release:
     - `mlm_trans()` converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities;  
     
     - `mlm_focus()` computes various scientific measures (by adopting perspectives on a 2x2 matrix).  
+
+
+<!-- FFTrees: -->
+
+- Add `fft_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects. 
+
 
 <!-- Sampling from prob: -->     
 
@@ -51,11 +58,15 @@ Log of changes since last release:
 
 - Add `is_matrix()` to verify a 2x2 matrix (i.e., a numeric contingency table). 
 
+- Add `is_integer()` to verify integer values.
+
 
 <!-- Micro/details: --> 
 
 
 ## Micro changes 
+
+- Fix bug in `plot_bar()` that caused incorrect bar labels.
 
 - Update URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
 
