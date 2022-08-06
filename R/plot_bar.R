@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2021 03 28
+## 2022 08 06
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -501,13 +501,16 @@ plot_bar <- function(prev = num$prev,             # probabilities
             box_y  = n_y,
             box_lx = b_lx,
             box_ly = n_ly,
-            lbl_txt = lbl_txt, col_pal = col_pal,
-            lbl_type = f_lbl, lwd = f_lwd, lty = lty,
+            lbl_txt = lbl_txt,
+            col_pal = col_pal,
+            lbl_type = f_lbl,
+            lwd = f_lwd,
+            lty = lty,
             ...)
 
   # Label N column:
   plot_ftype_label("N", n_x, y_min, pos = 1,
-                   col = pal["txt"], # col = comp_freq_col("N"),
+                   lbl_txt = lbl_txt, col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
   ##     (c) Define 4 SDT cases/cells: ----
@@ -549,7 +552,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   # Label SDT column:
   plot_ftype_label("hi", hi_x, y_min, pos = 1,
-                   col = pal["txt"],
+                   lbl_txt = lbl_txt, col = pal["txt"],
                    # col = comp_freq_col("hi"),
                    ...)
 
@@ -661,7 +664,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label cond column:
     plot_ftype_label("cond_true", cond_true_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("cond_true"),
                      ...)
 
@@ -712,7 +715,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label dec column:
     plot_ftype_label("dec_pos", dec_pos_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("dec_pos"),
                      ...)
 
@@ -763,7 +766,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label acc column:
     plot_ftype_label("dec_cor", dec_cor_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("dec_cor"),
                      ...)
 
@@ -877,7 +880,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label cond column:
     plot_ftype_label("cond_true", cond_true_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("cond_true"),
                      ...)
 
@@ -991,7 +994,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label dec column:
     plot_ftype_label("dec_pos", dec_pos_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("dec_pos"),
                      ...)
 
@@ -1106,7 +1109,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # Label acc column:
     plot_ftype_label("dec_cor", dec_cor_x, y_min, pos = 1,
-                     col = pal["txt"],
+                     lbl_txt = lbl_txt, col = pal["txt"],
                      # col = comp_freq_col("dec_cor"),
                      ...)
 
