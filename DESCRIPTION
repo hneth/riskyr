@@ -2,7 +2,7 @@ Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
 Version: 0.3.0.9027
-Date: 2022-08-05
+Date: 2022-08-06
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")), 
              person("Felix", "Gaisbauer", role = "aut", comment = c(ORCID = "0000-0002-1285-1246")), 
@@ -50,6 +50,7 @@ Collate: 'comp_util.R'
          'riskyr_class.R'
          'riskyr_sims.R'
          'comp_mlm.R'
+         'FFTrees_riskyr.R'         
          'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true
