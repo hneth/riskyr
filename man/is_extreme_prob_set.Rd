@@ -107,6 +107,7 @@ plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 Other verification functions: 
 \code{\link{is_complement}()},
 \code{\link{is_freq}()},
+\code{\link{is_integer}()},
 \code{\link{is_matrix}()},
 \code{\link{is_perc}()},
 \code{\link{is_prob}()},

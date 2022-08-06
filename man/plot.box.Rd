@@ -31,7 +31,6 @@ specified in the "riskyr" object.
 \seealso{
 Other utility functions: 
 \code{\link{as_pb}()},
-\code{\link{as_pc}()},
-\code{\link{is_wholenumber}()}
+\code{\link{as_pc}()}
 }
 \concept{utility functions}
