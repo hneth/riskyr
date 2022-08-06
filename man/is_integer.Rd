@@ -22,20 +22,24 @@ Thus, \code{is_integer} does what the \strong{base} R function \code{is.integer}
 \itemize{
   \item \code{is_integer()} returns TRUE or FALSE depending on whether its numeric argument \code{x} is an integer value (i.e., a "whole" number).
 
-  \item \code{is.integer()} returns TRUE or FALSE depending on whether its argument is of integer type, and FALSE if its argument is a factor.
+  \item \code{is.integer()} returns TRUE or FALSE depending on whether its argument is of type "integer", and FALSE if its argument is a factor.
 }
 
 See the documentation of \code{\link{is.integer}} for definition and details.
 }
 \examples{
-is_integer(1)    # is TRUE
-is_integer(1/2)  # is FALSE
+is_integer(2)    # TRUE
+is_integer(2/1)  # TRUE
+is_integer(2/3)  # FALSE
 x <- seq(1, 2, by = 0.5)
 is_integer(x)
 
+# Note contrast to base R:
+is.integer(2/1)  # FALSE!
+
 # Compare:
-is.integer(1+2)
-is_integer(1+2)
+is.integer(1 + 2)
+is_integer(1 + 2)
 
 }
 \seealso{
