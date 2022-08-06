@@ -36,7 +36,7 @@ fft_riskyr <- function(x, data = "train", tree = 1){
       stop("Argument tree must be a scalar (i.e., of length 1)")
     }
 
-    if (is_wholenumber(tree) == FALSE){
+    if (is_integer(tree) == FALSE){
       stop("Argument tree is not an integer")
     }
 

@@ -628,19 +628,19 @@ is_prob_range <- function(some_range) {
 
 
 
-# is_wholenumber: Testing for integer values (which is.integer does not) ------
+# is_integer: Testing for integer values (which is.integer does not) ------
 
 # Note that is.integer() tests for objects of TYPE "integer", not integer values.
 # See help on is.integer().
 
-#' Test for whole numbers (i.e., integers).
+#' Test for inters (i.e., whole numbers).
 #'
-#' \code{is_wholenumber} tests if \code{x} contains only integer numbers.
+#' \code{is_integer} tests if \code{x} contains \emph{only} integer numbers.
 #'
-#' \code{is_wholenumber} does what the \strong{base} R function \code{is.integer} is \strong{not} designed to do:
+#' Thus, \code{is_integer} does what the \strong{base} R function \code{is.integer} is \emph{not} designed to do:
 #'
 #' \itemize{
-#'   \item \code{is_wholenumber()} returns TRUE or FALSE depending on whether its numeric argument \code{x} is an integer value (i.e., a "whole" number).
+#'   \item \code{is_integer()} returns TRUE or FALSE depending on whether its numeric argument \code{x} is an integer value (i.e., a "whole" number).
 #'
 #'   \item \code{is.integer()} returns TRUE or FALSE depending on whether its argument is of integer type, and FALSE if its argument is a factor.
 #' }
@@ -654,37 +654,37 @@ is_prob_range <- function(some_range) {
 #' (see \code{?.Machine} for details).
 #'
 #' @examples
-#' is_wholenumber(1)    # is TRUE
-#' is_wholenumber(1/2)  # is FALSE
+#' is_integer(1)    # is TRUE
+#' is_integer(1/2)  # is FALSE
 #' x <- seq(1, 2, by = 0.5)
-#' is_wholenumber(x)
+#' is_integer(x)
 #'
 #' # Compare:
 #' is.integer(1+2)
-#' is_wholenumber(1+2)
+#' is_integer(1+2)
 #'
-#' @family numeric functions
-#' @family utility functions
+#' @family verification functions
 #'
 #' @seealso
 #' \code{\link{is.integer}} function of the R \strong{base} package.
 #'
+#' @export
 
-is_wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
+is_integer <- function(x, tol = .Machine$double.eps^0.5) {
 
   abs(x - round(x)) < tol
 
-} # is_wholenumber().
+} # is_integer().
 
 # # Check:
-# is_wholenumber(1)    # is TRUE
-# is_wholenumber(1/2)  # is FALSE
+# is_integer(1)    # is TRUE
+# is_integer(1/2)  # is FALSE
 # x <- seq(1, 2, by = 0.5)
-# is_wholenumber(x)
+# is_integer(x)
 #
 # # Compare:
 # is.integer(1+2)
-# is_wholenumber(1+2)
+# is_integer(1+2)
 
 ## (B) Beware of extreme cases: ------
 ##     Verify if the current set of (sufficient) probabilities
