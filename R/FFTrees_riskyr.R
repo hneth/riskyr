@@ -113,8 +113,9 @@ fft_riskyr <- function(x, data = "train", tree = 1){
   # Labels:
   cond_lbl <- x$criterion_name
 
-  cond_false_lbl <- x$params$decision.labels[1]  # exit 0: FALSE
-  cond_true_lbl <- x$params$decision.labels[2]   # exit 1: TRUE
+  cond_false_lbl <- "FALSE" # x$params$decision.labels[1]  # exit 0: FALSE
+  cond_true_lbl  <- "TRUE"  # x$params$decision.labels[2]  # exit 1: TRUE
+  # ToDo: Consider using capitalise_1st(x$params$decision.labels[1])
 
   if (data == "train"){ # data fitting:
     dec_lbl <- "Decision"
@@ -122,9 +123,11 @@ fft_riskyr <- function(x, data = "train", tree = 1){
     dec_lbl <- "Prediction"
   }
 
-  dec_neg_lbl <- x$params$decision.labels[1]  # exit 0: FALSE
-  dec_pos_lbl <- x$params$decision.labels[2]  # exit 1: TRUE
+  # dec_neg_lbl <- x$params$decision.labels[1]  # exit 0: FALSE
+  # dec_pos_lbl <- x$params$decision.labels[2]  # exit 1: TRUE
 
+  dec_neg_lbl <- paste0("'", x$params$decision.labels[1], "'")  # exit 0: FALSE
+  dec_pos_lbl <- paste0("'", x$params$decision.labels[2], "'")  # exit 1: TRUE
 
   # Create riskyr object: ----
 
@@ -168,8 +171,8 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 # fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
 #
 # fft_riskyr(FFT) %>% plot(type = "table", by = "cddc", col_pal = pal_bw)
-# fft_riskyr(FFT) %>% plot(type = "area", by = "cdac", p_split = "v", col_pal = pal_rgb)
-# fft_riskyr(FFT_t, data = "test") %>% plot(type = "bars", by = "all", dir = 2, col_pal = pal_mod)
+# fft_riskyr(FFT) %>% plot(type = "area", by = "cdac", p_split = "v", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb)
+# fft_riskyr(FFT_t, data = "test") %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam", col_pal = pal_mod)
 #
 # fft_riskyr(FFT) %>% plot(type = "curve")
 
