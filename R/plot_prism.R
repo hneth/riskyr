@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2021 03 27
+## 2022 08 07
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -1412,8 +1412,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
   cur_title_lbl <- paste0(title_lbl, type_lbl)
 
   # Plot title:
+  # if (is.null(main) == FALSE){ # main has been set:
+  #  title(main, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
+  # } else {
   title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
-
+  # }
 
   ## (7) Margins: ------
 
@@ -1711,6 +1714,8 @@ read_by <- function(by){
 
 ## ToDo: ------
 
-## - etc.
+# - Deprecate title_lbl and replace by main
+# - Allow setting (and removing) subtitle
+
 
 ## eof. ----------
