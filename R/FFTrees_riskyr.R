@@ -149,32 +149,32 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 
 ## Check: ------
 
-library(FFTrees)
-
-# Create FFTs (as FFTrees objects):
-FFT <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, main = "FFT fitting Titanic survival")  # train(ing) data only
-FFT_t <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, train.p = .50, main = "FFT predicting Titanic survival")  # with test data
-
-plot(FFT)
-
-fft_riskyr(FFT)
-fft_riskyr(FFT, data = "train", tree = 3)
-fft_riskyr(FFT_t, data = "test", tree = 3)
-
-
-# Explore functionality:
-
-library(magrittr)  # for pipe
-
-fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum")
-fft_riskyr(FFT_t, data = "test") %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_rgb)
-fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
-
-fft_riskyr(FFT) %>% plot(type = "table", by = "cddc", col_pal = pal_bw)
-fft_riskyr(FFT) %>% plot(type = "area", by = "cdac", p_split = "v", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb)
-fft_riskyr(FFT_t, data = "test") %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam", col_pal = pal_mod)
-
-fft_riskyr(FFT) %>% plot(type = "curve")
+# library(FFTrees)
+#
+# # Create FFTs (as FFTrees objects):
+# FFT <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, main = "FFT fitting Titanic survival")  # train(ing) data only
+# FFT_t <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, train.p = .50, main = "FFT predicting Titanic survival")  # with test data
+#
+# plot(FFT)
+#
+# fft_riskyr(FFT)
+# fft_riskyr(FFT, data = "train", tree = 3)
+# fft_riskyr(FFT_t, data = "test", tree = 3)
+#
+#
+# # Explore functionality:
+#
+# library(magrittr)  # for pipe
+#
+# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum")
+# fft_riskyr(FFT_t, data = "test") %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_rgb)
+# fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
+#
+# fft_riskyr(FFT) %>% plot(type = "table", by = "cddc", col_pal = pal_bw)
+# fft_riskyr(FFT) %>% plot(type = "area", by = "cdac", p_split = "v", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb)
+# fft_riskyr(FFT_t, data = "test") %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam", col_pal = pal_mod)
+#
+# fft_riskyr(FFT) %>% plot(type = "curve")
 
 
 ## (+) ToDo: --------
