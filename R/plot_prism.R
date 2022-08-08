@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2022 08 07
+## 2022 08 08
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -155,8 +155,11 @@
 #' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen_lbl}.
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param subtitle Text label for plot subtitle (on 2nd line).
+#' Default: \code{subtitle = "type"} shows information on current plot type.
 #'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -171,6 +174,9 @@
 #' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @return Nothing (NULL).
 #'
@@ -299,12 +305,13 @@
 #'
 #' ## Plain plot versions:
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
-#'            title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
-#' plot_prism(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-#' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
+#'            main = NA, subtitle = NA, mar_notes = FALSE)  # remove titles and margin notes
+#' plot_prism(area = "no", f_lbl = "nam", p_lbl = "min",
+#'            main = NA, subtitle = "My subtitle", col_pal = pal_rgb)  # only subtitle
+#' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)  # default title & subtitle
 #'
-#' # plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, subtitle = NA)
 #'
 #' # plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
@@ -380,17 +387,21 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
-                       title_lbl = txt$scen_lbl,  # main plot title
+                       main = txt$scen_lbl, # main plot title
+                       subtitle = "type",   # subtitle ("type" shows generic plot type info)
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette
+
+                       # Deprecated arguments:
+                       title_lbl = NULL,   # Deprecated plot title, replaced by main
 
                        # Generic options:
                        mar_notes = FALSE,  # show margin notes?
                        ...                 # other (graphical) parameters (passed to plot_link and plot_ftype_label)
 ) {
 
-  ## (0) Compute new freq and prob objects (based on probability inputs): ----------
+  ## (0) Compute new freq and prob objects (based on probability inputs): --------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -517,9 +528,16 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## 4. Text labels: ----
 
-  # Plot title:
-  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+  # OLD: Main labels:
+  # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
+  # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+
+  # NEW: Main and subtitle labels: Set to "" if NULL or NA:
+  if (is.null(main) || is.na(main)) { main <- "" }
+  if (is.null(subtitle) || is.na(subtitle)) { subtitle <- "" }
+
+
+  # Label sizes:
 
   if ( is.null(cex_lbl) ) { cex_lbl <- .001 }  # sensible zero
   if ( is.na(cex_lbl) ) { cex_lbl <- .90 }  # default size of cex
@@ -554,16 +572,16 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## (A) Define margin areas:
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (nchar(main) > 0 | nchar(subtitle) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
-  ## Axis label locations:
+  # Axis label locations:
   par(mgp = c(3, 1, 0)) # default: c(3, 1, 0)
 
-  ## Orientation of the tick mark labels (and corresponding mtext captions below):
+  # Orientation of the tick mark labels (and corresponding mtext captions below):
   par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to the axis (2), vertical (3).
 
 
@@ -1393,30 +1411,49 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## (6) Title: ------
 
-  # Define parts:
-  # if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  # if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  # Main title: Handle deprecated "title_lbl" argument: ----
 
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } else {
-    if ( !is.na(by_bot) ) {
-      type_lbl <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
-    } else {
-      type_lbl <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
-    } # if ( !is.na(by_bot) )
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
   }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # Plot title:
-  # if (is.null(main) == FALSE){ # main has been set:
-  #  title(main, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
-  # } else {
+  # Subtitle (2nd line): ----
+
+  if (subtitle == "type"){ # show default plot type info:
+
+    if ( !is.na(by_bot) ) {
+      subtitle <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+    } else {
+      subtitle <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
+    } # if ( !is.na(by_bot) )
+
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (subtitle == "") ){ # only main title:
+
+    cur_title_lbl <- main
+
+  } else if ( (main == "") & (subtitle != "") ){ # only subtitle:
+
+    cur_title_lbl <- subtitle
+
+  } else { # combine both:
+
+    cur_title_lbl <- paste0(main, ":\n", subtitle)  # add ":" and line break
+
+  }
+
+
+  # Plot title: ----
+
   title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
-  # }
+
+
 
   ## (7) Margins: ------
 
@@ -1712,9 +1749,14 @@ read_by <- function(by){
 ## (12) Re-shuffle x positions of 4 SDT boxes by 1st perspective (by_top)
 ##      so that prob-links from level 2 to 3 do not cross.
 
+
+## Done: ------
+
+# - Deprecated title_lbl and replaced by main
+
+
 ## ToDo: ------
 
-# - Deprecate title_lbl and replace by main
 # - Allow setting (and removing) subtitle
 
 
