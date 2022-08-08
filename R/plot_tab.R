@@ -249,12 +249,12 @@
 #' # Custom text labels and colors:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
 #'          by = "cddc", p_split = "v", area = "no",
-#'          lbl_txt = txt_TF,  # custom text
+#'          main = "Main title", subtitle = "The subtitle", lbl_txt = txt_TF,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_vir, f_lwd = 3)  # custom colors
 #' plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #'          by = "cddc", p_split = "h", area = "sq",
-#'          lbl_txt = txt_org,  # custom text
+#'          main = NA, subtitle = NA, lbl_txt = txt_org,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_kn, f_lwd = 1)  # custom colors
 #'
@@ -263,7 +263,7 @@
 #' # (1) p_split does not matter (except for selecting different prob links):
 #' plot_tab(by = "cddc", p_split = "v")  # v01 (see v07)
 #' plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
-#' #
+#'
 #' # (2) scale does not matter for dimensions (which are constant),
 #' #     BUT matters for values shown in prob links and on margins:
 #' plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
@@ -2045,13 +2045,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   # Subtitle (2nd line): ----
 
   if (subtitle == "type"){ # show default plot type info:
-
-    if ( !is.na(by_bot) ) {
-      subtitle <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
-    } else {
-      subtitle <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
-    } # if ( !is.na(by_bot) )
-
+      subtitle <- paste0(lbl["plot_tab_lbl"], " (by ", as.character(by), ")")  # plot name: confusion table / 2x2 matrix
   }
 
 

@@ -158,8 +158,8 @@
 #' @param main Text label for main plot title.
 #' Default: \code{main = txt$scen_lbl}.
 #'
-#' @param subtitle Text label for plot subtitle (on 2nd line).
-#' Default: \code{subtitle = "type"} shows information on current plot type.
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = "type"} shows information on current plot type.
 #'
 #' @param title_lbl \strong{Deprecated} text label for current plot title.
 #' Replaced by \code{main}.
@@ -306,13 +306,13 @@
 #'
 #' ## Plain plot versions:
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
-#'            main = NA, subtitle = NA, mar_notes = FALSE)  # remove titles and margin notes
+#'            main = NA, sub = NA, mar_notes = FALSE)  # remove titles and margin notes
 #' plot_prism(area = "no", f_lbl = "nam", p_lbl = "min",
-#'            main = NA, subtitle = "My subtitle", col_pal = pal_rgb)  # only subtitle
+#'            main = NA, sub = "My subtitle", col_pal = pal_rgb)  # only subtitle
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)  # default title & subtitle
 #'
 #' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, subtitle = NA)
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, sub = NA)
 #'
 #' # plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
@@ -388,9 +388,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
-                       main = txt$scen_lbl, # main plot title
-                       subtitle = "type",   # subtitle ("type" shows generic plot type info)
-                       title_lbl = NULL,    # DEPRECATED plot title, replaced by main
+                       main = txt$scen_lbl,  # main plot title
+                       sub = "type",         # subtitle ("type" shows generic plot type info)
+                       title_lbl = NULL,     # DEPRECATED plot title, replaced by main
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette
@@ -531,9 +531,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
   # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
-  # NEW: Main and subtitle labels: Set to "" if NULL or NA:
-  if (is.null(main) || is.na(main)) { main <- "" }
-  if (is.null(subtitle) || is.na(subtitle)) { subtitle <- "" }
+  # NEW: Default main and subtitle labels:
+  if (is.null(main)) { main <- txt$scen_lbl }
+  if (is.na(main))   { main <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
 
 
   # Label sizes:
@@ -571,7 +572,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## (A) Define margin areas:
 
-  if (nchar(main) > 0 | nchar(subtitle) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -1420,12 +1421,12 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # Subtitle (2nd line): ----
 
-  if (subtitle == "type"){ # show default plot type info:
+  if (sub == "type"){ # show default plot type info:
 
     if ( !is.na(by_bot) ) {
-      subtitle <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+      sub <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
     } else {
-      subtitle <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
+      sub <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
     } # if ( !is.na(by_bot) )
 
   }
@@ -1433,12 +1434,12 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # Combine title + subtitle: ----
 
-  if ( (main != "") & (subtitle == "") ){ # only main title:
+  if ( (main != "") & (sub == "") ){ # only main title:
     cur_title_lbl <- main
-  } else if ( (main == "") & (subtitle != "") ){ # only subtitle:
-    cur_title_lbl <- subtitle
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
   } else { # combine both:
-    cur_title_lbl <- paste0(main, ":\n", subtitle)  # add ":" and line break
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
   }
 
 
