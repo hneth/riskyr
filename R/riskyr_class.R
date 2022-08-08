@@ -779,6 +779,13 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                     scen_lng = x$scen_lng
   )
 
+  # # Set default main title:
+  # if (is.null(main)){
+  #   title_lbl <- x$scen_lbl
+  # } else {
+  #   title_lbl <- main
+  # }
+
   ## (3) Call plotting functions: ----------
 
   ## 1. Table/contingency/confusion/frequency table/tab plot:
@@ -790,7 +797,7 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
              N = x$N,
              # Options:
              lbl_txt = x_txt,
-             main = x$scen_lbl,
+             # main = x$scen_lbl, # WAS: title_lbl
              ...
     )
 
@@ -839,7 +846,7 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                N = x$N,
                # Options:
                lbl_txt = x_txt,
-               main = x$scen_lbl,
+               # main = x$scen_lbl, # WAS: title_lbl
                ...
     )
 
