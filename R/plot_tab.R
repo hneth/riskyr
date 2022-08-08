@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2021 03 25
+## 2022 08 08
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -171,8 +171,14 @@
 #' @param lbl_txt Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen_lbl}.
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param subtitle Text label for plot subtitle (on 2nd line).
+#' Default: \code{subtitle = "type"} shows information on current plot type.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -230,7 +236,7 @@
 #'
 #' ## Misc. options:
 #' plot_tab(area = "sq")        # area: square
-#' # plot_tab(title_lbl = "")     # no titles
+#' # plot_tab(main = "")     # no titles
 #' # plot_tab(mar_notes = TRUE)   # show margin notes
 #' plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")      # gaps
 #' # plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
@@ -329,7 +335,9 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
                      # Text and color:
                      lbl_txt = txt,      # labels and text elements
-                     title_lbl = txt$scen_lbl,  # main plot title
+                     main = txt$scen_lbl, # main plot title
+                     subtitle = "type",   # subtitle ("type" shows generic plot type info)
+                     title_lbl = NULL,    # DEPRECATED plot title, replaced by main
                      cex_lbl = .90,      # size of freq & text labels
                      cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
                      col_pal = pal,      # color palette
@@ -572,9 +580,16 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## 4. Text labels: ----
 
-  # Plot title:
-  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+  # OLD: Main labels:
+  # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
+  # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+
+  # NEW: Main and subtitle labels: Set to "" if NULL or NA:
+  if (is.null(main) || is.na(main)) { main <- "" }
+  if (is.null(subtitle) || is.na(subtitle)) { subtitle <- "" }
+
+
+  # Label sizes:
 
   if ( is.null(cex_lbl) ) { cex_lbl <- .001 }  # sensible zero
   if ( is.na(cex_lbl) ) { cex_lbl <- .90 }  # default size of cex
@@ -674,9 +689,9 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## (3) Define plot and margin areas: ----------
 
-  ## Define margin areas:
+  ## (A) Define margin areas:
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (nchar(main) > 0 | nchar(subtitle) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -2016,22 +2031,45 @@ plot_tab <- function(prev = num$prev,    # probabilities
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
 
+
   ## (5) Title: ------
 
-  # Define parts:
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  # Main title: Handle deprecated "title_lbl" argument: ----
 
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } else {
-    type_lbl <- paste0(lbl["plot_tab_lbl"], " (by ", as.character(by), ")")  # plot name: Table/Contingency table/etc.
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
   }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # Plot title:
-  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  # Subtitle (2nd line): ----
+
+  if (subtitle == "type"){ # show default plot type info:
+
+    if ( !is.na(by_bot) ) {
+      subtitle <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+    } else {
+      subtitle <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
+    } # if ( !is.na(by_bot) )
+
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (subtitle == "") ){ # only main title:
+    cur_title_lbl <- main
+  } else if ( (main == "") & (subtitle != "") ){ # only subtitle:
+    cur_title_lbl <- subtitle
+  } else { # combine both:
+    cur_title_lbl <- paste0(main, ":\n", subtitle)  # add ":" and line break
+  }
+
+
+  # Plot title: ----
+
+  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
+
 
 
   ## (6) Margins: ------
@@ -2101,7 +2139,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 #
 # ## Misc. options:
 # plot_tab(area = "sq")        # area: square
-# plot_tab(title_lbl = "")     # no titles
+# plot_tab(main = NA, subtitle = NA)  # no titles
 # plot_tab(mar_notes = TRUE)   # show margin notes
 #
 # plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
