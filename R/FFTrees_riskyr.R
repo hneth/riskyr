@@ -166,7 +166,9 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 #
 # library(magrittr)  # for pipe
 #
-# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum", area = "no", subtitle = NA)
+# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum", area = "no", main = "Titanic FFT", sub = "Test performance")
+# fft_riskyr(FFT_t, data = "test") %>% plot(type = "table", f_lbl = "namnum", area = "no", main = "Title", sub = "Some subtitle")
+#
 # fft_riskyr(FFT_t, data = "test") %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_rgb)
 # fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
 #
