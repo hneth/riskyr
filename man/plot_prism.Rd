@@ -24,10 +24,12 @@ plot_prism(
   p_lbl = "mix",
   arr_c = NA,
   lbl_txt = txt,
-  title_lbl = txt$scen_lbl,
+  main = txt$scen_lbl,
+  subtitle = "type",
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
+  title_lbl = NULL,
   mar_notes = FALSE,
   ...
 )
@@ -162,8 +164,11 @@ Default: \code{arr_c = NA}, but adjusted by \code{area}.}
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{subtitle}{Text label for plot subtitle (on 2nd line).
+Default: \code{subtitle = "type"} shows information on current plot type.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -173,6 +178,9 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 
 \item{col_pal}{Color palette.
 Default: \code{col_pal = \link{pal}}.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = FALSE}.}
@@ -321,12 +329,13 @@ plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
 
 ## Plain plot versions:
 plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
-           title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
-plot_prism(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
+           main = NA, subtitle = NA, mar_notes = FALSE)  # remove titles and margin notes
+plot_prism(area = "no", f_lbl = "nam", p_lbl = "min",
+           main = NA, subtitle = "My subtitle", col_pal = pal_rgb)  # only subtitle
+plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)  # default title & subtitle
 
-# plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
+plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
+plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, subtitle = NA)
 
 # plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
