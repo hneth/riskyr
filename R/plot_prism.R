@@ -83,12 +83,12 @@
 #'   \item \code{"sq"}: frequency boxes are squares (scaled relative to N).
 #'   }
 #'
-#' @param scale  Scale probabilities and corresponding area dimensions either by
+#' @param scale  Scale probabilities and corresponding node dimensions either by
 #' exact probability or by (rounded or non-rounded) frequency, with 2 options:
 #'   \enumerate{
-#'   \item \code{"p"}: scale main area dimensions by exact probability (default);
+#'   \item \code{"p"}: scale node dimensions by exact probability (default);
 #'   \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
-#'   and scale main area dimensions by their frequency.
+#'   and scale node dimensions by their frequency.
 #'   }
 #'  Note: \code{scale} setting matters for the display of probability values and for
 #'  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.
@@ -101,7 +101,7 @@
 #' \code{prev}, \code{sens}, and \code{spec}.
 #' Default: \code{sample = FALSE}.
 #'
-#' @param f_lbl  Type of label for showing frequency values in 4 main areas,
+#' @param f_lbl  Type of label for showing frequency values in nodes,
 #' with 6 options:
 #'   \enumerate{
 #'   \item \code{"def"}: abbreviated names and frequency values;
@@ -112,7 +112,7 @@
 #'   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param f_lbl_sep  Label separator for main frequencies
+#' @param f_lbl_sep  Separator for frequency labels
 #' (used for \code{f_lbl = "def" OR "namnum"}).
 #' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
 #' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
@@ -161,6 +161,9 @@
 #' @param subtitle Text label for plot subtitle (on 2nd line).
 #' Default: \code{subtitle = "type"} shows information on current plot type.
 #'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
+#'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
 #'
@@ -175,8 +178,6 @@
 #'
 #' @param ...  Other (graphical) parameters.
 #'
-#' @param title_lbl \strong{Deprecated} text label for current plot title.
-#' Replaced by \code{main}.
 #'
 #' @return Nothing (NULL).
 #'
@@ -389,12 +390,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        lbl_txt = txt,      # labels and text elements
                        main = txt$scen_lbl, # main plot title
                        subtitle = "type",   # subtitle ("type" shows generic plot type info)
+                       title_lbl = NULL,    # DEPRECATED plot title, replaced by main
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette
-
-                       # Deprecated arguments:
-                       title_lbl = NULL,   # Deprecated plot title, replaced by main
 
                        # Generic options:
                        mar_notes = FALSE,  # show margin notes?
@@ -1435,17 +1434,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # Combine title + subtitle: ----
 
   if ( (main != "") & (subtitle == "") ){ # only main title:
-
     cur_title_lbl <- main
-
   } else if ( (main == "") & (subtitle != "") ){ # only subtitle:
-
     cur_title_lbl <- subtitle
-
   } else { # combine both:
-
     cur_title_lbl <- paste0(main, ":\n", subtitle)  # add ":" and line break
-
   }
 
 
