@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2021 03 26
+## 2022 08 08
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 
@@ -790,7 +790,7 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
              N = x$N,
              # Options:
              lbl_txt = x_txt,
-             title_lbl = x$scen_lbl,
+             main = x$scen_lbl,
              ...
     )
 
@@ -839,7 +839,7 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                N = x$N,
                # Options:
                lbl_txt = x_txt,
-               title_lbl = x$scen_lbl,
+               main = x$scen_lbl,
                ...
     )
 
