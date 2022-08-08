@@ -152,8 +152,8 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 # library(FFTrees)
 #
 # # Create FFTs (as FFTrees objects):
-# FFT <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, main = "FFT fitting Titanic survival")  # train(ing) data only
-# FFT_t <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, train.p = .50, main = "FFT predicting Titanic survival")  # with test data
+# FFT <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, main = "An FFT fitting Titanic survival")  # train(ing) data only
+# FFT_t <- FFTrees::FFTrees(survived ~., data = FFTrees::titanic, train.p = .50, main = "An FFT predicting Titanic survival")  # with test data
 #
 # plot(FFT)
 #
@@ -166,7 +166,7 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 #
 # library(magrittr)  # for pipe
 #
-# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum")
+# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum", area = "no", subtitle = NA)
 # fft_riskyr(FFT_t, data = "test") %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_rgb)
 # fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
 #
