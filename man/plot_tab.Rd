@@ -29,7 +29,9 @@ plot_tab(
   col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.3,
   lbl_txt = txt,
-  title_lbl = txt$scen_lbl,
+  main = txt$scen_lbl,
+  subtitle = "type",
+  title_lbl = NULL,
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
@@ -184,8 +186,14 @@ Note: Adjust to avoid overlapping labels.}
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{subtitle}{Text label for plot subtitle (on 2nd line).
+Default: \code{subtitle = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -263,7 +271,7 @@ plot_tab(f_lbl = "namnum", f_lbl_sep = " = ",
 
 ## Misc. options:
 plot_tab(area = "sq")        # area: square
-# plot_tab(title_lbl = "")     # no titles
+# plot_tab(main = "")     # no titles
 # plot_tab(mar_notes = TRUE)   # show margin notes
 plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")      # gaps
 # plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
@@ -276,12 +284,12 @@ plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
 # Custom text labels and colors:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
          by = "cddc", p_split = "v", area = "no",
-         lbl_txt = txt_TF,  # custom text
+         main = "Main title", subtitle = "The subtitle", lbl_txt = txt_TF,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_vir, f_lwd = 3)  # custom colors
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
-         lbl_txt = txt_org,  # custom text
+         main = NA, subtitle = NA, lbl_txt = txt_org,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_kn, f_lwd = 1)  # custom colors
 
@@ -290,7 +298,7 @@ plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 # (1) p_split does not matter (except for selecting different prob links):
 plot_tab(by = "cddc", p_split = "v")  # v01 (see v07)
 plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
-#
+
 # (2) scale does not matter for dimensions (which are constant),
 #     BUT matters for values shown in prob links and on margins:
 plot_tab(N = 5, prev = .3, sens = .9, spec = .5,

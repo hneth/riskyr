@@ -25,11 +25,11 @@ plot_prism(
   arr_c = NA,
   lbl_txt = txt,
   main = txt$scen_lbl,
-  subtitle = "type",
+  sub = "type",
+  title_lbl = NULL,
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
-  title_lbl = NULL,
   mar_notes = FALSE,
   ...
 )
@@ -93,12 +93,12 @@ with 3 options:
   \item \code{"sq"}: frequency boxes are squares (scaled relative to N).
   }}
 
-\item{scale}{Scale probabilities and corresponding area dimensions either by
+\item{scale}{Scale probabilities and corresponding node dimensions either by
 exact probability or by (rounded or non-rounded) frequency, with 2 options:
   \enumerate{
-  \item \code{"p"}: scale main area dimensions by exact probability (default);
+  \item \code{"p"}: scale node dimensions by exact probability (default);
   \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
-  and scale main area dimensions by their frequency.
+  and scale node dimensions by their frequency.
   }
  Note: \code{scale} setting matters for the display of probability values and for
  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.}
@@ -111,7 +111,7 @@ are sampled from \code{N}, given the probability values of
 \code{prev}, \code{sens}, and \code{spec}.
 Default: \code{sample = FALSE}.}
 
-\item{f_lbl}{Type of label for showing frequency values in 4 main areas,
+\item{f_lbl}{Type of label for showing frequency values in nodes,
 with 6 options:
   \enumerate{
   \item \code{"def"}: abbreviated names and frequency values;
@@ -122,7 +122,7 @@ with 6 options:
   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
 
-\item{f_lbl_sep}{Label separator for main frequencies
+\item{f_lbl_sep}{Separator for frequency labels
 (used for \code{f_lbl = "def" OR "namnum"}).
 Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
 Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).}
@@ -167,8 +167,11 @@ Default: \code{lbl_txt = \link{txt}}.}
 \item{main}{Text label for main plot title.
 Default: \code{main = txt$scen_lbl}.}
 
-\item{subtitle}{Text label for plot subtitle (on 2nd line).
-Default: \code{subtitle = "type"} shows information on current plot type.}
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -178,9 +181,6 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 
 \item{col_pal}{Color palette.
 Default: \code{col_pal = \link{pal}}.}
-
-\item{title_lbl}{\strong{Deprecated} text label for current plot title.
-Replaced by \code{main}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = FALSE}.}
@@ -329,13 +329,13 @@ plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
 
 ## Plain plot versions:
 plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
-           main = NA, subtitle = NA, mar_notes = FALSE)  # remove titles and margin notes
+           main = NA, sub = NA, mar_notes = FALSE)  # remove titles and margin notes
 plot_prism(area = "no", f_lbl = "nam", p_lbl = "min",
-           main = NA, subtitle = "My subtitle", col_pal = pal_rgb)  # only subtitle
+           main = NA, sub = "My subtitle", col_pal = pal_rgb)  # only subtitle
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)  # default title & subtitle
 
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, subtitle = NA)
+plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num", main = NA, sub = NA)
 
 # plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
