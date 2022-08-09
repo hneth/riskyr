@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2021 03 29
+## 2022 09 08
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -89,9 +89,6 @@
 #' @param phi Vertical rotation angle (used by \code{\link{persp}}).
 #' Default: \code{phi = 0}.
 #'
-#' @param lbl_txt Labels and text elements.
-#' Default: \code{lbl_txt = \link{txt}}.
-#'
 #' @param p_lbl Type of label for shown probability values,
 #' with the following options:
 #'   \enumerate{
@@ -103,8 +100,17 @@
 #'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param title_lbl Main plot title.
-#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
+#' @param lbl_txt Labels and text elements.
+#' Default: \code{lbl_txt = \link{txt}}.
+#'
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = "type"} shows information on current plot type.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @param cex_lbl Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -138,11 +144,11 @@
 #'            sens_range = c(.7, 1), spec_range = c(.7, 1), step_size = .02)  # zooming in
 #'
 #' # Options:
-#' # plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
+#' # plot_plane(main = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 #'
-#' plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
-#' plot_plane(title_lbl = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
-#' plot_plane(title_lbl = "Testing color pal_bwp", col_pal = pal_bwp)
+#' plot_plane(main = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
+#' plot_plane(main = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
+#' plot_plane(main = "Testing color pal_bwp", col_pal = pal_bwp)
 #'
 #' plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
 #' plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
@@ -196,10 +202,13 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        theta = -45,
                        phi = 0,
 
+                       p_lbl = "def",   # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
+
                        # Text and color:
                        lbl_txt = txt,   # labels and text elements
-                       title_lbl = NA,  # plot title
-                       p_lbl = "def",   # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
+                       main = txt$scen_lbl,  # main title
+                       sub = "type",         # subtitle ("type" shows generic plot type info)
+                       title_lbl = NULL,     # DEPRECATED plot title, replaced by main
                        cex_lbl = .85,   # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,   # color palette
 
@@ -269,13 +278,17 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (is_valid_prob_set(prev...
 
+
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
   ## (1) Text labels: --------
 
-  # Plot title:
-  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+  # Default main and subtitle labels:
+  if (is.null(main)) { main <- txt$scen_lbl }
+  if (is.na(main))   { main <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
+
+  # Label sizes?
 
   ## (+) Additional parameters (currently fixed):
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
@@ -305,19 +318,23 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     what <- "ppv"
   }
 
-  ## (3) Define plot and margin areas: ----------
+
+  ## (3) Define plotting area: ----------
 
   ## Colors: ------
 
   par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
 
-  ## (A) Define margin areas: ------
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  ## Define margin areas: ------
+
+  ## Define margin areas:
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 4 } else { n_lines_bot <- 1 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
+
 
   ## (B) Ranges on x- and y-axes: ------
 
@@ -630,22 +647,40 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   }
 
+
   ## (6) Title: ------
 
-  # Define parts:
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  # Main title: Handle deprecated "title_lbl" argument: ----
 
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } # else {
-  # Use type_lbl defined above!
-  # }
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
+  }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # Plot title:
-  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  # Subtitle (2nd line): ----
+
+  if (sub == "type"){ # show default plot type info:
+    sub <- type_lbl  # Use type_lbl defined above!
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (sub == "") ){ # only main title:
+    cur_title_lbl <- main
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
+  } else { # combine both:
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
+  }
+
+
+  # Plot title: ----
+
+  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
+
+
 
   ## (7) Margin text: ------
 
@@ -672,7 +707,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ## on.exit(par(opar))  # par(opar)  # restore original settings
   invisible() # restores par(opar)
 
-} # plot_plane end.
+} # plot_plane().
 
 
 ## Check:
@@ -689,9 +724,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 # plot_plane(step_size = .333, what_col = "firebrick")  # => coarser granularity + color
 # plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
 # plot_plane(what_col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
-# plot_plane(title_lbl = "Testing plot options")
-# plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
-# plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
+# plot_plane(main = "Testing plot options")
+# plot_plane(main = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
+# plot_plane(main = "Testing plot in b/w", what_col = "white", line_col = "black")
 
 
 ## Note: ----------

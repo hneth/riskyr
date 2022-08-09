@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2021 01 04
+## 2022 09 08
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -103,8 +103,14 @@
 #' @param lbl_txt  Labels and text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param title_lbl  Main plot title.
-#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = "type"} shows information on current plot type.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -162,10 +168,10 @@
 #' plot_curve(p_lbl = "namnum", what = "all")  # names and values
 #'
 #' # Text and color settings:
-#' plot_curve(title_lbl = "Tiny text labels", p_lbl = "namnum", cex_lbl = .60)
-#' plot_curve(title_lbl = "Specific colors", what = "all",
+#' plot_curve(main = "Tiny text labels", p_lbl = "namnum", cex_lbl = .60)
+#' plot_curve(main = "Specific colors", what = "all",
 #'            uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
-#' plot_curve(title_lbl = "Black-and-white print version",
+#' plot_curve(main = "Black-and-white print version",
 #'            what = "all", col_pal = pal_bwp)
 #'
 #'
@@ -215,7 +221,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
-                       title_lbl = NA,     # plot title
+                       main = txt$scen_lbl,  # main title
+                       sub = "type",         # subtitle ("type" shows generic plot type info)
+                       title_lbl = NULL,     # DEPRECATED plot title, replaced by main
                        cex_lbl = .85,      # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,      # color palette
 
@@ -357,7 +365,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if (x_min == 0) { x_min <- (0 + eps) }  # avoid 0
   if (x_max == 1) { x_max <- (1 - eps) }  # avoid 1
 
-  ## Determine range of x-values used for plotting curves:
+
+  ## Determine range of x-values used for plotting curves: ----
 
   if ( (min(prev_range) == 0) && (max(prev_range) == 1) ) {  # default prev_range:
 
@@ -448,7 +457,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   } # if (show_points) etc.
 
 
-  ## Colors:
+  ## Colors: ----
 
   # Set plot background color:
   par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
@@ -458,13 +467,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   col_axes <- grey(.10, alpha = .99)  # axes
   col_bord <- grey(.10, alpha = .50)  # borders (also of points)
 
-  ## Text labels:
 
-  # Plot title:
-  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+  ## Text labels: ----
 
-  # Text label size:
+  # Default main and subtitle labels:
+  if (is.null(main)) { main <- txt$scen_lbl }
+  if (is.na(main))   { main <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
+
+  # Label sizes:
   cex_lbl_sm <- if (cex_lbl > .50) {cex_lbl - .075} else {cex_lbl}  # slightly smaller than cex_lbl
 
   legend_lbls <- NULL  # initialize vector
@@ -479,7 +490,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   on.exit(par(opar))
 
   ## Define margin areas:
-  if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 4 } else { n_lines_bot <- 4 }
 
   par(mar = c(n_lines_bot, 4, n_lines_top, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -1265,20 +1276,36 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (5) Title: ----------
 
-  # Define parts:
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } else {
-    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur_sens.spec_lbl)
+  # Main title: Handle deprecated "title_lbl" argument: ----
+
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
   }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # Plot title:
-  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
+  # Subtitle (2nd line): ----
+
+  if (sub == "type"){ # show default plot type info:
+    sub <- paste0("Probability curves by prevalence") #, "\n", cur_sens.spec_lbl)  # Curves / probability curve plot.
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (sub == "") ){ # only main title:
+    cur_title_lbl <- main
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
+  } else { # combine both:
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
+  }
+
+
+  # Plot title: ----
+
+  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
 
 
 
@@ -1339,6 +1366,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   } # if (mar_notes)
 
 
+
   ## (7) Legend: ----------
 
   if (length(legend_lbls) > 0) { # there is a curve:
@@ -1370,11 +1398,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   # return()       # returns nothing
   # return("neat") # returns "..."
 
+
   ## Finish: ---------
 
   invisible()  # restores par(opar)
 
-} # plot_curve etc. end.
+} # plot_curve().
 
 ## Check: ----------
 
@@ -1417,10 +1446,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(p_lbl = "namnum", what = "all")  # names and values
 #
 # ## Text labels and colors:
-# plot_curve(title_lbl = "Testing smaller text labels", cex_lbl = .60)
-# plot_curve(title_lbl = "Testing specific colors", uc = .05,
+# plot_curve(main = "Testing smaller text labels", cex_lbl = .60)
+# plot_curve(main = "Testing specific colors", uc = .05,
 #            what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
-# plot_curve(title_lbl = "Testing color palette", uc = .05,
+# plot_curve(main = "Testing color palette", uc = .05,
 #            what = "all", col_pal = pal_org)
 
 
