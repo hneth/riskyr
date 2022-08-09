@@ -1059,7 +1059,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
 
-} # plot_crisk end.
+} # plot_crisk().
 
 
 ## (3) Check: --------
