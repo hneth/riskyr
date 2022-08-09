@@ -1,5 +1,5 @@
 ## riskyr_sims.R | riskyr
-## 2021 03 26
+## 2022 08 09
 ## Enable riskyr simulations (i.e., data from descriptions)
 ## -----------------------------------------------
 
@@ -183,7 +183,7 @@ write_popu <- function(x = NULL,  # a riskyr scenario
 #'                         cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
 #'                         dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 #' # popu_treat
-#' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
+#' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
 #' plot(scen_treat, type = "prism", area = "sq", f_lbl = "namnum", p_lbl = "num")
 #' plot(scen_treat, type = "icon", lbl_txt = txt_org, col_pal = pal_org)
 #'
@@ -192,8 +192,8 @@ write_popu <- function(x = NULL,  # a riskyr scenario
 #'                        cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
 #'                        dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 #' # popu_vacc
-#' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
-#' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
+#' scen_vacc <- read_popu(popu_vacc, scen_lbl = "A prevention scenario", popu_lbl = "Population vaccinated")
+#' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_rgb, p_lbl = "num", sub = "Vaccination")
 #'
 #' @family functions converting data/descriptions
 #'
@@ -244,7 +244,7 @@ read_popu <- function(df = popu,  # df (as population data with 3+ columns, see 
   # 4. Return description: ----
   return(scen)
 
-} # read_popu() end.
+} # read_popu().
 
 ## Check: ----------
 
