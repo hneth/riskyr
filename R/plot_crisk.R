@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2022 04 22
+## 2022 08 09
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -7,8 +7,7 @@
 
 #' Plot a cumulative risk curve.
 #'
-#' \code{plot_crisk} creates visualizations of
-#' cumulative risks.
+#' \code{plot_crisk} creates visualizations of cumulative risks.
 #'
 #' \code{plot_crisk} assumes data inputs \code{x} and \code{y}
 #' that correspond to each other so that \code{y} is a
@@ -104,8 +103,14 @@
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
 #'
-#' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = "Cumulative risk"}.
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = "type"} shows information on current plot type.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @param x_lbl Text label of x-axis (at bottom).
 #' Default: \code{x_lbl = "Age (in years)"}.
@@ -147,6 +152,7 @@
 #'
 #' # Note: Showing ALL is likely to overplot/overwhelm:
 #' plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
+#'            main = "The main title", sub = "Some subtitle",
 #'            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
 #'            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 #'
@@ -206,7 +212,10 @@ plot_crisk <- function(x,         # x-values (as vector or df)
                        col_pal = pal_crisk,  # color palette (as a named vector)
                        arr_c = -3,           # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
 
-                       title_lbl = "Cumulative risk", # plot title
+                       main = txt$scen_lbl,  # main title
+                       sub = "type",         # subtitle ("type" shows generic plot type info)
+                       title_lbl = NULL,     # DEPRECATED plot title, replaced by main
+
                        x_lbl  = "Age (in years)",     # label of x-axis (at bottom)
                        y_lbl  = "Population risk",    # label of y-axis (on left)
                        y2_lbl = "",                   # label of 2nd y-axis (on right)
@@ -229,7 +238,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   delta_x_specified <- FALSE
 
 
-  ## (1) Check user inputs: --------
+  ## (1) Check user inputs: ------
 
   # (a) Get x/y coordinates: ----
 
@@ -293,7 +302,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   }
 
 
-  ## (2) Compute required values: --------
+  ## (2) Compute required values: ------
 
   # (a) Delta-x interval: ----
 
@@ -511,7 +520,12 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 
   n_dig <- 1  # Number of digits used to display/print values
 
-  # if (is.na(title_lbl)) {title_lbl <- ""}
+  # Default main and subtitle labels:
+  if (is.null(main)) { main <- txt$scen_lbl }
+  if (is.na(main))   { main <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
+
+  # Label sizes:
   # x_unit  <- "years" # Defaults:
   x_ax_lbl  <- x_lbl   # paste0("Age (in ", x_unit, ")")
   y_ax_lbl  <- y_lbl   # "Population risk"
@@ -579,7 +593,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   # (c) Plot and margin areas: ----
 
   # Define margin areas:
-  n_lines_top <- 3  # if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 3 } else { n_lines_top <- 0 }
   n_lines_bot <- 4  # if (mar_notes) { n_lines_bot <- 5 } else { n_lines_bot <- 4 }
 
   par(mar = c(n_lines_bot, 4, n_lines_top, 3.4) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -688,7 +702,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   # points(0, 0, pch = 1, col = grey(.33, .50), cex = 1)  # mark origin
 
 
-  ## (5) Main: Custom crisk plot: ---------
+  ## (5) Main: Custom crisk plot: ------
 
   # 1. Rectangles: ------
 
@@ -1032,10 +1046,38 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   # box_else <- make_box("else_box", 2, 2, 4, 3)  # define some arbitrary box
   # plot(box_else, col = "firebrick2", cex = 1/2, font = 2)  # plot box
 
-  # (B) Title:
 
-  # Plot title: # (left, not raised, normal font)
-  title(title_lbl, col = col_txt, adj = 0, line = 1, font.main = 1, cex.main = cex_tit)
+  # (B) Title: ----
+
+  # Main title: Handle deprecated "title_lbl" argument: ----
+
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
+  }
+
+
+  # Subtitle (2nd line): ----
+
+  if (sub == "type"){ # show default plot type info:
+    sub <- paste0("Cumulative risk")  # default type info
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (sub == "") ){ # only main title:
+    cur_title_lbl <- main
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
+  } else { # combine both:
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
+  }
+
+
+  # Plot title: ----
+
+  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = cex_tit, col = col_txt)  # (left, NOT raised (by +1), normal font)
 
 
   # (C) Margin notes: ------
@@ -1054,7 +1096,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
   } # if (mar_notes) etc.
 
 
-  ## (7) Finish: --------
+  ## (7) Finish: ------
 
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
@@ -1062,7 +1104,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 } # plot_crisk().
 
 
-## (3) Check: --------
+## (3) Check: ------
 
 # # 1. Dense data:
 # x <- seq(from = 0, to = 100, by = 5)
@@ -1114,32 +1156,40 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 #            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE, show_num = TRUE, show_inc = TRUE)
 #
 # # Text labels:
-# plot_crisk(x, y, x_from = 37, x_to = 57, show_aux = TRUE, show_num = TRUE, title_lbl = "The title",
+# plot_crisk(x, y, x_from = 37, x_to = 57, show_aux = TRUE, show_num = TRUE,
+#            main = "The main title", sub = "Some subtitle",
 #            x_lbl = "X-lab", y_lbl = "Y-lab", y2_lbl = "Alt-Y-lab", mar_notes = TRUE)
 
-# # Using BRCA data:
-#
+
+## Using BRCA data: ------
+
 # plot_crisk(x = BRCA1, x_from = 37, x_to = 47,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T,
-#            show_pop = T, title_lbl = "Cumulative risk (BRCA1, 10 years)")
+#            show_pop = T, main = "Cumulative risk", sub = "BRCA1, 10 years")
 #
 # plot_crisk(x = BRCA2, x_from = 37, x_to = 47,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T,
-#            show_pop = T, title_lbl = "Cumulative risk (BRCA1, 10 years)")
-
-# # mamRiskViz studies:
+#            show_pop = T, main = "Cumulative risk", sub = "BRCA1, 10 years")
+#
+# # Tasks from mamRiskViz studies:
 #
 # plot_crisk(t_I, x_from = 40,
 #            show_pas = T, show_aux = T, show_num = T,
-#            title_lbl = "mamRiskViz (Introductory task I)")
+#            main = "mamRiskViz", sub = "Introductory task I")
 #
 # plot_crisk(t_A, x_from = 50, x_to = 70,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
-#            title_lbl = "mamRiskViz (Main/transfer task A)")
+#            main = "mamRiskViz", sub = "Main/transfer task A")
 #
 # plot_crisk(t_B, x_from = 50, x_to = 80,
 #            show_pas = T, show_rem = T, show_aux = T, show_num = T, show_pop = T,
-#            title_lbl = "mamRiskViz (Main/transfer task B)")
+#            main = "mamRiskViz", sub = "Main/transfer task B")
+
+
+## (*) Done: ----------
+
+# - initial function [2021-12-04]
+# - used main and sub (and deprecate title_lbl argument).
 
 
 ## (+) ToDo: ------
@@ -1161,9 +1211,5 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 # - add user-defined margin label
 # - add more dynamic label positions
 # - explore alternative color options
-
-## (*) Done: ----------
-
-## - initial function [2021-12-04]
 
 ## eof. ----------
