@@ -19,7 +19,9 @@ plot_crisk(
   show_grid = FALSE,
   col_pal = pal_crisk,
   arr_c = -3,
-  title_lbl = "Cumulative risk",
+  main = txt$scen_lbl,
+  sub = "type",
+  title_lbl = NULL,
   x_lbl = "Age (in years)",
   y_lbl = "Population risk",
   y2_lbl = "",
@@ -86,8 +88,14 @@ with the following options:
 }
 Default: \code{arr_c = -3} (points at both ends).}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = "Cumulative risk"}.}
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{x_lbl}{Text label of x-axis (at bottom).
 Default: \code{x_lbl = "Age (in years)"}.}
@@ -107,8 +115,7 @@ Default: \code{mar_notes = FALSE}.}
 Nothing (NULL).
 }
 \description{
-\code{plot_crisk} creates visualizations of
-cumulative risks.
+\code{plot_crisk} creates visualizations of cumulative risks.
 }
 \details{
 \code{plot_crisk} assumes data inputs \code{x} and \code{y}
@@ -171,6 +178,7 @@ plot_crisk(x, y, 44, 85, show_aux = TRUE, show_pop = TRUE, show_num = TRUE) # + 
 
 # Note: Showing ALL is likely to overplot/overwhelm:
 plot_crisk(x, y, x_from = 47, x_to = 67, fit_curve = TRUE,
+           main = "The main title", sub = "Some subtitle",
            show_pas = TRUE, show_rem = TRUE, show_aux = TRUE, show_pop = TRUE,
            show_num = TRUE, show_inc = TRUE, show_grid = TRUE, mar_notes = TRUE)
 
