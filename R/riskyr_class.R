@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2022 08 08
+## 2022 08 09
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 
@@ -402,7 +402,7 @@ riskyr <- function(#
 
   return(object)
 
-} # riskyr() end.
+} # riskyr().
 
 
 ## Check: -------
@@ -636,6 +636,12 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'
 #' @param type The type of plot to be generated.
 #'
+#' @param main Text label for main plot title.
+#' Default: \code{main = NULL} (using \code{x$scen_lbl} per default).
+#'
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = NULL} (using \code{sub = "type"} shows plot type).
+#'
 #' The following plot types are currently available:
 #'
 #' \enumerate{
@@ -701,18 +707,17 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 plot.riskyr <- function(x = NULL,        # a riskyr scenario
                         type = "prism",  # default type
                         # by = "cddc",   # default perspective
+                        main = NULL,     # main title
+                        sub = NULL,      # subtitle
                         ...              # other parameters (passed to plot_xxx functions)
 ) {
 
-  ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
-  ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
-
-  ## (1) Increase robustness: ----------
+  ## (1) Increase robustness: ------
 
   type <- tolower(type)  # ensure lowercase
 
   # Test type argument:
-  if (!type %in% c(#
+  if (all(type %in% c(#
     # plot_prism:
     "prism", "fprism", "tree", "ftree", "dtree", "double tree",
     # plot_fnet:
@@ -728,7 +733,7 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
     # plot_curve:
     "curve", "curves",
     # plot_plane:
-    "plane", "planes", "cube")) {
+    "plane", "planes", "cube")) == FALSE) {
 
     message("Unknown plot type (in plot.riskyr): Using type = 'prism'.")
     type <- "prism"
@@ -748,7 +753,8 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
   #   }
   # }
 
-  ## (2) Use text info of scenario x for current txt information: ----------
+
+  ## (2) Use text info of scenario x for current txt information: ------
 
   x_txt <- init_txt(scen_lbl = x$scen_lbl,
 
@@ -779,16 +785,14 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                     scen_lng = x$scen_lng
   )
 
-  # # Set default main title:
-  # if (is.null(main)){
-  #   title_lbl <- x$scen_lbl
-  # } else {
-  #   title_lbl <- main
-  # }
+  # Set default main title:
+  if (is.null(main) & (nchar(x$scen_lbl) > 0)){
+    main <- x$scen_lbl
+  }
 
-  ## (3) Call plotting functions: ----------
+  ## (3) Call plotting functions: ------
 
-  ## 1. Table/contingency/confusion/frequency table/tab plot:
+  # 1. Table/contingency/confusion/frequency table/tab plot: ----
   if ((substr(type, 1, 3) == "tab") || (type == "ftab") || (type == "ctab")) {
 
     plot_tab(prev = x$prev,
@@ -797,13 +801,15 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
              N = x$N,
              # Options:
              lbl_txt = x_txt,
-             # main = x$scen_lbl, # WAS: title_lbl
+             main = main,
+             sub = sub,
              ...
     )
 
   } # if (type == "tab")
 
-  ## 2. Area / mosaic plot / unit square:
+
+  # 2. Area / mosaic plot / unit square: ----
   if ((substr(type, 1, 4) == "area") || (type == "farea") ||
       (substr(type, 1, 6) == "mosaic") ||
       (substr(type, 1, 4) == "unit")) {  # "mosaic"
@@ -814,13 +820,15 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
               N = x$N,
               # Options:
               lbl_txt = x_txt,
-              title_lbl = x$scen_lbl,
+              main = main,
+              sub = sub,
               ...
     )
 
   } # if (type == "area")
 
-  ## 3. Icon array:
+
+  # 3. Icon array: ----
   if (substr(type, 1, 4) == "icon") {
 
     plot_icons(prev = x$prev,             # probabilities
@@ -828,14 +836,17 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
                # Options:
-               title_lbl = x$scen_lbl,
+               # lbl_txt = x_txt, # Do NOT pass for icons!
+               main = main,
+               sub = sub,
                type_lbls = x[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
                ...
     )
 
   } #  if (type == "icon")
 
-  ## 4. Prism plot (tree/double tree):
+
+  # 4. Prism plot (tree/double tree): ----
   if ((substr(type, 1, 5) == "prism") || (substr(type, 1, 6) == "fprism") ||
       (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree") ||
       (substr(type, 1, 6) == "double") || (substr(type, 1, 5) == "dtree")) {
@@ -846,13 +857,15 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
                N = x$N,
                # Options:
                lbl_txt = x_txt,
-               # main = x$scen_lbl, # WAS: title_lbl
+               main = main,
+               sub = sub,
                ...
     )
 
   } # if (type == "prism")
 
-  ## 5. Frequency net plot (fnet):
+
+  # 5. Frequency net plot (fnet): ----
   if ((type == "frequency net") ||
       (substr(type, 1, 3) == "net") || (substr(type, 1, 4) == "fnet")) {
 
@@ -862,13 +875,14 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
               N = x$N,
               # Options:
               lbl_txt = x_txt,
-              title_lbl = x$scen_lbl,
+              main = main,
+              sub = sub,
               ...
     )
 
   } # if (type == "fnet")
 
-  ## 6. Bar plot / frequency bars:
+  # 6. Bar plot / frequency bars: ----
   if ((substr(type, 1, 3) == "bar") || (substr(type, 1, 4) == "fbar")) {
 
     plot_bar(prev = x$prev,
@@ -877,37 +891,47 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
              N = x$N,
              # Options:
              lbl_txt = x_txt,
-             title_lbl = x$scen_lbl,
+             main = main,
+             sub = sub,
              ...
     )
 
   } # if (type == "bar")
 
-  ## 7. Curve of probabilities:
+
+  # 7. Curve of probabilities: ----
   if (substr(type, 1, 5) == "curve") {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
                # Options:
-               title_lbl = x$scen_lbl,
+               lbl_txt = x_txt,
+               main = main,
+               sub = sub,
                ...
     )
   } # if (type == "curve")
 
-  ## 8. Plane/cube of probabilities:
+
+  # 8. Plane/cube of probabilities: ----
   if ((substr(type, 1, 5) == "plane") || (substr(type, 1, 4) == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
                # Options:
-               title_lbl = x$scen_lbl, # plot title label
+               lbl_txt = x_txt,
+               main = main,
+               sub = sub,
                ...
     )
   } # if (type == "plane")
 
-} # plot.riskyr end.
+
+  ## Currently NO output. ------
+
+} # plot.riskyr().
 
 
 ## Check: ------
@@ -1094,7 +1118,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
   return(obj.sum)
 
-}
+} # summary.riskyr().
 
 
 ## 2b. print.summary.riskyr function: ------------------
