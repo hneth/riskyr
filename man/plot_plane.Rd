@@ -21,9 +21,11 @@ plot_plane(
   point_col = "yellow",
   theta = -45,
   phi = 0,
-  lbl_txt = txt,
-  title_lbl = NA,
   p_lbl = "def",
+  lbl_txt = txt,
+  main = txt$scen_lbl,
+  sub = "type",
+  title_lbl = NULL,
   cex_lbl = 0.85,
   col_pal = pal,
   mar_notes = FALSE,
@@ -97,12 +99,6 @@ Default: \code{theta = -45}.}
 \item{phi}{Vertical rotation angle (used by \code{\link{persp}}).
 Default: \code{phi = 0}.}
 
-\item{lbl_txt}{Labels and text elements.
-Default: \code{lbl_txt = \link{txt}}.}
-
-\item{title_lbl}{Main plot title.
-Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).}
-
 \item{p_lbl}{Type of label for shown probability values,
 with the following options:
   \enumerate{
@@ -113,6 +109,18 @@ with the following options:
   \item \code{"namnum"}: show names and numeric probability values;
   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
   }}
+
+\item{lbl_txt}{Labels and text elements.
+Default: \code{lbl_txt = \link{txt}}.}
+
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
@@ -159,11 +167,11 @@ plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9),
            sens_range = c(.7, 1), spec_range = c(.7, 1), step_size = .02)  # zooming in
 
 # Options:
-# plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
+# plot_plane(main = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 
-plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
-plot_plane(title_lbl = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
-plot_plane(title_lbl = "Testing color pal_bwp", col_pal = pal_bwp)
+plot_plane(main = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
+plot_plane(main = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
+plot_plane(main = "Testing color pal_bwp", col_pal = pal_bwp)
 
 plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
 plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color

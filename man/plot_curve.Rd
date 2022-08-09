@@ -20,7 +20,9 @@ plot_curve(
   log_scale = FALSE,
   prev_range = c(0, 1),
   lbl_txt = txt,
-  title_lbl = NA,
+  main = txt$scen_lbl,
+  sub = "type",
+  title_lbl = NULL,
   cex_lbl = 0.85,
   col_pal = pal,
   mar_notes = FALSE,
@@ -99,8 +101,14 @@ Default: \code{prev_range = c(0, 1)}.}
 \item{lbl_txt}{Labels and text elements.
 Default: \code{lbl_txt = \link{txt}}.}
 
-\item{title_lbl}{Main plot title.
-Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).}
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
@@ -182,10 +190,10 @@ plot_curve(p_lbl = "num", what = "all")     # numeric values only
 plot_curve(p_lbl = "namnum", what = "all")  # names and values
 
 # Text and color settings:
-plot_curve(title_lbl = "Tiny text labels", p_lbl = "namnum", cex_lbl = .60)
-plot_curve(title_lbl = "Specific colors", what = "all",
+plot_curve(main = "Tiny text labels", p_lbl = "namnum", cex_lbl = .60)
+plot_curve(main = "Specific colors", what = "all",
            uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
-plot_curve(title_lbl = "Black-and-white print version",
+plot_curve(main = "Black-and-white print version",
            what = "all", col_pal = pal_bwp)
 
 
