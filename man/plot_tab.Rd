@@ -30,7 +30,7 @@ plot_tab(
   brd_dis = 0.3,
   lbl_txt = txt,
   main = txt$scen_lbl,
-  subtitle = "type",
+  sub = "type",
   title_lbl = NULL,
   cex_lbl = 0.9,
   cex_p_lbl = NA,
@@ -189,8 +189,8 @@ Default: \code{lbl_txt = \link{txt}}.}
 \item{main}{Text label for main plot title.
 Default: \code{main = txt$scen_lbl}.}
 
-\item{subtitle}{Text label for plot subtitle (on 2nd line).
-Default: \code{subtitle = "type"} shows information on current plot type.}
+\item{sub}{Text label for the subtitle of the plot (shown below the \code{main} title).
+Default: \code{sub = "type"} shows information on current plot type.}
 
 \item{title_lbl}{\strong{Deprecated} text label for current plot title.
 Replaced by \code{main}.}
@@ -284,12 +284,12 @@ plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
 # Custom text labels and colors:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
          by = "cddc", p_split = "v", area = "no",
-         main = "Main title", subtitle = "The subtitle", lbl_txt = txt_TF,  # custom text
+         main = "Main title", sub = "The subtitle", lbl_txt = txt_TF,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_vir, f_lwd = 3)  # custom colors
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
-         main = NA, subtitle = NA, lbl_txt = txt_org,  # custom text
+         main = NA, sub = NA, lbl_txt = txt_org,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_kn, f_lwd = 1)  # custom colors
 

@@ -4,13 +4,19 @@
 \alias{plot.riskyr}
 \title{Plot a riskyr scenario.}
 \usage{
-\method{plot}{riskyr}(x = NULL, type = "prism", ...)
+\method{plot}{riskyr}(x = NULL, type = "prism", main = NULL, sub = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
 Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
 
-\item{type}{The type of plot to be generated.
+\item{type}{The type of plot to be generated.}
+
+\item{main}{Text label for main plot title.
+Default: \code{main = NULL} (using \code{x$scen_lbl} per default).}
+
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = NULL} (using \code{sub = "type"} shows plot type).
 
 The following plot types are currently available:
 
