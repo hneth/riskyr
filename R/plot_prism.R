@@ -1471,7 +1471,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible() # restores par(opar)
 
-} # plot_prism end.
+} # plot_prism().
 
 
 ## Check: ------

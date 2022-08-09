@@ -322,12 +322,13 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## (2) Define plot and margin areas: ----------
 
-  # Moved below!
+  # Moved down (see "par(mar" below)!
 
 
   ## (3) Key options and parameters: ----------
 
-  # (a) Get current SDT case labels from lbl_txt:
+  # (a) Get current SDT case labels from lbl_txt: ----
+
   type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")]  # 4 SDT cases/combinations
 
   # Set default of by perspective:
@@ -335,7 +336,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
     by <- "all"  # default
   }
 
+
   # (b) Get current colors from col_pal: ----
+
   if (by == "all") {
 
     icon_col <- col_pal[ident_order]  # use one color for each usual arr_type.
@@ -373,7 +376,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  ## 1. arr_type:
+  ## 1. arr_type: ----
   if ( !is.null(arr_type) && !is.na(arr_type) ) {
     arr_type <- tolower(arr_type)  # express arr_type in lowercase
   }
@@ -464,7 +467,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## A0.3: Different routes to col_vec and pch.vec  ------
 
-  # A0.3.1: Calculation from probabilities  ------
+  ## A0.3.1: Calculation from probabilities  ------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt,
@@ -1003,6 +1006,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end A3 and A4 (fixed positions).
 
 
+
   ## B. Plotting ----------
 
   ## TODO: Add text!
@@ -1019,22 +1023,21 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Plot setup: ------
 
-  ## (A) Define margin areas:
+  ## (a) Define margin areas: ----
 
-  # Beware: Values DIFFER from those in other plot_ functions!
+  # Beware: Values DIFFER from those in other plot_ functions:
+
   if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 3 } else { n_lines_top <- 1 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   # Accomodate legend:
-  if (show_legend){
-    n_lines_bot <- n_lines_bot + 2  # to accommodate legend
-  }
+  if (show_legend){ n_lines_bot <- n_lines_bot + 2 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
 
-  ## (B) Plot setup:
+  ## (b) Plot setup: ----
 
   plot(x = 1,
        xlim = xlim, ylim = ylim,
@@ -1158,7 +1161,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible() # restores par(opar)
 
-} # plot_icons end.
+} # plot_icons().
 
 
 ## Check: -------

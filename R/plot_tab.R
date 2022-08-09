@@ -2094,7 +2094,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible() # restores par(opar)
 
-} # plot_tab end.
+} # plot_tab().
 
 
 ## (3) Check: ------

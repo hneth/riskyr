@@ -2014,7 +2014,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
 
-} # plot_area end.
+} # plot_area().
 
 
 ## (3) Check: ------
