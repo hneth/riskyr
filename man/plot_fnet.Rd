@@ -30,7 +30,9 @@ plot_fnet(
   arr_c = NA,
   joint_p = TRUE,
   lbl_txt = txt,
-  title_lbl = txt$scen_lbl,
+  main = txt$scen_lbl,
+  sub = "type",
+  title_lbl = NULL,
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
@@ -171,8 +173,14 @@ Default: \code{joint_p = TRUE}.}
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+\item{main}{Text label for main plot title.
+Default: \code{main = txt$scen_lbl}.}
+
+\item{sub}{Text label for plot subtitle (on 2nd line).
+Default: \code{sub = "type"} shows information on current plot type.}
+
+\item{title_lbl}{\strong{Deprecated} text label for current plot title.
+Replaced by \code{main}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -345,7 +353,7 @@ plot_fnet(by = "cd", joint_p = FALSE)      # tree without joint probability link
 
 ## Plain plot versions:
 plot_fnet(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
-          title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
+          main = "", mar_notes = FALSE)  # remove titles and margin notes
 plot_fnet(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
 
 plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", col_pal = pal_rgb)
