@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2022 08 08
+## 2022 08 09
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -174,8 +174,8 @@
 #' @param main Text label for main plot title.
 #' Default: \code{main = txt$scen_lbl}.
 #'
-#' @param subtitle Text label for plot subtitle (on 2nd line).
-#' Default: \code{subtitle = "type"} shows information on current plot type.
+#' @param sub Text label for the subtitle of the plot (shown below the \code{main} title).
+#' Default: \code{sub = "type"} shows information on current plot type.
 #'
 #' @param title_lbl \strong{Deprecated} text label for current plot title.
 #' Replaced by \code{main}.
@@ -249,12 +249,12 @@
 #' # Custom text labels and colors:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
 #'          by = "cddc", p_split = "v", area = "no",
-#'          main = "Main title", subtitle = "The subtitle", lbl_txt = txt_TF,  # custom text
+#'          main = "Main title", sub = "The subtitle", lbl_txt = txt_TF,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_vir, f_lwd = 3)  # custom colors
 #' plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #'          by = "cddc", p_split = "h", area = "sq",
-#'          main = NA, subtitle = NA, lbl_txt = txt_org,  # custom text
+#'          main = NA, sub = NA, lbl_txt = txt_org,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_kn, f_lwd = 1)  # custom colors
 #'
@@ -335,8 +335,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
                      # Text and color:
                      lbl_txt = txt,      # labels and text elements
-                     main = txt$scen_lbl, # main plot title
-                     subtitle = "type",   # subtitle ("type" shows generic plot type info)
+                     main = txt$scen_lbl, # main title
+                     sub = "type",        # subtitle ("type" shows generic plot type info)
                      title_lbl = NULL,    # DEPRECATED plot title, replaced by main
                      cex_lbl = .90,      # size of freq & text labels
                      cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
@@ -586,7 +586,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   # NEW: Main and subtitle labels: Set to "" if NULL or NA:
   if (is.null(main) || is.na(main)) { main <- "" }
-  if (is.null(subtitle) || is.na(subtitle)) { subtitle <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
 
 
   # Label sizes:
@@ -691,7 +691,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## (A) Define margin areas:
 
-  if (nchar(main) > 0 | nchar(subtitle) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -2044,19 +2044,19 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   # Subtitle (2nd line): ----
 
-  if (subtitle == "type"){ # show default plot type info:
-      subtitle <- paste0(lbl["plot_tab_lbl"], " (by ", as.character(by), ")")  # plot name: confusion table / 2x2 matrix
+  if (sub == "type"){ # show default plot type info:
+      sub <- paste0(lbl["plot_tab_lbl"], " (by ", as.character(by), ")")  # plot name: confusion table / 2x2 matrix
   }
 
 
   # Combine title + subtitle: ----
 
-  if ( (main != "") & (subtitle == "") ){ # only main title:
+  if ( (main != "") & (sub == "") ){ # only main title:
     cur_title_lbl <- main
-  } else if ( (main == "") & (subtitle != "") ){ # only subtitle:
-    cur_title_lbl <- subtitle
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
   } else { # combine both:
-    cur_title_lbl <- paste0(main, ":\n", subtitle)  # add ":" and line break
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
   }
 
 
@@ -2133,7 +2133,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 #
 # ## Misc. options:
 # plot_tab(area = "sq")        # area: square
-# plot_tab(main = NA, subtitle = NA)  # no titles
+# plot_tab(main = NA, sub = NA)  # no titles
 # plot_tab(mar_notes = TRUE)   # show margin notes
 #
 # plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
