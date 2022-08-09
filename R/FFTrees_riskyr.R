@@ -1,5 +1,5 @@
 ## FFTRees_riskyr.R | riskyr
-## 2022 08 07
+## 2022 08 09
 ## A conversion function / API from FFTrees to riskyr objects
 ## -----------------------------------------------
 
@@ -160,28 +160,34 @@ fft_riskyr <- function(x, data = "train", tree = 1){
 # fft_riskyr(FFT)
 # fft_riskyr(FFT, data = "train", tree = 3)
 # fft_riskyr(FFT_t, data = "test", tree = 3)
-#
-#
-# # Explore functionality:
+
+
+## Explore functionality (for all plot types): ------
 #
 # library(magrittr)  # for pipe
 #
-# fft_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum", area = "no", main = "Titanic FFT", sub = "Test performance")
-# fft_riskyr(FFT_t, data = "test") %>% plot(type = "table", f_lbl = "namnum", area = "no", main = "Title", sub = "Some subtitle")
+# fft_riskyr(FFT_t, data = "test") %>% plot(rst, f_lbl = "namnum", area = "no")
 #
-# fft_riskyr(FFT_t, data = "test") %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_rgb)
-# fft_riskyr(FFT_t, data = "test") %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp)
+# rs_train <- fft_riskyr(FFT_t, data = "train")
+# rs_test  <- fft_riskyr(FFT_t, data = "test")
 #
-# fft_riskyr(FFT) %>% plot(type = "table", by = "cddc", col_pal = pal_bw)
-# fft_riskyr(FFT) %>% plot(type = "area", by = "cdac", p_split = "v", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb)
-# fft_riskyr(FFT_t, data = "test") %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam", col_pal = pal_mod)
+# rs_train %>% plot(type = "table", f_lbl = "namnum", area = "no", col_pal = pal_bw,
+#                   main = "Fitting the Titanic data", sub = "Performance on training data")
 #
-# fft_riskyr(FFT) %>% plot(type = "curve")
+# rs_test %>% plot(type = "area", by = "cddc", p_split = "h", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb,
+#                  main = NULL, sub = "type")
+# rs_test %>% plot(type = "tree", by = "dc", area = "sq", col_pal = pal_mod, sub = "Using test data")
+# rs_test %>% plot(type = "icons", by = "cddc", col_pal = pal_rgb, sub = "Using test data")
+# rs_test %>% plot(type = "fnet", by = "cddc", area = "sq", col_pal = pal_bwp, sub = "type")
+# rs_test %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam")
+# rs_test %>% plot(type = "curve", what = c("ppv", "npv"), sub = "Showing values by base rate")
+# rs_test %>% plot(type = "plane", what = "npv", sub = "type")
+#
+# +++ here now +++
 
 
 ## (+) ToDo: --------
 
-# - Use condition label (cond_lbl) & decision label (dec_lbl) in plot_bars(),
-#   rather than generic "True condition" and "Outcome" labels!
+# - etc.
 
 ## eof. ------------------------------------------
