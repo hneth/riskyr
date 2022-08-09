@@ -7,7 +7,7 @@ Log of changes since last release:
 
 ## Major changes
 
-<!-- Cumulative risks (crisk): -->  
+<!-- Cumulative risks (plot_crisk): -->  
 
 - Add function for plotting cumulative risk curves [2021-12-10]:
 
@@ -41,6 +41,7 @@ Log of changes since last release:
     - added a `sample` argument to 6\ key plots:  
     `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
+
 <!-- Conversion data vs. description: --> 
 
 - Allow conversion/translations between data and descriptions [2021-03-26]:
@@ -54,9 +55,11 @@ Log of changes since last release:
 
 ## Minor changes
 
+- Add `main` and `sub` arguments to all plots (and deprecate previous `title_lbl`). 
+
 - Rename MLM functions `frame()`, `focus()` and `trans()` to `mlm_frame()`, `mlm_focus()` and `mlm_trans()` to avoid name conflicts. 
 
-- Add `is_matrix()` to verify a 2x2 matrix (i.e., a numeric contingency table). 
+- Add `is_matrix()` to verify a 2x2 matrix (as a 2x2 numeric contingency table). 
 
 - Add `is_integer()` to verify integer values.
 
@@ -304,6 +307,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-(`NEWS.md` updated on 2022-07-31 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2022-08-09 by [hn](https://neth.de).) 
 
 <!-- eof -->
