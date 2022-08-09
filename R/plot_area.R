@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2021 12 05
+## 2022 08 09
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -77,7 +77,7 @@
 #' @param area A character code specifying the shape of the main area,
 #' with 2 options:
 #'   \enumerate{
-#'   \item \code{"sq"}: main area is scaled to square (default);
+#'   \item \code{"sq"}: main area is scaled to a square (default);
 #'   \item \code{"no"}: no scaling (rectangular area fills plot size).
 #'   }
 #'
@@ -174,8 +174,14 @@
 #' @param lbl_txt Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen_lbl}.
+#' @param main Text label for main plot title.
+#' Default: \code{main = txt$scen_lbl}.
+#'
+#' @param sub Text label for plot subtitle (on 2nd line).
+#' Default: \code{sub = "type"} shows information on current plot type.
+#'
+#' @param title_lbl \strong{Deprecated} text label for current plot title.
+#' Replaced by \code{main}.
 #'
 #' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -210,7 +216,7 @@
 #' # (4) Custom colors and text:
 #' plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #'           by = "cddc", p_split = "v", scale = "p",
-#'           title_lbl = "Custom text and color:",
+#'           main = "Custom text and color:",
 #'           lbl_txt = txt_org, f_lbl = "namnum",
 #'           f_lbl_sep = ":\n", f_lwd = 2, col_pal = pal_rgb)
 #'
@@ -284,7 +290,7 @@
 #' ## Plain and suggested plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
 #' plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num",  # no gaps, numeric labels
-#'           f_lwd = .5, col_pal = pal_bw, title_lbl = "Black-and-white")  # b+w print version
+#'           f_lwd = .5, col_pal = pal_bw, main = "Black-and-white")  # b+w print version
 #' # plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod)  # plot with freq labels
 #' plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb)  # no borders around boxes
 #'
@@ -351,7 +357,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
                       ## Text and color:
                       lbl_txt = txt,      # labels and text elements
-                      title_lbl = txt$scen_lbl,  # main plot title
+                      main = txt$scen_lbl,  # main title
+                      sub = "type",         # subtitle ("type" shows generic plot type info)
+                      title_lbl = NULL,     # DEPRECATED plot title, replaced by main
                       cex_lbl = .90,      # size of freq & text labels
                       cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
                       col_pal = pal,      # color palette
@@ -608,9 +616,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## 4. Text labels: ----
 
-  # Plot title:
-  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+  # OLD: Main labels:
+  # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
+  # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+
+  # NEW: Default main and subtitle labels:
+  if (is.null(main)) { main <- txt$scen_lbl }
+  if (is.na(main))   { main <- "" }
+  if (is.null(sub) || is.na(sub)) { sub <- "" }
+
+
+  # Label sizes:
 
   if ( is.null(cex_lbl) ) { cex_lbl <- .001 }  # sensible zero
   if ( is.na(cex_lbl) ) { cex_lbl <- .90 }  # default size of cex
@@ -697,9 +713,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## (2) Define plot and margin areas: --------
 
-  ## Define margin areas:
+  ## (A) Define margin areas:
 
-  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (nchar(main) > 0 | nchar(sub) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
 
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
@@ -1942,20 +1958,36 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## (6) Title: ------
 
-  # Define parts:
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  # Main title: Handle deprecated "title_lbl" argument: ----
 
-  if (title_lbl == "") {  # if title has been set to "":
-    type_lbl <- ""        # assume that no subtitle is desired either
-  } else {
-    type_lbl <- paste0(lbl["plot_area_lbl"], " (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
+  if (is.null(title_lbl) == FALSE){
+    message("Argument 'title_lbl' is deprecated. Please use 'main' instead.")
+    main <- title_lbl
   }
 
-  # Compose label:
-  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # Plot title:
-  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  # Subtitle (2nd line): ----
+
+  if (sub == "type"){ # show default plot type info:
+    sub <- paste0(lbl["plot_area_lbl"], " (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
+  }
+
+
+  # Combine title + subtitle: ----
+
+  if ( (main != "") & (sub == "") ){ # only main title:
+    cur_title_lbl <- main
+  } else if ( (main == "") & (sub != "") ){ # only subtitle:
+    cur_title_lbl <- sub
+  } else { # combine both:
+    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
+  }
+
+
+  # Plot title: ----
+
+  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, NOT raised (by +1), normal font)
+
 
 
   ## (7) Margins: ------
