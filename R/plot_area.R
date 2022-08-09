@@ -398,12 +398,14 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } # if (is_valid_prob_set etc.)
 
+
   ## (1) Prepare parameters: ----------
 
   ## (A) Generic:
 
   opar <- par(no.readonly = TRUE)  # copy of current settings
   on.exit(par(opar))  # par(opar)  # restore original settings
+
 
   ## (B) Interpret current user input parameters:
 
@@ -444,6 +446,7 @@ plot_area <- function(prev = num$prev,    # probabilities
     message("If 1st perspective by = 'ac', 2nd perspective must be 'cd' or 'dc'.\nUsing by = 'accd'.")
     by_bot <- "cd"  # default
   }
+
 
   ## 2. Freq boxes: ----
 
@@ -597,6 +600,7 @@ plot_area <- function(prev = num$prev,    # probabilities
     }
   }
 
+
   ## 3. Prob links: ----
 
   # No probability labels: Detect special strings:
@@ -616,18 +620,12 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## 4. Text labels: ----
 
-  # OLD: Main labels:
-  # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
-  # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
-
-  # NEW: Default main and subtitle labels:
+  # Default main and subtitle labels:
   if (is.null(main)) { main <- txt$scen_lbl }
   if (is.na(main))   { main <- "" }
   if (is.null(sub) || is.na(sub)) { sub <- "" }
 
-
   # Label sizes:
-
   if ( is.null(cex_lbl) ) { cex_lbl <- .001 }  # sensible zero
   if ( is.na(cex_lbl) ) { cex_lbl <- .90 }  # default size of cex
   if ( cex_lbl == 0 )  { cex_lbl <- .001 }  # other sensible zero

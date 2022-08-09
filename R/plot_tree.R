@@ -166,6 +166,6 @@ plot_tree <- function(prev = num$prev,             # probabilities
              # ...  # additional paramters
   )
 
-} # plot_tree(...) end.
+} # plot_tree().
 
 ## eof. -----------

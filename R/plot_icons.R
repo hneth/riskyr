@@ -415,11 +415,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## 3. Plot title: ----
 
-  # OLD: Main labels:
-  # if (is.null(main)) { main <- "" }              # adjust NULL to "" (i.e., no title)
-  # if (is.na(main)) { main <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
-
-  # NEW: Default main and subtitle labels:
+  # Default main and subtitle labels:
   if (is.null(main)) { main <- txt$scen_lbl }
   if (is.na(main))   { main <- "" }
   if (is.null(sub) || is.na(sub)) { sub <- "" }
