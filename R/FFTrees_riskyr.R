@@ -14,12 +14,17 @@
 #' into a corresponding \code{riskyr} object.
 #'
 #' \code{FFTrees_riskyr} essentially allows using \bold{riskyr} functions
-#' to visualize an FFT's performance information
+#' to visualize a fast-and-frugal tree (FFT)'s performance information
 #' (as contained in a 2x2 matrix of frequency counts).
 #'
+#' The R package \strong{FFTrees} creates, visualizes, and
+#' evaluates fast-and-frugal trees (FFTs) for solving binary
+#' classification problems in an efficient and transparent fashion.
+#'
+#' @references
 #' See \url{https://CRAN.R-project.org/package=FFTrees} or
 #' \url{https://github.com/ndphillips/FFTrees} for information
-#' on the \strong{FFTrees} package.
+#' on the R package \strong{FFTrees}.
 #'
 #' @return A \bold{riskyr} scenario (as \code{riskyr} object).
 #'
