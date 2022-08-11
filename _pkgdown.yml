@@ -118,16 +118,23 @@ reference:
   - starts_with("comp_")
   - starts_with("read_")
   - starts_with("write_")
-- title: Extensions
-  desc: Extensions and links to other packages.
+- title: Datasets
+  desc: Data used in examples and illustrations.
   contents:
-  - FFTrees_riskyr
-  - starts_with("mlm_")
+  - df_scenarios
+  - starts_with("BRCA")
+  - starts_with("t_")
 - title: Validation and formatting
   desc: Verifying and displaying representational formats.
   contents:
   - starts_with("is_")
   - starts_with("as_")
+- title: Extensions
+  desc: Extensions and links to other packages.
+  contents:
+  - FFTrees_riskyr
+  - starts_with("mlm_")
+
 
 
 
