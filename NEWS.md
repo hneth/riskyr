@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9027
+# riskyr 0.3.0.9030
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -29,7 +29,7 @@ Log of changes since last release:
 
 <!-- FFTrees: -->
 
-- Add `fft_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects. 
+- Add `FFTrees_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects. 
 
 
 <!-- Sampling from prob: -->     
@@ -303,10 +303,10 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
   doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
-<!-- Update: -->
+<!-- footer: -->
 
 ---------- 
 
-(`NEWS.md` updated on 2022-08-09 by [hn](https://neth.de).) 
+[`NEWS.md` updated on 2022-08-10 by [hn](https://neth.de).] 
 
 <!-- eof -->
