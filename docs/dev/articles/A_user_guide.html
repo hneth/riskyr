@@ -302,9 +302,9 @@ How many of these women do you expect to actually have breast cancer?</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://riskyr.org/" class="external-link">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span></span>
 <span><span class="co">#&gt; Welcome to riskyr (v0.3.0.9030)!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  hi fa</span></span>
-<span><span class="co">#&gt;    +</span></span>
-<span><span class="co">#&gt;  mi cr</span></span>
+<span><span class="co">#&gt;  TP FP</span></span>
+<span><span class="co">#&gt;    x</span></span>
+<span><span class="co">#&gt;  FN TN</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; riskyr.guide() opens user guides.</span></span>
 <span></span>
@@ -489,7 +489,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <span><span class="co">#&gt; 0.90296</span></span></code></pre></div>
 <p>The fastest way to get an overview over a scenario <code>s</code> is by plotting it:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></span></code></pre></div>
 <p><img src="A_user_guide_files/figure-html/riskyr-scenario-plot-1.png" width="576"></p>
 <p>The default plot used by <strong>riskyr</strong> when not specifying a desired plot type is a so-called <em>prism</em> plot (aka. double tree). However, there are many other types of plots and customization options available. In the following, we explain different visualizations by introducing their corresponding plotting functions. For the impatient: The <a href="E_riskyr_primer.html">Quick start primer</a> explains how to directly plot different visualizations of a given scenario.</p>
 </div>
