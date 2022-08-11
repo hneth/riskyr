@@ -1,5 +1,5 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2021 03 26
+## spds, uni.kn | 2022 08 11
 ## -----------------------------------------------
 
 ## site info: ----------
@@ -69,7 +69,7 @@ navbar:
 
 reference:
 - title: Initialization
-  desc: Creating riskyr scenarios and corresponding collections of parameters.
+  desc: Creating riskyr scenarios and corresponding parameter collections.
   contents:
   - matches("riskyr")
   - matches("scenarios")
@@ -118,11 +118,17 @@ reference:
   - starts_with("comp_")
   - starts_with("read_")
   - starts_with("write_")
+- title: Extensions
+  desc: Extensions and links to other packages.
+  contents:
+  - FFTrees_riskyr
+  - starts_with("mlm_")
 - title: Validation and formatting
   desc: Verifying and displaying representational formats.
   contents:
   - starts_with("is_")
   - starts_with("as_")
+
 
 
 ## figure settings: ----------
