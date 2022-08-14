@@ -2,16 +2,16 @@
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
 <!-- Used status badges: -->
 
-[![CRAN\_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
+[![CRAN\_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
 [![Build\_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/)
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr)
+[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr)
 
 <!-- Possible status badges: 
 
-[![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
-[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr/) 
+[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Rdoc](https://www.rdocumentation.org/badges/version/riskyr)](https://www.rdocumentation.org/packages/riskyr/) 
 
 -->
 <!-- riskyr logo: -->
@@ -746,7 +746,7 @@ information.
     Library. doi:
     [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394)
     ([Available
-    online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
+    online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
 -   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
     (2021). Perspectives on the 2x2 matrix: Solving semantically

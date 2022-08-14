@@ -5,17 +5,17 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
 
 <!-- Used status badges: -->
-[![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
 
 
 <!-- Possible status badges: 
 
-[![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
-[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr/) 
+[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Rdoc](https://www.rdocumentation.org/badges/version/riskyr)](https://www.rdocumentation.org/packages/riskyr/) 
 
 -->
 
@@ -496,9 +496,9 @@ If so, call `riskyr.guide()` for viewing the package vignettes and obtaining add
 The current version (0.3.0, as of Mar. 23, 2021) is under active development. 
 Its primary designers are 
 [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
-[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), 
-[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and 
-[Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/wolfgang-gaissmaier), who are researchers at the department of 
+[Felix Gaisbauer](https://www.spds.uni-konstanz.de/people), 
+[Nico Gradwohl](https://www.spds.uni-konstanz.de/people), and 
+[Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/people), who are researchers at the department of 
 [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de/) at the 
 [University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
@@ -601,7 +601,7 @@ _Annual Review of Psychology_, _62_, 451–482.
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
 _Psychological Science in the Public Interest_, _8_, 53–96. 
-([Available online](https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x))
+([Available online](https://doi.org/10.1111/j.1539-6053.2008.00033.x))
 
 - Gigerenzer, G., & Hoffrage, U. (1995). 
 How to improve Bayesian reasoning without instruction: Frequency formats. 
@@ -642,7 +642,7 @@ Heuristics: Tools for an uncertain world.
 In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
 New York, NY: Wiley Online Library. 
 doi: [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394) 
-([Available online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))  
+([Available online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))  
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 
