@@ -1,7 +1,7 @@
 
 # riskyr 0.4.0
 
-**riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August\ 14, 2022. 
+**riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August\ 15, 2022. 
 
 Changes since last release:  
 
@@ -298,6 +298,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2022-08-14 by [hn](https://neth.de).] 
+[`NEWS.md` updated on 2022-08-15 by [hn](https://neth.de).] 
 
 <!-- eof -->
