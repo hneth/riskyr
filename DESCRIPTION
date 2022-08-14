@@ -49,7 +49,6 @@ Collate: 'comp_util.R'
          'read_data.R'
          'riskyr_class.R'
          'riskyr_sims.R'
-         'comp_mlm.R'
          'FFTrees_riskyr.R'         
          'start_riskyr.R'
 Encoding: UTF-8
