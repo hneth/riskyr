@@ -101,17 +101,21 @@ personal needs and goals.
 
 The current release of **riskyr** is available from
 [CRAN](https://CRAN.R-project.org/) at
-<a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>:
+<https://CRAN.R-project.org/package=riskyr>:
 
-    install.packages('riskyr')  # install riskyr from CRAN client
-    library('riskyr')           # load to use the package
+``` r
+install.packages('riskyr')  # install riskyr from CRAN client
+library('riskyr')           # load to use the package
+```
 
 The current development version can be installed from its
 [GitHub](https://github.com) repository at
-<a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>:
+<https://github.com/hneth/riskyr/>:
 
-    # install.packages('devtools')
-    devtools::install_github('hneth/riskyr')
+``` r
+# install.packages('devtools')
+devtools::install_github('hneth/riskyr')
+```
 
 ### Available resources
 
@@ -120,10 +124,9 @@ The current development version can be installed from its
 
 -   The **package documentation** is available online:
 
-    -   current release version:
-        <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a>
+    -   current release version: <https://hneth.github.io/riskyr/>
     -   current development version:
-        <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a>
+        <https://hneth.github.io/riskyr/dev/>
 
 ## Quick start guide
 
@@ -205,7 +208,9 @@ questions as:
 
 Here is how **riskyr** allows you to view and solve such problems:
 
-    library(riskyr)  # loads the package
+``` r
+library(riskyr)  # loads the package
+```
 
 #### Creating a scenario from probabilities
 
@@ -213,13 +218,15 @@ We define a new **riskyr** scenario (called `hustosis`) by using the
 `riskyr()` function and entering the information provided by our problem
 as its arguments:
 
-    hustosis <- riskyr(scen_lbl = "Example", 
-                       cond_lbl = "Hustosis",
-                       dec_lbl = "Screening",
-                       popu_lbl = "Sample", 
-                       N = 1000,  # population size
-                       prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
-                       )
+``` r
+hustosis <- riskyr(scen_lbl = "Example", 
+                   cond_lbl = "Hustosis",
+                   dec_lbl = "Screening",
+                   popu_lbl = "Sample", 
+                   N = 1000,  # population size
+                   prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
+                   )
+```
 
 By providing the argument `N = 1000` we define the scenario for a target
 population of 1000 people. If we leave this parameter unspecified (or
@@ -231,7 +238,9 @@ of `N`.
 To obtain a quick overview of key parameter values, we ask for the
 `summary` of `hustosis`:
 
-    summary(hustosis)  # summarizes key parameter values: 
+``` r
+summary(hustosis)  # summarizes key parameter values: 
+```
 
 The summary distinguishes between probabilities, frequencies, and
 accuracy information. In `Probabilities` we find the answer to both of
@@ -258,19 +267,23 @@ probabilities (`prev`, `sens`, and `spec`), we could define the same
 scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and
 `cr`) as follows:
 
-    hustosis_2 <- riskyr(scen_lbl = "Example", 
-                         cond_lbl = "Hustosis",
-                         dec_lbl = "Screening",
-                         popu_lbl = "Sample", 
-                         hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
-                         )
+``` r
+hustosis_2 <- riskyr(scen_lbl = "Example", 
+                     cond_lbl = "Hustosis",
+                     dec_lbl = "Screening",
+                     popu_lbl = "Sample", 
+                     hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
+                     )
+```
 
 As we took the values of these frequencies from the `summary` of
 `hustosis`, the `hustosis_2` scenario should contain exactly the same
 information as `hustosis`:
 
-    all.equal(hustosis, hustosis_2)  # do both contain the same information? 
-    #> [1] TRUE
+``` r
+all.equal(hustosis, hustosis_2)  # do both contain the same information? 
+#> [1] TRUE
+```
 
 ### Visualizations
 
@@ -283,10 +296,12 @@ The default type of plot used in **riskyr** is a *prism plot* (or
 network diagram) that shows key frequencies of a scenario as nodes and
 key probabilities as edges linking the nodes:
 
-    plot(hustosis)  # default plot
+``` r
+plot(hustosis)  # default plot
 
-    # => internally calls plot_prism(...) with many additional arguments:
-    # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
+# => internally calls plot_prism(...) with many additional arguments:
+# plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
+```
 
 ![Prism plot](inst/pix/README-ex1-prism-1.png)
 
@@ -304,7 +319,9 @@ obtained by plotting a scenario with 1 of 3 perspectives:
 
 For instance, the following command plots a frequency tree by decisions:
 
-    plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
+``` r
+plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
+```
 
 ![Tree diagram](inst/pix/README-ex1-tree-1.png)
 
@@ -339,8 +356,10 @@ not suggest an order or dependency (in contrast to trees or mosaic
 plots). Additionally, the frequency net allows showing 3 kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
-    plot(hustosis, type = "fnet", by = "cddc",
-         f_lbl = "namnum")  # plot frequency net
+``` r
+plot(hustosis, type = "fnet", by = "cddc",
+     f_lbl = "namnum")  # plot frequency net
+```
 
 ![Frequency net](inst/pix/README-ex1-fnet-1.png)
 
@@ -351,7 +370,9 @@ See the `plot_fnet()` function for options and details.
 An icon array shows the classification result for each of `N = 1000`
 individuals in our population:
 
-    plot(hustosis, type = "icons")   # plot an icon array 
+``` r
+plot(hustosis, type = "icons")   # plot an icon array 
+```
 
 ![Icon array](inst/pix/README-ex1-icons-1.png)
 
@@ -368,7 +389,9 @@ results as the relationship between areas. Here, the entire population
 is represented as a square and the probability of its subgroups as the
 size of rectangles (see `?plot_area` for details and examples):
 
-    plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
+``` r
+plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
+```
 
 ![Area/mosaic plot](inst/pix/README-ex1-area-1.png)
 
@@ -379,7 +402,9 @@ probabilities, we can plot basic scenario information as a 2-by-2
 confusion (or contingency) table (see `?plot_tab` for details and
 examples):
 
-    plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
+``` r
+plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
+```
 
 ![Table plot](inst/pix/README-ex1-tab-1.png)
 
@@ -388,7 +413,9 @@ examples):
 A *bar plot* allows comparing relative frequencies as the heights of
 bars (see `?plot_bar` for details and examples):
 
-    plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
+``` r
+plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
+```
 
 ![Bar plot](inst/pix/README-ex1-bar-1.png)
 
@@ -399,7 +426,9 @@ probabilities (e.g., the predictive values `PPV` and `NPV`) change as a
 function of another (e.g., the condition’s prevalence `prev`, see
 `?plot_curve` for details and examples):
 
-    plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
+``` r
+plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
+```
 
 ![Probability curves](inst/pix/README-ex1-curve-1.png)
 
@@ -411,7 +440,9 @@ can plot this as a plane in a 3D cube. The following graph plots the
 of our test for a given prevalence (`prev`, see `?plot_plane` for
 details and examples):
 
-    plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
+``` r
+plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
+```
 
 ![Probability plane](inst/pix/README-ex1-plane-1.png)
 
@@ -463,7 +494,9 @@ topic (Arkes & Gaissmaier, 2012). To select a particular scenario,
 simply assign it to an R object. For instance, we can assign Scenario 10
 to `s10`:
 
-    s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
+``` r
+s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
+```
 
 #### Scenario summary
 
@@ -471,18 +504,20 @@ Our selected scenario object `s10` is a list with 30 elements, which
 describe it in both text and numeric variables. The following commands
 provide an overview of `s10` in text form:
 
-    s10$scen_lbl   # a descriptive label
-    #> [1] "PSA test (patients)"
-    s10$cond_lbl   # the current condition
-    #> [1] "Prostate cancer"
-    s10$dec_lbl    # the current decision
-    #> [1] "PSA-Test"
-    s10$popu_lbl   # the current population
-    #> [1] "Male patients with symptoms"
-    s10$scen_apa   # scenario source (APA) 
-    #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
+``` r
+s10$scen_lbl   # a descriptive label
+#> [1] "PSA test (patients)"
+s10$cond_lbl   # the current condition
+#> [1] "Prostate cancer"
+s10$dec_lbl    # the current decision
+#> [1] "PSA-Test"
+s10$popu_lbl   # the current population
+#> [1] "Male patients with symptoms"
+s10$scen_apa   # scenario source (APA) 
+#> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-    # summary(s10) # summarises a scenario
+# summary(s10) # summarises a scenario
+```
 
 Generating some **riskyr** plots allows a quick visual exploration of
 the scenario. We only illustrate some selected plots and options here,
@@ -495,8 +530,10 @@ perspective, but provides a quick overview. In the following plot, the
 boxes are depicted as squares with area sizes that are scaled by
 relative frequencies (using the `area = "sq"` argument):
 
-    plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
-         f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
+``` r
+plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
+     f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
+```
 
 ![Prism/tree plot (with scaled squares)](inst/pix/README-ex2-tree-1.png)
 
@@ -509,8 +546,10 @@ argument). In addition, the frequencies are represented as horizontal
 rectangles (`area = "hr"`) so that their relative width reflect the
 number of people in the corresponding subgroup:
 
-    plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
-         p_lbl = "num")                                  # numeric probability labels
+``` r
+plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
+     p_lbl = "num")                                  # numeric probability labels
+```
 
 ![Prism plot (with scaled horizontal
 rectangles)](inst/pix/README-ex2-prism-hr-1.png)
@@ -524,28 +563,36 @@ and size of the frequency boxes can be adjusted by using the
 condition and accuracy (`by = "cdac"`) without the joint probabilities,
 with custom settings for labels, links, and colors:
 
-    plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
-         area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
-         f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
+``` r
+plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
+     area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
+     f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
+```
 
 ![Frequency net (with custom perspective and
 options)](inst/pix/README-ex2-fnet-1.png)
 
 #### Icon array
 
-    plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
+``` r
+plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
+```
 
 <!-- ![](inst/pix/README-ex2-icons-1.png) -->
 
 #### Area plot
 
-    plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
+``` r
+plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
+```
 
 <!-- ![](inst/pix/README-ex2-area-1.png) -->
 
 #### Table plot
 
-    plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+``` r
+plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+```
 
 <!-- ![](inst/pix/README-ex2-tab-1.png) -->
 
@@ -554,7 +601,9 @@ options)](inst/pix/README-ex2-fnet-1.png)
 The following curves show the values of several conditional
 probabilities as a function of prevalence:
 
-    plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
+``` r
+plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
+```
 
 <!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) -->
 
@@ -568,7 +617,9 @@ shape without seeing this graph?
 The following surface shows the negative predictive value (NPV) as a
 function of sensitivity and specificity (for a given prevalence):
 
-    plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+``` r
+plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+```
 
 <!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) -->
 
@@ -618,25 +669,24 @@ following article:
 
 The following resources and versions are currently available:
 
-| Type:                            | Version:                                                     | URL:                                                                                                          |
-|:---------------------------------|:-------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a> |
-|                                  | [Development version](https://github.com/hneth/riskyr/)      | <a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>                   |
-| B. **riskyrApp** (R Shiny code): | [Online version](https://riskyr.org/)                        | <https://riskyr.org/>                                                                                         |
-|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <a href="https://github.com/hneth/riskyrApp/" class="uri">https://github.com/hneth/riskyrApp/</a>             |
-| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a>                     |
-|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a>             |
+| Type:                            | Version:                                                     | URL:                                        |
+|:---------------------------------|:-------------------------------------------------------------|:--------------------------------------------|
+| A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
+|                                  | [Development version](https://github.com/hneth/riskyr/)      | <https://github.com/hneth/riskyr/>          |
+| B. **riskyrApp** (R Shiny code): | [Online version](https://riskyr.org/)                        | <https://riskyr.org/>                       |
+|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <https://github.com/hneth/riskyrApp/>       |
+| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <https://hneth.github.io/riskyr/>           |
+|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <https://hneth.github.io/riskyr/dev/>       |
 
 ### Contact
 
 We appreciate your feedback, comments, or questions.
 
 -   Please report any **riskyr**-related issues at
-    <a href="https://github.com/hneth/riskyr/issues/" class="uri">https://github.com/hneth/riskyr/issues/</a>.
+    <https://github.com/hneth/riskyr/issues/>.
 
--   Contact us at
-    <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a>
-    with any comments, questions, or suggestions.
+-   Contact us at <contact.riskyr@gmail.com> with any comments,
+    questions, or suggestions.
 
 ### Reference
 
@@ -656,8 +706,7 @@ To cite **riskyr** in derivations and publications, please use:
     Social Psychology and Decision Sciences, University of Konstanz,
     Germany.  
     Computer software (R package version 0.4.0, Aug. 15, 2022).  
-    Retrieved from
-    <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.
+    Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
 
