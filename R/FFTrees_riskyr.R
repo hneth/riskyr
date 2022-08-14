@@ -1,5 +1,5 @@
 ## FFTRees_riskyr.R | riskyr
-## 2022 08 11
+## 2022 08 14
 ## A conversion function / API from FFTrees to riskyr objects
 ## -----------------------------------------------
 
@@ -52,7 +52,7 @@ FFTrees_riskyr <- function(x, data = "train", tree = 1){
   # Verify inputs:
 
   # x:
-  if (class(x) != "FFTrees"){
+  if (inherits(x, "FFTrees") == FALSE){
     stop("Argument x is no FFTrees object")
   }
 
@@ -195,21 +195,22 @@ FFTrees_riskyr <- function(x, data = "train", tree = 1){
 #
 # plot(FFT)
 #
+# # Convert/translate from FFTrees to riskyr: ------
 # FFTrees_riskyr(FFT)
 # FFTrees_riskyr(FFT, data = "train", tree = 3)
 # FFTrees_riskyr(FFT_t, data = "test", tree = 3)
 
 
 ## Explore functionality (for all plot types): ------
-#
+
 # library(magrittr)  # for pipe
 #
-# FFTrees_riskyr(FFT_t, data = "test") %>% plot(rst, f_lbl = "namnum", area = "no")
+# FFTrees_riskyr(FFT_t, data = "test") %>% plot(f_lbl = "namnum", area = "no")
 #
 # rs_train <- FFTrees_riskyr(FFT_t, data = "train")
 # rs_test  <- FFTrees_riskyr(FFT_t, data = "test")
 #
-# rs_train %>% plot(type = "table", f_lbl = "namnum", area = "no", col_pal = pal_bw,
+# rs_train %>% plot(type = "table", f_lbl = "namnum", area = "no", col_pal = pal_bwp,
 #                   main = "Fitting the Titanic data", sub = "Performance on training data")
 #
 # rs_test %>% plot(type = "area", by = "cddc", p_split = "h", f_lbl = "namnum", p_lbl = TRUE, col_pal = pal_rgb,
@@ -220,8 +221,6 @@ FFTrees_riskyr <- function(x, data = "train", tree = 1){
 # rs_test %>% plot(type = "bars", by = "all", dir = 2, f_lbl = "nam")
 # rs_test %>% plot(type = "curve", what = c("ppv", "npv"), sub = "Showing values by base rate")
 # rs_test %>% plot(type = "plane", what = "npv", sub = "type")
-#
-# +++ here now +++
 
 
 ## (+) ToDo: --------
