@@ -270,7 +270,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 ---------- 
 
-## References 
+## References {-}
 
 To cite **riskyr** in derivations and publications please use:
 
