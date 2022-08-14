@@ -1,9 +1,9 @@
 
-# riskyr 0.3.0.9032
+# riskyr 0.4.0
 
-The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+**riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August\ 14, 2022. 
 
-Log of changes since last release:
+Changes since last release:  
 
 ## Major changes
 
@@ -65,8 +65,13 @@ Log of changes since last release:
 
 - Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03]. 
 
+<!-- Development version: --> 
+
+The current development version (0.4.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+
 
 <!-- Previous version: --> 
+
 
 ---------- 
 
@@ -74,7 +79,7 @@ Log of changes since last release:
 
 **riskyr 0.3.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on March\ 23, 2021. 
 
-Log of changes since last release:
+Changes since last release:
 
 
 ## Major changes
@@ -152,7 +157,7 @@ Enforced 2 different symbol types for icon arrays with a binary perspective (`by
 
 **riskyr 0.2.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on January 03, 2019.
 
-Log of changes since last release:
+Changes since last release:  
 
 ## Major changes
 
