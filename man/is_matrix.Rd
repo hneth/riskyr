@@ -37,7 +37,7 @@ Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021).
 Perspectives on the 2×2 matrix: Solving semantically distinct problems
 based on a shared structure of binary contingencies.
 \emph{Frontiers in Psychology}, \emph{11}, 567817.
-doi: \url{https://doi.org/10.3389/fpsyg.2020.567817}
+doi: \doi{10.3389/fpsyg.2020.567817}
 }
 \seealso{
 Other verification functions: 
