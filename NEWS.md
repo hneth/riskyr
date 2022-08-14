@@ -1,5 +1,5 @@
 
-# riskyr 0.3.0.9030
+# riskyr 0.3.0.9032
 
 The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
@@ -7,34 +7,9 @@ Log of changes since last release:
 
 ## Major changes
 
-<!-- Cumulative risks (plot_crisk): -->  
-
-- Add a function for plotting cumulative risk curves [2021-12-10]:
-
-    - `plot_crisk()` plots curves and auxiliary information for visualizing cumulative risks and risk increments; 
-    
-    - `pal_crisk` provides a corresponding color palette (as a named vector).  
-
-
-<!-- MLM: -->      
-
-- Add matrix lens model functions [2021-06-08]: 
-
-    - `mlm_frame()` allows creating a 2x2 matrix (as a numeric contingency table); 
-    
-    - `mlm_trans()` converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities;  
-    
-    - `mlm_focus()` computes various scientific measures (by adopting perspectives on a 2x2 matrix).  
-
-
-<!-- FFTrees: -->
-
-- Add `FFTrees_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects. 
-
-
 <!-- Sampling from prob: -->     
 
-- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given population size\ `N` and 3\ essential probabilities) [2021-03-25]: 
+- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given\ `N` and 3\ essential probabilities) [2021-03]: 
 
     - add a `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
@@ -44,20 +19,32 @@ Log of changes since last release:
 
 <!-- Conversion data vs. description: --> 
 
-- Allow conversion/translations between data and descriptions [2021-03-26]:
+- Allow conversions/translations between data and descriptions [2021-03]:
 
     - `write_popu()` creates population data from a description (a riskyr scenario); 
     
     - `read_popu()` creates a description (a riskyr scenario) from population data. 
 
 
+<!-- Cumulative risks (plot_crisk): -->  
+
+- Add a function for plotting cumulative risk curves [2021-12]:
+
+    - `plot_crisk()` plots curves and auxiliary information for visualizing cumulative risks and risk increments; 
+    
+    - `pal_crisk` provides a corresponding color palette (as a named vector).  
+
+
+<!-- FFTrees: -->
+
+- Add `FFTrees_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects [2022-08]. 
+
+
 <!-- Minor: --> 
 
 ## Minor changes
 
-- Add `main` and `sub` arguments to all plots (and deprecate the previous `title_lbl` argument). 
-
-- Rename MLM functions `frame()`, `focus()` and `trans()` to `mlm_frame()`, `mlm_focus()` and `mlm_trans()` to avoid naming conflicts. 
+- Add `main` and `sub` arguments to all plots (and deprecate the previous `title_lbl` argument) [2022-08]. 
 
 - Add `is_matrix()` to verify a 2x2 matrix (as a 2x2 numeric contingency table). 
 
@@ -66,21 +53,20 @@ Log of changes since last release:
 
 <!-- Micro/details: --> 
 
-
 ## Micro changes 
 
-- Fix bug in `plot_bar()` that caused incorrect bar labels.
+- Fix bug in `plot_bar()` that caused incorrect bar labels [2022-08].
 
-- Update URLs in `README.md` and all vignettes to <https://riskyr.org/" [2021-03-31]. 
+- Update URLs in `README.md` and all vignettes to <https://riskyr.org/> [2021-03]. 
 
-- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27]. 
+- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03]. 
 
-- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03-26]. 
+- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03]. 
 
-- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03-26]. 
+- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03]. 
 
 
-<!-- Add blank line. --> 
+<!-- Previous version: --> 
 
 ---------- 
 
