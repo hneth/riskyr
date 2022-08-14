@@ -1,5 +1,5 @@
 ## comp_mlm.R (based on comp_metrics.R) | riskyr
-## 2022 07 31
+## 2022 08 14
 ## -------------------------------------------
 
 # See new R package MLM.
@@ -647,6 +647,7 @@ diaSums <- function(mx){
 ## Check:
 # diaSums(1:4)
 # diaSums(mlm_frame(c(1, 3, 5, 9), x = "X", y = "Y"))
+
 
 
 # mlm_trans: Transform a 2x2 matrix (into a table of probabilities/conditional probabilities): ------
@@ -1301,7 +1302,9 @@ mlm_focus <- function(mx,
 
 } # mlm_focus().
 
+
 # +++ here now +++
+
 
 ## Check:
 # # 1. The mammography problem:
@@ -1452,7 +1455,9 @@ mx_data <- function(m = mx){
 # plot_tbt(mx_12)
 # plot_tbt(m = c(0, 0, 0, 100))
 
+
 # (1) Frequencies: ------
+
 
 # get_a: -----
 
@@ -1464,7 +1469,7 @@ get_a <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_a().
 
 
 # get_b: -----
@@ -1477,7 +1482,7 @@ get_b <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_b().
 
 
 # get_c: -----
@@ -1490,7 +1495,7 @@ get_c <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_c().
 
 
 # get_d: -----
@@ -1503,7 +1508,8 @@ get_d <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_d().
+
 
 
 # get_N: -----
@@ -1516,7 +1522,7 @@ get_N <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_N().
 
 
 
@@ -1532,7 +1538,7 @@ get_prev <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_prev().
 
 
 # get_bias: -----
@@ -1545,7 +1551,8 @@ get_bias <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_bias().
+
 
 
 # get_ACC: -----
@@ -1558,7 +1565,8 @@ get_ACC <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_ACC().
+
 
 
 # (3) Conditional Probabilities: ------
@@ -1575,7 +1583,8 @@ get_sens <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_sens().
+
 
 
 # get_TPR: -----
@@ -1588,7 +1597,8 @@ get_TPR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_TPR().
+
 
 
 # get_FPR: -----
@@ -1601,7 +1611,8 @@ get_FPR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_FPR().
+
 
 
 # get_FNR: -----
@@ -1614,7 +1625,8 @@ get_FNR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_FNR().
+
 
 
 # get_spec: -----
@@ -1627,7 +1639,8 @@ get_spec <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_spec().
+
 
 
 # get_TNR: -----
@@ -1640,9 +1653,11 @@ get_TNR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_TNR().
+
 
 # (3b) normalized by row:
+
 
 # get_PPV: -----
 
@@ -1654,7 +1669,7 @@ get_PPV <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_PPV().
 
 
 # get_FDR: -----
@@ -1667,7 +1682,7 @@ get_FDR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_FDR().
 
 
 # get_FOR: -----
@@ -1680,7 +1695,7 @@ get_FOR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_FOR().
 
 
 # get_NPV: -----
@@ -1693,7 +1708,7 @@ get_NPV <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_NPV().
 
 
 
@@ -1714,7 +1729,8 @@ get_LRp <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_LRp().
+
 
 
 # get_LRn: -----
@@ -1732,7 +1748,7 @@ get_LRn <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_LRn().
 
 
 # get_DOR: -----
@@ -1770,7 +1786,7 @@ get_DOR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
     message(paste0("get_DOR: out = ", out, " differs from some alt = ", alt))
   }
 
-}
+} # get_DOR().
 
 
 
@@ -1789,7 +1805,7 @@ get_dPr <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_dPr().
 
 
 # get_dPc: Column contingency -----
@@ -1802,7 +1818,7 @@ get_dPc <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   return(out)
 
-}
+} # get_dPc().
 
 
 # get_chi2: -----
@@ -1829,7 +1845,7 @@ get_chi2 <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
     message(paste0("get_chi2: out = ", out, " differs from alt = ", alt))
   }
 
-}
+} # get_chi2().
 
 
 
@@ -1857,7 +1873,7 @@ get_MCC <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
     message(paste0("get_MCC: out = ", out, " differs from alt = ", alt))
   }
 
-}
+} # get_MCC().
 
 
 # get_F1s: -----
@@ -1875,7 +1891,7 @@ get_F1s <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4], beta = 1){
 
   return(out)
 
-}
+} # get_F1s().
 
 
 # (6) Risk measures: ------
@@ -1890,7 +1906,9 @@ get_ARp <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   get_sens(a, b, c, d)
 
-}
+} # get_ARp().
+
+
 
 # AR-: Same as FPR -----
 
@@ -1898,7 +1916,9 @@ get_ARm <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   get_FPR(a, b, c, d)
 
-}
+} # get_ARm().
+
+
 
 # ARR (absolute risk reduction/increase): Same as Column Contingency (delta Pc) -----
 
@@ -1906,7 +1926,7 @@ get_ARR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
   get_dPc(a, b, c, d)
 
-}
+} # get_ARR().
 
 
 # RR:  Relative risk
