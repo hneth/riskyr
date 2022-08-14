@@ -506,17 +506,11 @@ provide an overview of `s10` in text form:
 
 ``` r
 s10$scen_lbl   # a descriptive label
-#> [1] "PSA test (patients)"
 s10$cond_lbl   # the current condition
-#> [1] "Prostate cancer"
 s10$dec_lbl    # the current decision
-#> [1] "PSA-Test"
 s10$popu_lbl   # the current population
-#> [1] "Male patients with symptoms"
-s10$scen_apa   # scenario source (APA) 
-#> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-# summary(s10) # summarises a scenario
+# summary(s10) # summarizes a scenario
 ```
 
 Generating some **riskyr** plots allows a quick visual exploration of

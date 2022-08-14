@@ -386,17 +386,17 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 
 Our selected scenario object `s10` is a list with `r length(s10)` elements, which describe it in both text and numeric variables. The following commands provide an overview of `s10` in text form:
 
-```{r ex2-basic-info, eval = TRUE}
+```{r ex2-basic-info, eval = FALSE}
 s10$scen_lbl   # a descriptive label
 s10$cond_lbl   # the current condition
 s10$dec_lbl    # the current decision
 s10$popu_lbl   # the current population
-s10$scen_apa   # scenario source (APA) 
 
-# summary(s10) # summarises a scenario
+# summary(s10) # summarizes a scenario
 ```
 
-Generating some **riskyr** plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
+Generating some **riskyr** plots allows a quick visual exploration of the scenario. 
+We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
 
 #### Prism plots
 
