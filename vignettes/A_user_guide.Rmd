@@ -543,7 +543,7 @@ New York, NY: Penguin.
 - Gigerenzer, G., & Gaissmaier, W. (2011). 
 Heuristic decision making. 
 _Annual Review of Psychology_, _62_, 451--482. 
-([Available online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)) 
+([Available online](https://doi.org/10.1146/annurev-psych-120709-145346)) 
 
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 

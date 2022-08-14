@@ -591,10 +591,10 @@ literacy.
 The current version (0.3.0, as of Mar. 23, 2021) is under active
 development. Its primary designers are [Hansjörg
 Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix
-Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico
-Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang
-Gaissmaier](https://www.spds.uni-konstanz.de/wolfgang-gaissmaier), who
-are researchers at the department of [Social Psychology and Decision
+Gaisbauer](https://www.spds.uni-konstanz.de/people), [Nico
+Gradwohl](https://www.spds.uni-konstanz.de/people), and [Wolfgang
+Gaissmaier](https://www.spds.uni-konstanz.de/people), who are
+researchers at the department of [Social Psychology and Decision
 Sciences](https://www.spds.uni-konstanz.de/) at the [University of
 Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
@@ -698,13 +698,13 @@ information.
 
 -   Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
     *Annual Review of Psychology*, *62*, 451–482. ([Available
-    online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346))
+    online](https://doi.org/10.1146/annurev-psych-120709-145346))
 
 -   Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
     Woloshin, S. (2007). Helping doctors and patients make sense of
     health statistics. *Psychological Science in the Public Interest*,
     *8*, 53–96. ([Available
-    online](https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x))
+    online](https://doi.org/10.1111/j.1539-6053.2008.00033.x))
 
 -   Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian
     reasoning without instruction: Frequency formats. *Psychological
