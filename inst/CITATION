@@ -6,16 +6,16 @@ citEntry(entry = "Manual",
                                    as.person("Felix Gaisbauer"),
                                    as.person("Nico Gradwohl"),
                                    as.person("Wolfgang Gaissmaier")),
-         year         = "2021",
+         year         = "2022",
          organization = "Social Psychology and Decision Sciences, University of Konstanz",
          address      = "Konstanz, Germany",
-         note         = "R package (version 0.3.0, Mar. 23, 2021)",
+         note         = "R package (version 0.4.0, Aug. 15, 2022)",
          url          = "https://CRAN.R-project.org/package=riskyr",
 
          textVersion  =
-           paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).",
+           paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022).",
                  "riskyr: Rendering Risk Literacy more Transparent.",
                  "Social Psychology and Decision Sciences, University of Konstanz, Germany.",
-                 "Computer software (R package version 0.3.0, Mar. 23, 2021).",
+                 "Computer software (R package version 0.4.0, Aug. 15, 2022).",
                  "Retrieved from <https://CRAN.R-project.org/package=riskyr>.")
          )

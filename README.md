@@ -588,7 +588,7 @@ vignettes and obtaining additional information.
 
 **riskyr** originated out of a series of lectures and workshops on risk
 literacy.  
-The current version (0.3.0, as of Mar. 23, 2021) is under active
+The current version (0.4.0, as of Aug. 15, 2022) is under active
 development. Its primary designers are [Hansjörg
 Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix
 Gaisbauer](https://www.spds.uni-konstanz.de/people), [Nico
@@ -651,11 +651,11 @@ We appreciate your feedback, comments, or questions.
 
 To cite **riskyr** in derivations and publications, please use:
 
--   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).  
+-   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022).  
     riskyr: Rendering Risk Literacy more Transparent.  
     Social Psychology and Decision Sciences, University of Konstanz,
     Germany.  
-    Computer software (R package version 0.3.0, Mar. 23, 2021).  
+    Computer software (R package version 0.4.0, Aug. 15, 2022).  
     Retrieved from
     <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.
 
@@ -664,10 +664,10 @@ A BibTeX entry for LaTeX users is:
     @Manual{riskyr,
       title = {riskyr: Rendering Risk Literacy more Transparent},
       author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-      year = {2021},
+      year = {2022},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.3.0, Mar. 23, 2021)},
+      note = {R package (version 0.4.0, Aug. 15, 2022)},
       url = {https://CRAN.R-project.org/package=riskyr},
       }    
 
