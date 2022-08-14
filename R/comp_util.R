@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2022 08 06
+## 2022 08 14
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1317,10 +1317,12 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #'
 #' @family verification functions
 #'
-#' @seealso
-#' \code{\link{mlm_frame}} creates a 2x2 matrix;
-#' \code{\link{mlm_trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
-#' \code{\link{mlm_focus}} computes measures for a 2x2 matrix.
+#' @references
+#' Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021).
+#' Perspectives on the 2×2 matrix: Solving semantically distinct problems
+#' based on a shared structure of binary contingencies.
+#' \emph{Frontiers in Psychology}, \emph{11}, 567817.
+#' doi: \url{https://doi.org/10.3389/fpsyg.2020.567817}
 #'
 #' @export
 

@@ -32,11 +32,14 @@ is_matrix(as.table(matrix(1:4, nrow = 4, ncol = 1)))
 is_matrix(as.table(matrix(1:4, nrow = 2, ncol = 2)))
 
 }
+\references{
+Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021).
+Perspectives on the 2×2 matrix: Solving semantically distinct problems
+based on a shared structure of binary contingencies.
+\emph{Frontiers in Psychology}, \emph{11}, 567817.
+doi: \url{https://doi.org/10.3389/fpsyg.2020.567817}
+}
 \seealso{
-\code{\link{mlm_frame}} creates a 2x2 matrix;
-\code{\link{mlm_trans}} converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
-\code{\link{mlm_focus}} computes measures for a 2x2 matrix.
-
 Other verification functions: 
 \code{\link{is_complement}()},
 \code{\link{is_extreme_prob_set}()},
