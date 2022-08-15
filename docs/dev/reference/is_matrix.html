@@ -18,7 +18,7 @@ valid 2x2 matrix (i.e., a numeric contingency table)."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9030</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
       </span>
     </div>
 
@@ -112,12 +112,17 @@ otherwise <code>FALSE</code>.</p>
 as it also requires that <code>mx</code> <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric</a></code>,
 <code><a href="https://rdrr.io/r/base/table.html" class="external-link">is.table</a></code>, <code>nrows(mx) == 2</code>, and <code>ncols(mx) == 2</code>.</p>
     </div>
+    <div id="references">
+    <h2>References</h2>
+    <p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021).
+Perspectives on the 2×2 matrix: Solving semantically distinct problems
+based on a shared structure of binary contingencies.
+<em>Frontiers in Psychology</em>, <em>11</em>, 567817.
+doi: doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a></p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="mlm_frame.html">mlm_frame</a></code> creates a 2x2 matrix;
-<code><a href="mlm_trans.html">mlm_trans</a></code> converts a 2x2 matrix (into a table of probabilities/conditional probabilities);
-<code><a href="mlm_focus.html">mlm_focus</a></code> computes measures for a 2x2 matrix.</p>
-<p>Other verification functions: 
+    <div class="dont-index"><p>Other verification functions: 
 <code><a href="is_complement.html">is_complement</a>()</code>,
 <code><a href="is_extreme_prob_set.html">is_extreme_prob_set</a>()</code>,
 <code><a href="is_freq.html">is_freq</a>()</code>,

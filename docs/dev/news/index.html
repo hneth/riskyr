@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9030</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.4.0.9000</span>
       </span>
     </div>
 
@@ -80,49 +80,44 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.3.0.9030" id="riskyr-0309030">riskyr 0.3.0.9030<a class="anchor" aria-label="anchor" href="#riskyr-0309030"></a></h2>
-<p>The current development version (0.3.0.9001+) is available at <a href="https://github.com/hneth/riskyr/" class="external-link uri">https://github.com/hneth/riskyr/</a>.</p>
-<p>Log of changes since last release:</p>
+<h2 class="page-header" data-toc-text="0.4.0" id="riskyr-040">riskyr 0.4.0<a class="anchor" aria-label="anchor" href="#riskyr-040"></a></h2>
+<p><strong>riskyr 0.4.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr" class="external-link">on CRAN</a> on August 15, 2022.</p>
+<p>Changes since last release:</p>
 <div class="section level3">
-<h3 id="major-changes-0-3-0-9030">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-3-0-9030"></a></h3>
-<!-- Cumulative risks (plot_crisk): --><ul><li>
-<p>Add function for plotting cumulative risk curves [2021-12-10]:</p>
+<h3 id="major-changes-0-4-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-4-0"></a></h3>
+<!-- Sampling from prob: --><ul><li>
+<p>Enable <em>sampling</em> when computing <code>freq</code> from <code>prob</code> (i.e., <em>by description</em>, given <code>N</code> and 3 essential probabilities) [2021-03]:</p>
+<ul><li><p>add a <code>sample</code> argument to <code><a href="../reference/comp_freq.html">comp_freq()</a></code>, <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code>, and <code><a href="../reference/riskyr.html">riskyr()</a></code>;</p></li>
+<li><p>add a <code>sample</code> argument to 6 key plots:<br><code><a href="../reference/plot_area.html">plot_area()</a></code>, <code><a href="../reference/plot_bar.html">plot_bar()</a></code>, <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code>, <code><a href="../reference/plot_icons.html">plot_icons()</a></code>, <code><a href="../reference/plot_prism.html">plot_prism()</a></code>, and <code><a href="../reference/plot_tab.html">plot_tab()</a></code>.</p></li>
+</ul></li></ul><!-- Conversion data vs. description: --><ul><li>
+<p>Allow conversions/translations between data and descriptions [2021-03]:</p>
+<ul><li><p><code><a href="../reference/write_popu.html">write_popu()</a></code> creates population data from a description (a <code>riskyr</code> scenario);</p></li>
+<li><p><code><a href="../reference/read_popu.html">read_popu()</a></code> creates a description (a <code>riskyr</code> scenario) from population data.</p></li>
+</ul></li></ul><!-- Cumulative risks (plot_crisk): --><ul><li>
+<p>Add a function for plotting cumulative risk curves [2021-12]:</p>
 <ul><li><p><code><a href="../reference/plot_crisk.html">plot_crisk()</a></code> plots curves and auxiliary information for visualizing cumulative risks and risk increments;</p></li>
 <li><p><code>pal_crisk</code> provides a corresponding color palette (as a named vector).</p></li>
-</ul></li></ul><!-- MLM: --><ul><li>
-<p>Add matrix lens model functions [2021-06-08]:</p>
-<ul><li><p><code><a href="../reference/mlm_frame.html">mlm_frame()</a></code> allows creating a 2x2 matrix (as a numeric contingency table);</p></li>
-<li><p><code><a href="../reference/mlm_trans.html">mlm_trans()</a></code> converts a 2x2 matrix (with frequency counts) into a table of corresponding probabilities/conditional probabilities;</p></li>
-<li><p><code><a href="../reference/mlm_focus.html">mlm_focus()</a></code> computes various scientific measures (by adopting perspectives on a 2x2 matrix).</p></li>
-</ul></li></ul><!-- FFTrees: --><ul><li>Add <code><a href="../reference/FFTrees_riskyr.html">FFTrees_riskyr()</a></code> to convert <code>FFTrees</code> objects into corresponding <code>riskyr</code> objects.</li></ul><!-- Sampling from prob: --><ul><li>
-<p>Enable <em>sampling</em> when computing <code>freq</code> from <code>prob</code> (i.e., <em>by description</em>, given population size <code>N</code> and 3 essential probabilities) [2021-03-25]:</p>
-<ul><li><p>added a <code>sample</code> argument to <code><a href="../reference/comp_freq.html">comp_freq()</a></code>, <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code>, and <code><a href="../reference/riskyr.html">riskyr()</a></code>;</p></li>
-<li><p>added a <code>sample</code> argument to 6 key plots:<br><code><a href="../reference/plot_area.html">plot_area()</a></code>, <code><a href="../reference/plot_bar.html">plot_bar()</a></code>, <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code>, <code><a href="../reference/plot_icons.html">plot_icons()</a></code>, <code><a href="../reference/plot_prism.html">plot_prism()</a></code>, and <code><a href="../reference/plot_tab.html">plot_tab()</a></code>.</p></li>
-</ul></li></ul><!-- Conversion data vs. description: --><ul><li>
-<p>Allow conversion/translations between data and descriptions [2021-03-26]:</p>
-<ul><li><p><code><a href="../reference/write_popu.html">write_popu()</a></code> creates population data from a description (a riskyr scenario);</p></li>
-<li><p><code><a href="../reference/read_popu.html">read_popu()</a></code> creates a description (a riskyr scenario) from population data.</p></li>
-</ul></li></ul><!-- Minor: --></div>
+</ul></li></ul><!-- FFTrees: --><ul><li>Add <code><a href="../reference/FFTrees_riskyr.html">FFTrees_riskyr()</a></code> to convert <code>FFTrees</code> objects into corresponding <code>riskyr</code> objects [2022-08].</li></ul><!-- Minor: --></div>
 <div class="section level3">
-<h3 id="minor-changes-0-3-0-9030">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-3-0-9030"></a></h3>
-<ul><li><p>Add <code>main</code> and <code>sub</code> arguments to all plots (and deprecate previous <code>title_lbl</code>).</p></li>
-<li><p>Rename MLM functions <code><a href="https://rdrr.io/r/graphics/frame.html" class="external-link">frame()</a></code>, <code>focus()</code> and <code>trans()</code> to <code><a href="../reference/mlm_frame.html">mlm_frame()</a></code>, <code><a href="../reference/mlm_focus.html">mlm_focus()</a></code> and <code><a href="../reference/mlm_trans.html">mlm_trans()</a></code> to avoid name conflicts.</p></li>
+<h3 id="minor-changes-0-4-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-4-0"></a></h3>
+<ul><li><p>Add <code>main</code> and <code>sub</code> arguments to all plots (and deprecate the previous <code>title_lbl</code> argument) [2022-08].</p></li>
 <li><p>Add <code><a href="../reference/is_matrix.html">is_matrix()</a></code> to verify a 2x2 matrix (as a 2x2 numeric contingency table).</p></li>
 <li><p>Add <code><a href="../reference/is_integer.html">is_integer()</a></code> to verify integer values.</p></li>
 </ul><!-- Micro/details: --></div>
 <div class="section level3">
-<h3 id="micro-changes-0-3-0-9030">Micro changes<a class="anchor" aria-label="anchor" href="#micro-changes-0-3-0-9030"></a></h3>
-<ul><li><p>Fix bug in <code><a href="../reference/plot_bar.html">plot_bar()</a></code> that caused incorrect bar labels.</p></li>
-<li><p>Update URLs in <code>README.md</code> and all vignettes to &lt;<a href="https://riskyr.org/" class="external-link uri">https://riskyr.org/</a>" [2021-03-31].</p></li>
-<li><p>Increase options and robustness for labeling frequencies and probabilities in plots [2021-03-27].</p></li>
-<li><p>Reduce widths of freq boxes in <code><a href="../reference/plot_prism.html">plot_prism()</a></code> to reduce overlaps [2021-03-26].</p></li>
-<li><p>Rename labels in <code>txt_TF</code> to avoid confusion, as “True condition” (i.e., X) was <code>FALSE</code> (now “absent”) for “True negatives” (<code>TN</code>/<code>cr</code> cases) [2021-03-26].</p></li>
-</ul><!-- Add blank line. --><hr></div>
+<h3 id="micro-changes-0-4-0">Micro changes<a class="anchor" aria-label="anchor" href="#micro-changes-0-4-0"></a></h3>
+<ul><li><p>Fix bug in <code><a href="../reference/plot_bar.html">plot_bar()</a></code> that caused incorrect bar labels [2022-08].</p></li>
+<li><p>Update URLs in <code>README.md</code> and all vignettes to <a href="https://riskyr.org/" class="external-link uri">https://riskyr.org/</a> [2021-03].</p></li>
+<li><p>Increase options and robustness for labeling frequencies and probabilities in plots [2021-03].</p></li>
+<li><p>Reduce widths of freq boxes in <code><a href="../reference/plot_prism.html">plot_prism()</a></code> to reduce overlaps [2021-03].</p></li>
+<li><p>Rename labels in <code>txt_TF</code> to avoid confusion, as “True condition” (i.e., X) was <code>FALSE</code> (now “absent”) for “True negatives” (<code>TN</code>/<code>cr</code> cases) [2021-03].</p></li>
+</ul><!-- Development version: --><p>The current development version (0.4.0.9001+) is available at <a href="https://github.com/hneth/riskyr/" class="external-link uri">https://github.com/hneth/riskyr/</a>.</p>
+<!-- Previous version: --><hr></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="riskyr-030">riskyr 0.3.0<small>2021-03-23</small><a class="anchor" aria-label="anchor" href="#riskyr-030"></a></h2>
 <p><strong>riskyr 0.3.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr" class="external-link">on CRAN</a> on March 23, 2021.</p>
-<p>Log of changes since last release:</p>
+<p>Changes since last release:</p>
 <div class="section level3">
 <h3 id="major-changes-0-3-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-3-0"></a></h3>
 <ul><li>Add <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code> for plotting <em>frequency nets</em> (<a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2020.00750/full" class="external-link">Binder et al., 2020</a>) [2020-12].</li></ul></div>
@@ -177,13 +172,13 @@ Add utility function to verify a range of two probability values (to check new a
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="riskyr-020">riskyr 0.2.0<small>2019-01-03</small><a class="anchor" aria-label="anchor" href="#riskyr-020"></a></h2>
 <p><strong>riskyr 0.2.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr" class="external-link">on CRAN</a> on January 03, 2019.</p>
-<p>Log of changes since last release:</p>
+<p>Changes since last release:</p>
 <div class="section level3">
 <h3 id="major-changes-0-2-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-2-0"></a></h3>
 <div class="section level4">
 <h4 id="additional-resources-0-2-0">Additional resources<a class="anchor" aria-label="anchor" href="#additional-resources-0-2-0"></a></h4>
 <ul><li><p>New <code>riskyrApp</code> version [2018-12]:<br>
-To use selected <code>riskyr</code> functions without the need for coding an updated version of <code>riskyrApp</code> is available at <a href="https://github.com/hneth/riskyrApp/" class="external-link uri">https://github.com/hneth/riskyrApp/</a> (R Shiny code) and at <a href="http://134.34.54.61:3838/spds/riskyr/" class="external-link">http://riskyr.org/</a> (interactive online version).</p></li>
+To use selected <code>riskyr</code> functions without the need for coding an updated version of <code>riskyrApp</code> is available at <a href="https://github.com/hneth/riskyrApp/" class="external-link uri">https://github.com/hneth/riskyrApp/</a> (R Shiny code) and at <a href="https://riskyr.org/" class="external-link">https://riskyr.org/</a> (interactive online version).</p></li>
 <li><p>Using <code>pkgdown</code> [2018-12]:<br>
 Provide package documentation online at <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a> (latest release version) and <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a> (current development version).</p></li>
 </ul></div>
@@ -265,15 +260,13 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="riskyr-010">riskyr 0.1.0<small>2018-02-19</small><a class="anchor" aria-label="anchor" href="#riskyr-010"></a></h2>
 <p><strong>riskyr 0.1.0</strong> was released <a href="https://CRAN.R-project.org/package=riskyr" class="external-link">on CRAN</a> on February 19, 2018.</p>
-<hr><div class="section level3">
-<h3 id="references-0-1-0">References<a class="anchor" aria-label="anchor" href="#references-0-1-0"></a></h3>
+<hr><p><strong>References</strong></p>
 <p>To cite <strong>riskyr</strong> in derivations and publications please use:</p>
-<ul><li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2021). riskyr: Rendering Risk Literacy more Transparent.<br>
-Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 23, 2021). Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="external-link uri">https://CRAN.R-project.org/package=riskyr</a>.</li></ul><!-- Background article: --><p>The following <strong>article</strong> provides details on the conceptual and theoretical background:</p>
+<ul><li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2022). riskyr: Rendering Risk Literacy more Transparent.<br>
+Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.4.0, Aug. 15, 2022). Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="external-link uri">https://CRAN.R-project.org/package=riskyr</a>.</li></ul><!-- Background article: --><p>The following <strong>article</strong> provides details on the conceptual and theoretical background:</p>
 <ul><li>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies.<br><em>Frontiers in Psychology</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a>
-</li></ul><!-- footer: --><hr><p>[<code>NEWS.md</code> updated on 2022-08-10 by <a href="https://neth.de" class="external-link">hn</a>.]</p>
+</li></ul><!-- footer: --><hr><p>[<code>NEWS.md</code> updated on 2022-08-15 by <a href="https://neth.de" class="external-link">hn</a>.]</p>
 <!-- eof -->
-</div>
 </div>
   </div>
 
