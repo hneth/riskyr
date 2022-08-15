@@ -1,7 +1,7 @@
 
 # riskyr 0.4.0
 
-**riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August\ 15, 2022. 
+**riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August 15, 2022. 
 
 Changes since last release:  
 
@@ -9,11 +9,11 @@ Changes since last release:
 
 <!-- Sampling from prob: -->     
 
-- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given\ `N` and 3\ essential probabilities) [2021-03]: 
+- Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given `N` and 3 essential probabilities) [2021-03]: 
 
     - add a `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
     
-    - add a `sample` argument to 6\ key plots:  
+    - add a `sample` argument to 6 key plots:  
     `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
 
@@ -21,9 +21,9 @@ Changes since last release:
 
 - Allow conversions/translations between data and descriptions [2021-03]:
 
-    - `write_popu()` creates population data from a description (a riskyr scenario); 
+    - `write_popu()` creates population data from a description (a `riskyr` scenario); 
     
-    - `read_popu()` creates a description (a riskyr scenario) from population data. 
+    - `read_popu()` creates a description (a `riskyr` scenario) from population data. 
 
 
 <!-- Cumulative risks (plot_crisk): -->  
