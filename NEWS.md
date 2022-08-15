@@ -275,13 +275,13 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 ---------- 
 
-## References {-}
+**References** 
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021). 
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022). 
 riskyr: Rendering Risk Literacy more Transparent.  
-  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 23, 2021). 
+  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.4.0, Aug. 15, 2022). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
 <!-- Background article: -->
