@@ -1,318 +1,399 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hneth.github.io/riskyr//index.html</loc>
+    <loc>https://hneth.github.io/riskyr/404.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/FDR.html</loc>
+    <loc>https://hneth.github.io/riskyr/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/FOR.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/A_user_guide.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/N.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/B_data_formats.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/NPV.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/C_confusion_matrix.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/PPV.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/D_functional_perspectives.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/acc.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/E_riskyr_primer.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/accu.html</loc>
+    <loc>https://hneth.github.io/riskyr/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/as_pb.html</loc>
+    <loc>https://hneth.github.io/riskyr/authors.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/as_pc.html</loc>
+    <loc>https://hneth.github.io/riskyr/index.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_FDR.html</loc>
+    <loc>https://hneth.github.io/riskyr/news/index.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_FOR.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA1.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_NPV.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA1_mam.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_PPV.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA1_ova.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_acc.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA2.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_accu_freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA2_mam.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_accu_prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/BRCA2_ova.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_comp_pair.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/FDR.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_complement.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/FFTrees_riskyr.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_complete_prob_set.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/FOR.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_err.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/N.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_fart.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/NPV.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/PPV.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_freq_freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/acc.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_freq_prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/accu.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_min_N.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/as_pb.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_mirt.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/as_pc.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_popu.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_FDR.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_ppod.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_FOR.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_prev.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_NPV.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_PPV.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_prob_freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_acc.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_prob_prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_accu_freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_sens.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_accu_prob.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/comp_spec.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_comp_pair.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/cond_false.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_complement.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/cond_true.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_complete_prob_set.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/cr.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_err.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/dec_cor.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_fart.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/dec_err.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/dec_neg.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_freq_freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/dec_pos.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_freq_prob.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/df_scenarios.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_min_N.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/err.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_mirt.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/fa.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_popu.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/fart.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_ppod.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_prev.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/hi.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_prob.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/init_num.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_prob_freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/init_pal.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_prob_prob.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/init_txt.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_sens.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_complement.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/comp_spec.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_extreme_prob_set.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/cond.false.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_freq.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/cond.true.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_perc.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/cond_false.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/cond_true.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_suff_prob_set.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/cr.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_valid_prob_pair.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec.cor.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_valid_prob_set.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec.err.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/is_valid_prob_triple.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec.neg.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/mi.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec.pos.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/mirt.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec_cor.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/num.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec_err.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec_neg.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_bw.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/dec_pos.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_bwp.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/df_scenarios.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_kn.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/err.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_mbw.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/fa.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_mod.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/fart.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_org.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_rgb.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/hi.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_unikn.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/pal_vir.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/init_num.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot.box.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/init_pal.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot.riskyr.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/init_txt.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_area.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_complement.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_bar.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_extreme_prob_set.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_curve.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_freq.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_fnet.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_integer.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_icons.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_matrix.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_mosaic.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_perc.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_plane.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_prob.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_prism.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_suff_prob_set.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_tab.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_valid_prob_pair.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/plot_tree.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_valid_prob_set.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/popu.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/is_valid_prob_triple.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/ppod.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/mi.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/prev.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/mirt.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/print.summary.riskyr.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/num.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/prob.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/read_popu.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_bw.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/riskyr.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_bwp.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/riskyr.guide.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_crisk.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/scenarios.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_kn.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/sens.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_mbw.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/spec.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_mod.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/summary.riskyr.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_org.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/txt.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_rgb.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/txt_TF.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_unikn.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//reference/txt_org.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/pal_vir.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//articles/A_user_guide.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/plot.box.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//articles/B_data_formats.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/plot.riskyr.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//articles/C_confusion_matrix.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/plot_area.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//articles/D_functional_perspectives.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/plot_bar.html</loc>
   </url>
   <url>
-    <loc>https://hneth.github.io/riskyr//articles/E_riskyr_primer.html</loc>
+    <loc>https://hneth.github.io/riskyr/reference/plot_crisk.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_curve.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_fnet.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_icons.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_mosaic.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_plane.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_prism.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_tab.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/plot_tree.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/popu.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/ppod.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/prev.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/print.summary.riskyr.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/prob.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/read_popu.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/riskyr.guide.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/riskyr.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/scenarios.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/sens.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/spec.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/summary.riskyr.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/t_A.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/t_B.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/t_I.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/txt.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/txt_TF.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/txt_org.html</loc>
+  </url>
+  <url>
+    <loc>https://hneth.github.io/riskyr/reference/write_popu.html</loc>
   </url>
 </urlset>

@@ -1,5 +1,5 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2022 08 11
+## spds, uni.kn | 2022 08 15
 ## -----------------------------------------------
 
 ## site info: ----------
@@ -21,7 +21,7 @@ authors:
     href: https://www.spds.uni-konstanz.de/
 
 development:
-  mode: devel # devel OR release
+  mode: release # devel OR release
 
 # template:
 #  params:

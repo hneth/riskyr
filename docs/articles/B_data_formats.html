@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -46,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
     Home
   </a>
@@ -55,7 +57,7 @@
   <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     All articles
      
     <span class="caret"></span>
@@ -88,7 +90,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -106,11 +108,11 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Data Formats</h1>
-                        <h4 class="author">Hansjörg Neth, SPDS, uni.kn</h4>
+                        <h4 data-toc-skip class="author">Hansjörg Neth, SPDS, uni.kn</h4>
             
-            <h4 class="date">2021 03 23</h4>
+            <h4 data-toc-skip class="date">2021 03 31</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/master/vignettes/B_data_formats.Rmd"><code>vignettes/B_data_formats.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/HEAD/vignettes/B_data_formats.Rmd" class="external-link"><code>vignettes/B_data_formats.Rmd</code></a></small>
       <div class="hidden name"><code>B_data_formats.Rmd</code></div>
 
     </div>
@@ -123,33 +125,33 @@
 </blockquote>
 <!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies -->
 <p>A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of <em>risk</em> can be expressed in terms of probabilities and thus be measured and calculated or “reckoned” with (Gigerenzer, 2002). Nevertheless, probabilistic information is often difficult to understand, even for experts in risk management and statistics. A smart and effective way to communicate probabilities is by expressing them in terms of frequencies.</p>
-<div id="two-representational-formats" class="section level2">
-<h2 class="hasAnchor">
-<a href="#two-representational-formats" class="anchor"></a>Two representational formats</h2>
+<div class="section level2">
+<h2 id="two-representational-formats">Two representational formats<a class="anchor" aria-label="anchor" href="#two-representational-formats"></a>
+</h2>
 <p>The problems addressed by <strong>riskyr</strong> and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, risk-related information can be expressed in terms of <em>frequencies</em> or in terms of <em>probabilities</em> (see the <a href="A_user_guide.html">user guide</a> for background information.)</p>
 <p><strong>riskyr</strong> reflects this basic division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called <code>freq</code>) and objects that contain probabilities (a list called <code>prob</code>). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>In the following, we first consider frequencies and probabilities by themselves, before showing how both are related. As a sneak preview, the following prism plot shows both frequencies (as nodes) and probabilities (as edges connecting the nodes) from two perspectives:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://CRAN.R-project.org/package=riskyr">"riskyr"</a></span><span class="op">)</span> <span class="co"># load the "riskyr" package</span>
-
-<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>,  <span class="co"># 3 essential probabilities</span>
-           N <span class="op">=</span> <span class="fl">1000</span>,       <span class="co"># 1 frequency</span>
-           area <span class="op">=</span> <span class="st">"no"</span>,    <span class="co"># same size for all boxes</span>
-           p_lbl <span class="op">=</span> <span class="st">"abb"</span>,  <span class="co"># show abbreviated names of probabilities on edges</span>
-           title_lbl <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://riskyr.org/" class="external-link">"riskyr"</a></span><span class="op">)</span> <span class="co"># load the "riskyr" package</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>,  <span class="co"># 3 essential probabilities</span></span>
+<span>           N <span class="op">=</span> <span class="fl">1000</span>,       <span class="co"># 1 frequency</span></span>
+<span>           area <span class="op">=</span> <span class="st">"no"</span>,    <span class="co"># same size for all boxes</span></span>
+<span>           p_lbl <span class="op">=</span> <span class="st">"abb"</span>,  <span class="co"># show abbreviated names of probabilities on edges</span></span>
+<span>           title_lbl <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="B_data_formats_files/figure-html/prism-plot-1-1.png" alt="A prism plot showing frequencies as nodes and probabilities as edges linking nodes." width="576"><p class="caption">
 A prism plot showing frequencies as nodes and probabilities as edges linking nodes.
 </p>
 </div>
 </div>
-<div id="frequencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#frequencies" class="anchor"></a>Frequencies</h2>
+<div class="section level2">
+<h2 id="frequencies">Frequencies<a class="anchor" aria-label="anchor" href="#frequencies"></a>
+</h2>
 <p>For our purposes, frequencies simply are numbers that can be counted — either 0 or positive integers.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<div id="definitions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#definitions" class="anchor"></a>Definitions</h3>
+<div class="section level3">
+<h3 id="definitions">Definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
+</h3>
 <p>The following 11 frequencies are distinguished by <strong>riskyr</strong> and contained in <code>freq</code>:</p>
 <table class="table">
 <colgroup>
@@ -221,18 +223,18 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </tbody>
 </table>
 </div>
-<div id="perspectives-basic-vs-combined-frequencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#perspectives-basic-vs-combined-frequencies" class="anchor"></a>Perspectives: Basic vs. combined frequencies</h3>
+<div class="section level3">
+<h3 id="perspectives-basic-vs--combined-frequencies">Perspectives: Basic vs. combined frequencies<a class="anchor" aria-label="anchor" href="#perspectives-basic-vs--combined-frequencies"></a>
+</h3>
 <p>The frequencies contained in <code>freq</code> can be viewed (or parsed) from two perspectives:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Top-down: </strong> From the entire population to different parts or subgroups:<br> Whereas <code>N</code> specifies the population size, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec_pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
 <li><p><strong>Bottom-up: </strong> From the 4 essential subgroups to various combinations of them:<br> As the 4 frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or four <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
 </ol>
 </div>
-<div id="relationships-among-frequencies" class="section level3">
-<h3 class="hasAnchor">
-<a href="#relationships-among-frequencies" class="anchor"></a>Relationships among frequencies</h3>
+<div class="section level3">
+<h3 id="relationships-among-frequencies">Relationships among frequencies<a class="anchor" aria-label="anchor" href="#relationships-among-frequencies"></a>
+</h3>
 <p>The following relationships hold among the 11 frequencies:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -285,13 +287,13 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <p>It may be tempting to refer to instances of <code>dec_cor</code> and <code>dec_err</code> as “true decisions” and “false decisions”. However, these terms invite conceptual confusion, as “true decisions” actually include <code>cond_false</code> cases (TN or <code>cr</code> cases) and “false decisions” actually include <code>cond_true</code> cases (FN or <code>mi</code> cases).</p>
 </div>
 </div>
-<div id="probabilities" class="section level2">
-<h2 class="hasAnchor">
-<a href="#probabilities" class="anchor"></a>Probabilities</h2>
+<div class="section level2">
+<h2 id="probabilities">Probabilities<a class="anchor" aria-label="anchor" href="#probabilities"></a>
+</h2>
 <p>The notions of <em>probability</em> is as elusive as ubiquitous (see Hájek, 2012, for a solid exposition of its different concepts and interpretations). For our present purposes, <em>probabilities</em> are simply numbers between 0 and 1. These numbers are defined to reflect particular quantities and can be expressed as percentages, as functions of and ratios between other numbers (frequencies or probabilities).</p>
-<div id="definitions-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#definitions-1" class="anchor"></a>Definitions</h3>
+<div class="section level3">
+<h3 id="definitions-1">Definitions<a class="anchor" aria-label="anchor" href="#definitions-1"></a>
+</h3>
 <p><strong>riskyr</strong> distinguishes between 13 probabilities (see <code>prob</code> for current values):</p>
 <table class="table">
 <colgroup>
@@ -389,9 +391,9 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </table>
 <p>Note that the prism diagram (<code>plot_prism</code>) shows a total of 18 probabilities: 3 perspectives (<code>by = "cd"</code>, <code>by = "dc"</code>, and <code>by = "ac"</code>) and 6 edges denoting the (marginal and conditional) probabilities for each perspective. However, we currently do not explicitly identify all possible probabilities.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 </div>
-<div id="non-conditional-vs-conditional-probabilities" class="section level3">
-<h3 class="hasAnchor">
-<a href="#non-conditional-vs-conditional-probabilities" class="anchor"></a>Non-conditional vs. conditional probabilities</h3>
+<div class="section level3">
+<h3 id="non-conditional-vs--conditional-probabilities">Non-conditional vs. conditional probabilities<a class="anchor" aria-label="anchor" href="#non-conditional-vs--conditional-probabilities"></a>
+</h3>
 <p>Note that a typical <strong>riskyr</strong> scenario contains several <em>marginal</em> or <em>non-conditional</em> probabilities:</p>
 <ul>
 <li>The prevalence <code>prev</code> (1.) only depends on features of the <em>condition</em>.</li>
@@ -407,9 +409,9 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <li>by <em>accuracy</em>: conditional probabilities based on <em>accuracy</em> <code>acc</code> are currently computed, but – in the absence of a commonly accepted term — named <code>p_acc_hi</code> and <code>p_err_fa</code> (12. and 13.).</li>
 </ol>
 </div>
-<div id="relationships-among-probabilities" class="section level3">
-<h3 class="hasAnchor">
-<a href="#relationships-among-probabilities" class="anchor"></a>Relationships among probabilities</h3>
+<div class="section level3">
+<h3 id="relationships-among-probabilities">Relationships among probabilities<a class="anchor" aria-label="anchor" href="#relationships-among-probabilities"></a>
+</h3>
 <p>The following relationships hold among the conditional probabilities:</p>
 <ul>
 <li>The sensitivity <code>sens</code> and miss rate <code>mirt</code> are complements:</li>
@@ -433,12 +435,12 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
  \\
 \texttt{NPV} = \frac{(1 - \texttt{prev}) \cdot \texttt{spec}}{\texttt{prev} \cdot (1 - \texttt{sens}) + (1 - \texttt{prev}) \cdot \texttt{spec}}
 \]</span></p>
-<p>Although this is how the functions <code>comp_PPV</code> and <code>comp_NPV</code> compute the desired conditional probability, it is difficult to remember and think in these terms. Instead, we recommend thinking about and defining all conditional probabilities in terms of frequencies and relations between frequencies (see <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a> for details).</p>
+<p>Although this is how the functions <code>comp_PPV</code> and <code>comp_NPV</code> compute the desired conditional probability, it is difficult to remember and think in these terms. Instead, we recommend thinking about and defining all conditional probabilities in terms of frequencies and relations between frequencies (see <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">Neth et al., 2021</a> for details).</p>
 </div>
 </div>
-<div id="probabilities-as-ratios-between-frequencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#probabilities-as-ratios-between-frequencies" class="anchor"></a>Probabilities as ratios between frequencies</h2>
+<div class="section level2">
+<h2 id="probabilities-as-ratios-between-frequencies">Probabilities as ratios between frequencies<a class="anchor" aria-label="anchor" href="#probabilities-as-ratios-between-frequencies"></a>
+</h2>
 <p>The easiest way to think about, define, and compute the probabilities (contained in <code>prob</code>) is in terms of frequencies (contained in <code>freq</code>):</p>
 <table class="table">
 <colgroup>
@@ -599,12 +601,12 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </ul>
 <p>When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes <code>N</code>. (Use the <code>scale</code> argument of many <strong>riskyr</strong> plotting functions to control whether probabilities are based on frequencies.)</p>
 </div>
-<div id="practice" class="section level2">
-<h2 class="hasAnchor">
-<a href="#practice" class="anchor"></a>Practice</h2>
-<div id="an-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#an-example" class="anchor"></a>An example</h3>
+<div class="section level2">
+<h2 id="practice">Practice<a class="anchor" aria-label="anchor" href="#practice"></a>
+</h2>
+<div class="section level3">
+<h3 id="an-example">An example<a class="anchor" aria-label="anchor" href="#an-example"></a>
+</h3>
 <p>The following prism (or network) diagram is based on the following inputs:</p>
 <ul>
 <li>a condition’s prevalence of 50% (<code>prev = .50</code>);</li>
@@ -613,22 +615,23 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <li>a population size of 10 individuals (<code>N = 10</code>);</li>
 </ul>
 <p>and illustrates the relationship between frequencies and probabilities:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.50</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.60</span>,  <span class="co"># 3 essential probabilities</span>
-           N <span class="op">=</span> <span class="fl">10</span>,         <span class="co"># population frequency</span>
-           scale <span class="op">=</span> <span class="st">"f"</span>,    <span class="co"># scale by frequency, rather than probability ("p") </span>
-           area <span class="op">=</span> <span class="st">"sq"</span>,    <span class="co"># boxes as squares, with sizes scaled by current scale  </span>
-           p_lbl <span class="op">=</span> <span class="st">"num"</span>,  <span class="co"># show numeric probability values on edges</span>
-           title_lbl <span class="op">=</span> <span class="st">"Probabilities as ratios between frequencies"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.50</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.60</span>,  <span class="co"># 3 essential probabilities</span></span>
+<span>           N <span class="op">=</span> <span class="fl">10</span>,         <span class="co"># population frequency</span></span>
+<span>           scale <span class="op">=</span> <span class="st">"f"</span>,    <span class="co"># scale by frequency, rather than probability ("p") </span></span>
+<span>           area <span class="op">=</span> <span class="st">"sq"</span>,    <span class="co"># boxes as squares, with sizes scaled by current scale  </span></span>
+<span>           p_lbl <span class="op">=</span> <span class="st">"num"</span>,  <span class="co"># show numeric probability values on edges</span></span>
+<span>           title_lbl <span class="op">=</span> <span class="st">"Probabilities as ratios between frequencies"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure">
 <img src="B_data_formats_files/figure-html/prism-plot-2-1.png" alt="A prism plot showing how probabilities can be computed as ratios between frequencies." width="576"><p class="caption">
 A prism plot showing how probabilities can be computed as ratios between frequencies.
 </p>
 </div>
 </div>
-<div id="your-tasks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#your-tasks" class="anchor"></a>Your tasks</h3>
+<div class="section level3">
+<h3 id="your-tasks">Your tasks<a class="anchor" aria-label="anchor" href="#your-tasks"></a>
+</h3>
 <ol style="list-style-type: decimal">
 <li><p>Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?</p></li>
 <li><p>What is the frequency of <code>dec_cor</code> and <code>dec_err</code> cases? Where do these cases appear in the diagram?</p></li>
@@ -636,21 +639,21 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 </ol>
 </div>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
 <li><p>Gigerenzer, G. (2002). <em>Reckoning with risk: Learning to live with uncertainty</em>. London, UK: Penguin.</p></li>
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1999). Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). <em>Psychological Review</em>, <em>106</em>, 425–430.</p></li>
-<li><p>Hájek, A (2012) <a href="https://plato.stanford.edu/entries/probability-interpret/">Interpretations of Probability</a>. In Edward N. Zalta (Ed.), <em>The Stanford Encyclopedia of Philosophy</em>. URL: <a href="https://plato.stanford.edu/entries/probability-interpret/" class="uri">https://plato.stanford.edu/entries/probability-interpret/</a> <a href="https://plato.stanford.edu/archives/win2012/entries/probability-interpret/">2012 Archive</a></p></li>
+<li><p>Hájek, A (2012) <a href="https://plato.stanford.edu/entries/probability-interpret/" class="external-link">Interpretations of Probability</a>. In Edward N. Zalta (Ed.), <em>The Stanford Encyclopedia of Philosophy</em>. URL: <a href="https://plato.stanford.edu/entries/probability-interpret/" class="external-link uri">https://plato.stanford.edu/entries/probability-interpret/</a> <a href="https://plato.stanford.edu/archives/win2012/entries/probability-interpret/" class="external-link">2012 Archive</a></p></li>
 <li><p>Hoffrage, U., Gigerenzer, G., Krauss, S., &amp; Martignon, L. (2002). Representation facilitates reasoning: What natural frequencies are and what they are not. <em>Cognition</em>, <em>84</em>, 343–352.</p></li>
-<li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817">Available online</a>)</p></li>
-<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307. (<a href="https://doi.org/10.3389/fpubh.2017.00307">Available online</a>)</p></li>
+<li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">Available online</a>)</p></li>
+<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307. (<a href="https://doi.org/10.3389/fpubh.2017.00307" class="external-link">Available online</a>)</p></li>
 </ul>
-<div id="resources" class="section level3">
-<h3 class="hasAnchor">
-<a href="#resources" class="anchor"></a>Resources</h3>
+<div class="section level3">
+<h3 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
+</h3>
 <p>The following resources and versions are currently available:</p>
 <table class="table">
 <colgroup>
@@ -666,23 +669,23 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 <tbody>
 <tr class="odd">
 <td align="left">A. <strong>riskyr</strong> (R package):</td>
-<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
-<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="external-link">Release version</a></td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="external-link uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
 <tr class="even">
 <td align="left"> </td>
-<td align="left"><a href="https://github.com/hneth/riskyr/">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr/" class="external-link">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr/" class="external-link uri">https://github.com/hneth/riskyr/</a></td>
 </tr>
 <tr class="odd">
 <td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
-<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">Online version</a></td>
-<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">http://riskyr.org/</a></td>
+<td align="left"><a href="https://riskyr.org/" class="external-link">Online version</a></td>
+<td align="left"><a href="https://riskyr.org/" class="external-link">https://riskyr.org/</a></td>
 </tr>
 <tr class="even">
 <td align="left"> </td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp/">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp/" class="uri">https://github.com/hneth/riskyrApp/</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/" class="external-link">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/" class="external-link uri">https://github.com/hneth/riskyrApp/</a></td>
 </tr>
 <tr class="odd">
 <td align="left">C. Online documentation:</td>
@@ -698,22 +701,22 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 </table>
 </div>
 </div>
-<div id="contact" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contact" class="anchor"></a>Contact</h2>
+<div class="section level2">
+<h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a>
+</h2>
 <!-- uni.kn logo and link to SPDS: -->
-<p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
+<p><a href="https://www.spds.uni-konstanz.de/" class="external-link"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues/" class="uri">https://github.com/hneth/riskyr/issues/</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues/" class="external-link uri">https://github.com/hneth/riskyr/issues/</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
-<div id="all-riskyr-vignettes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr vignettes</h2>
+<div class="section level2">
+<h2 id="all-riskyr-vignettes">All riskyr vignettes<a class="anchor" aria-label="anchor" href="#all-riskyr-vignettes"></a>
+</h2>
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
+<p><a href="https://github.com/hneth/riskyr/" class="external-link"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
 <!-- Index of vignettes: -->
 <table class="table">
 <thead><tr class="header">
@@ -754,10 +757,10 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin. (p. 21).<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>For instance, we can distinguish between various types of probabilities (e.g., <em>joint</em>, <em>marginal</em>, and <em>conditional</em> probabilities) and <em>natural frequencies</em> provide a relational concept for expressing <em>probabilities</em>. See <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a> for details.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>It seems plausible that the notion of a <em>frequency</em> is simpler than the notion of <em>probability</em>. Nevertheless, confusion is possible and typically causes serious scientific disputes. See Gigerenzer &amp; Hoffrage, 1999, and Hoffrage et al., 2002, for different types of frequencies and the notion of <em>natural frequencies</em>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>For instance, some probabilities are the complements of others and do not have explicit names. Also, <em>joint</em> probabilities (e.g., the probabilities of <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>) are not included in <code>prob</code>, but generated when needed (e.g., see <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code>).<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin. (p. 21).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>For instance, we can distinguish between various types of probabilities (e.g., <em>joint</em>, <em>marginal</em>, and <em>conditional</em> probabilities) and <em>natural frequencies</em> provide a relational concept for expressing <em>probabilities</em>. See <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">Neth et al., 2021</a> for details.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>It seems plausible that the notion of a <em>frequency</em> is simpler than the notion of <em>probability</em>. Nevertheless, confusion is possible and typically causes serious scientific disputes. See Gigerenzer &amp; Hoffrage, 1999, and Hoffrage et al., 2002, for different types of frequencies and the notion of <em>natural frequencies</em>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>For instance, some probabilities are the complements of others and do not have explicit names. Also, <em>joint</em> probabilities (e.g., the probabilities of <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>) are not included in <code>prob</code>, but generated when needed (e.g., see <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code>).<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -773,11 +776,13 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth" class="external-link">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer" class="external-link">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl" class="external-link">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier" class="external-link">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -785,6 +790,8 @@ A prism plot showing how probabilities can be computed as ratios between frequen
 
   
 
+
+  
 
   </body>
 </html>
