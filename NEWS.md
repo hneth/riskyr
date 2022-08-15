@@ -1,4 +1,29 @@
 
+# riskyr 0.4.0.9001+
+
+<!-- Development version: --> 
+
+The current development version (0.4.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+
+Changes since last release:  
+
+## Major changes
+
+- none yet 
+
+## Minor changes
+
+- none yet 
+
+## Micro changes 
+
+- none yet 
+
+
+<!-- Previous version: --> 
+
+---------- 
+
 # riskyr 0.4.0
 
 **riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August 15, 2022. 
@@ -65,13 +90,8 @@ Changes since last release:
 
 - Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03]. 
 
-<!-- Development version: --> 
-
-The current development version (0.4.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
-
 
 <!-- Previous version: --> 
-
 
 ---------- 
 
