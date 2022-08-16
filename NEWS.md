@@ -11,14 +11,19 @@ Changes since last release:
 
 - none yet 
 
+<!-- Blank line. --> 
+
 ## Minor changes
 
 - none yet 
+
+<!-- Blank line. --> 
 
 ## Micro changes 
 
 - none yet 
 
+<!-- Blank line. --> 
 
 <!-- Previous version: --> 
 
@@ -37,42 +42,37 @@ Changes since last release:
 - Enable _sampling_ when computing `freq` from `prob` (i.e., _by description_, given `N` and 3 essential probabilities) [2021-03]: 
 
     - add a `sample` argument to `comp_freq()`, `comp_freq_prob()`, and `riskyr()`;  
-    
     - add a `sample` argument to 6 key plots:  
     `plot_area()`, `plot_bar()`, `plot_fnet()`, `plot_icons()`, `plot_prism()`, and `plot_tab()`.  
 
 
 <!-- Conversion data vs. description: --> 
 
-- Allow conversions/translations between data and descriptions [2021-03]:
+- Allow conversions/translations between data and descriptions:
 
     - `write_popu()` creates population data from a description (a `riskyr` scenario); 
-    
     - `read_popu()` creates a description (a `riskyr` scenario) from population data. 
 
 
 <!-- Cumulative risks (plot_crisk): -->  
 
-- Add a function for plotting cumulative risk curves [2021-12]:
+- Add a function for plotting cumulative risk curves:
 
     - `plot_crisk()` plots curves and auxiliary information for visualizing cumulative risks and risk increments; 
-    
     - `pal_crisk` provides a corresponding color palette (as a named vector).  
 
 
 <!-- FFTrees: -->
 
-- Add `FFTrees_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects [2022-08]. 
+- Add `FFTrees_riskyr()` to convert `FFTrees` objects into corresponding `riskyr` objects. 
 
 
 <!-- Minor: --> 
 
 ## Minor changes
 
-- Add `main` and `sub` arguments to all plots (and deprecate the previous `title_lbl` argument) [2022-08]. 
-
+- Add `main` and `sub` arguments to all plots (and deprecate the previous `title_lbl` argument). 
 - Add `is_matrix()` to verify a 2x2 matrix (as a 2x2 numeric contingency table). 
-
 - Add `is_integer()` to verify integer values.
 
 
@@ -80,16 +80,11 @@ Changes since last release:
 
 ## Micro changes 
 
-- Fix bug in `plot_bar()` that caused incorrect bar labels [2022-08].
-
-- Update URLs in `README.md` and all vignettes to <https://riskyr.org/> [2021-03]. 
-
-- Increase options and robustness for labeling frequencies and probabilities in plots [2021-03]. 
-
-- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps [2021-03]. 
-
-- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases) [2021-03]. 
-
+- Fix bug in `plot_bar()` that caused incorrect bar labels.
+- Update URLs in `README.md` and all vignettes to <https://riskyr.org/>. 
+- Increase options and robustness for labeling frequencies and probabilities in plots. 
+- Reduce widths of freq boxes in `plot_prism()` to reduce overlaps.
+- Rename labels in `txt_TF` to avoid confusion, as "True condition" (i.e., X) was `FALSE` (now "absent") for "True negatives" (`TN`/`cr` cases). 
 
 <!-- Previous version: --> 
 
@@ -111,55 +106,55 @@ Changes since last release:
 
 ### Changes to existing visualization functions 
 
-- Change default setting of `mar_notes` in all plotting functions [2021-01]: 
+- Change default setting of `mar_notes` in all plotting functions: 
 Using `mar_notes = FALSE` as those details are not needed and can be distracting in visualizations. 
 
-- Change default arguments for `plot_area()` and `plot_tab()` [2019-01]:   
-Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
+- Change default arguments for `plot_area()` and `plot_tab()`:   
+Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for **riskyrApp**).  
 
-- New options for `plot_curve()` [2019-01]:  
+- New options for `plot_curve()`:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
 Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities is now supported. 
 Setting the new `prev_range` argument to a range within `c(0, 1)` allows zooming into more specific ranges of `prev` values (on x-axis).  
 
-- New options for `plot_plane()` [2019-01]:  
+- New options for `plot_plane()`:  
 Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. 
 Thus, setting the `sens` and `spec` arguments to either `NA` or to a vector of several probabilities is now supported. 
 Setting the new `sens_range` and `spec_range` arguments to ranges within `c(0, 1)` allows zooming into more specific ranges of `sens` values (on x-axis) and `spec` values (on y-axis). 
 
-- New options for `plot_prism()` [2019-01]:  
-Using the new `p_lwd` and `p_scale` arguments allows scaling the widths of probability links by current probability values.  
+- New options for `plot_prism()`:  
+Use the new `p_lwd` and `p_scale` arguments to allow scaling the widths of probability links by current probability values.  
 
 
 ### Data and functions 
 
-- `data` [2019-07]:  
-Removed data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
+- In `data`: Remove data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
 
-- `make_cond_lbl()` [2019-01]:   
-The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
+- Improve `make_cond_lbl()` to allow for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
-- `is_prob_range()` [2019-01]:  
-Add utility function to verify a range of two probability values (to check new arguments of `plot_curve()` and `plot_plane()`).  
+- Add `is_prob_range()` function to verify a range of two probability values (to check new arguments of `plot_curve()` and `plot_plane()`).  
 
+<!-- Blank line. --> 
 
 ## Micro changes
 
 ### Colors 
 
-- Using colors of `pal` for fill colors of symbols in `plot_icon()` [2021-02]. 
+- Using colors of `pal` for fill colors of symbols in `plot_icon()`. 
 
-- Add more color palettes [2019-01]:   
+- Add more color palettes:   
 
     - Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
-    
     - Add `pal_unikn` (based on color definitions of the **unikn** package). 
 
-- Changes to color palettes [2019-01]:  
+<!-- Blank line. --> 
+
+- Changes to color palettes:  
 
     - Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
-    
     - Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
+
+<!-- Blank line. --> 
 
 ### Details
 
@@ -167,8 +162,7 @@ Add utility function to verify a range of two probability values (to check new a
 
 - Bug fix in `plot_prism()`: Allow plotting simple trees for `nchar(by) == 2`.
 
-- Bug fix in `plot_icons()` [2019-01]: 
-Enforced 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
+- Bug fix in `plot_icons()`: Enforced 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
 
 ---------- 
@@ -183,42 +177,42 @@ Changes since last release:
 
 ### Additional resources 
 
-- New `riskyrApp` version [2018-12]:   
+- Introduce `riskyrApp` version:   
 To use selected `riskyr` functions without the need for coding 
 an updated version of `riskyrApp` is available 
 at <https://github.com/hneth/riskyrApp/> (R Shiny code) and 
 at [https://riskyr.org/](https://riskyr.org/) (interactive online version). 
 
-- Using `pkgdown` [2018-12]:   
+- Using `pkgdown`:   
 Provide package documentation online at <https://hneth.github.io/riskyr/> (latest release version) and <https://hneth.github.io/riskyr/dev/> (current development version). 
 
 
 ### Visualization functions
 
-- Retiring obsolete functions [2018-12]:  
-The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`, and `plot_mosaic` is replaced by `plot_area`. This improves functionality (e.g., by providing more consistent options across different plotting functions) and removes dependencies on external packages. 
+- Retiring obsolete functions:  
+The plotting functions `plot_fnet()` and `plot_tree()` are replaced by `plot_prism()`, and `plot_mosaic()` is replaced by `plot_area()`. This improves functionality (e.g., by providing more consistent options across different plotting functions) and removes dependencies on external packages. 
 
-- New `plot_prism` function [2018-11]:   
-Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependency on the `diagram` package).
+- New `plot_prism()` function:   
+Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; combines and replaces the older `plot_fnet()` and `plot_tree()` functions (and removes dependency on the **diagram** package).
 
-- New `plot_area` function [2018-10]:   
-Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); replaces the older `plot_mosaic` function (and removes dependencies on the `grid` and `vcd` packages).
+- New `plot_area()` function:   
+Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); replaces the older `plot_mosaic()` function (and removes dependencies on the **grid** and **vcd** packages).
 
-- New `plot_tab` function [2018-10]:   
+- New `plot_tab()` function:   
 Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
-a variant of `plot_area` that does not scale area sizes. 
+a variant of `plot_area()` that does not scale area sizes. 
 
-- New `plot_bar` function [2018-08]:   
+- New `plot_bar()` function:   
 Show scenario frequencies as vertical bars (in various configurations). 
 
 
 ### Under the hood
 
-- Create `plot_util.R` collection of graphical utility functions [2018-08]:   
+- Create `plot_util.R` collection of graphical utility functions:   
 Define a new `box` object type and various functions for plotting, labeling, and linking them in graphs 
 (to remove dependencies on and limitations imposed by other packages). 
 
-- Update `riskyr` function [2018-03]:   
+- Update `riskyr()` function:   
 As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities). 
 
 
@@ -226,46 +220,46 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 
 ### Changes to existing visualization functions 
 
-- Improve `plot_icons` function [2018-12]:   
+- Improve `plot_icons()` function:   
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions.
 
-- `plot_curve` and `plot_plane` functions [2018-11]:   
+- Improve `plot_curve()` and `plot_plane()` functions:   
 Update variable names (to snake_case) and add arguments (e.g., `col_pal`, `lbl_txt` `mar_notes`, etc.) for consistency with newer plotting functions. 
-
-- `scale` argument [2018-10]:   
+- Add `scale` argument:   
 The new plotting functions feature a `scale` argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using `scale = "f"`, the probabilities shown are also re-computed from (possibly rounded) frequencies. 
-- `plot_fnet` [2018-02]:   
-Change argument `box.cex` to `cex.lbl` to ensure consistency with `plot_curves` and `plot_plane` (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.
 
-- `plot_mosaic` [2018-02]:   
-Change Boolean `vsplit` argument to `by = "cd"` vs. `by = "dc"` to ensure consistency with `plot_fnet` and `plot_tree`. Added warning when using deprecated argument.
+- Improve `plot_fnet()` function:   
+Change argument `box.cex` to `cex.lbl` to ensure consistency with `plot_curves()` and `plot_plane()` (and use it to scale arrow labels accordingly). Add a warning when using deprecated argument.
 
-- `mar_notes` and `plot_mar` [2018-09]:   
+- Improve `plot_mosaic()` function:   
+Change Boolean `vsplit` argument to `by = "cd"` vs. `by = "dc"` to ensure consistency with `plot_fnet()` and `plot_tree()`. Add a warning when using deprecated argument.
+
+- Improve `mar_notes` and `plot_mar` arguments:   
 Use consistent plot margins and options for showing margin notes for all plots.
 
 
 ### Default objects (lists and vectors)
 
-- `pal` and `freq` [2018-12]:   
+- Improve `pal` and `freq` arguments:   
 Use more consistent color and frequency names (e.g., `cond_true`, `dec_pos`, and `dec_cor` are now names of frequencies and the colors corresponding to these frequencies). 
 
-- `freq` [2018-07]:   
+- Improve `freq` object:   
 Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of `dec.cor` and `dec.err` (i.e., `hi + cr` vs. `mi + fa` as the diagonal of 4 SDT cases). This increases the number of frequencies in `freq` from 9 to 11. Also added corresponding labels in `init_txt.R` and colors in `init_pal.R`. 
 
-- `prob` [2018-09]:   
+- Improve `prob` object:   
 Include accuracy metrics in probabilities (in `prob` and summary functions). 
 
-- `pal` and `txt` [2018-10]:   
+- Improve `pal` and `txt` objects:   
 Add multiple color palettes and text labeling schemes (see `?pal` and `?txt` for details). 
 
 
 ### Other changes 
 
-- `read_popu` [2018-11]:   
+- Improve `read_popu()` function:   
 Read a data frame `popu` and interpret is as a `riskyr` scenario, allows creating scenarios from raw data. 
 
-- `comp_accu.R` [2018-08]:   
-Compute exact accuracy values (not approximations, when using `comp_accu_freq` on rounded `freq` values) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when `show.accu == TRUE` and `round == TRUE`). 
+- Add `comp_accu.R` file:   
+Compute exact accuracy values (not approximations, when using `comp_accu_freq` on rounded `freq` values) by using the new function `comp_accu_prob()` to compute the list `accu` from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when `show.accu == TRUE` and `round == TRUE`). 
 
 
 ## Micro changes
@@ -278,14 +272,11 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 ### Details 
 
-- `plot_icons` [2018-03]:   
-Bug fix to also swap symbols in legend when the symbol order is changed manually.
+- `plot_icons()`: Bug fix to also swap symbols in legend when the symbol order is changed manually.
 
-- `txt_def` [2018-02]:   
-Simplify some default text labels (e.g., for current population, condition, and decision). 
+- `txt_def`: Simplify some default text labels (e.g., for current population, condition, and decision). 
 
-- `.onAttach` [2018-02]:   
-Cast dice to display probabilistic (i.e., risk-related) start-up messages. 
+- `.onAttach`: Cast dice to display probabilistic (i.e., risk-related) start-up messages. 
 
 ---------- 
 
@@ -318,6 +309,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2022-08-15 by [hn](https://neth.de).] 
+[`NEWS.md` updated on 2022-08-16.] 
 
 <!-- eof -->
