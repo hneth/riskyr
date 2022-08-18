@@ -43,13 +43,13 @@ Default: \code{ix_by_bot = 3} (3rd column).}
 \item{...}{Additional parameters (passed to \code{\link{riskyr}}).}
 }
 \value{
-An object of class "riskyr" describing a risk-related scenario.
+A \code{riskyr} object describing a risk-related scenario.
 }
 \description{
 \code{read_popu} reads a data frame \code{df}
 (containing observations of some population
 that are cross-classified on two binary variables)
-and returns a scenario of class \code{"riskyr"}
+and returns a \code{riskyr} scenario
 (i.e., a description of the data).
 }
 \details{

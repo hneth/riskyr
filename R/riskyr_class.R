@@ -49,10 +49,10 @@
 #'   (but defined in \code{prob_lbl_def} and \code{label_prob}).
 #' }
 #'
-#' @format An object of class "riskyr" with textual and numeric information
-#' describing a risk-related scenario.
+#' @format A \code{riskyr} object describing a risk-related scenario
+#' (with textual and numeric information).
 #'
-#' @return An object of class "riskyr" describing a risk-related scenario.
+#' @return A \code{riskyr} object describing a risk-related scenario.
 #'
 #' Scenario-specific titles and text labels (see \code{\link{txt}}).
 #'
@@ -631,8 +631,8 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' \code{plot.riskyr} also uses the text settings
 #' specified in the "riskyr" object.
 #'
-#' @param x An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
-#' Pre-defined \code{\link{scenarios}} are also of type "riskyr".
+#' @param x A \code{riskyr} object, usually a result of a call to \code{\link{riskyr}}.
+#' Pre-defined \code{\link{scenarios}} are also of type \code{riskyr}.
 #'
 #' @param type The type of plot to be generated.
 #'
@@ -1014,8 +1014,8 @@ plot.riskyr <- function(x = NULL,        # a riskyr scenario
 #' Scenario name, relevant condition \code{}, and \code{N}
 #' are summarized by default.
 #'
-#' @param object  An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
-#' Inbuilt \code{scenarios} are also of type "riskyr".
+#' @param object  A \code{riskyr} object, usually a result of a call to \code{\link{riskyr}}.
+#' Inbuilt \code{scenarios} are also of type \code{riskyr}.
 #'
 #' @param summarize What is summarized as a vector consisting of \code{c("freq", "prob", "accu")}
 #' for frequencies, probabilities, and accuracy respectively.

@@ -138,14 +138,14 @@ write_popu <- function(x = NULL,  # a riskyr scenario
 #' \code{read_popu} reads a data frame \code{df}
 #' (containing observations of some population
 #' that are cross-classified on two binary variables)
-#' and returns a scenario of class \code{"riskyr"}
+#' and returns a \code{riskyr} scenario
 #' (i.e., a description of the data).
 #'
 #' Note that \code{df} needs to be structured (cross-classified)
 #' according to the data frame \code{\link{popu}},
 #' created by \code{\link{comp_popu}}.
 #'
-#' @return An object of class "riskyr" describing a risk-related scenario.
+#' @return A \code{riskyr} object describing a risk-related scenario.
 #'
 #' @param df A data frame providing a population \code{\link{popu}}
 #' of individuals, which are identified on at least

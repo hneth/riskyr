@@ -4,8 +4,8 @@
 \alias{riskyr}
 \title{Create a riskyr scenario.}
 \format{
-An object of class "riskyr" with textual and numeric information
-describing a risk-related scenario.
+A \code{riskyr} object describing a risk-related scenario
+(with textual and numeric information).
 }
 \usage{
 riskyr(
@@ -148,7 +148,7 @@ Note: Only sampling when using \code{\link{comp_freq_prob}}
 (i.e., computing \code{\link{freq}} from \code{\link{prob}} description).}
 }
 \value{
-An object of class "riskyr" describing a risk-related scenario.
+A \code{riskyr} object describing a risk-related scenario.
 
 Scenario-specific titles and text labels (see \code{\link{txt}}).
 }

@@ -7,8 +7,8 @@
 \method{plot}{riskyr}(x = NULL, type = "prism", main = NULL, sub = NULL, ...)
 }
 \arguments{
-\item{x}{An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
-Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
+\item{x}{A \code{riskyr} object, usually a result of a call to \code{\link{riskyr}}.
+Pre-defined \code{\link{scenarios}} are also of type \code{riskyr}.}
 
 \item{type}{The type of plot to be generated.}
 

@@ -10,8 +10,8 @@ An object of class \code{summary.riskyr} with up to 9 entries.
 \method{summary}{riskyr}(object = NULL, summarize = "all", ...)
 }
 \arguments{
-\item{object}{An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
-Inbuilt \code{scenarios} are also of type "riskyr".}
+\item{object}{A \code{riskyr} object, usually a result of a call to \code{\link{riskyr}}.
+Inbuilt \code{scenarios} are also of type \code{riskyr}.}
 
 \item{summarize}{What is summarized as a vector consisting of \code{c("freq", "prob", "accu")}
 for frequencies, probabilities, and accuracy respectively.
