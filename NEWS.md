@@ -1,5 +1,5 @@
 
-# riskyr 0.4.0.9001+
+# riskyr 0.4.0.9002
 
 <!-- Development version: --> 
 
@@ -7,11 +7,13 @@ The current development version (0.4.0.9001+) is available at <https://github.co
 
 Changes since last release:  
 
+
 ## Major changes
 
 - none yet 
 
 <!-- Blank line. --> 
+
 
 ## Minor changes
 
@@ -19,21 +21,25 @@ Changes since last release:
 
 <!-- Blank line. --> 
 
+
 ## Micro changes 
 
-- none yet 
+- Minor maintenance. 
 
 <!-- Blank line. --> 
+
 
 <!-- Previous version: --> 
 
 ---------- 
+
 
 # riskyr 0.4.0
 
 **riskyr 0.4.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on August 15, 2022. 
 
 Changes since last release:  
+
 
 ## Major changes
 
@@ -88,7 +94,9 @@ Changes since last release:
 
 <!-- Previous version: --> 
 
+
 ---------- 
+
 
 # riskyr 0.3.0
 
@@ -136,6 +144,7 @@ Use the new `p_lwd` and `p_scale` arguments to allow scaling the widths of proba
 
 <!-- Blank line. --> 
 
+
 ## Micro changes
 
 ### Colors 
@@ -156,6 +165,7 @@ Use the new `p_lwd` and `p_scale` arguments to allow scaling the widths of proba
 
 <!-- Blank line. --> 
 
+
 ### Details
 
 - Add reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
@@ -164,8 +174,11 @@ Use the new `p_lwd` and `p_scale` arguments to allow scaling the widths of proba
 
 - Bug fix in `plot_icons()`: Enforced 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
+<!-- Previous version: --> 
+
 
 ---------- 
+
 
 # riskyr 0.2.0
 
@@ -278,11 +291,17 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 - `.onAttach`: Cast dice to display probabilistic (i.e., risk-related) start-up messages. 
 
+<!-- Previous version: --> 
+
 ---------- 
+
 
 # riskyr 0.1.0
 
 **riskyr 0.1.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on February 19, 2018. 
+
+
+<!-- References: --> 
 
 ---------- 
 
@@ -295,6 +314,7 @@ riskyr: Rendering Risk Literacy more Transparent.
   Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.4.0, Aug. 15, 2022). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
+
 <!-- Background article: -->
 
 The following **article** provides details on the conceptual and theoretical background: 
@@ -305,10 +325,10 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
   doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
-<!-- footer: -->
+<!-- Footer: -->
 
 ---------- 
 
-[`NEWS.md` updated on 2022-08-16.] 
+[`NEWS.md` updated on 2022-08-20.]
 
 <!-- eof -->
