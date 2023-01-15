@@ -1,6 +1,6 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2022 08 15
-## -----------------------------------------------
+## spds, uni.kn | 2023 01 15
+## -------------------------
 
 ## site info: ----------
 
@@ -14,7 +14,8 @@ authors:
   Felix Gaisbauer:
     href: https://www.spds.uni-konstanz.de/felix-gaisbauer
   Nico Gradwohl:
-    href: https://www.spds.uni-konstanz.de/nico-gradwohl
+    # href: https://www.spds.uni-konstanz.de/nico-gradwohl
+    href: https://www.spds.uni-konstanz.de/en/node/1231
   Wolfgang Gaissmaier:
     href: https://www.spds.uni-konstanz.de/wolfgang-gaissmaier
   SPDS:
@@ -24,8 +25,8 @@ development:
   mode: devel # devel OR release
 
 # template:
-#  params:
-#    bootswatch: sandstone
+#   bootstrap: 5
+#   bootswatch: lumen
 
 toc:
   depth: 3

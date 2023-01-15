@@ -109,31 +109,48 @@
   <div class="contents col-md-9">
 
 
+<!-- Release badges start: -->
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)  -->
+<!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr) -->
+<!-- Release badges end. -->
 <!-- Possible status badges: 
-
-[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color='e0607e')](https://www.r-pkg.org/pkg/riskyr)
 [![Rdoc](https://www.rdocumentation.org/badges/version/riskyr)](https://www.rdocumentation.org/packages/riskyr/) 
-
---><!-- riskyr logo: --><div class="section level1">
-<div class="page-header"><h1 id="riskyr-">riskyr <img src="./inst/pix/logo.png" align="right" alt="riskyr" width="160"><a class="anchor" aria-label="anchor" href="#riskyr-"></a>
+-->
+<!-- riskyr logo: -->
+<div class="section level1">
+<div class="page-header"><h1 id="riskyr-0409002-">riskyr 0.4.0.9002 <img src="./inst/pix/logo.png" align="right" alt="riskyr" width="160"><a class="anchor" aria-label="anchor" href="#riskyr-0409002-"></a>
 </h1></div>
-<!-- riskyr logo: --><!-- 
+<!-- riskyr logo: -->
+<!-- 
 <a href = "https://github.com/hneth/riskyr/">
 <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
 </a> 
---><!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --><!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --><!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") --><div class="section level3">
+-->
+<!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
+<!-- ![riskyr](./inst/pix/riskyr_cube_s.png) -->
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
+<div class="section level3">
 <h3 id="a-toolbox-for-rendering-risk-literacy-more-transparent">A toolbox for rendering risk literacy more transparent<a class="anchor" aria-label="anchor" href="#a-toolbox-for-rendering-risk-literacy-more-transparent"></a>
 </h3>
-<!-- Current package Description (updated on 2021-03-19): --><p>Risk-related information — like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments — can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, <strong>riskyr</strong> computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent.</p>
+<!-- Current package Description (updated on 2021-03-19): -->
+<p>Risk-related information — like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments — can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, <strong>riskyr</strong> computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent.</p>
 </div>
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
-<blockquote><p>Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]</p></blockquote>
-<!-- Risk perception as representational effects: --><p>The goals of <strong>riskyr</strong> are less of a <em>computational</em> and more of a <em>representational</em> nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer &amp; Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, <strong>riskyr</strong> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.[2]</p>
-<!-- Defining "risk" (in footnote): --><!-- On "riskyr": --><p>The basic assumptions and aspirations driving the current development of <strong>riskyr</strong> include:</p>
+<blockquote>
+<p>Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+</blockquote>
+<!-- Risk perception as representational effects: -->
+<p>The goals of <strong>riskyr</strong> are less of a <em>computational</em> and more of a <em>representational</em> nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer &amp; Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, <strong>riskyr</strong> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<!-- Defining "risk" (in footnote): -->
+<!-- On "riskyr": -->
+<p>The basic assumptions and aspirations driving the current development of <strong>riskyr</strong> include:</p>
 <ol style="list-style-type: decimal">
 <li><p>Effective training in risk literacy requires transparent representations, smart strategies, and simple tools.</p></li>
 <li><p>We aim to provide a set of (computational and representational) functions that facilitate various calculations, translations between formats, and enable a range of alternative views on the interplay between probabilities and frequencies.</p></li>
@@ -176,11 +193,13 @@
 <div class="section level2">
 <h2 id="quick-start-guide">Quick start guide<a class="anchor" aria-label="anchor" href="#quick-start-guide"></a>
 </h2>
-<!-- 1: Defining a scenario --><div class="section level3">
+<!-- 1: Defining a scenario -->
+<div class="section level3">
 <h3 id="defining-a-scenario">Defining a scenario<a class="anchor" aria-label="anchor" href="#defining-a-scenario"></a>
 </h3>
-<p><strong>riskyr</strong> is designed to address problems like the following:[3]</p>
-<!-- Example: --><blockquote>
+<p><strong>riskyr</strong> is designed to address problems like the following:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<!-- Example: -->
+<blockquote>
 <p><strong>Screening for hustosis</strong></p>
 <p>A screening device for detecting the clinical condition of <em>hustosis</em> is developed. The current device is very good, but not perfect. We have the following information:<br>
 1. About 4% of the people of the general population suffer from <em>hustosis</em>.<br>
@@ -202,7 +221,7 @@
 </li>
 <li>The device’s or diagnostic decision’s <em>sensitivity</em> is 80%: <code>sens = .80</code>.<br>
 </li>
-<li>The device’s or diagnostic decision’s <em>false alarm rate</em> is 5%: <code>fart = .05</code>, implying a <em>specificity</em> of (100% <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;-" title="-" alt="-"> 5%) = 95%: <code>spec = .95</code>.</li>
+<li>The device’s or diagnostic decision’s <em>false alarm rate</em> is 5%: <code>fart = .05</code>, implying a <em>specificity</em> of (100% <span class="math inline">−</span> 5%) = 95%: <code>spec = .95</code>.</li>
 </ol>
 </div>
 <div class="section level4">
@@ -217,10 +236,12 @@
 <div class="section level4">
 <h4 id="translating-into-frequencies">Translating into frequencies<a class="anchor" aria-label="anchor" href="#translating-into-frequencies"></a>
 </h4>
-<p>One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[4] To do this, we imagine a representative sample of <code>N = 1000</code> individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:</p>
-<blockquote><p>Assuming a representative sample of 1000 individuals:<br>
+<p>One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> To do this, we imagine a representative sample of <code>N = 1000</code> individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:</p>
+<blockquote>
+<p>Assuming a representative sample of 1000 individuals:<br>
 - What proportion of individuals with a positive test result actually suffer from hustosis?<br>
-- What proportion of individuals with a negative test result are actually free of hustosis?</p></blockquote>
+- What proportion of individuals with a negative test result are actually free of hustosis?</p>
+</blockquote>
 </div>
 <div class="section level4">
 <h4 id="using-riskyr">Using riskyr<a class="anchor" aria-label="anchor" href="#using-riskyr"></a>
@@ -406,7 +427,8 @@ plot(hustosis, type = "tab",   by = "cddc")
 plot(hustosis, type = "bar",   dir = 2)
 ```
 
---><!-- 2: Loading and using pre-defined scenarios -->
+-->
+<!-- 2: Loading and using pre-defined scenarios -->
 </div>
 </div>
 <div class="section level3">
@@ -490,7 +512,8 @@ plot(hustosis, type = "bar",   dir = 2)
 <p>The following curves show the values of several conditional probabilities as a function of prevalence:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"curve"</span>, what <span class="op">=</span> <span class="st">"all"</span>, uc <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span>  <span class="co"># plot all curves (by prev):</span></span></code></pre></div>
-<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) --><p>Adding the argument <code>what = "all"</code> also shows the proportion of positive decisions (<code>ppod</code>) and the decision’s overall accuracy (<code>accu</code>) as a function of the prevalence (<code>prev</code>). Would you have predicted their shape without seeing this graph?</p>
+<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) -->
+<p>Adding the argument <code>what = "all"</code> also shows the proportion of positive decisions (<code>ppod</code>) and the decision’s overall accuracy (<code>accu</code>) as a function of the prevalence (<code>prev</code>). Would you have predicted their shape without seeing this graph?</p>
 </div>
 <div class="section level4">
 <h4 id="planes-1">Planes<a class="anchor" aria-label="anchor" href="#planes-1"></a>
@@ -498,20 +521,25 @@ plot(hustosis, type = "bar",   dir = 2)
 <p>The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence):</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s10</span>, type <span class="op">=</span> <span class="st">"plane"</span>, what <span class="op">=</span> <span class="st">"NPV"</span><span class="op">)</span>  <span class="co"># plot plane (as a function of sens x spec):</span></span></code></pre></div>
-<!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) --><p>Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call <code><a href="reference/riskyr.guide.html">riskyr.guide()</a></code> for viewing the package vignettes and obtaining additional information.</p>
+<!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) -->
+<p>Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call <code><a href="reference/riskyr.guide.html">riskyr.guide()</a></code> for viewing the package vignettes and obtaining additional information.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<!-- uni.kn logo and link to SPDS: --><!-- ![](./inst/pix/uniKn_logo.png) --><p><a href="https://www.spds.uni-konstanz.de/" class="external-link"> <img src="./inst/pix/uniKn_logo.png" alt="spds.uni.kn" align="right" width="300" style="width: 300px; float: right; border:20;"><!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --></a></p>
+<!-- uni.kn logo and link to SPDS: -->
+<!-- ![](./inst/pix/uniKn_logo.png) -->
+<p><a href="https://www.spds.uni-konstanz.de/" class="external-link"> <img src="./inst/pix/uniKn_logo.png" alt="spds.uni.kn" align="right" width="300" style="width: 300px; float: right; border:20;"><!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --></a></p>
 <p><strong>riskyr</strong> originated out of a series of lectures and workshops on risk literacy.<br>
 The current version (0.4.0, as of Aug. 15, 2022) is under active development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth" class="external-link">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/people" class="external-link">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/people" class="external-link">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/people" class="external-link">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de/" class="external-link">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/" class="external-link">University of Konstanz</a>, Germany.</p>
 <p>The <strong>riskyr</strong> package is open source software written in <a href="https://www.r-project.org/" class="external-link">R</a> and released under the <a href="https://tldrlegal.com/license/gnu-general-public-license-v2" class="external-link">GPL 2</a> | <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)" class="external-link">GPL 3</a> licenses.</p>
 <p>The theoretical background of <strong>riskyr</strong> is illuminated further in the following article:</p>
-<ul><li>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a>
-</li></ul>
+<ul>
+<li>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a>
+</li>
+</ul>
 <div class="section level3">
 <h3 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>
 </h3>
@@ -573,13 +601,16 @@ The current version (0.4.0, as of Aug. 15, 2022) is under active development. I
 <div class="section level3">
 <h3 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
 </h3>
-<!-- riskyr logo: --><p><a href="https://github.com/hneth/riskyr/" class="external-link"> <img alt="riskyr logo" title="riskyr" src="./inst/pix/riskyr_cube.png" width="180px" align="right" style="float:right; border:20; width:180px;"></a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") --></p>
+<!-- riskyr logo: -->
+<p><a href="https://github.com/hneth/riskyr/" class="external-link"> <img alt="riskyr logo" title="riskyr" src="./inst/pix/riskyr_cube.png" width="180px" align="right" style="float:right; border:20; width:180px;"></a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") --></p>
 <p>To cite <strong>riskyr</strong> in derivations and publications, please use:</p>
-<ul><li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2022).<br>
+<ul>
+<li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2022).<br>
 riskyr: Rendering Risk Literacy more Transparent.<br>
 Social Psychology and Decision Sciences, University of Konstanz, Germany.<br>
 Computer software (R package version 0.4.0, Aug. 15, 2022).<br>
-Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="external-link uri">https://CRAN.R-project.org/package=riskyr</a>.</li></ul>
+Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="external-link uri">https://CRAN.R-project.org/package=riskyr</a>.</li>
+</ul>
 <p>A BibTeX entry for LaTeX users is:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Manual{riskyr,</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  title <span class="ot">=</span> {riskyr<span class="sc">:</span> Rendering Risk Literacy more Transparent},</span>
@@ -617,16 +648,22 @@ Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="extern
 <li><p>Wassner, C., Martignon, L., &amp; Biehler, R. (2004). Bayesianisches Denken in der Schule. <em>Unterrichtswissenschaft</em>, <em>32</em>, 58–96.</p></li>
 </ul>
 <!-- footer: --><hr>
-<p>[<code>README.Rmd</code> updated on 2022-08-14 by <a href="https://neth.de" class="external-link">hn</a>.]</p>
-<!-- eof --><p>[1] Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).</p>
-<p>[2] To clarify our notion of “risk” in this context, we need to distinguish it from its everyday usage as anything implying a chance of danger or harm.<br>
+<p>[<code>README.Rmd</code> updated on 2023-01-15 by <a href="https://neth.de" class="external-link">hn</a>.]</p>
+<!-- eof -->
+</div>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr>
+<ol>
+<li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>To clarify our notion of “risk” in this context, we need to distinguish it from its everyday usage as anything implying a chance of danger or harm.<br>
 In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term <em>risk</em> typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.<br>
 For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).<br>
-This notion of <em>risk</em> is typically contrasted with the much wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)</p>
-<p>[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.</p>
-<p>[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of <em>natural frequencies</em>.</p>
-</div>
-</div>
+This notion of <em>risk</em> is typically contrasted with the much wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of <em>natural frequencies</em>.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
   </div>
@@ -672,7 +709,7 @@ This notion of <em>risk</em> is typically contrasted with the much wider notion 
 <li>
 <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer" class="external-link">Felix Gaisbauer</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-1285-1246" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
-<a href="https://www.spds.uni-konstanz.de/nico-gradwohl" class="external-link">Nico Gradwohl</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8703-905X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://www.spds.uni-konstanz.de/en/node/1231" class="external-link">Nico Gradwohl</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8703-905X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
 <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier" class="external-link">Wolfgang Gaissmaier</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6273-178X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
@@ -681,9 +718,9 @@ This notion of <em>risk</em> is typically contrasted with the much wider notion 
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=riskyr" class="external-link"><img src="https://www.r-pkg.org/badges/version/riskyr" alt="CRAN_status"></a></li>
-<li><a href="https://travis-ci.org/hneth/riskyr/" class="external-link"><img src="https://travis-ci.org/hneth/riskyr.svg?branch=master" alt="Build_status"></a></li>
-<li><a href="https://www.r-pkg.org:443/pkg/riskyr" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen" alt="Downloads"></a></li>
+<li><a href="https://CRAN.R-project.org/package=riskyr" class="external-link"><img src="https://www.r-pkg.org/badges/version/riskyr" alt="CRAN status"></a></li>
+<li><a href="https://www.r-pkg.org:443/pkg/riskyr" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/riskyr?color=blue" alt="Downloads/month"></a></li>
+<li><a href="https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
@@ -693,12 +730,12 @@ This notion of <em>risk</em> is typically contrasted with the much wider notion 
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth" class="external-link">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer" class="external-link">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl" class="external-link">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier" class="external-link">Wolfgang Gaissmaier</a>.</p>
+<p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth" class="external-link">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer" class="external-link">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/en/node/1231" class="external-link">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier" class="external-link">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
