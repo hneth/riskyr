@@ -13,3 +13,4 @@
 ^logo.png$
 ^cran-comments.md$
 ^CRAN-RELEASE$
+^\.github$
