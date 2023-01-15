@@ -24,7 +24,9 @@ Changes since last release:
 
 ## Micro changes 
 
-- Minor maintenance. 
+- Package maintenance:
+    - Add GitHub action (R-CMD-check standard)
+    - Update `README` and online documentation 
 
 <!-- Blank line. --> 
 
@@ -329,6 +331,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2022-08-20.]
+[`NEWS.md` updated on 2023-01-15.]
 
 <!-- eof -->
