@@ -1,22 +1,28 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
-<!-- Used status badges: -->
+<!-- Devel badges start: -->
 
-[![CRAN\_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
-[![Build\_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/)
-[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
+[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=blue)](https://www.r-pkg.org:443/pkg/riskyr)
+[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
+<!-- Devel badges end. -->
 
+<!-- Release badges start: -->
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)  -->
+<!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr) -->
+<!-- Release badges end. -->
 <!-- Possible status badges: 
-
-[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color='e0607e')](https://www.r-pkg.org/pkg/riskyr)
 [![Rdoc](https://www.rdocumentation.org/badges/version/riskyr)](https://www.rdocumentation.org/packages/riskyr/) 
-
 -->
 <!-- riskyr logo: -->
 
-# riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.4.0.9002 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 <!-- 
@@ -45,7 +51,7 @@ literacy more transparent.
 ## Motivation
 
 > Solving a problem simply means representing it <br> so as to make the
-> solution transparent. (H.A. Simon)[1]
+> solution transparent. (H.A. Simon)[^1]
 
 <!-- Risk perception as representational effects: -->
 
@@ -62,7 +68,7 @@ frequencies, **riskyr** allows translating between formats and
 illustrates the relationships between different representations in a
 variety of ways. Switching between and interacting with different
 representations fosters transparency and boosts human understanding of
-risk-related information.[2]
+risk-related information.[^2]
 
 <!-- Defining "risk" (in footnote): -->
 <!-- On "riskyr": -->
@@ -119,14 +125,13 @@ devtools::install_github('hneth/riskyr')
 
 ### Available resources
 
--   An **interactive online version** is available at
-    <https://riskyr.org/>.
+- An **interactive online version** is available at
+  <https://riskyr.org/>.
 
--   The **package documentation** is available online:
+- The **package documentation** is available online:
 
-    -   current release version: <https://hneth.github.io/riskyr/>
-    -   current development version:
-        <https://hneth.github.io/riskyr/dev/>
+  - current release version: <https://hneth.github.io/riskyr/>
+  - current development version: <https://hneth.github.io/riskyr/dev/>
 
 ## Quick start guide
 
@@ -134,7 +139,7 @@ devtools::install_github('hneth/riskyr')
 
 ### Defining a scenario
 
-**riskyr** is designed to address problems like the following:[3]
+**riskyr** is designed to address problems like the following:[^3]
 
 <!-- Example: -->
 
@@ -172,9 +177,8 @@ three essential probabilities:
 2.  The device’s or diagnostic decision’s *sensitivity* is 80%:
     `sens = .80`.  
 3.  The device’s or diagnostic decision’s *false alarm rate* is 5%:
-    `fart = .05`, implying a *specificity* of (100%
-    ![-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;- "-")
-    5%) = 95%: `spec = .95`.
+    `fart = .05`, implying a *specificity* of (100% $-$ 5%) = 95%:
+    `spec = .95`.
 
 #### Understanding the questions asked
 
@@ -183,17 +187,17 @@ being asked — and in realizing that their answers are *not* simply the
 decision’s sensitivity or specificity values. Instead, we are asked to
 provide two *conditional* probabilities:
 
--   The conditional probability of suffering from the condition given a
-    positive test result, <br>aka. the *positive predictive value*
-    (`PPV`).
--   The conditional probability of being free of the condition given a
-    negative test result, <br>aka. the *negative predictive value*
-    (`NPV`).
+- The conditional probability of suffering from the condition given a
+  positive test result, <br>aka. the *positive predictive value*
+  (`PPV`).
+- The conditional probability of being free of the condition given a
+  negative test result, <br>aka. the *negative predictive value*
+  (`NPV`).
 
 #### Translating into frequencies
 
 One of the best tricks in risk literacy education is to translate
-probabilistic information into frequencies.[4] To do this, we imagine a
+probabilistic information into frequencies.[^4] To do this, we imagine a
 representative sample of `N = 1000` individuals. Rather than asking
 about the probabilities for Mr. and Ms. Smith, we could re-frame the
 questions as:
@@ -246,11 +250,11 @@ The summary distinguishes between probabilities, frequencies, and
 accuracy information. In `Probabilities` we find the answer to both of
 our questions that take into account all the information provided above:
 
--   The conditional probability that Mr. Smith actually suffers from
-    hustosis given his positive test result is 40% (as `PPV = 0.400`).
+- The conditional probability that Mr. Smith actually suffers from
+  hustosis given his positive test result is 40% (as `PPV = 0.400`).
 
--   The conditional probability that Ms. Smith is actually free of
-    hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
+- The conditional probability that Ms. Smith is actually free of
+  hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
 If find these answers surprising, you are an ideal candidate for
 additional insights into the realm of risk literacy. A key component of
@@ -329,16 +333,15 @@ This particular tree splits the population of `N = 1000` individuals
 into two subgroups *by decision* (`by = "dc"`) and contains the answer
 to the second (frequency) version of our questions:
 
--   The proportion of individuals with a positive test result who
-    actually suffer from hustosis is the frequency of “true positive”
-    cases (shown in darker green) divided by “decision positive” cases
-    (shown in purple): `32/80 = .400` (corresponding to our value of
-    `PPV` above).  
--   The proportion of individuals with a negative test result who are
-    actually free from hustosis is the frequency of “true negative”
-    cases (shown in lighter green) divided by “decision negative” cases
-    (shown in blue): `912/920 = .991` (corresponding to our value of
-    `NPV` above, except for minimal differences due to rounding).
+- The proportion of individuals with a positive test result who actually
+  suffer from hustosis is the frequency of “true positive” cases (shown
+  in darker green) divided by “decision positive” cases (shown in
+  purple): `32/80 = .400` (corresponding to our value of `PPV` above).  
+- The proportion of individuals with a negative test result who are
+  actually free from hustosis is the frequency of “true negative” cases
+  (shown in lighter green) divided by “decision negative” cases (shown
+  in blue): `912/920 = .991` (corresponding to our value of `NPV` above,
+  except for minimal differences due to rounding).
 
 Of course, the frequencies of these ratios were already contained in the
 `hustosis` summary above. But the representation in the form of a tree
@@ -652,12 +655,11 @@ licenses.
 The theoretical background of **riskyr** is illuminated further in the
 following article:
 
--   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
-    (2021). Perspectives on the 2x2 matrix: Solving semantically
-    distinct problems based on a shared structure of binary
-    contingencies. *Frontiers in Psychology: Cognition*, *11*, 567817.
-    doi:
-    [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+  (2021). Perspectives on the 2x2 matrix: Solving semantically distinct
+  problems based on a shared structure of binary contingencies.
+  *Frontiers in Psychology: Cognition*, *11*, 567817. doi:
+  [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
 
 ### Resources
 
@@ -676,11 +678,11 @@ The following resources and versions are currently available:
 
 We appreciate your feedback, comments, or questions.
 
--   Please report any **riskyr**-related issues at
-    <https://github.com/hneth/riskyr/issues/>.
+- Please report any **riskyr**-related issues at
+  <https://github.com/hneth/riskyr/issues/>.
 
--   Contact us at <contact.riskyr@gmail.com> with any comments,
-    questions, or suggestions.
+- Contact us at <contact.riskyr@gmail.com> with any comments, questions,
+  or suggestions.
 
 ### Reference
 
@@ -695,12 +697,12 @@ We appreciate your feedback, comments, or questions.
 
 To cite **riskyr** in derivations and publications, please use:
 
--   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022).  
-    riskyr: Rendering Risk Literacy more Transparent.  
-    Social Psychology and Decision Sciences, University of Konstanz,
-    Germany.  
-    Computer software (R package version 0.4.0, Aug. 15, 2022).  
-    Retrieved from <https://CRAN.R-project.org/package=riskyr>.
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022).  
+  riskyr: Rendering Risk Literacy more Transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz,
+  Germany.  
+  Computer software (R package version 0.4.0, Aug. 15, 2022).  
+  Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
 
@@ -719,133 +721,131 @@ information.
 
 ### References
 
--   Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and
-    the prostate-cancer screening controversy. *Psychological Science*,
-    *23*, 547–553.
+- Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the
+  prostate-cancer screening controversy. *Psychological Science*, *23*,
+  547–553.
 
--   Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization
-    for probabilistic situations containing two binary events: The
-    frequency net. *Frontiers in Psychology*, *11*, 750. doi:
-    [10.3389/fpsyg.2020.00750](https://doi.org/10.3389/fpsyg.2020.00750)
+- Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization
+  for probabilistic situations containing two binary events: The
+  frequency net. *Frontiers in Psychology*, *11*, 750. doi:
+  [10.3389/fpsyg.2020.00750](https://doi.org/10.3389/fpsyg.2020.00750)
 
--   Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids
-    that promote risk literacy: A systematic review of health research
-    and evidence-based design heuristics. *Human Factors*, *59*,
-    582–627.
+- Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids
+  that promote risk literacy: A systematic review of health research and
+  evidence-based design heuristics. *Human Factors*, *59*, 582–627.
 
--   Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with
-    uncertainty*. London, UK: Penguin.
+- Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with
+  uncertainty*. London, UK: Penguin.
 
--   Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New
-    York, NY: Penguin.
+- Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New
+  York, NY: Penguin.
 
--   Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
-    *Annual Review of Psychology*, *62*, 451–482. ([Available
-    online](https://doi.org/10.1146/annurev-psych-120709-145346))
+- Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
+  *Annual Review of Psychology*, *62*, 451–482. ([Available
+  online](https://doi.org/10.1146/annurev-psych-120709-145346))
 
--   Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
-    Woloshin, S. (2007). Helping doctors and patients make sense of
-    health statistics. *Psychological Science in the Public Interest*,
-    *8*, 53–96. ([Available
-    online](https://doi.org/10.1111/j.1539-6053.2008.00033.x))
+- Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
+  Woloshin, S. (2007). Helping doctors and patients make sense of health
+  statistics. *Psychological Science in the Public Interest*, *8*,
+  53–96. ([Available
+  online](https://doi.org/10.1111/j.1539-6053.2008.00033.x))
 
--   Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian
-    reasoning without instruction: Frequency formats. *Psychological
-    Review*, *102*, 684–704.
+- Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian
+  reasoning without instruction: Frequency formats. *Psychological
+  Review*, *102*, 684–704.
 
--   Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002).
-    Representation facilitates reasoning: What natural frequencies are
-    and what they are not. *Cognition*, *84*, 343–352.
+- Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002).
+  Representation facilitates reasoning: What natural frequencies are and
+  what they are not. *Cognition*, *84*, 343–352.
 
--   Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015).
-    Natural frequencies improve Bayesian reasoning in simple and complex
-    inference tasks. *Frontiers in Psychology*, *6*, 1473. doi:
-    [10.3389/fpsyg.2015.01473](https://doi.org/10.3389/fpsyg.2015.01473)
-    ([Available online](https://doi.org/10.3389/fpsyg.2015.01473))
+- Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015).
+  Natural frequencies improve Bayesian reasoning in simple and complex
+  inference tasks. *Frontiers in Psychology*, *6*, 1473. doi:
+  [10.3389/fpsyg.2015.01473](https://doi.org/10.3389/fpsyg.2015.01473)
+  ([Available online](https://doi.org/10.3389/fpsyg.2015.01473))
 
--   Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000).
-    Communicating statistical information. *Science*, *290*, 2261–2262.
+- Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000).
+  Communicating statistical information. *Science*, *290*, 2261–2262.
 
--   Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). Benefits of
-    visualization in the mammography problem. *International Journal of
-    Human-Computer Studies*, *83*, 94–113.
+- Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). Benefits of
+  visualization in the mammography problem. *International Journal of
+  Human-Computer Studies*, *83*, 94–113.
 
--   Kurzenhäuser, S., & Hoffrage, U. (2002). Teaching Bayesian
-    reasoning: An evaluation of a classroom tutorial for medical
-    students. *Medical Teacher*, *24*, 516–521.
+- Kurzenhäuser, S., & Hoffrage, U. (2002). Teaching Bayesian reasoning:
+  An evaluation of a classroom tutorial for medical students. *Medical
+  Teacher*, *24*, 516–521.
 
--   Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008).
-    Transparency in risk communication. *Annals of the New York Academy
-    of Sciences*, *1128*, 18–28.
+- Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). Transparency
+  in risk communication. *Annals of the New York Academy of Sciences*,
+  *1128*, 18–28.
 
--   Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). Assessing the
-    effect of visualizations on Bayesian reasoning through
-    crowd-sourcing. *IEEE Transactions on Visualization and Computer
-    Graphics*, *18*, 2536–2545.
+- Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). Assessing the
+  effect of visualizations on Bayesian reasoning through crowd-sourcing.
+  *IEEE Transactions on Visualization and Computer Graphics*, *18*,
+  2536–2545.
 
--   Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an
-    uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends
-    in the social and behavioral sciences*. New York, NY: Wiley Online
-    Library. doi:
-    [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394)
-    ([Available
-    online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
+- Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an uncertain
+  world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends in the social
+  and behavioral sciences*. New York, NY: Wiley Online Library. doi:
+  [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394)
+  ([Available
+  online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
--   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
-    (2021). Perspectives on the 2x2 matrix: Solving semantically
-    distinct problems based on a shared structure of binary
-    contingencies. *Frontiers in Psychology*, *11*, 567817. doi:
-    [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
-    ([Available online](https://doi.org/10.3389/fpsyg.2020.567817))
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+  (2021). Perspectives on the 2x2 matrix: Solving semantically distinct
+  problems based on a shared structure of binary contingencies.
+  *Frontiers in Psychology*, *11*, 567817. doi:
+  [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
+  ([Available online](https://doi.org/10.3389/fpsyg.2020.567817))
 
--   Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning
-    in less than two hours. *Journal of Experimental Psychology:
-    General*, *130*, 380–400.
+- Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning in
+  less than two hours. *Journal of Experimental Psychology: General*,
+  *130*, 380–400.
 
--   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches
-    Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
+- Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches
+  Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- footer: -->
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2022-08-14 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2023-01-15 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
-[1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The
-MIT Press, Cambridge, MA. (p. 132).
+[^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
+    The MIT Press, Cambridge, MA. (p. 132).
 
-[2] To clarify our notion of “risk” in this context, we need to
-distinguish it from its everyday usage as anything implying a chance of
-danger or harm.  
-In basic research on judgment and decision making and the more applied
-fields of risk perception and risk communication, the term *risk*
-typically refers to decisions or events for which the options and their
-consequences are known and probabilities for all possible outcomes can
-be provided.  
-For our present purposes, the notion of risk-related information refers
-to any scenario in which some events of interest are determined by
-probabilities. While it is important that quantitative (estimates of)
-probabilities are provided, their origin, reliability and validity is
-not questioned here. Thus, the probabilities provided can be based on
-clinical intuition, on recordings of extensive experience, or on
-statistical simulation models (e.g., repeatedly casting dice and
-counting the frequencies of outcomes).  
-This notion of *risk* is typically contrasted with the much wider notion
-of *uncertainty* in which options or probabilities are unknown or cannot
-be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and
-Gigerenzer, 2015, on this conceptual distinction and corresponding
-decision strategies.)
+[^2]: To clarify our notion of “risk” in this context, we need to
+    distinguish it from its everyday usage as anything implying a chance
+    of danger or harm.  
+    In basic research on judgment and decision making and the more
+    applied fields of risk perception and risk communication, the term
+    *risk* typically refers to decisions or events for which the options
+    and their consequences are known and probabilities for all possible
+    outcomes can be provided.  
+    For our present purposes, the notion of risk-related information
+    refers to any scenario in which some events of interest are
+    determined by probabilities. While it is important that quantitative
+    (estimates of) probabilities are provided, their origin, reliability
+    and validity is not questioned here. Thus, the probabilities
+    provided can be based on clinical intuition, on recordings of
+    extensive experience, or on statistical simulation models (e.g.,
+    repeatedly casting dice and counting the frequencies of outcomes).  
+    This notion of *risk* is typically contrasted with the much wider
+    notion of *uncertainty* in which options or probabilities are
+    unknown or cannot be quantified. (See Gigerenzer and Gaissmaier,
+    2011, or Neth and Gigerenzer, 2015, on this conceptual distinction
+    and corresponding decision strategies.)
 
-[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995),
-Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific
-background information and similar problems. See Sedlmeier and
-Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related
-training programs (with remarkable results), and Micallef et al. (2012)
-and Khan et al. (2015) for (rather sceptical and somewhat sobering)
-studies on the potential benefits of static representations for solving
-Bayesian problems.
+[^3]: See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995),
+    Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific
+    background information and similar problems. See Sedlmeier and
+    Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related
+    training programs (with remarkable results), and Micallef et
+    al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat
+    sobering) studies on the potential benefits of static
+    representations for solving Bayesian problems.
 
-[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002)
-on the concept of *natural frequencies*.
+[^4]: See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000,
+    2002) on the concept of *natural frequencies*.

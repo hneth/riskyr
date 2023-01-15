@@ -4,19 +4,24 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
 
-<!-- Used status badges: -->
-[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
-[![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+<!-- Devel badges start: -->
+[![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=blue)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
+<!-- Devel badges end. -->
 
+<!-- Release badges start: -->
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)  -->
+<!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr) -->
+<!-- Release badges end. -->
 
 <!-- Possible status badges: 
-
-[![CRAN_status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
+[![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color='e0607e')](https://www.r-pkg.org/pkg/riskyr)
 [![Rdoc](https://www.rdocumentation.org/badges/version/riskyr)](https://www.rdocumentation.org/packages/riskyr/) 
-
 -->
 
 ```{r setup, echo = FALSE}
@@ -34,7 +39,7 @@ url_riskyr_org <- "https://riskyr.org/"
 
 <!-- riskyr logo: -->
 
-# riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr `r packageVersion('riskyr')` <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->  
 <!-- 
@@ -46,7 +51,8 @@ url_riskyr_org <- "https://riskyr.org/"
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
-### A toolbox for rendering risk literacy more transparent
+
+### A toolbox for rendering risk literacy more transparent {-}
 
 <!-- Current package Description (updated on 2021-03-19): -->
 
