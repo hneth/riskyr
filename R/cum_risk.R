@@ -25,9 +25,8 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 
 }
 
-# Check:
-apply_risk(pc = 100, ev = 0, r = .25, i = 4)
-
+# # Check:
+# apply_risk(pc = 100, ev = 0, r = .25, i = 4)
 
 
 
