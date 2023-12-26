@@ -1,5 +1,5 @@
 ## cum_risk.R | riskyr
-## 2023 12 25
+## 2023 12 26
 ## Compute cumulative risks
 
 
@@ -14,7 +14,7 @@
 
 # Recursive application of repeated risk r: ------
 
-# apply_risk() as recursive partition of population pc: ----
+# 1. apply_risk() as recursive partition of population pc: ----
 
 apply_risk <- function(pc = 100, ev = 0, r, i){
 
@@ -42,7 +42,7 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 # apply_risk(pc = 100, ev = 0, r = .25, i = 4)
 
 
-# Separately for p and ev: ------
+# 2. Separately for p and ev: ------
 
 # A: comp_p: Probabilities ----
 
@@ -107,9 +107,14 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 
 }
 
-# Check:
-comp_ev_p(ev = 0, r = .25, i = 2)
-comp_ev_p(ev = 0, r = .25, i = 4)
+# # Check:
+# comp_ev_p(p = 100, ev = 0, r = .25, i = 1)
+# comp_ev_p(p = 100, ev = 0, r = .25, i = 2)
+# comp_ev_p(p = 100, ev = 0, r = .25, i = 3)
+# comp_ev_p(p = 100, ev = 0, r = .25, i = 4)
+
+
+
 
 
 ## (*) Done: ----------
