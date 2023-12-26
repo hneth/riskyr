@@ -12,7 +12,7 @@
 # pc ... percent/population
 
 
-# Recursive application of repeated risk r: ------
+# A. Recursive application of repeated risk r: ------
 
 # 1. apply_risk() as recursive partition of population pc: ----
 
@@ -44,7 +44,7 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 
 # 2. Separately for p and ev: ------
 
-# A: comp_p: Probabilities ----
+# a: comp_p: Probabilities ----
 
 comp_p <- function(p = 100, r, i){
 
@@ -67,7 +67,7 @@ comp_p <- function(p = 100, r, i){
 # comp_p(p = 100, r = .25, i = 4)
 
 
-# B: comp_ev: Number of events ----
+# b: comp_ev: Number of events ----
 
 comp_ev <- function(ev = 0, r, i){
 
@@ -90,7 +90,7 @@ comp_ev <- function(ev = 0, r, i){
 # comp_ev(ev = 0, r = .25, i = 4)
 
 
-# C: comp_ev_p: Combination of comp_ev() and comp_p(): ----
+# c: comp_ev_p: Combination of comp_ev() and comp_p(): ----
 
 comp_ev_p <- function(p = 100, ev = 0, r, i){
 
@@ -113,6 +113,42 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 # comp_ev_p(p = 100, ev = 0, r = .25, i = 3)
 # comp_ev_p(p = 100, ev = 0, r = .25, i = 4)
 
+
+# B. Iterative generation: ------
+
+p <- 100    # population
+r <- .25    # risk per time period
+t <- 4      # time periods/rounds
+
+for (i in 0:t){
+
+  if (i == 0){
+
+    # initialize:
+    ev <- 0
+    ps <- p
+
+    print(paste0(i, ": ev = ", ev, ", ps = ", ps))
+
+  } else {
+
+    for (e in 1:length(ev)){
+
+      ev <- c(ev[e] + 1, ev[e])
+      ps <- c(ps[e] * r, ps[e] * (1 - r))
+
+    }
+
+    print(paste0(i, ": ev = ", paste0(ev, collapse = ", "), ", ps = ", paste0(ps, collapse = ", ")))
+
+  }
+
+}
+
+
+# ?: +++ here now +++:
+# - More approproate data structure?
+# - How to grow tree structure in R?
 
 
 
