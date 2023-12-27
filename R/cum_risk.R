@@ -1,7 +1,6 @@
 ## cum_risk.R | riskyr
-## 2023 12 26
+## 2023 12 27
 ## Compute cumulative risks
-
 
 # Parameters: ----
 
@@ -96,10 +95,11 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 
   out <- NA  # initialize
 
+  # Compute (using recursive functions):
   events <- comp_ev(ev, r, i) # A
   cum_ps <- comp_p(p,   r, i) # B
 
-  # Combine output:
+  # Combine outputs:
   out <- cum_ps
   names(out) <- paste0(events, "x")
 
@@ -124,39 +124,38 @@ for (i in 0:t){
 
   if (i == 0){
 
-    # initialize:
+    # prepare:
     ev <- vector(mode = "list", length = t)
     ps <- vector(mode = "list", length = t)
 
-    print(paste0(i, ": ev = ", ev, ", ps = ", ps))
-
     } else if (i == 1){
 
-      ev[1] <- c(1, 0)
-      ps[1] <- c(p * r, p * (1 - r))
+      # initialize:
+      ev[[i]] <- c(1, 0)
+      ps[[i]] <- c(p * r, p * (1 - r))
+
+      names(ps[[i]]) <- paste0(ev[[i]], "x")
 
   } else {
 
-    # ?: +++ here now +++:
+    for (e in 1:length(ev[[i - 1]])){
 
-    for (e in 1:length(ev)){
+      ev[[i]][c((2 * e - 1), 2 * e)] <- ev[[i - 1]][e] + c(1, 0)
+      ps[[i]][c((2 * e - 1), 2 * e)] <- ps[[i - 1]][e] * c(r, (1 - r))
 
-      ev <- c(ev[e] + 1, ev[e])
-      ps <- c(ps[e] * r, ps[e] * (1 - r))
+      names(ps[[i]]) <- paste0(ev[[i]], "x")
 
     }
-
-    print(paste0(i, ": ev = ", paste0(ev, collapse = ", "), ", ps = ", paste0(ps, collapse = ", ")))
-
   }
-
 }
 
+# Check:
+ps
 
+# ?: +++ here now +++:
 
 # - More appropriate data structure?
 # - How to grow tree structure in R?
-
 
 
 
