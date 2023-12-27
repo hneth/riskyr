@@ -125,12 +125,19 @@ for (i in 0:t){
   if (i == 0){
 
     # initialize:
-    ev <- 0
-    ps <- p
+    ev <- vector(mode = "list", length = t)
+    ps <- vector(mode = "list", length = t)
 
     print(paste0(i, ": ev = ", ev, ", ps = ", ps))
 
+    } else if (i == 1){
+
+      ev[1] <- c(1, 0)
+      ps[1] <- c(p * r, p * (1 - r))
+
   } else {
+
+    # ?: +++ here now +++:
 
     for (e in 1:length(ev)){
 
@@ -146,8 +153,8 @@ for (i in 0:t){
 }
 
 
-# ?: +++ here now +++:
-# - More approproate data structure?
+
+# - More appropriate data structure?
 # - How to grow tree structure in R?
 
 
