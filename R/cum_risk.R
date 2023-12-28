@@ -118,7 +118,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 # B. Iterative generation: ------
 
 N <- 100    # population
-r <- .25    # risk per time period
+r <- .20    # risk per time period
 t <- 4      # time periods/rounds
 
 for (i in 0:t){ # each period i:
