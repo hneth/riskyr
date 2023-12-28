@@ -118,7 +118,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 # B. Iterative generation: ------
 
 N <- 100    # population
-r <- .50    # risk per time period
+r <- .25    # risk per time period
 t <- 4      # time periods/rounds
 
 for (i in 0:t){ # each period i:
@@ -171,12 +171,13 @@ for (i in 0:t){ # each period i:
 plot_cum_bar <- function(data, N = 100){
 
   # Plot dimensions:
+  t_max <- length(data)
   x_max <- N
-  y_max <- length(data) + 1
+  y_max <- t_max + 1
 
   # Initialize plotting area:
   plot(0:1, 0:1, type = "n",
-       xlab = "Percentages", ylab = "Times",
+       xlab = "Percentages", ylab = "Time periods",
        xlim = c(0, x_max), ylim = c(0, y_max),
        axes = FALSE)
 
@@ -193,7 +194,7 @@ plot_cum_bar <- function(data, N = 100){
 
 
   # Initialize color palette:
-  n_cols <- 1 + length(data)
+  n_cols <- 1 + t_max
   col_lo <- "grey96"
   col_hi <- "firebrick" # "olivedrab" # grey20" # "red3"
 
@@ -225,10 +226,12 @@ plot_cum_bar <- function(data, N = 100){
       x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
       cur_col <- pal[x_ev + 1]
 
+      cex_lbl <- 1 - 5 * t_max/100
+
       # Draw box:
       plot_cbox(x = x_cur, y = y_cur, lx = x_width, ly = .50,
-                lbl = x_ev, cex = .90,
-                col_fill = cur_col, col_brd = "grey33")
+                lbl = x_ev, cex = cex_lbl,
+                col_fill = cur_col, col_brd = "grey20")
 
       x_prv <- x_prv + p_cur  # increment x_store
 
@@ -247,7 +250,6 @@ plot_cum_bar <- function(data, N = 100){
 # plot_cum_bar(data = ps, N = N)
 
 # ?: +++ here now +++:
-
 
 # ToDo:
 # - Add option to sort cum-risk vectors by names.
