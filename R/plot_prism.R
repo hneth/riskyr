@@ -1170,6 +1170,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
         box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
 
+
       } else if (area == "sq") { # Scale area as square:
 
         # Compute ly for current scale:
@@ -1201,6 +1202,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
         # adjust x-coordinates to scaled dimensions:
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
         box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
+
 
       } else if (area == "sq") { # Scale area as square:
 

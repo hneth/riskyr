@@ -1,5 +1,5 @@
 ## cum_risk.R | riskyr
-## 2023 12 27
+## 2023 12 28
 ## Compute cumulative risks
 
 # Parameters: ----

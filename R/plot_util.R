@@ -46,12 +46,13 @@ class(box0) <- "box"  # name class
 ## Check:
 # box0 # shows object (list)
 
-## box class: Create constructor function for the "box" class: ----------
+## box class: A constructor function for the "box" class: ----------
+
 make_box <- function(name, x, y, lx, ly) {
 
   # Note: It is good practice to give the constructor function
   #       the same name as the class (here: box).  However, as
-  #       the function box exists (in graphics), we use make_box here.
+  #       the function box exists (in graphics), we use make_box() here.
 
   # Check integrity of arguments:
   if (!is.character(name)) stop("name must be a character.")
@@ -71,12 +72,14 @@ make_box <- function(name, x, y, lx, ly) {
 
   # Return object:
   obj
+
 }
 
 ## Check:
 # box1 <- make_box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
 # box1 <- make_box("box1_name", .1, .1, 1, 1) # use constructor function to create new objects.
 # box1
+
 
 ## box methods: Create generic print and plot methods for box objects: ---------
 
@@ -119,6 +122,7 @@ plot.box <- function(x,
                      ...) {
 
   # print("@@@@ I am the plot.box() method!")
+
   ## Call plot_fbox helper function:
   plot_fbox(fname = x$name,
             x  = x$x,   y = x$y,
@@ -143,6 +147,7 @@ plot.box <- function(x,
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
 # plot(box_mi, lbl_type = "nam",
 #      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+
 
 
 ## (2) Constructing and plotting labels, boxes, and links: ----------
@@ -1076,7 +1081,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 } # plot_cbox() end.
 
 # ## Check:
-# plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
+# plot(0:1, 0:1, type = "n",
+#      xlab = "x-axis", ylab = "y-axis",
 #      xlim = c(0, 10), ylim = c(0, 6))
 #
 # plot_cbox(1, 5, 1, 1)  # default color, no text labels
@@ -1408,8 +1414,8 @@ plot_fbox_list <- function(fboxes,
 
 } # plot_fbox_list() end.
 
-## Check:
-## Define some boxes:
+# # Check:
+# Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
 # box_hi <- make_box("hi", 2, 3, 1, 1)  #                hi
 # box_mi <- make_box("mi", 4, 3, 1, 1)  #                mi
@@ -1427,7 +1433,7 @@ plot_fbox_list <- function(fboxes,
 # length(box_N[[1]]) # 1!
 #
 # # Working with a list of boxes:
-# boxes <- list(box_hi, box_mi, box_fa, box_cr)
+# boxes <- list(box_N, box_hi, box_mi, box_fa, box_cr)
 # plot(0:10, type = "n")
 # plot_fbox_list(boxes)
 #
