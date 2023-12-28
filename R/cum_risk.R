@@ -159,18 +159,20 @@ for (i in 0:t){ # each period i:
 
 # C. Plot ps list as cum-risk barplot: ------
 
-#' plot_cum_ps plots the results of cumulative risk computations.
+#' plot_cum_bar plots the results of cumulative risk computations
+#' as a bar plot (with percentages of risk event counts
+#' for each period t as a horizontal bar).
 #'
 #' @param data The data to plot (as list of named probabilities).
 #' @param N population size.
 #'
 #' @importFrom grDevices colorRampPalette
 
-plot_cum_ps <- function(ps, N = 100){
+plot_cum_bar <- function(data, N = 100){
 
   # Plot dimensions:
   x_max <- N
-  y_max <- length(ps) + 1
+  y_max <- length(data) + 1
 
   # Initialize plotting area:
   plot(0:1, 0:1, type = "n",
@@ -191,7 +193,7 @@ plot_cum_ps <- function(ps, N = 100){
 
 
   # Initialize color palette:
-  n_cols <- 1 + length(ps)
+  n_cols <- 1 + length(data)
   col_lo <- "grey96"
   col_hi <- "firebrick" # "olivedrab" # grey20" # "red3"
 
@@ -200,11 +202,11 @@ plot_cum_ps <- function(ps, N = 100){
   # unikn::seecol(pal)
 
   # For each time/period/round:
-  for (t in 1:length(ps)){
+  for (t in 1:length(data)){
 
     # print(t)
 
-    v <- ps[[t]]  # get current vector
+    v <- data[[t]]  # get current vector
 
     # ToDo: Sort by vector values by value names.
 
@@ -239,10 +241,10 @@ plot_cum_ps <- function(ps, N = 100){
 
   title(main = paste0("Cumulative risks (r = ", r, "; t = ", t, "; N = ", N, ")"))
 
-} # plot_cum_ps().
+} # plot_cum_bar().
 
 # # Check:
-# plot_cum_ps(ps, N = N)
+# plot_cum_bar(data = ps, N = N)
 
 # ?: +++ here now +++:
 
