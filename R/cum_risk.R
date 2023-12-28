@@ -43,7 +43,7 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 
 # 2. Separately for p and ev: ------
 
-# a: comp_p: Probabilities ----
+# - a: comp_p: Probabilities ----
 
 comp_p <- function(p = 100, r, i){
 
@@ -66,7 +66,7 @@ comp_p <- function(p = 100, r, i){
 # comp_p(p = 100, r = .25, i = 4)
 
 
-# b: comp_ev: Number of events ----
+# - b: comp_ev: Number of events ----
 
 comp_ev <- function(ev = 0, r, i){
 
@@ -89,7 +89,7 @@ comp_ev <- function(ev = 0, r, i){
 # comp_ev(ev = 0, r = .25, i = 4)
 
 
-# c: comp_ev_p: Combination of comp_ev() and comp_p(): ----
+# - c: comp_ev_p: Combination of comp_ev() and comp_p(): ----
 
 comp_ev_p <- function(p = 100, ev = 0, r, i){
 
@@ -114,13 +114,14 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 # comp_ev_p(p = 100, ev = 0, r = .25, i = 4)
 
 
+
 # B. Iterative generation: ------
 
-p <- 100    # population
+N <- 100    # population
 r <- .25    # risk per time period
 t <- 4      # time periods/rounds
 
-for (i in 0:t){
+for (i in 0:t){ # each period i:
 
   if (i == 0){
 
@@ -128,29 +129,97 @@ for (i in 0:t){
     ev <- vector(mode = "list", length = t)
     ps <- vector(mode = "list", length = t)
 
-    } else if (i == 1){
+  } else if (i == 1){
 
-      # initialize:
-      ev[[i]] <- c(1, 0)
-      ps[[i]] <- c(p * r, p * (1 - r))
+    # initialize:
+    ev[[i]] <- c(1, 0)
+    ps[[i]] <- c(N * r, N * (1 - r))
 
-      names(ps[[i]]) <- paste0(ev[[i]], "x")
+    names(ps[[i]]) <- paste0(ev[[i]], "x")
 
   } else {
 
-    for (e in 1:length(ev[[i - 1]])){
+    for (e in 1:length(ev[[i - 1]])){ # each element e in the previous ev vector:
 
       ev[[i]][c((2 * e - 1), 2 * e)] <- ev[[i - 1]][e] + c(1, 0)
       ps[[i]][c((2 * e - 1), 2 * e)] <- ps[[i - 1]][e] * c(r, (1 - r))
 
       names(ps[[i]]) <- paste0(ev[[i]], "x")
 
-    }
-  }
-}
+    } # for e.
+
+  } # if i.
+
+} # for i.
 
 # Check:
-ps
+# ps
+
+
+
+# C. Plot ps list: ------
+
+plot_cum_ps <- function(ps, N = 100){
+
+  # Plot dimensions:
+  x_max <- N
+  y_max <- length(ps) + 1
+
+  # Initialize plotting area:
+  plot(0:1, 0:1, type = "n",
+       xlab = "Percentages", ylab = "Times",
+       xlim = c(0, x_max), ylim = c(0, y_max))
+
+  grid()
+
+
+  # Initialize color palette:
+  pal <- unikn::usecol(pal = c("grey96", "red3"), n = length(ps) + 1, alpha = .80)
+  # unikn::seecol(pal)
+
+  # For each time/period/round:
+  for (t in 1:length(ps)){
+
+    # print(t)
+
+    v <- ps[[t]]  # get current vector
+
+    x_prv <- 0  #  initialize x-store
+    y_cur <- y_max - t
+
+    # For each value in v:
+    for (i in 1:length(v)){
+
+      p_cur <- v[i]  # current p value (named probability)
+
+      x_width <- p_cur
+      x_cur <- x_prv + x_width/2
+
+      x_name <- names(p_cur)  # current name
+      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
+      cur_col <- pal[x_ev + 1]
+
+      # Draw box:
+      plot_cbox(x = x_cur, y = y_cur, lx = x_width, ly = .50,
+                lbl = x_ev, cex = .90,
+                col_fill = cur_col, col_brd = "grey33")
+
+      x_prv <- x_prv + p_cur  # increment x_store
+
+    } # for i.
+
+  } # for t.
+
+  title(main = paste0("Cumulative risks (r = ", r, "; t = ", t, "; N = ", N, ")"))
+
+} # plot_cum_ps().
+
+# Check:
+# plot_cum_ps(ps)
+
+
+
+
 
 # ?: +++ here now +++:
 
