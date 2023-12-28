@@ -118,7 +118,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 # B. Iterative generation: ------
 
 N <- 100    # population
-r <- .25    # risk per time period
+r <- .50    # risk per time period
 t <- 4      # time periods/rounds
 
 for (i in 0:t){ # each period i:
@@ -157,7 +157,7 @@ for (i in 0:t){ # each period i:
 
 
 
-# C. Plot ps list: ------
+# C. Plot ps list as cum-risk barplot: ------
 
 plot_cum_ps <- function(ps, N = 100){
 
@@ -174,7 +174,12 @@ plot_cum_ps <- function(ps, N = 100){
 
 
   # Initialize color palette:
-  pal <- unikn::usecol(pal = c("grey96", "red3"), n = length(ps) + 1, alpha = .80)
+  n_cols <- 1 + length(ps)
+  col_lo <- "grey96"
+  col_hi <- "firebrick" # "olivedrab" # grey20" # "red3"
+
+  # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
+  pal <- colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
   # unikn::seecol(pal)
 
   # For each time/period/round:
@@ -183,6 +188,9 @@ plot_cum_ps <- function(ps, N = 100){
     # print(t)
 
     v <- ps[[t]]  # get current vector
+
+    # ToDo: Sort by vector values by value names.
+
 
     x_prv <- 0  #  initialize x-store
     y_cur <- y_max - t
@@ -215,7 +223,7 @@ plot_cum_ps <- function(ps, N = 100){
 } # plot_cum_ps().
 
 # Check:
-# plot_cum_ps(ps)
+plot_cum_ps(ps, N = N)
 
 
 
