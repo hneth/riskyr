@@ -168,9 +168,19 @@ plot_cum_ps <- function(ps, N = 100){
   # Initialize plotting area:
   plot(0:1, 0:1, type = "n",
        xlab = "Percentages", ylab = "Times",
-       xlim = c(0, x_max), ylim = c(0, y_max))
+       xlim = c(0, x_max), ylim = c(0, y_max),
+       axes = FALSE)
 
   grid()
+
+  # Axes:
+  # X-axis at bottom, horizontal labels:
+  axis(side = 1, labels = TRUE,
+       las = 1, lwd = 1, cex.axis = 1)
+
+  # # Y-axis at left, horizontal labels:
+  # axis(side = 2, labels = TRUE,
+  #      las = 1, lwd = 1, cex.axis = 1)
 
 
   # Initialize color palette:
@@ -191,11 +201,10 @@ plot_cum_ps <- function(ps, N = 100){
 
     # ToDo: Sort by vector values by value names.
 
-
     x_prv <- 0  #  initialize x-store
     y_cur <- y_max - t
 
-    # For each value in v:
+    # For each p/ev-value in v:
     for (i in 1:length(v)){
 
       p_cur <- v[i]  # current p value (named probability)
@@ -216,23 +225,25 @@ plot_cum_ps <- function(ps, N = 100){
 
     } # for i.
 
+    # Add label (on left):
+    text(x = 0, y = y_cur, labels = paste0(t, ":"), pos = 2, xpd = TRUE)
+
   } # for t.
 
   title(main = paste0("Cumulative risks (r = ", r, "; t = ", t, "; N = ", N, ")"))
 
 } # plot_cum_ps().
 
-# Check:
-plot_cum_ps(ps, N = N)
-
-
-
-
+# # Check:
+# plot_cum_ps(ps, N = N)
 
 # ?: +++ here now +++:
 
-# - More appropriate data structure?
-# - How to grow tree structure in R?
+
+# ToDo:
+# - Add option to sort cum-risk vectors by names.
+# - Use more appropriate data structure for ps?
+# - How to grow a (binary) tree structure in R?
 
 
 
