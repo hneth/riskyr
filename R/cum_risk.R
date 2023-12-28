@@ -159,6 +159,13 @@ for (i in 0:t){ # each period i:
 
 # C. Plot ps list as cum-risk barplot: ------
 
+#' plot_cum_ps plots the results of cumulative risk computations.
+#'
+#' @param data The data to plot (as list of named probabilities).
+#' @param N population size.
+#'
+#' @importFrom grDevices colorRampPalette
+
 plot_cum_ps <- function(ps, N = 100){
 
   # Plot dimensions:
@@ -189,7 +196,7 @@ plot_cum_ps <- function(ps, N = 100){
   col_hi <- "firebrick" # "olivedrab" # grey20" # "red3"
 
   # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
-  pal <- colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
+  pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
   # unikn::seecol(pal)
 
   # For each time/period/round:
