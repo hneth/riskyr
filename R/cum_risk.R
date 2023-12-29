@@ -179,7 +179,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #'
 #' @importFrom grDevices colorRampPalette
 
-plot_cum_bar <- function(r = 1/2, t = 1, N = 100){
+plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
 
   # Compute data:
   data <- comp_cum_ps(r = r, t = t, N = N)
@@ -224,7 +224,12 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100){
     v <- data[[t]]  # get current vector
     # print(v)
 
-    # ToDo: Sort by vector values by value names.
+    if (sort){
+
+      # Sort by vector values by value names:
+      v <- v[order(names(v), decreasing = TRUE)]
+
+    }
 
     x_prv <- 0  #  initialize x-store
     y_val <- (y_max - t)
@@ -264,30 +269,35 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100){
 
 } # plot_cum_bar().
 
-# # Check:
+
+# # # Check:
 # plot_cum_bar()
-# plot_cum_bar(r = .25, t = 5, N = 100)
+# plot_cum_bar(r = .25, t = 3, N = 100)
+# plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)
+# plot_cum_bar(r = .50, t = 3, N = 100)
+# plot_cum_bar(r = .50, t = 3, N = 100, sort = TRUE)
 # plot_cum_bar(r = .75, t = 4, N = 100)
+# plot_cum_bar(r = .75, t = 4, N = 100, sort = TRUE)
 
 # ?: +++ here now +++:
-
-# ToDo:
-# - Add option to sort cum-risk vectors by names:
-
-
-
-# - Add option for vertical bars (with 2 directions/levels).
-# - Use more appropriate data structure for ps?
-# - How to grow a (binary) tree structure in R?
 
 
 
 ## (*) Done: ----------
 
-## - etc.
+# - Added option to sort cum-risk vectors by names:
+#
+# # Sort vector by element names:
+# v <- 1:4
+# names(v) <- c("B", "C", "D", "A")
+# v[order(names(v))]
+
 
 ## (+) ToDo: ----------
 
-## - etc.
+# - Add option for plotting as vertical bars (with 2 directions/levels).
+# - Use more appropriate data structure for ps?
+# - How to grow a (binary) tree structure in R?
+
 
 ## eof. ------------------------------------------
