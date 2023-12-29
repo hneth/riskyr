@@ -265,7 +265,8 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
 
   } # for t.
 
-  title(main = paste0("Cumulative risks (r = ", r, "; t = ", t, "; N = ", N, ")"))
+  title(main = paste0("Cumulative risks (r = ", r, "; t = ", t, "; N = ", N, ")"),
+        adj = 0)
 
 } # plot_cum_bar().
 
