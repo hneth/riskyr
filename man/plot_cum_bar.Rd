@@ -4,7 +4,7 @@
 \alias{plot_cum_bar}
 \title{Plot cumulative risk dynamics}
 \usage{
-plot_cum_bar(r = 1/2, t = 1, N = 100)
+plot_cum_bar(r = 1/2, t = 1, N = 100, sort = FALSE)
 }
 \arguments{
 \item{N}{population size.}
