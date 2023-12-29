@@ -2,19 +2,17 @@
 % Please edit documentation in R/cum_risk.R
 \name{plot_cum_bar}
 \alias{plot_cum_bar}
-\title{plot_cum_bar plots the results of cumulative risk computations
-as a bar plot (with percentages of risk event counts
-for each period t as a horizontal bar).}
+\title{Plot cumulative risk dynamics}
 \usage{
-plot_cum_bar(data, N = 100)
+plot_cum_bar(r = 1/2, t = 1, N = 100)
 }
 \arguments{
-\item{data}{The data to plot (as list of named probabilities).}
-
 \item{N}{population size.}
+
+\item{data}{The data to plot (as list of named probabilities).}
 }
 \description{
-plot_cum_bar plots the results of cumulative risk computations
-as a bar plot (with percentages of risk event counts
-for each period t as a horizontal bar).
+plot_cum_bar plots the results of cumulative risk dynamics
+as a barchart (with percentages of risk event counts
+for each period t on a horizontal bar).
 }
