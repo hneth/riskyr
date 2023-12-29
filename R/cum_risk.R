@@ -174,8 +174,10 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' as a barchart (with percentages of risk event counts
 #' for each period t on a horizontal bar).
 #'
-#' @param data The data to plot (as list of named probabilities).
-#' @param N population size.
+#' @param r risk (per time period)
+#' @param t number of time periods
+#' @param N population size
+#' @param sort logical: sort outputs (by number of event occurrences)?
 #'
 #' @importFrom grDevices colorRampPalette
 

@@ -7,9 +7,13 @@
 plot_cum_bar(r = 1/2, t = 1, N = 100, sort = FALSE)
 }
 \arguments{
-\item{N}{population size.}
+\item{r}{risk (per time period)}
 
-\item{data}{The data to plot (as list of named probabilities).}
+\item{t}{number of time periods}
+
+\item{N}{population size}
+
+\item{sort}{logical: sort outputs (by number of event occurrences)?}
 }
 \description{
 plot_cum_bar plots the results of cumulative risk dynamics
