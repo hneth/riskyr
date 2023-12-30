@@ -4,16 +4,21 @@
 \alias{plot_cum_bar}
 \title{Plot cumulative risk dynamics}
 \usage{
-plot_cum_bar(r = 1/2, t = 1, N = 100, sort = FALSE)
+plot_cum_bar(r = 1/2, t = 1, N = 100, sort = FALSE, x_max = 100)
 }
 \arguments{
 \item{r}{risk (per time period)}
 
 \item{t}{number of time periods}
 
-\item{N}{population size}
+\item{N}{population size.
+Default: \code{N = 100} expresses risks as percentages,
+\code{N = 1} as probabilities, else frequencies.}
 
 \item{sort}{logical: sort outputs (by number of event occurrences)?}
+
+\item{x_max}{maximum x-value (for zooming).
+Default should equal population size \code{N}.}
 }
 \description{
 plot_cum_bar plots the results of cumulative risk dynamics
