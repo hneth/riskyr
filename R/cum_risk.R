@@ -381,9 +381,11 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 #
 # plot_cum_bar(r = .50, t = 3, N = 100)
 # plot_cum_bar(r = .50, t = 3, N = 100, sort = TRUE)  # sorting
+# plot_cum_bar(r = .50, t = 3, N = 100, horizontal = FALSE)  # sorting
 #
 # plot_cum_bar(r = .75, t = 4, N = 100)
 # plot_cum_bar(r = .75, t = 4, N = 100, sort = TRUE)  # sorting
+# plot_cum_bar(r = .75, t = 4, N = 100, horizontal = FALSE)  # vertical bars
 #
 # plot_cum_bar(r = .05, t = 5, N_max = 25)  # zooming in
 # plot_cum_bar(r = .05, t = 5, sort = TRUE, N_max = 1)  # sorting & zooming in
