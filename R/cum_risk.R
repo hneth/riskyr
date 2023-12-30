@@ -260,9 +260,8 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Plot 1st bar/box (for time period 0): ----
 
-  lbl_0 <- paste0("0 (r = ", round(r, 2), ")")  # events (risk)
+  lbl_0 <- paste0("0 (N = ", round(N, 0), ", r = ", round(r, 2), ")")  # events (risk)
   cur_col <- pal[1]
-
 
   if (horizontal){
 
@@ -276,7 +275,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   } else { # vertical bars:
 
-    lbl_0 <- paste0("0\n(r = ", round(r, 2), ")")  # adjust: events (risk)
+    lbl_0 <- paste0("0\n(N = ", round(N, 0), ",\nr = ", round(r, 2), ")")  # adjust: events (risk)
 
     # Draw bar/box 0:
     plot_cbox(x = y_max - y_max, y = N/2, lx = bar_width, ly = N,
@@ -319,6 +318,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
       x_name <- names(p_cur)  # current name
       x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
+      lbl_i <- paste0(x_ev, " (", round(p_cur, 2), ")")
 
       cur_col <- pal[x_ev + 1]
 
@@ -326,13 +326,13 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
       if (horizontal){
 
         plot_cbox(x = x_val, y = y_val, lx = x_width, ly = bar_width,
-                  lbl = x_ev, cex = cex_lbl,
+                  lbl = lbl_i, cex = cex_lbl,
                   col_fill = cur_col, col_brd = "grey20")
 
       } else { # vertical bars:
 
         plot_cbox(x = y_max - y_val, y = x_val, lx = bar_width, ly = x_width,
-                  lbl = x_ev, cex = cex_lbl,
+                  lbl = lbl_i, cex = cex_lbl,
                   col_fill = cur_col, col_brd = "grey20")
 
       }
@@ -374,7 +374,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
 
 # # # Check:
-# plot_cum_bar()
+plot_cum_bar()
 #
 # plot_cum_bar(r = .25, t = 3, N = 100)
 # plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)  # sorting
