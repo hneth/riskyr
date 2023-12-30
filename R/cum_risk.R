@@ -200,6 +200,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   y_max <- t_max + 1
 
   # Constants:
+  show_n <- FALSE # TRUE
   bar_width <- .50
   cex_lbl <- 1 - (5 * t_max/100)
 
@@ -260,7 +261,13 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Plot 1st bar/box (for time period 0): ----
 
-  lbl_0 <- paste0("0 (N = ", round(N, 0), ", r = ", round(r, 2), ")")  # events (risk)
+  if (show_n){
+    lbl_0 <- paste0("0 (N = ", round(N, 0), ", r = ", round(r, 2), ")")  # events (N, risk)
+  } else { # default;
+    lbl_0 <- paste0("0 (r = ", round(r, 2), ")")  # events (risk)
+  }
+
+
   cur_col <- pal[1]
 
   if (horizontal){
@@ -275,7 +282,11 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   } else { # vertical bars:
 
-    lbl_0 <- paste0("0\n(N = ", round(N, 0), ",\nr = ", round(r, 2), ")")  # adjust: events (risk)
+    if (show_n){
+      lbl_0 <- paste0("0\n(N = ", round(N, 0), ",\nr = ", round(r, 2), ")")  # adjust: events (N, risk)
+    } else { # default:
+      lbl_0 <- paste0("0\n(r = ", round(r, 2), ")")  # adjust: events (risk)
+    }
 
     # Draw bar/box 0:
     plot_cbox(x = y_max - y_max, y = N/2, lx = bar_width, ly = N,
@@ -318,7 +329,12 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
       x_name <- names(p_cur)  # current name
       x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
-      lbl_i <- paste0(x_ev, " (", round(p_cur, 2), ")")
+
+      if (show_n){
+        lbl_i <- paste0(x_ev, " (", round(p_cur, 2), ")")
+      } else { # default;
+        lbl_i <- paste0(x_ev)
+      }
 
       cur_col <- pal[x_ev + 1]
 
@@ -374,7 +390,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
 
 # # # Check:
-plot_cum_bar()
+# plot_cum_bar()
 #
 # plot_cum_bar(r = .25, t = 3, N = 100)
 # plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)  # sorting
@@ -412,11 +428,12 @@ plot_cum_bar()
 # v[order(names(v))]
 #
 # - Added option for plotting as vertical bars (with 2 directions/levels).
+#
+# - Included show_n option to show frequency value in bar
+#   (in addition to ev-occurrences)
 
 
 ## (+) ToDo: ----------
-
-# - Include option to show frequency in bar (instead of/in addition to ev-occurrences)
 
 # - Plot transition links between time periods (as arrows/polygon)
 
