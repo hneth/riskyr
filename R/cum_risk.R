@@ -1,5 +1,5 @@
 ## cum_risk.R | riskyr
-## 2023 12 28
+## 2023 12 30
 ## Compute cumulative risks
 
 # Parameters: ----
@@ -176,25 +176,45 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #'
 #' @param r risk (per time period)
 #' @param t number of time periods
-#' @param N population size
+#' @param N population size.
+#' Default: \code{N = 100} expresses risks as percentages,
+#' \code{N = 1} as probabilities, else frequencies.
+#'
 #' @param sort logical: sort outputs (by number of event occurrences)?
+#' @param x_max maximum x-value (for zooming).
+#' Default should equal population size \code{N}.
 #'
 #' @importFrom grDevices colorRampPalette
 
-plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
+plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
+                         sort = FALSE, x_max = 100){
 
-  # Compute data:
+  # Compute cumulative probability data: ----
   data <- comp_cum_ps(r = r, t = t, N = N)
 
+  # Prepare plot: ----
+
   # Plot dimensions:
-  t_max <- length(data)
-  x_max <- N
+  t_max <- t
+  x_max <- x_max
   y_max <- t_max + 1
+
+  # Constants:
+  bar_width <- .50
+  cex_lbl <- 1 - (5 * t_max/100)
+
+  if (N == 100){
+    x_lbl <- "Percentage"
+  } else if (N == 1){
+    x_lbl <- "Probability"
+  } else {
+    x_lbl <- "Frequency"
+  }
 
   # Initialize plotting area:
   plot(0:1, 0:1, type = "n",
-       xlab = "Percentages", ylab = "Time periods",
-       xlim = c(0, x_max), ylim = c(0, y_max),
+       xlab = x_lbl, ylab = "Time period",
+       xlim = c(0, x_max), ylim = c(0.5, y_max + 0.2),
        axes = FALSE)
 
   grid()
@@ -204,21 +224,35 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
   axis(side = 1, labels = TRUE,
        las = 1, lwd = 1, cex.axis = 1)
 
-  # # Y-axis at left, horizontal labels:
+  # # Y-axis on left, horizontal labels:
   # axis(side = 2, labels = TRUE,
   #      las = 1, lwd = 1, cex.axis = 1)
 
-
-  # Initialize color palette:
+  # Colors:
   n_cols <- 1 + t_max
-  col_lo <- "grey95"
-  col_hi <- "firebrick" # "olivedrab" # grey20" # "red3"
+  col_lo <- "grey98"
+  col_hi <- "firebrick" # "steelblue" # "deepskyblue" # "deeppink" # "olivedrab" # "grey20" # "red3"
 
   # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
   pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
   # unikn::seecol(pal)
 
-  # For each time/period/round:
+
+  # Plot 1st bar/box (for time period 0): ----
+
+  lbl_0 <- paste0("0 (r = ", round(r, 2), ")")  # events (risk)
+  cur_col <- pal[1]
+
+  # Draw bar/box 0:
+  plot_cbox(x = N/2, y = y_max, lx = N, ly = bar_width,
+            lbl = lbl_0, cex = cex_lbl,
+            col_fill = cur_col, col_brd = "grey20")
+
+  # Add label (on left):
+  text(x = 0, y = y_max, labels = "0:", pos = 2, xpd = TRUE)
+
+
+  # Plot bars/boxes (for each time period): ----
   for (t in 1:length(data)){
 
     # print(t)
@@ -234,7 +268,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
     }
 
     x_prv <- 0  #  initialize x-store
-    y_val <- (y_max - t)
+    y_val <- y_max - t
 
     # For each p/ev-value in v:
     for (i in 1:length(v)){
@@ -243,7 +277,6 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
       # print(p_cur)
 
       x_width <- p_cur
-      y_width <- .50
 
       x_val <- x_prv + x_width/2
 
@@ -251,38 +284,54 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
       x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
 
       cur_col <- pal[x_ev + 1]
-      cex_lbl <- 1 - 5 * t_max/100
 
       # Draw box:
-      plot_cbox(x = x_val, y = y_val, lx = x_width, ly = y_width,
+      plot_cbox(x = x_val, y = y_val, lx = x_width, ly = bar_width,
                 lbl = x_ev, cex = cex_lbl,
                 col_fill = cur_col, col_brd = "grey20")
 
       x_prv <- x_prv + p_cur  # increment x_store
 
-    } # for i.
+    } # for each p/ev-value i.
 
     # Add label (on left):
     text(x = 0, y = y_val, labels = paste0(t, ":"), pos = 2, xpd = TRUE)
 
-  } # for t.
+  } # for each time period t.
 
-  title(main = paste0("Cumulative risk dynamics (r = ", r, "; t = ", t, "; N = ", N, ")"),
-        adj = 0)
+
+  # Titles: ----
+
+  plot_title <- paste0("Cumulative risk dynamics (r = ", r, "; t = ", t, "; N = ", N, ")")
+  plot_title <- paste0("Cumulative risk dynamics")
+
+  title(main = plot_title, adj = 0)
+
+
+  # Output: Return data ----
+
+  return(invisible(data))
 
 } # plot_cum_bar().
 
 
 # # # Check:
 # plot_cum_bar()
+#
 # plot_cum_bar(r = .25, t = 3, N = 100)
-# plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)
+# plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)  # sorting
+#
 # plot_cum_bar(r = .50, t = 3, N = 100)
-# plot_cum_bar(r = .50, t = 3, N = 100, sort = TRUE)
+# plot_cum_bar(r = .50, t = 3, N = 100, sort = TRUE)  # sorting
+#
 # plot_cum_bar(r = .75, t = 4, N = 100)
-# plot_cum_bar(r = .75, t = 4, N = 100, sort = TRUE)
+# plot_cum_bar(r = .75, t = 4, N = 100, sort = TRUE)  # sorting
+#
+# plot_cum_bar(r = .05, t = 5, x_max = 25)  # zooming in
+# plot_cum_bar(r = .05, t = 5, sort = TRUE, x_max = 1)  # sorting & zooming in
 
-# ?: +++ here now +++:
+
+# ?: +++ here now +++
 
 
 
@@ -299,7 +348,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100, sort = FALSE){
 ## (+) ToDo: ----------
 
 # - Add option for plotting as vertical bars (with 2 directions/levels).
-# - Use more appropriate data structure for ps?
+# - Use more appropriate data structure for cumulative probabilities (ps)?
 # - How to grow a (binary) tree structure in R?
 
 
