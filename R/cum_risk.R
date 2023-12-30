@@ -390,9 +390,16 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 # plot_cum_bar(r = .05, t = 5, N_max = 25)  # zooming in
 # plot_cum_bar(r = .05, t = 5, sort = TRUE, N_max = 1)  # sorting & zooming in
 
+# # Problems from McCloy, Byrne, & Johnson-Laird (2010): p. 508
+# # 1. Pregnancy (10%/90%), conjunctive: 1/2/3 year, disjunctive 3 year:
+# plot_cum_bar(r = .10, t = 3, N = 1000, N_max = 1000)
+# # 2. Kapi fruit (20%/80%), conjunctive: 1/2/3 year, disjunctive 3 year:
+# plot_cum_bar(r = .20, t = 3, N = 1000, N_max = 1000)
+# # 3. Eye infection (30%/70%), conjunctive: 1/2/3 year, disjunctive 3 year:
+# plot_cum_bar(r = .30, t = 3, N = 1000, N_max = 1000)
+
 
 # ?: +++ here now +++
-
 
 
 ## (*) Done: ----------
@@ -403,11 +410,16 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 # v <- 1:4
 # names(v) <- c("B", "C", "D", "A")
 # v[order(names(v))]
+#
+# - Added option for plotting as vertical bars (with 2 directions/levels).
 
 
 ## (+) ToDo: ----------
 
-# - Add option for plotting as vertical bars (with 2 directions/levels).
+# - Include option to show frequency in bar (instead of/in addition to ev-occurrences)
+
+# - Plot transition links between time periods (as arrows/polygon)
+
 # - Use more appropriate data structure for cumulative probabilities (ps)?
 # - How to grow a (binary) tree structure in R?
 
