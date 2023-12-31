@@ -2,7 +2,7 @@
 % Please edit documentation in R/cum_risk.R
 \name{plot_cum_bar}
 \alias{plot_cum_bar}
-\title{Plot cumulative risk dynamics}
+\title{Plot cumulative risk dynamics (as bar chart)}
 \usage{
 plot_cum_bar(
   r = 1/2,
@@ -29,8 +29,12 @@ Default: \code{N = 100} expresses risks as percentages,
 \item{N_max}{maximum N value (for zooming in for small \code{r} values).
 Default value should be set to population size \code{N}.}
 }
+\value{
+data of p-values, named by number of event occurrences
+(invisibly, as list of named vectors, for each time period t).
+}
 \description{
 plot_cum_bar plots the results of cumulative risk dynamics
-as a barchart (with percentages of risk event counts
+as a bar chart (with percentages of risk event counts
 for each period t on a horizontal bar).
 }
