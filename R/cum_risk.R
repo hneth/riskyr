@@ -199,7 +199,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   data <- comp_cum_ps(r = r, t = t, N = N)  # list of p values (with ev names)
 
-  data_cs <- lapply(d, cumsum)  # cumsum() of p values
+  data_cs <- lapply(data, cumsum)  # cumsum() of p values
 
 
   # Prepare plot: ----
