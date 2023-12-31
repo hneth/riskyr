@@ -1,5 +1,5 @@
 ## cum_risk.R | riskyr
-## 2023 12 30
+## 2023 12 31
 ## Compute cumulative risks
 
 # Parameters: ----
@@ -195,13 +195,17 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Prepare plot: ----
 
+
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))  # par(opar)  # restore original settings
+
   # Plot dimensions:
   t_max <- t
   y_max <- t_max + 1
 
   # Constants:
+  bar_width <- .50  # (from 0 to 1).
   show_n <- FALSE # TRUE
-  bar_width <- .50
   cex_lbl <- 1 - (5 * t_max/100)
 
   if (N == 100){
@@ -213,21 +217,33 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   }
 
   # Initialize plotting area:
-  if (horizontal){
+
+  if (horizontal){ # horizontal bars:
+
+    par(mar = c(3, 2, 4, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
 
     plot(0:1, 0:1, type = "n",
-         xlab = x_lbl, ylab = "Time period",
-         xlim = c(0, N_max), ylim = c(0.5, y_max + 0.2),
+         xlab = NA, ylab = NA,
+         xlim = c(0, N_max), ylim = c(0.5, y_max + 0.5),
          axes = FALSE)
 
+    mtext(x_lbl, adj = .50, side = 1, line = 2)          # x-axis label
+    mtext("Time period", adj = .50, side = 2, line = 1)  # y-axis label
+
+
   } else { # vertical bars:
+
+    par(mar = c(3, 4, 4, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
 
     y_max <- t_max + .50  # adjust
 
     plot(0:1, 0:1, type = "n",
-         xlab = "Time period", ylab = x_lbl,
+         xlab = NA, ylab = NA,
          xlim = c(-0.5, y_max), ylim = c(0, N_max),
          axes = FALSE)
+
+    mtext("Time period", adj = .50, side = 1, line = 1)  # x-axis label
+    mtext(x_lbl, adj = .50, side = 2, line = 3)          # y-axis label
 
   }
 
@@ -304,23 +320,23 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
     # print(t)
 
-    v <- data[[t]]  # get current vector
-    # print(v)
+    p_ev <- data[[t]]  # get current vector (of p values)
+    # print(p_ev)
 
     if (sort){
 
-      # Sort by vector values by value names:
-      v <- v[order(names(v), decreasing = TRUE)]
+      # Sort vector values by value names:
+      p_ev <- p_ev[order(names(p_ev), decreasing = TRUE)]
 
     }
 
     x_prv <- 0  #  initialize x-store
     y_val <- y_max - t
 
-    # For each p/ev-value in v:
-    for (i in 1:length(v)){
+    # For each p/ev-value in p_ev:
+    for (i in 1:length(p_ev)){
 
-      p_cur <- v[i]  # current p value (as named probability)
+      p_cur <- p_ev[i]  # current p value (as named probability)
       # print(p_cur)
 
       x_width <- p_cur
@@ -417,6 +433,23 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
 # ?: +++ here now +++
 
+# # Note some insights (from visualizations):
+#
+# # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
+# plot_cum_bar(r = .01, t = 5, sort = F, N_max =  5)
+# plot_cum_bar(r = .05, t = 5, sort = F, N_max = 25)
+# plot_cum_bar(r = .10, t = 5, sort = F, N_max = 50)
+#
+# # 2. Large cumulative risks (r > .40) rapidly affect the entire population:
+# plot_cum_bar(r = .40, t = 5, sort = F, N_max = 100)
+# plot_cum_bar(r = .50, t = 5, sort = F, N_max = 100)
+# plot_cum_bar(r = .60, t = 5, sort = F, N_max = 100)
+# plot_cum_bar(r = .70, t = 5, sort = F, N_max = 100)
+#
+# # 3. => Intermediate range (.10 <= r <= .40) is problematic: sub-additive
+# plot_cum_bar(r = .20, t = 5, sort = F, N_max = 100)
+# plot_cum_bar(r = .30, t = 5, sort = F, N_max = 100)
+
 
 ## (*) Done: ----------
 
@@ -435,7 +468,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
 ## (+) ToDo: ----------
 
-# - Plot transition links between time periods (as arrows/polygon)
+# - Plot transition links between time periods (as arrows/polygons)
 
 # - Use more appropriate data structure for cumulative probabilities (ps)?
 # - How to grow a (binary) tree structure in R?
