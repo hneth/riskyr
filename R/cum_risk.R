@@ -168,10 +168,10 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # C. plot_cum_bar(): Compute and plot cum-risks (as barchart) ------
 
 
-#' Plot cumulative risk dynamics
+#' Plot cumulative risk dynamics (as bar chart)
 #'
 #' plot_cum_bar plots the results of cumulative risk dynamics
-#' as a barchart (with percentages of risk event counts
+#' as a bar chart (with percentages of risk event counts
 #' for each period t on a horizontal bar).
 #'
 #' @param r risk (probability of occurrence per time period)
@@ -185,25 +185,37 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' @param N_max maximum N value (for zooming in for small \code{r} values).
 #' Default value should be set to population size \code{N}.
 #'
+#' @return data of p-values, named by number of event occurrences
+#' (invisibly, as list of named vectors, for each time period t).
+#'
 #' @importFrom grDevices colorRampPalette
+#'
 
 plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
                          horizontal = TRUE, sort = FALSE, N_max = 100){
 
+
   # Compute cumulative probability data: ----
-  data <- comp_cum_ps(r = r, t = t, N = N)
+
+  data <- comp_cum_ps(r = r, t = t, N = N)  # list of p values (with ev names)
+
+  data_cs <- lapply(d, cumsum)  # cumsum() of p values
+
 
   # Prepare plot: ----
-
 
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
   on.exit(par(opar))  # par(opar)  # restore original settings
 
+
   # Plot dimensions:
+
   t_max <- t
   y_max <- t_max + 1
 
+
   # Constants:
+
   bar_width <- .50  # (from 0 to 1).
   show_n <- FALSE # TRUE
   cex_lbl <- 1 - (5 * t_max/100)
@@ -215,6 +227,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   } else {
     x_lbl <- "Frequency"
   }
+
 
   # Initialize plotting area:
 
@@ -249,9 +262,10 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   grid()
 
+
   # Axes:
 
-  if (horizontal){
+  if (horizontal){ # horizontal bars:
 
     # X-axis at bottom, horizontal labels:
     axis(side = 1, labels = TRUE,
@@ -286,7 +300,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   cur_col <- pal[1]
 
-  if (horizontal){
+  if (horizontal){ # horizontal bars:
 
     # Draw bar/box 0:
     plot_cbox(x = N/2, y = y_max, lx = N, ly = bar_width,
@@ -316,6 +330,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
 
   # Plot bars/boxes (for each time period): ----
+
   for (t in 1:length(data)){
 
     # print(t)
@@ -330,7 +345,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
     }
 
-    x_prv <- 0  #  initialize x-store
+    x_prv <- 0  #  initialize x-store (previous x-value)
     y_val <- y_max - t
 
     # For each p/ev-value in p_ev:
@@ -341,10 +356,9 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
       x_width <- p_cur
 
-      x_val <- x_prv + x_width/2
-
-      x_name <- names(p_cur)  # current name
-      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current value of ev
+      x_val <- x_prv + x_width/2  # current x-value
+      x_name <- names(p_cur)      # current x-name
+      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value
 
       if (show_n){
         lbl_i <- paste0(x_ev, " (", round(p_cur, 2), ")")
@@ -355,7 +369,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
       cur_col <- pal[x_ev + 1]
 
       # Draw box i:
-      if (horizontal){
+      if (horizontal){ # horizontal bars:
 
         plot_cbox(x = x_val, y = y_val, lx = x_width, ly = bar_width,
                   lbl = lbl_i, cex = cex_lbl,
@@ -369,20 +383,20 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
       }
 
-      x_prv <- x_prv + p_cur  # increment x_store
+      x_prv <- x_prv + p_cur  # increment x_store (previous x-value)
 
     } # for each p/ev-value i.
 
 
     # Add text label:
-    if (horizontal){
+    if (horizontal){ # horizontal bars:
 
-      # (on left):
+      # label on left:
       text(x = 0, y = y_val, labels = paste0(t, ":"), pos = 2, xpd = TRUE)
 
     } else { # vertical bars:
 
-      # (on top):
+      # label on top:
       text(x = y_max - y_val, y = N_max + 5/N_max, labels = paste0(t, ":"), pos = 3, xpd = TRUE)
 
     }
@@ -390,7 +404,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   } # for each time period t.
 
 
-  # Titles: ----
+  # Title: ----
 
   # plot_title <- paste0("Cumulative risk dynamics (r = ", r, "; t = ", t, "; N = ", N, ")")
   plot_title <- paste0("Cumulative risk dynamics")
@@ -398,9 +412,10 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   title(main = plot_title, adj = 0)
 
 
-  # Output: Return data ----
+  # Output: ----
 
-  return(invisible(data))
+  return(invisible(data))  # return data
+
 
 } # plot_cum_bar().
 
@@ -431,8 +446,6 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 # plot_cum_bar(r = .30, t = 3, N = 1000, N_max = 1000)
 
 
-# ?: +++ here now +++
-
 # # Note some insights (from visualizations):
 #
 # # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
@@ -446,9 +459,12 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 # plot_cum_bar(r = .60, t = 5, sort = F, N_max = 100)
 # plot_cum_bar(r = .70, t = 5, sort = F, N_max = 100)
 #
-# # 3. => Intermediate range (.10 <= r <= .40) is problematic: sub-additive
+# # 3. => Intermediate range (.10 <= r <= .40) is crucial/problematic: sub-additive
 # plot_cum_bar(r = .20, t = 5, sort = F, N_max = 100)
 # plot_cum_bar(r = .30, t = 5, sort = F, N_max = 100)
+
+
+# ?: +++ here now +++
 
 
 ## (*) Done: ----------
