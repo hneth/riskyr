@@ -216,7 +216,8 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Constants:
 
-  bar_width <- .50  # (from 0 to 1).
+  bar_width  <- .50  # (from 0 to 1).
+  show_trans <- TRUE # FALSE
   show_n <- FALSE # TRUE
   cex_lbl <- 1 - (5 * t_max/100)
 
@@ -375,8 +376,8 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
       cur_col <- pal[x_ev + 1]  # current color
 
-      # Compute transition:
-      if (i %% 2 == 1){
+      # Compute transition values:
+      if (show_trans && i %% 2 == 1){
 
         x_top <- c(poly_cs[i], poly_cs[i])
         x_bot <- c(poly_cs[i + 1], poly_cs[i])
@@ -397,7 +398,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
       if (horizontal){ # horizontal bars:
 
         # Draw transition:
-        if (i %% 2 == 1){
+        if (show_trans && i %% 2 == 1){
           polygon(x = xx, y = yy, col = pf_col, border = "firebrick")
         }
 
@@ -409,7 +410,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
       } else { # vertical bars:
 
         # Draw transition:
-        if (i %% 2 == 1){
+        if (show_trans && i %% 2 == 1){
           polygon(x = y_max - yy, y = xx, col = pf_col, border = "firebrick")
         }
 
@@ -517,11 +518,13 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 #
 # - Included show_n option to show frequency value in bar
 #   (in addition to ev-occurrences)
-
+#
+# - Added transition links between time periods (as polygons)
 
 ## (+) ToDo: ----------
 
-# - Plot transition links between time periods (as arrows/polygons)
+# - make bar_width and show_trans arguments of plot_cum_bar().
+# - rename x and y variables: x in terms of p, y in terms of t, etc.
 
 # - Use more appropriate data structure for cumulative probabilities (ps)?
 # - How to grow a (binary) tree structure in R?
