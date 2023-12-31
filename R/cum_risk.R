@@ -280,9 +280,10 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   }
 
   # Colors:
-  n_cols <- 1 + t_max
-  col_lo <- "grey98"
-  col_hi <- "firebrick" # "steelblue" # "deepskyblue" # "deeppink" # "olivedrab" # "grey20" # "red3"
+  n_cols  <- 1 + t_max
+  col_lo  <- "grey98"
+  col_hi  <- "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
+  brd_col <- "grey40"    # "white" # "grey20"
 
   # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
   pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
@@ -297,15 +298,15 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
     lbl_0 <- paste0("0 (r = ", round(r, 2), ")")  # events (risk)
   }
 
+  cur_col <- pal[1]  # current color
 
-  cur_col <- pal[1]
 
   if (horizontal){ # horizontal bars:
 
     # Draw bar/box 0:
     plot_cbox(x = N/2, y = y_max, lx = N, ly = bar_width,
               lbl = lbl_0, cex = cex_lbl,
-              col_fill = cur_col, col_brd = "grey20")
+              col_fill = cur_col, col_brd = brd_col)
 
     # Add label (on left):
     text(x = 0, y = y_max, labels = "0:", pos = 2, xpd = TRUE)
@@ -321,7 +322,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
     # Draw bar/box 0:
     plot_cbox(x = y_max - y_max, y = N/2, lx = bar_width, ly = N,
               lbl = lbl_0, cex = cex_lbl,
-              col_fill = cur_col, col_brd = "grey20")
+              col_fill = cur_col, col_brd = brd_col)
 
     # Add label (on top):
     text(x = y_max - y_max, y = N_max + 5/N_max, labels = "0:", pos = 3, xpd = TRUE)
@@ -333,10 +334,16 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   for (t in 1:length(data)){
 
-    # print(t)
+    # print(paste0("t = ", t, ":"))
 
     p_ev <- data[[t]]  # get current vector (of p values)
     # print(p_ev)
+
+    p_ev_cs <- data_cs[[t]]  # get current vector (of cumulative p-values)
+    # print(p_ev)
+
+    poly_cs <- c(0, p_ev_cs)  # current polygon x-values (for transitions)
+    # print(poly_cs)
 
     if (sort){
 
@@ -366,20 +373,50 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
         lbl_i <- paste0(x_ev)
       }
 
-      cur_col <- pal[x_ev + 1]
+      cur_col <- pal[x_ev + 1]  # current color
 
-      # Draw box i:
+      # Compute transition:
+      if (i %% 2 == 1){
+
+        x_top <- c(poly_cs[i], poly_cs[i])
+        x_bot <- c(poly_cs[i + 1], poly_cs[i])
+
+        y_top <- c(y_max - (t - 1), y_max - (t - 1)) - bar_width/2
+        y_bot <- c(y_max - t, y_max - t) + bar_width/2
+
+        xx <- c(x_top, x_bot)
+        yy <- c(y_top, y_bot)
+
+        pf_col <- cur_col  # polygon fill color
+
+      }
+
+
+      # Draw i-th element:
+
       if (horizontal){ # horizontal bars:
 
+        # Draw transition:
+        if (i %% 2 == 1){
+          polygon(x = xx, y = yy, col = pf_col, border = "firebrick")
+        }
+
+        # Draw box:
         plot_cbox(x = x_val, y = y_val, lx = x_width, ly = bar_width,
                   lbl = lbl_i, cex = cex_lbl,
-                  col_fill = cur_col, col_brd = "grey20")
+                  col_fill = cur_col, col_brd = brd_col)
 
       } else { # vertical bars:
 
+        # Draw transition:
+        if (i %% 2 == 1){
+          polygon(x = y_max - yy, y = xx, col = pf_col, border = "firebrick")
+        }
+
+        # Draw box:
         plot_cbox(x = y_max - y_val, y = x_val, lx = bar_width, ly = x_width,
                   lbl = lbl_i, cex = cex_lbl,
-                  col_fill = cur_col, col_brd = "grey20")
+                  col_fill = cur_col, col_brd = brd_col)
 
       }
 
