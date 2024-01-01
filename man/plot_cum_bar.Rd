@@ -12,13 +12,13 @@ plot_cum_bar(
   sort = FALSE,
   N_max = 100,
   bar_width = 0.5,
-  show_trans = TRUE,
+  show_trans = 1,
   show_ev = TRUE,
   show_n = FALSE
 )
 }
 \arguments{
-\item{r}{risk (probability of occurrence per time period)}
+\item{r}{risk (probability of occurrence per time period).}
 
 \item{t}{time periods/rounds.}
 
@@ -37,8 +37,9 @@ Default value should be set to population size \code{N}.}
 \item{bar_width}{width of (horizontal/vertical) bar per time period.
 Default: \code{bar_width = .50}.}
 
-\item{show_trans}{logical: Show transition polygons (between bars)?
-Default: \code{show_trans = TRUE}.}
+\item{show_trans}{numeric: Show transition polygons (between bars)?
+Values of 0/1/2 focus on no/new/remaining risk segments, respectively.
+Default: \code{show_trans = 1} (i.e., focus on increasing risk segments).}
 
 \item{show_ev}{logical: Show number of risky event occurrence (as bar label)?
 Default: \code{show_ev = TRUE}.}
