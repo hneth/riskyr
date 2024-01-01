@@ -1,5 +1,5 @@
 ## cum_risk.R | riskyr
-## 2023 12 31
+## 2024 01 01
 ## Compute cumulative risks
 
 # Parameters: ----
@@ -175,15 +175,27 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' for each period t on a horizontal bar).
 #'
 #' @param r risk (probability of occurrence per time period)
-#' @param t number of time periods
+#' @param t time periods/rounds.
 #' @param N population size.
 #' Default: \code{N = 100} expresses risks as percentages,
 #' \code{N = 1} as probabilities, else frequencies.
 #'
 #' @param horizontal logical: Draw horizontal vs. vertical bars?
-#' @param sort logical: sort outputs (by number of event occurrences)?
-#' @param N_max maximum N value (for zooming in for small \code{r} values).
+#' @param sort logical: Sort outputs by number of event occurrences?
+#' Default: \code{sort = FALSE}.
+#'
+#' @param N_max maximum N value plotted (for zooming in for small \code{r} values).
 #' Default value should be set to population size \code{N}.
+#'
+#' @param bar_width width of (horizontal/vertical) bar per time period.
+#' Default: \code{bar_width = .50}.
+#'
+#' @param show_trans logical: Show transition polygons (between bars)?
+#' Default: \code{show_trans = TRUE}.
+#' @param show_ev logical: Show number of risky event occurrence (as bar label)?
+#' Default: \code{show_ev = TRUE}.
+#' @param show_n logical: Show population frequency of risky event occurrences (as bar label)?
+#' Default: \code{show_n = FALSE}.
 #'
 #' @return data of p-values, named by number of event occurrences
 #' (invisibly, as list of named vectors, for each time period t).
@@ -191,8 +203,30 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' @importFrom grDevices colorRampPalette
 #'
 
-plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
-                         horizontal = TRUE, sort = FALSE, N_max = 100){
+plot_cum_bar <- function(r = .50, t = 1, N = 100,
+                         horizontal = TRUE, sort = FALSE,
+                         N_max = 100, bar_width = .50,
+                         show_trans = TRUE, show_ev = TRUE, show_n = FALSE){
+
+
+  # Handle inputs: ----
+
+  if (r < 0 || r > 1){
+    message("risk r should be in (0, 1)")
+  }
+
+  if (bar_width < 0 || bar_width > 1){
+    message("bar_width should be in (0, 1)")
+  }
+
+  if (show_n && show_ev){
+    message("Set show_n = TRUE: Setting shown_ev = FALSE")
+    show_ev <- FALSE
+  }
+
+  if (sort && show_trans){
+    message("Transitions correspond to unsorted arrangement of bar segments (sort = FALSE)")
+  }
 
 
   # Compute cumulative probability data: ----
@@ -216,9 +250,15 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Constants:
 
-  bar_width  <- .50  # (from 0 to 1).
-  show_trans <- TRUE # FALSE
-  show_n <- FALSE # TRUE
+  # bar_width  <- .50  # (from 0 to 1)
+
+  # show_trans <- TRUE # FALSE
+
+  # # bar labels:
+  # show_ev <- TRUE
+  # show_n  <- FALSE
+
+
   cex_lbl <- 1 - (5 * t_max/100)
 
   if (N == 100){
@@ -281,10 +321,10 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   }
 
   # Colors:
-  n_cols  <- 1 + t_max
   col_lo  <- "grey98"
   col_hi  <- "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
   brd_col <- "grey40"    # "white" # "grey20"
+  n_cols  <- 1 + t_max
 
   # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
   pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
@@ -293,10 +333,12 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
 
   # Plot 1st bar/box (for time period 0): ----
 
-  if (show_n){
-    lbl_0 <- paste0("0 (N = ", round(N, 0), ", r = ", round(r, 2), ")")  # events (N, risk)
+  if (show_ev){
+    lbl_0 <- paste0("0")  # events
+  } else if (show_n){
+    lbl_0 <- paste0(round(N, 0))  # N
   } else { # default;
-    lbl_0 <- paste0("0 (r = ", round(r, 2), ")")  # events (risk)
+    lbl_0 <- NA  # nothing
   }
 
   cur_col <- pal[1]  # current color
@@ -313,12 +355,6 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
     text(x = 0, y = y_max, labels = "0:", pos = 2, xpd = TRUE)
 
   } else { # vertical bars:
-
-    if (show_n){
-      lbl_0 <- paste0("0\n(N = ", round(N, 0), ",\nr = ", round(r, 2), ")")  # adjust: events (N, risk)
-    } else { # default:
-      lbl_0 <- paste0("0\n(r = ", round(r, 2), ")")  # adjust: events (risk)
-    }
 
     # Draw bar/box 0:
     plot_cbox(x = y_max - y_max, y = N/2, lx = bar_width, ly = N,
@@ -368,10 +404,12 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
       x_name <- names(p_cur)      # current x-name
       x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value
 
-      if (show_n){
-        lbl_i <- paste0(x_ev, " (", round(p_cur, 2), ")")
-      } else { # default;
+      if (show_ev){
         lbl_i <- paste0(x_ev)
+      } else if (show_n){
+        lbl_i <- paste0(round(p_cur, 2))
+      } else { # default;
+        lbl_i <- NA
       }
 
       cur_col <- pal[x_ev + 1]  # current color
@@ -445,7 +483,7 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   # Title: ----
 
   # plot_title <- paste0("Cumulative risk dynamics (r = ", r, "; t = ", t, "; N = ", N, ")")
-  plot_title <- paste0("Cumulative risk dynamics")
+  plot_title <- paste0("Cumulative risk dynamics (r = ", round(r, 2), ")")
 
   title(main = plot_title, adj = 0)
 
@@ -453,7 +491,6 @@ plot_cum_bar <- function(r = 1/2, t = 1, N = 100,
   # Output: ----
 
   return(invisible(data))  # return data
-
 
 } # plot_cum_bar().
 
