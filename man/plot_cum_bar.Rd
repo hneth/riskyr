@@ -5,18 +5,22 @@
 \title{Plot cumulative risk dynamics (as bar chart)}
 \usage{
 plot_cum_bar(
-  r = 1/2,
+  r = 0.5,
   t = 1,
   N = 100,
   horizontal = TRUE,
   sort = FALSE,
-  N_max = 100
+  N_max = 100,
+  bar_width = 0.5,
+  show_trans = TRUE,
+  show_ev = TRUE,
+  show_n = FALSE
 )
 }
 \arguments{
 \item{r}{risk (probability of occurrence per time period)}
 
-\item{t}{number of time periods}
+\item{t}{time periods/rounds.}
 
 \item{N}{population size.
 Default: \code{N = 100} expresses risks as percentages,
@@ -24,10 +28,23 @@ Default: \code{N = 100} expresses risks as percentages,
 
 \item{horizontal}{logical: Draw horizontal vs. vertical bars?}
 
-\item{sort}{logical: sort outputs (by number of event occurrences)?}
+\item{sort}{logical: Sort outputs by number of event occurrences?
+Default: \code{sort = FALSE}.}
 
-\item{N_max}{maximum N value (for zooming in for small \code{r} values).
+\item{N_max}{maximum N value plotted (for zooming in for small \code{r} values).
 Default value should be set to population size \code{N}.}
+
+\item{bar_width}{width of (horizontal/vertical) bar per time period.
+Default: \code{bar_width = .50}.}
+
+\item{show_trans}{logical: Show transition polygons (between bars)?
+Default: \code{show_trans = TRUE}.}
+
+\item{show_ev}{logical: Show number of risky event occurrence (as bar label)?
+Default: \code{show_ev = TRUE}.}
+
+\item{show_n}{logical: Show population frequency of risky event occurrences (as bar label)?
+Default: \code{show_n = FALSE}.}
 }
 \value{
 data of p-values, named by number of event occurrences
