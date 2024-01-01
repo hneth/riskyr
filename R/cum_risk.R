@@ -174,13 +174,16 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' as a bar chart (with percentages of risk event counts
 #' for each period t on a horizontal bar).
 #'
-#' @param r risk (probability of occurrence per time period)
+#' @param r risk (probability of occurrence per time period).
+#'
 #' @param t time periods/rounds.
+#'
 #' @param N population size.
 #' Default: \code{N = 100} expresses risks as percentages,
 #' \code{N = 1} as probabilities, else frequencies.
 #'
 #' @param horizontal logical: Draw horizontal vs. vertical bars?
+#'
 #' @param sort logical: Sort outputs by number of event occurrences?
 #' Default: \code{sort = FALSE}.
 #'
@@ -190,10 +193,13 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 #' @param bar_width width of (horizontal/vertical) bar per time period.
 #' Default: \code{bar_width = .50}.
 #'
-#' @param show_trans logical: Show transition polygons (between bars)?
-#' Default: \code{show_trans = TRUE}.
+#' @param show_trans numeric: Show transition polygons (between bars)?
+#' Values of 0/1/2 focus on no/new/remaining risk segments, respectively.
+#' Default: \code{show_trans = 1} (i.e., focus on increasing risk segments).
+#'
 #' @param show_ev logical: Show number of risky event occurrence (as bar label)?
 #' Default: \code{show_ev = TRUE}.
+#'
 #' @param show_n logical: Show population frequency of risky event occurrences (as bar label)?
 #' Default: \code{show_n = FALSE}.
 #'
@@ -206,7 +212,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 plot_cum_bar <- function(r = .50, t = 1, N = 100,
                          horizontal = TRUE, sort = FALSE,
                          N_max = 100, bar_width = .50,
-                         show_trans = TRUE, show_ev = TRUE, show_n = FALSE){
+                         show_trans = 1, show_ev = TRUE, show_n = FALSE){
 
 
   # Handle inputs: ----
@@ -224,7 +230,12 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
     show_ev <- FALSE
   }
 
-  if (sort && show_trans){
+  if (show_trans %in% 0:2 == FALSE){
+    message("show_trans should be in 0:2: Setting shown_trans = 1 (i.e., focus on risk increase)")
+    show_trans <- 1  # use default
+  }
+
+  if (sort && (show_trans != 0)){
     message("Transitions correspond to unsorted arrangement of bar segments (sort = FALSE)")
   }
 
@@ -324,10 +335,16 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
   col_lo  <- "grey98"
   col_hi  <- "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
   brd_col <- "grey40"    # "white" # "grey20"
+  col_no  <- "forestgreen" # "deepskyblue"
+
+  # Color palette:
   n_cols  <- 1 + t_max
 
   # pal <- unikn::usecol(pal = c(col_lo, col_hi), n = n_cols, alpha = .80)
   pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
+
+  # Replace 1st color (ev = 0):
+  pal[1] <- grDevices::colorRampPalette(colors = c("white", col_no))(8)[2]
   # unikn::seecol(pal)
 
 
@@ -379,13 +396,14 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
     p_ev_cs <- data_cs[[t]]  # get current vector (of cumulative p-values)
     # print(p_ev)
 
-    poly_cs <- c(0, p_ev_cs)  # current polygon x-values (for transitions)
+    poly_cs <- c(0, p_ev_cs, N)  # all polygon x-values (+ 2 extremes, for transitions)
     # print(poly_cs)
 
     if (sort){
 
       # Sort vector values by value names:
-      p_ev <- p_ev[order(names(p_ev), decreasing = TRUE)]
+      new_order <- order(names(p_ev), decreasing = TRUE)
+      p_ev <- p_ev[new_order]
 
     }
 
@@ -414,10 +432,27 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
 
       cur_col <- pal[x_ev + 1]  # current color
 
-      # Compute transition values:
-      if (show_trans && i %% 2 == 1){
+
+      # Compute transition values (for polygon segments):
+
+      if ((show_trans == 1) && (i %% 2 == 1)){ # odd segments (1, 3, 5...):
 
         x_top <- c(poly_cs[i], poly_cs[i])
+        x_bot <- c(poly_cs[i + 1], poly_cs[i])
+
+        y_top <- c(y_max - (t - 1), y_max - (t - 1)) - bar_width/2
+        y_bot <- c(y_max - t, y_max - t) + bar_width/2
+
+        xx <- c(x_top, x_bot)
+        yy <- c(y_top, y_bot)
+
+        pf_col <- cur_col  # polygon fill color
+
+      }
+
+      if ((show_trans == 2) && (i %% 2 == 0)){ # even segments (2, 4, 6...):
+
+        x_top <- c(poly_cs[i - 1], poly_cs[i + 1])
         x_bot <- c(poly_cs[i + 1], poly_cs[i])
 
         y_top <- c(y_max - (t - 1), y_max - (t - 1)) - bar_width/2
@@ -436,8 +471,12 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
       if (horizontal){ # horizontal bars:
 
         # Draw transition:
-        if (show_trans && i %% 2 == 1){
-          polygon(x = xx, y = yy, col = pf_col, border = "firebrick")
+        if ((show_trans == 1) && (i %% 2 == 1)){ # odd segments (1, 3, 5...):
+          polygon(x = xx, y = yy, col = pf_col, border = col_hi)
+        }
+
+        if ((show_trans == 2) && (i %% 2 == 0)){ # even segments (2, 4, 6...):
+          polygon(x = xx, y = yy, col = pf_col, border = brd_col)
         }
 
         # Draw box:
@@ -445,11 +484,16 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
                   lbl = lbl_i, cex = cex_lbl,
                   col_fill = cur_col, col_brd = brd_col)
 
+
       } else { # vertical bars:
 
         # Draw transition:
-        if (show_trans && i %% 2 == 1){
-          polygon(x = y_max - yy, y = xx, col = pf_col, border = "firebrick")
+        if ((show_trans == 1) && (i %% 2 == 1)){ # odd segments (1, 3, 5...):
+          polygon(x = y_max - yy, y = xx, col = pf_col, border = col_hi)
+        }
+
+        if ((show_trans == 2) && (i %% 2 == 0)){ # even segments (2, 4, 6...):
+          polygon(x = y_max - yy, y = xx, col = pf_col, border = brd_col)
         }
 
         # Draw box:
@@ -498,9 +542,14 @@ plot_cum_bar <- function(r = .50, t = 1, N = 100,
 # # # Check:
 # plot_cum_bar()
 #
-# plot_cum_bar(r = .25, t = 3, N = 100)
-# plot_cum_bar(r = .25, t = 3, N = 100, sort = TRUE)  # sorting
-#
+# plot_cum_bar(r = .25, t = 4, N = 100)
+# plot_cum_bar(r = .25, t = 4, N = 100, show_n = TRUE)
+# plot_cum_bar(r = .25, t = 4, N = 100, sort = TRUE)  # sorting
+# plot_cum_bar(r = .25, t = 4, N = 100, horizontal = FALSE)  # vertical bars
+# plot_cum_bar(r = .25, t = 5, N = 100, show_trans = FALSE)  # only bars
+# plot_cum_bar(r = .25, t = 5, N = 100, bar_width = 1)  # only bars
+# plot_cum_bar(r = .25, t = 5, N = 100, bar_width = 0)  # no bars
+
 # plot_cum_bar(r = .50, t = 3, N = 100)
 # plot_cum_bar(r = .50, t = 3, N = 100, sort = TRUE)  # sorting
 # plot_cum_bar(r = .50, t = 3, N = 100, horizontal = FALSE)  # sorting
