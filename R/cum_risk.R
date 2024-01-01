@@ -1,6 +1,6 @@
 ## cum_risk.R | riskyr
 ## 2024 01 01
-## Compute cumulative risks
+## Compute and plot cumulative risks
 
 # Parameters: ----
 
@@ -89,7 +89,7 @@ comp_ev <- function(ev = 0, r, i){
 # comp_ev(ev = 0, r = .25, i = 4)
 
 
-# - c: comp_ev_p: Combination of comp_ev() and comp_p(): ----
+# - c: comp_ev_p: Combine comp_ev() and comp_p() ----
 
 comp_ev_p <- function(p = 100, ev = 0, r, i){
 
@@ -115,7 +115,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 
 
 
-# B. comp_cum_ps(): Iterative generation of cumulative risks ------
+# B. comp_cum_ps(): Iterative generation of cumulative risks: ------
 
 comp_cum_ps <- function(r = 1/2,  # risk per time period
                         t = 1,    # time periods/rounds
@@ -165,7 +165,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
 
 
-# C. plot_cum_bar(): Compute and plot cum-risks (as barchart) ------
+# C. plot_cum_bar(): Compute and plot cum-risks (as barchart): ------
 
 
 #' Plot cumulative risk dynamics (as bar chart)
