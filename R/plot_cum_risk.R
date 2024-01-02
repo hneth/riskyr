@@ -2,13 +2,22 @@
 ## 2024 01 02
 ## Plot cumulative risks
 
-# Compute cumulative risks: ------
+# Analysis: Different problem types ------
+
+# 1. Fixed population size N
+#    (e.g., diseases, rainy days, affected population, etc.)
+
+# 2. Changing population size N
+#    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
+
+
+# ad 1. Compute cumulative risks: ------
 
 # See file "comp_cum_risk.R".
 
 
-# plot_cbar(): Compute and plot cumulative risks (as bar chart): ------
 
+# plot_cbar(): Plot cumulative risks (as bar chart): ------
 
 #' Plot cumulative risk dynamics (as bar chart)
 #'

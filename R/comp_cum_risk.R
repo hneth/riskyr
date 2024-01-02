@@ -2,13 +2,24 @@
 ## 2024 01 02
 ## Compute cumulative risks
 
-# Parameters: ----
+# Analysis: Different problem types ------
+
+# 1. Fixed population size N
+#    (e.g., diseases, rainy days, affected population, etc.)
+
+# 2. Changing population size N
+#    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
+
+
+
+# ad 1. Fixed population size: Parameters: ----
 
 # r ... risk
 # i ... periods/rounds/times
 #
 # ev ... events
 # pc ... percent/population
+
 
 
 # A. Recursive application of repeated risk r: ------
@@ -115,6 +126,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 
 
 
+
 # B. comp_cum_ps(): Iterative generation of cumulative risks: ------
 
 comp_cum_ps <- function(r = 1/2,  # risk per time period
@@ -167,6 +179,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
 
 # See file "comp_cum_risk.R".
+
 
 # C. plot_cbar(): Compute and plot cumulative risks (as bar chart): ------
 
