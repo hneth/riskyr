@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 02
+## 2024 01 03
 ## Compute cumulative risks
 
 # Analysis: Different problem types ------
@@ -24,7 +24,7 @@
 
 # A. Recursive application of repeated risk r: ------
 
-# 1. apply_risk() as recursive partition of population pc: ----
+# 1. apply_risk() as a recursive partition of a stable population pc: ----
 
 apply_risk <- function(pc = 100, ev = 0, r, i){
 
@@ -52,7 +52,7 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 # apply_risk(pc = 100, ev = 0, r = .25, i = 4)
 
 
-# 2. Separately for p and ev: ------
+# 2. Apply risk separately for p and ev: ------
 
 # - a: comp_p: Probabilities ----
 
@@ -127,6 +127,7 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 
 
 
+
 # B. comp_cum_ps(): Iterative generation of cumulative risks: ------
 
 comp_cum_ps <- function(r = 1/2,  # risk per time period
@@ -186,6 +187,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # See file "plot_cum_risk.R".
 
 # ?: +++ here now +++
+
 
 
 ## (*) Done: ----------
