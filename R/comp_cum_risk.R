@@ -4,10 +4,12 @@
 
 # Analysis: Different problem types ------
 
-# 1. Fixed population size N
+# 1. Fixed population size N:
+#    Risk factor affects a stable population.
 #    (e.g., diseases, rainy days, affected population, etc.)
 
-# 2. Changing population size N
+# 2. Changing population size N:
+#    Risk factor changes the population.
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
