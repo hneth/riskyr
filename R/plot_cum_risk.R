@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 02
+## 2024 01 03
 ## Plot cumulative risks
 
 # Analysis: Different problem types ------
@@ -11,9 +11,11 @@
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
+
 # ad 1. Compute cumulative risks: ------
 
 # See file "comp_cum_risk.R".
+
 
 
 
@@ -381,16 +383,30 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 } # plot_cbar().
 
 
-# # # Check:
-# plot_cbar()
+# # Check:
+# plot_cbar()  # default plot
 #
-# plot_cbar(r = .25, t = 4, N = 100)
-# plot_cbar(r = .25, t = 4, N = 100, show_n = TRUE)
-# plot_cbar(r = .25, t = 4, N = 100, sort = TRUE)  # sorting
+# # Basic options:
+# plot_cbar(r = .25, t = 4, N = 100)    # basic settings: horizontal bars
 # plot_cbar(r = .25, t = 4, N = 100, horizontal = FALSE)  # vertical bars
-# plot_cbar(r = .25, t = 5, N = 100, show_trans = FALSE)  # only bars
-# plot_cbar(r = .25, t = 5, N = 100, bar_width = 1)  # only bars
-# plot_cbar(r = .25, t = 5, N = 100, bar_width = 0)  # no bars
+#
+# plot_cbar(r = .25, t = 4, N = 100, show_n = TRUE)  # view Ns
+# plot_cbar(r = .25, t = 4, N = 100, sort = TRUE)    # sorting by ev
+# plot_cbar(r = .25, t = 4, N = 100, N_max = 50)     # zooming
+#
+# plot_cbar(r = .25, t = 4, N = 100, show_trans = 0)  # only bars
+# plot_cbar(r = .25, t = 4, N = 100, show_trans = 1)  # bars and new risk transitions
+# plot_cbar(r = .25, t = 4, N = 100, show_trans = 2)  # bars and remaining risk trans
+#
+# plot_cbar(r = .25, t = 4, N = 100, bar_width = 1)   # only bars
+# plot_cbar(r = .25, t = 4, N = 100, bar_width = 0)   # no bars, only transitions
+#
+# # Dynamics for multiple events:
+# plot_cbar(r = .25, t = 8, N = 100, bar_width = 1, sort = TRUE, show_ev = FALSE)
+# plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, show_ev = FALSE)
+# plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, N_max = 10)  # zooming
+
+# Further tests:
 
 # plot_cbar(r = .50, t = 3, N = 100)
 # plot_cbar(r = .50, t = 3, N = 100, sort = TRUE)  # sorting
@@ -401,7 +417,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # plot_cbar(r = .75, t = 4, N = 100, horizontal = FALSE)  # vertical bars
 #
 # plot_cbar(r = .05, t = 5, N_max = 25)  # zooming in
-# plot_cbar(r = .05, t = 5, sort = TRUE, N_max = 1)  # sorting & zooming in
+# plot_cbar(r = .05, t = 5, sort = TRUE, N_max = 5)  # sorting & zooming in
 
 # # Problems from McCloy, Byrne, & Johnson-Laird (2010): p. 508
 # # 1. Pregnancy (10%/90%), conjunctive: 1/2/3 year, disjunctive 3 year:
@@ -431,6 +447,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 
 
 # ?: +++ here now +++
+
 
 
 
