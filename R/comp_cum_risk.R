@@ -1,24 +1,26 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 03
+## 2024 01 04
 ## Compute cumulative risks
 
-# Analysis: Different problem types ------
+# Analysis: Two different problem types ------
 
-# 1. Fixed population size N:
-#    Risk factor affects a stable population.
-#    (e.g., diseases, rainy days, affected population, etc.)
+# 1. Fixed/stable population size N:
+#    Risk factor affects some property of a stable population
+#    (e.g., diseases of individuals, rainy days, successful projects, etc.)
 
 # 2. Changing population size N:
-#    Risk factor changes the population.
+#    Risk factor affects and changes the (size of the) population
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
 
 # ad 1. Fixed population size: Parameters: ----
 
+# IV:
 # r ... risk
-# i ... periods/rounds/times
+# t ... time periods/rounds
 #
+# DV:
 # ev ... events
 # pc ... percent/population
 
@@ -28,20 +30,19 @@
 
 # 1. apply_risk() as a recursive partition of a stable population pc: ----
 
-apply_risk <- function(pc = 100, ev = 0, r, i){
+apply_risk <- function(r, t, pc = 100, ev = 0){
 
-  # cat(i, ": ", pc, "\n")
+  # cat(t, ": ", pc, "\n")
 
-
-  if (i == 0){ # stop:
+  if (t == 0){ # stop:
 
     # print(paste0(ev, ": ", pc))
 
   } else { # recurse:
 
-    j <- (i - 1)  # simplify
+    t_prev <- (t - 1)  # simplify
 
-    pc <- c(apply_risk(pc * r, ev + 1, r, j), apply_risk(pc * (1 - r), ev, r, j))
+    pc <- c(apply_risk(r = r, t = t_prev, pc * r, ev + 1), apply_risk(r = r, t = t_prev, pc * (1 - r), ev))
 
   }
 
@@ -51,22 +52,22 @@ apply_risk <- function(pc = 100, ev = 0, r, i){
 }
 
 # # Check:
-# apply_risk(pc = 100, ev = 0, r = .25, i = 4)
+# apply_risk(pc = 100, ev = 0, r = .25, t = 2)
 
 
 # 2. Apply risk separately for p and ev: ------
 
-# - a: comp_p: Probabilities ----
+# - a: comp_ps: Probabilities ----
 
-comp_p <- function(p = 100, r, i){
+comp_ps <- function(r, t, p = 100){
 
-  if (i == 0){ # stop:
+  if (t == 0){ # stop:
 
     # print(paste0(p))
 
   } else { # recurse:
 
-    p <- c(comp_p(p * r, r, (i - 1)), comp_p(p * (1 - r), r, (i - 1)))
+    p <- c(comp_ps(r = r, t = (t - 1), p = (p * r)), comp_ps(r = r, t = (t - 1), p = (p * (1 - r))))
 
   }
 
@@ -74,22 +75,22 @@ comp_p <- function(p = 100, r, i){
 
 }
 
-# # Check:
-# comp_p(p = 100, r = .25, i = 2)
-# comp_p(p = 100, r = .25, i = 4)
+# Check:
+# comp_ps(r = .25, t = 2, p = 100, )
+# comp_ps(r = .25, t = 4, p = 100, )
 
 
 # - b: comp_ev: Number of events ----
 
-comp_ev <- function(ev = 0, r, i){
+comp_ev <- function(r, t, ev = 0){
 
-  if (i == 0){ # stop:
+  if (t == 0){ # stop:
 
     # print(paste0(ev))
 
   } else { # recurse:
 
-    ev <- c(comp_ev((ev + 1), r, (i - 1)), comp_ev(ev, r, (i - 1)))
+    ev <- c(comp_ev(r = r, t = (t - 1), ev = (ev + 1)), comp_ev(r = r, t = (t - 1), ev = ev))
 
   }
 
@@ -98,19 +99,19 @@ comp_ev <- function(ev = 0, r, i){
 }
 
 # # Check:
-# comp_ev(ev = 0, r = .25, i = 2)
-# comp_ev(ev = 0, r = .25, i = 4)
+# comp_ev(r = .25, t = 2, ev = 0)
+# comp_ev(r = .25, t = 3, ev = 0)
 
 
-# - c: comp_ev_p: Combine comp_ev() and comp_p() ----
+# - c: comp_ev_p: Combine comp_ev() and comp_ps() ----
 
-comp_ev_p <- function(p = 100, ev = 0, r, i){
+comp_ev_p <- function(r, t, p = 100, ev = 0){
 
   out <- NA  # initialize
 
   # Compute (using recursive functions):
-  events <- comp_ev(ev, r, i) # A
-  cum_ps <- comp_p(p,   r, i) # B
+  events <- comp_ev(r = r, t = t, ev = ev)  # a. events
+  cum_ps <- comp_ps(r = r, t = t, p  = p )  # b. probabilities
 
   # Combine outputs:
   out <- cum_ps
@@ -121,11 +122,13 @@ comp_ev_p <- function(p = 100, ev = 0, r, i){
 }
 
 # # Check:
-# comp_ev_p(p = 100, ev = 0, r = .25, i = 1)
-# comp_ev_p(p = 100, ev = 0, r = .25, i = 2)
-# comp_ev_p(p = 100, ev = 0, r = .25, i = 3)
-# comp_ev_p(p = 100, ev = 0, r = .25, i = 4)
+# comp_ev_p(r = .25, t = 1, p = 100, ev = 0)
+# comp_ev_p(r = .25, t = 2, p = 100, ev = 0)
+# comp_ev_p(r = .25, t = 3, p = 100, ev = 0)
+# comp_ev_p(r = .25, t = 4, p = 100, ev = 0)
 
+# # Note:
+# cumsum(comp_ev_p(r = .25, t = 4, p = 100, ev = 0))
 
 
 
@@ -138,11 +141,11 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 ){
 
   # iterative generation:
-  for (i in 0:t){ # each period i:
+  for (i in 0:t){ # each time period i:
 
     if (i == 0){
 
-      # prepare:
+      # prepare data structures:
       ev <- vector(mode = "list", length = t)
       ps <- vector(mode = "list", length = t)
 
@@ -176,12 +179,12 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
 # # Check:
 # comp_cum_ps()
-# comp_cum_ps(.1, 5, 100)
+# comp_cum_ps(r = .1, t = 2, N = 100)
+# comp_cum_ps(r = .1, t = 5, N = 100)
 
+# # Note:
+# lapply(X = comp_cum_ps(r = .1, t = 5, N = 100), FUN = cumsum)
 
-
-
-# See file "comp_cum_risk.R".
 
 
 # C. plot_cbar(): Compute and plot cumulative risks (as bar chart): ------
