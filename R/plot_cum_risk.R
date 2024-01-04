@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 03
+## 2024 01 04
 ## Plot cumulative risks
 
 # Analysis: Different problem types ------
@@ -99,7 +99,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 
   data <- comp_cum_ps(r = r, t = t, N = N)  # list of p values (with ev names)
 
-  data_cs <- lapply(data, cumsum)  # cumsum() of p values
+  data_cs <- lapply(X = data, FUN = cumsum)  # cumsum() of p values
 
 
   # Prepare plot: ----
@@ -178,7 +178,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
   }
 
   # Colors:
-  col_lo  <- "grey98"
+  col_lo  <- "grey96"
   col_hi  <- "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
   brd_col <- "grey40"    # "white" # "grey20"
   col_no  <- "green4"    # "forestgreen" # "deepskyblue"
@@ -407,6 +407,9 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 1, sort = TRUE, show_ev = FALSE)
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, show_ev = FALSE)
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, N_max = 10)  # zooming
+#
+# # Note: t = 8 implies 2^8 = 256 segments.
+
 
 # Further tests:
 
@@ -430,7 +433,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # plot_cbar(r = .30, t = 3, N = 1000, N_max = 1000)
 
 
-# # Note some insights (from visualizations):
+# # Note some insights (based on visualizations):
 #
 # # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
 # plot_cbar(r = .01, t = 5, sort = F, N_max =  5)
