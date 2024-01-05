@@ -30,8 +30,12 @@
 #' for each period t on a horizontal bar).
 #'
 #' @param r risk (probability of occurrence per time period).
+#' A non-scalar vector allows for different risk values
+#' at different times (and \code{t = length(r)}).
 #'
 #' @param t time periods/rounds.
+#' Default: \code{t = NA}, setting \code{t <- length(r)}.
+#' A scalar \code{r} and numeric \code{t} sets \code{r <- rep(r, t)}.
 #'
 #' @param N population size.
 #' Default: \code{N = 100} expresses risks as percentages,

@@ -6,7 +6,7 @@
 \usage{
 plot_cbar(
   r = 0.5,
-  t = 1,
+  t = NA,
   N = 100,
   horizontal = TRUE,
   sort = FALSE,
@@ -18,9 +18,13 @@ plot_cbar(
 )
 }
 \arguments{
-\item{r}{risk (probability of occurrence per time period).}
+\item{r}{risk (probability of occurrence per time period).
+A non-scalar vector allows for different risk values
+at different times (and \code{t = length(r)}).}
 
-\item{t}{time periods/rounds.}
+\item{t}{time periods/rounds.
+Default: \code{t = NA}, setting \code{t <- length(r)}.
+A scalar \code{r} and numeric \code{t} sets \code{r <- rep(r, t)}.}
 
 \item{N}{population size.
 Default: \code{N = 100} expresses risks as percentages,
