@@ -39,7 +39,9 @@ url_riskyr_org <- "https://riskyr.org/"
 
 <!-- riskyr logo: -->
 
+
 # riskyr `r packageVersion('riskyr')` <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+
 
 <!-- riskyr logo: -->  
 <!-- 

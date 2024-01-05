@@ -22,7 +22,7 @@ status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org
 -->
 <!-- riskyr logo: -->
 
-# riskyr 0.4.0.9002 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.4.0.9012 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 <!-- 
@@ -307,7 +307,10 @@ plot(hustosis)  # default plot
 # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
 ```
 
-![Prism plot](inst/pix/README-ex1-prism-1.png)
+<figure>
+<img src="inst/pix/README-ex1-prism-1.png" alt="Prism plot" />
+<figcaption aria-hidden="true">Prism plot</figcaption>
+</figure>
 
 #### Tree diagram
 
@@ -327,7 +330,10 @@ For instance, the following command plots a frequency tree by decisions:
 plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
-![Tree diagram](inst/pix/README-ex1-tree-1.png)
+<figure>
+<img src="inst/pix/README-ex1-tree-1.png" alt="Tree diagram" />
+<figcaption aria-hidden="true">Tree diagram</figcaption>
+</figure>
 
 This particular tree splits the population of `N = 1000` individuals
 into two subgroups *by decision* (`by = "dc"`) and contains the answer
@@ -364,7 +370,10 @@ plot(hustosis, type = "fnet", by = "cddc",
      f_lbl = "namnum")  # plot frequency net
 ```
 
-![Frequency net](inst/pix/README-ex1-fnet-1.png)
+<figure>
+<img src="inst/pix/README-ex1-fnet-1.png" alt="Frequency net" />
+<figcaption aria-hidden="true">Frequency net</figcaption>
+</figure>
 
 See the `plot_fnet()` function for options and details.
 
@@ -377,7 +386,10 @@ individuals in our population:
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
-![Icon array](inst/pix/README-ex1-icons-1.png)
+<figure>
+<img src="inst/pix/README-ex1-icons-1.png" alt="Icon array" />
+<figcaption aria-hidden="true">Icon array</figcaption>
+</figure>
 
 While this particular icon array is highly regular (as both the icons
 and classification types are ordered), **riskyr** provides many
@@ -396,7 +408,10 @@ size of rectangles (see `?plot_area` for details and examples):
 plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
-![Area/mosaic plot](inst/pix/README-ex1-area-1.png)
+<figure>
+<img src="inst/pix/README-ex1-area-1.png" alt="Area/mosaic plot" />
+<figcaption aria-hidden="true">Area/mosaic plot</figcaption>
+</figure>
 
 #### Table plot
 
@@ -409,7 +424,10 @@ examples):
 plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
-![Table plot](inst/pix/README-ex1-tab-1.png)
+<figure>
+<img src="inst/pix/README-ex1-tab-1.png" alt="Table plot" />
+<figcaption aria-hidden="true">Table plot</figcaption>
+</figure>
 
 #### Bar plot
 
@@ -420,7 +438,10 @@ bars (see `?plot_bar` for details and examples):
 plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 ```
 
-![Bar plot](inst/pix/README-ex1-bar-1.png)
+<figure>
+<img src="inst/pix/README-ex1-bar-1.png" alt="Bar plot" />
+<figcaption aria-hidden="true">Bar plot</figcaption>
+</figure>
 
 #### Curves
 
@@ -433,7 +454,10 @@ function of another (e.g., the condition’s prevalence `prev`, see
 plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
-![Probability curves](inst/pix/README-ex1-curve-1.png)
+<figure>
+<img src="inst/pix/README-ex1-curve-1.png" alt="Probability curves" />
+<figcaption aria-hidden="true">Probability curves</figcaption>
+</figure>
 
 #### Planes
 
@@ -447,7 +471,10 @@ details and examples):
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
-![Probability plane](inst/pix/README-ex1-plane-1.png)
+<figure>
+<img src="inst/pix/README-ex1-plane-1.png" alt="Probability plane" />
+<figcaption aria-hidden="true">Probability plane</figcaption>
+</figure>
 
 The L-shape of this plane reveals a real problem with our current test:
 Given a prevalence of 4% for hustosis in our target population, the
@@ -458,26 +485,21 @@ current specificity value of 95% (`spec = .95`) may sound pretty good,
 it is still not high enough to yield a `PPV` beyond 40%.
 
 <!--
-
-#### Plots currently under development
-
-The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
-
-
+&#10;#### Plots currently under development
+&#10;The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
+&#10;
 ```r
 ## Install current development version: 
 # install.packages("devtools")
 devtools::install_github("hneth/riskyr")
-
-## Preview latest functions (riskyr > v0.0.1.930):
+&#10;## Preview latest functions (riskyr > v0.0.1.930):
 plot(hustosis, type = "prism", by = "cddc")  
 plot(hustosis, type = "tree",  by = "ac") 
 plot(hustosis, type = "area",  by = "cddc")
 plot(hustosis, type = "tab",   by = "cddc")
 plot(hustosis, type = "bar",   dir = 2)
 ```
-
--->
+&#10;-->
 <!-- 2: Loading and using pre-defined scenarios -->
 
 ### Using existing scenarios
@@ -532,7 +554,12 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
 
-![Prism/tree plot (with scaled squares)](inst/pix/README-ex2-tree-1.png)
+<figure>
+<img src="inst/pix/README-ex2-tree-1.png"
+alt="Prism/tree plot (with scaled squares)" />
+<figcaption aria-hidden="true">Prism/tree plot (with scaled
+squares)</figcaption>
+</figure>
 
 The prism plot (or network diagram) combines 2 tree diagrams to
 simultaneously provide two perspectives on a population (see Wassner et
@@ -548,8 +575,12 @@ plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
      p_lbl = "num")                                  # numeric probability labels
 ```
 
-![Prism plot (with scaled horizontal
-rectangles)](inst/pix/README-ex2-prism-hr-1.png)
+<figure>
+<img src="inst/pix/README-ex2-prism-hr-1.png"
+alt="Prism plot (with scaled horizontal rectangles)" />
+<figcaption aria-hidden="true">Prism plot (with scaled horizontal
+rectangles)</figcaption>
+</figure>
 
 #### Frequency net
 
@@ -566,8 +597,12 @@ plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accurac
      f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
 ```
 
-![Frequency net (with custom perspective and
-options)](inst/pix/README-ex2-fnet-1.png)
+<figure>
+<img src="inst/pix/README-ex2-fnet-1.png"
+alt="Frequency net (with custom perspective and options)" />
+<figcaption aria-hidden="true">Frequency net (with custom perspective
+and options)</figcaption>
+</figure>
 
 #### Icon array
 
@@ -809,7 +844,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2023-01-15 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2024-01-05 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
