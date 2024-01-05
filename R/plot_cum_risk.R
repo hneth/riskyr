@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 04
+## 2024 01 05
 ## Plot cumulative risks
 
 # Analysis: Different problem types ------
@@ -64,7 +64,7 @@
 #' @importFrom grDevices colorRampPalette
 #'
 
-plot_cbar <- function(r = .50, t = 1, N = 100,
+plot_cbar <- function(r = .50, t = NA, N = 100,
                       horizontal = TRUE, sort = FALSE,
                       N_max = 100, bar_width = .50,
                       show_trans = 1, show_ev = TRUE, show_n = FALSE){
@@ -72,8 +72,12 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 
   # Handle inputs: ----
 
-  if (r < 0 || r > 1){
-    message("risk r should be in (0, 1)")
+  if (any(r < 0) || any(r > 1)){
+    message("All risk values of r should be in (0, 1)")
+  }
+
+  if (all(!is.na(r)) && is.na(t)){
+    t <- length(r)
   }
 
   if (bar_width < 0 || bar_width > 1){
@@ -373,7 +377,13 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
   # Title: ----
 
   # plot_title <- paste0("Cumulative risk dynamics (r = ", r, "; t = ", t, "; N = ", N, ")")
-  plot_title <- paste0("Cumulative risks (r = ", round(r, 2), ")")
+  # plot_title <- paste0("Cumulative risks (r = ", round(r, 2), ")")
+
+  if (range(r)[1] != range(r)[2]){ # range of different r values:
+    plot_title <- paste0("Cumulative risks (r = ", paste(round(r, 2), collapse = ", "), "; t = ", t, ")")
+  } else { # constant r values:
+    plot_title <- paste0("Cumulative risks (r = ", round(r, 2), "; t = ", t, ")")
+  }
 
   title(main = plot_title, adj = 0)
 
@@ -409,6 +419,15 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, N_max = 10)  # zooming
 #
 # # Note: t = 8 implies 2^8 = 256 segments.
+
+# # Generalization to variable values of r (as a vector):
+# plot_cbar(r = seq(.50, .10, by = -.10), t = NA, N = 100)
+# plot_cbar(r = seq(.10, .50, by = +.10), t = NA, N = 100)
+# plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, N = 100)
+
+# ?: +++ here now +++
+
+# ToDo: Generalize to allow for risk reductions (-1 <= r < 0).
 
 
 # Further tests:
@@ -451,7 +470,7 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # plot_cbar(r = .30, t = 5, sort = F, N_max = 100)
 
 
-# ?: +++ here now +++
+
 
 
 
@@ -473,9 +492,12 @@ plot_cbar <- function(r = .50, t = 1, N = 100,
 # - Added transition links between time periods (as polygons)
 #
 # - Made bar_width and show_trans arguments of plot_cbar().
-
+#
+# - Generalization to variable values of r (as a vector).
 
 ## (+) ToDo: ----------
+
+# - Generalize plot_cbar() to allow for risk reductions (-1 <= r < 0).
 
 # - rename x and y variables: x in terms of p, y in terms of t, etc.
 
