@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 04
+## 2024 01 05
 ## Compute cumulative risks
 
 # Analysis: Two different problem types ------
@@ -13,16 +13,19 @@
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
+# ad 1. Fixed/stable population size N: ------
+#       Risk factor affects some property of a stable population
+#       (e.g., diseases of individuals, rainy days, successful projects, etc.)
 
-# ad 1. Fixed population size: Parameters: ----
+# Parameters: ----
 
 # IV:
 # r ... risk
 # t ... time periods/rounds
 #
 # DV:
-# ev ... events
-# pc ... percent/population
+# ev ... number of events
+# pc ... probability of risk factor affecting population / percent of population
 
 
 
@@ -136,11 +139,25 @@ comp_ev_p <- function(r, t, p = 100, ev = 0){
 # B. comp_cum_ps(): Iterative generation of cumulative risks: ------
 
 comp_cum_ps <- function(r = 1/2,  # risk per time period
-                        t = 1,    # time periods/rounds
+                        t = NA,   # number of time periods/rounds
                         N = 100   # population size
 ){
 
-  # iterative generation:
+  # Generalize version of constant r to a vector r
+  # (with potentially different risk values, and length(r) = t):
+
+  if ((length(r) == 1) && (is.numeric(t))){
+
+    # message(paste0("Changing r to a vector of length ", t, ":"))
+    r <- rep(r, times = t)
+    # print(r)
+
+  }
+
+  t <- length(r)
+
+
+  # Iterative generation:
   for (i in 0:t){ # each time period i:
 
     if (i == 0){
@@ -153,7 +170,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
       # initialize:
       ev[[i]] <- c(1, 0)
-      ps[[i]] <- c(N * r, N * (1 - r))
+      ps[[i]] <- c(N * r[i], N * (1 - r[i]))
 
       names(ps[[i]]) <- paste0(ev[[i]], "x")
 
@@ -162,7 +179,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
       for (e in 1:length(ev[[i - 1]])){ # each element e in the previous ev vector:
 
         ev[[i]][c((2 * e - 1), 2 * e)] <- ev[[i - 1]][e] + c(1, 0)
-        ps[[i]][c((2 * e - 1), 2 * e)] <- ps[[i - 1]][e] * c(r, (1 - r))
+        ps[[i]][c((2 * e - 1), 2 * e)] <- ps[[i - 1]][e] * c(r[i], (1 - r[i]))
 
         names(ps[[i]]) <- paste0(ev[[i]], "x")
 
@@ -182,6 +199,9 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # comp_cum_ps(r = .1, t = 2, N = 100)
 # comp_cum_ps(r = .1, t = 5, N = 100)
 
+# Generalization to variable values of r (as a vector):
+# comp_cum_ps(r = c(.1, .2, .3), t = NA, N = 100)
+
 # # Note:
 # lapply(X = comp_cum_ps(r = .1, t = 5, N = 100), FUN = cumsum)
 
@@ -191,13 +211,59 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
 # See file "plot_cum_risk.R".
 
-# ?: +++ here now +++
+
+# ad 2. Changing population size N ------
+#       Risk factor affects and changes the (size of the) population
+#       (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
+
+
+# Parameters: ----
+
+# IV:
+# r ... risk (as a constant value)
+# t ... time periods/rounds
+# OR:
+# r ... as a vector of risk factor values (e.g. sequential changes)
+
+# Note: To allow for vector r with a range of different values,
+# Constant values of r and given value of t are interpreted as:
+# rep(r, t)
+
+# DV:
+# N ... magnitude/size of population
+# sg ... segments (from original vs. recent change)
+
+
+apply_risk_to_population <- function(r, t = NA, N = 100){
+
+  # ToDo: Ensure that r values are in -1 <= r <= +1.
+
+  if ((length(r) == 1) && (is.numeric(t))){
+
+    message(paste0("Changing r to a vector of length ", t, ":"))
+    r <- rep(r, times = t)
+    print(r)
+  }
+
+  # +++ here now +++
+
+
+  # Output:
+  r
+
+}
+
+# # Check:
+# apply_risk_to_population(.50)
+
+
+
 
 
 
 ## (*) Done: ----------
 
-# - etc.
+# - Generalization to variable values of r (as a vector).
 
 
 ## (+) ToDo: ----------
