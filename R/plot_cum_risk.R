@@ -1,18 +1,38 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 05
+## 2024 01 06
 ## Plot cumulative risks
 
-# Analysis: Different problem types ------
+# Task analysis: ------
 
-# 1. Fixed population size N:
-#    Risk factor affects a stable population.
-#    (e.g., diseases, rainy days, affected population, etc.)
+
+# A. Two different problem types: ----
+
+# 1. Fixed/stable population size N:
+#    Risk factor affects some property of a stable population
+#    (e.g., diseases of individuals, rainy days, successful projects, etc.)
 
 # 2. Changing population size N:
-#    Risk factor changes the population.
+#    Risk factor affects and changes the (size of the) population
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
+# B. Problem variants and generalizations: ----
+
+# Basic problems involve a constant value of r and r > 0.
+#
+# This implies 2 generalizations:
+# 1. Variable values of r (as a vector of values).
+# 2. Risk increases (0 < r <= 1) and risk reductions (-1 <= r < 0).
+
+
+
+# B. Problem variants and generalizations: ----
+
+# Basic problems involve a constant value of r and r > 0.
+#
+# This implies 2 generalizations:
+# 1. Variable values of r (as a vector of values).
+# 2. Risk increases (0 < r <= 1) and risk reductions (-1 <= r < 0).
 
 # ad 1. Compute cumulative risks: ------
 
@@ -77,8 +97,10 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
   # Handle inputs: ----
 
   if (any(r < 0) || any(r > 1)){
-    message("All risk values of r should be in (0, 1)")
+    message("All risk values of r currently need to be in (0, 1)")
   }
+  # ToDo: Make comp_cum_risk() and plot_cbar() work for
+  #       NEGATIVE risk values r < 0 (reducing risks).
 
   if (all(!is.na(r)) && is.na(t)){
     t <- length(r)
@@ -477,8 +499,6 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
 
 
-
-
 ## (*) Done: ----------
 
 # - Added option to sort cum-risk vectors by names:
@@ -497,11 +517,13 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #
 # - Made bar_width and show_trans arguments of plot_cbar().
 #
-# - Generalization to variable values of r (as a vector).
+# - 1. Generalization to variable values of r (as a vector).
+
 
 ## (+) ToDo: ----------
 
-# - Generalize plot_cbar() to allow for risk reductions (-1 <= r < 0).
+# - 2. Generalization: Make comp_cum_risk() and plot_cbar() work for
+#   NEGATIVE risk values r < 0 (i.e., risk reductions).
 
 # - rename x and y variables: x in terms of p, y in terms of t, etc.
 

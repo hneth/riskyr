@@ -1,8 +1,11 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 05
+## 2024 01 06
 ## Compute cumulative risks
 
-# Analysis: Two different problem types ------
+# Task analysis: ------
+
+
+# A. Two different problem types: ----
 
 # 1. Fixed/stable population size N:
 #    Risk factor affects some property of a stable population
@@ -11,6 +14,17 @@
 # 2. Changing population size N:
 #    Risk factor affects and changes the (size of the) population
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
+
+
+# B. Problem variants and generalizations: ----
+
+# Basic problems involve a constant value of r and r > 0.
+#
+# This implies 2 generalizations:
+# 1. Variable values of r (as a vector of values).
+# 2. Risk increases (0 < r <= 1) and risk reductions (-1 <= r < 0).
+
+
 
 
 # ad 1. Fixed/stable population size N: ------
@@ -143,13 +157,16 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
                         N = 100   # population size
 ){
 
-  # Generalize version of constant r to a vector r
+  # Generalize version of constant r value to a vector of r values
   # (with potentially different risk values, and length(r) = t):
 
   if ((length(r) == 1) && (is.numeric(t))){
 
-    # message(paste0("Changing r to a vector of length ", t, ":"))
+    # Turn r into a vector of length t:
     r <- rep(r, times = t)
+
+    # User feedback:
+    # message(paste0("Made r a vector of length t = ", t, ":"))
     # print(r)
 
   }
@@ -202,6 +219,9 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # Generalization to variable values of r (as a vector):
 # comp_cum_ps(r = c(.1, .2, .3), t = NA, N = 100)
 
+# ToDo: Does this work for risk values r < 0 (reducing risks)?
+# comp_cum_ps(r = c(.1, -.2, .3), t = NA, N = 100)  # Answer: No, see negative segments!
+
 # # Note:
 # lapply(X = comp_cum_ps(r = .1, t = 5, N = 100), FUN = cumsum)
 
@@ -225,13 +245,19 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # OR:
 # r ... as a vector of risk factor values (e.g. sequential changes)
 
-# Note: To allow for vector r with a range of different values,
+
+# Generalizations of r:
+#
+# 1. Variable r values: To allow for vector r with a range of different values,
 # Constant values of r and given value of t are interpreted as:
-# rep(r, t)
+# rep(r, t).
+#
+# 2. Risk increases and reductions: -1 <= r <= +1.
+
 
 # DV:
 # N ... magnitude/size of population
-# sg ... segments (from original vs. recent change)
+# sg ... 2 segments (from original vs. recent change) or 2^t segments?
 
 
 apply_risk_to_population <- function(r, t = NA, N = 100){
@@ -240,12 +266,20 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 
   if ((length(r) == 1) && (is.numeric(t))){
 
-    message(paste0("Changing r to a vector of length ", t, ":"))
+    # Turn r into a vector of length t:
     r <- rep(r, times = t)
+
+    # User feedback:
+    message(paste0("Made r a vector of length t = ", t, ":"))
     print(r)
   }
 
+
+
+
   # +++ here now +++
+
+
 
 
   # Output:
@@ -259,15 +293,15 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 
 
 
-
-
 ## (*) Done: ----------
 
-# - Generalization to variable values of r (as a vector).
+# - 1. Generalization to variable values of r (as a vector).
 
 
 ## (+) ToDo: ----------
 
+# - 2. Generalization: Make comp_cum_risk() work for
+#   NEGATIVE risk values r < 0 (i.e., risk reductions).
 
 # - Use more appropriate data structure for cumulative probabilities (ps)?
 # - How to grow a (binary) tree structure in R?
