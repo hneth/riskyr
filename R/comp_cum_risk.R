@@ -295,11 +295,10 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
     # User feedback:
     message(paste0("Made r a vector of length t = ", t, ":"))
     print(r)
+
   }
 
-
   # +++ here now +++
-
 
   # Output:
   r
