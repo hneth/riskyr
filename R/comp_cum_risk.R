@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 06
+## 2024 01 07
 ## Compute cumulative risks
 
 # Task analysis: ------
@@ -9,11 +9,34 @@
 
 # 1. Fixed/stable population size N:
 #    Risk factor affects some property of a stable population
-#    (e.g., diseases of individuals, rainy days, successful projects, etc.)
+#    (e.g., diseases of individuals, rainy days, successful projects, etc.).
+#
+#    DV: Proportions of affected individuals.
+#    Absence and presence of risk factor for individuals lead to different proportions in population:
+#    a. individual perspective: affected vs. unaffected proportions individuals
+#    b. collective perspective: # of risky events per individual (i.e., classes/segments of individuals)
+
+# Note on range of r:
+#
+# In 1. most risk factors assume a positive range 0 <= r <= 1 (i.e., only increasing risk):
+# (e.g., earthquakes, diseases, death).
+# Occurrences can accumulate, but not be cancelled, reduced, or withdrawn later.
+#
+# Allowing for recovery or risk reduction (r < 0) requires
+# further assumptions and a different process,
+# as this would change (reduce) the affected proportion of the population.
+# The EV counts remain stable, but the proportion(s) affected decrease
+# (but unclear, whether all affected segments decrease by the same rate).
+
 
 # 2. Changing population size N:
-#    Risk factor affects and changes the (size of the) population
-#    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
+#    Risk factor affects and changes the (magnitude/size of the) population
+#    (e.g., sequential percentage changes, cumulative interest, reducing portfolio value, etc.)
+#
+# DV: Population magnitude/size.
+
+# Note on range of r: Allowing for increases and decreases: -1 <= r <= +1.
+
 
 
 # B. Problem variants and generalizations: ----

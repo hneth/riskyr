@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 06
+## 2024 01 07
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -453,7 +453,13 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
 # ?: +++ here now +++
 
-# ToDo: Generalize to allow for risk reductions (-1 <= r < 0).
+# ToDo: Generalize to allow for risk reductions (-1 <= r < 0):
+
+# Note: Allowing for recovery or risk reduction (r < 0) requires
+# further assumptions and a different process,
+# as this would change (reduce) the affected proportion of the population.
+# The EV counts remain stable, but the proportion(s) affected decrease
+# (but unclear, whether all affected segments decrease by the same rate).
 
 
 # Further tests:
@@ -478,7 +484,8 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = .30, t = 3, N = 1000, N_max = 1000)
 
 
-# # Note some insights (based on visualizations):
+# # Note some visual insights: ------
+# # (i.e., insights based on visualizations):
 #
 # # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
 # plot_cbar(r = .01, t = 5, sort = F, N_max =  5)
@@ -495,7 +502,11 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = .20, t = 5, sort = F, N_max = 100)
 # plot_cbar(r = .30, t = 5, sort = F, N_max = 100)
 
-
+# # 4. Permutation/order effects for varying risk magnitudes: Compare
+# plot_cbar(r = c(.2, .3, .4))  # (seemingly linear increase of affected proportion) with
+# plot_cbar(r = c(.4, .3, .2))  # (seemingly rapid decrease), but same affected proportions overall:
+# plot_cbar(r = c(.4, .2, .3), sort = TRUE)  # => The 8 final segments always
+# plot_cbar(r = c(.3, .2, .4), sort = TRUE)  #    contain the same permutations!
 
 
 
