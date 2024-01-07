@@ -298,11 +298,7 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
   }
 
 
-
-
   # +++ here now +++
-
-
 
 
   # Output:
