@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 07
+## 2024 01 08
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -127,7 +127,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
   # Compute cumulative probability data: ----
 
-  data <- comp_cum_ps(r = r, t = t, N = N)  # list of p values (with ev names)
+  bin_names <- FALSE  # as labels and colors currently use ev (in names)
+
+  data <- comp_cum_ps(r = r, t = t, N = N, bin_names = bin_names)  # list of p values (with ev names)
 
   data_cs <- lapply(X = data, FUN = cumsum)  # cumsum() of p values
 
@@ -143,10 +145,8 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
   t_max <- t + 1
 
 
-  # Constants:
-
-  # bar labels:
-  cex_lbl <- 1 - (5 * t/100)
+  # Plot constants:
+  cex_lbl   <- 1 - (5 * t/100)  # bar labels
 
   # Main axis label:
   if (N == 100){
@@ -302,7 +302,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
         lbl_i <- paste0(x_ev)
       } else if (show_n){
         lbl_i <- paste0(round(p_cur, 2))
-      } else { # default;
+      } else { # default:
         lbl_i <- NA
       }
 
@@ -451,7 +451,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = seq(.10, .50, by = +.10), t = NA, N = 100)
 # plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, N = 100)
 
+
 # ?: +++ here now +++
+
 
 # ToDo: Generalize to allow for risk reductions (-1 <= r < 0):
 
@@ -532,6 +534,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
 
 ## (+) ToDo: ----------
+
+# - Use binary state names in comp_cum_ps() and
+#   utility fun to convert those into ev numbers (e.g., for color hues).
 
 # - 2. Generalization: Make comp_cum_risk() and plot_cbar() work for
 #   NEGATIVE risk values r < 0 (i.e., risk reductions).
