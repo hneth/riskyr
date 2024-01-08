@@ -1,13 +1,14 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 07
+## 2024 01 08
 ## Compute cumulative risks
 
-# Task analysis: ------
+# Task analysis: ----------
 
 
-# A. Two different problem types: ----
+# A. Two different problem types: ------
 
-# 1. Fixed/stable population size N:
+# 1. Fixed/stable population size N: ------
+
 #    Risk factor affects some property of a stable population
 #    (e.g., diseases of individuals, rainy days, successful projects, etc.).
 #
@@ -16,7 +17,7 @@
 #    a. individual perspective: affected vs. unaffected proportions individuals
 #    b. collective perspective: # of risky events per individual (i.e., classes/segments of individuals)
 
-# Note on range of r:
+# - Note on range of r: ----
 #
 # In 1. most risk factors assume a positive range 0 <= r <= 1 (i.e., only increasing risk):
 # (e.g., earthquakes, diseases, death).
@@ -28,8 +29,24 @@
 # The EV counts remain stable, but the proportion(s) affected decrease
 # (but unclear, whether all affected segments decrease by the same rate).
 
+# - Note on binary tree data structure: ----
+#
+# Data can be generated and stored as a binary tree.
+# Each state corresponds to an binary expansion:
+#   1      0
+# 11 10  01 00
+# etc.
+# Thus, each state contains the entire history of each leaf
+# and representation allows for all kinds of questions:
+# number of events: e.g., more than 2 events?
+# parity: e.g., more 1 than 0?
+# patterns: e.g., alternating 0 and 1?
+# Constraint: Dependencies run strictly from stem to leaf,
+# any reverse dependencies (from leaf to stem) cannot be captured.
 
-# 2. Changing population size N:
+
+# 2. Changing/variable population size N: --------
+#
 #    Risk factor affects and changes the (magnitude/size of the) population
 #    (e.g., sequential percentage changes, cumulative interest, reducing portfolio value, etc.)
 #
@@ -50,7 +67,7 @@
 
 
 
-# ad 1. Fixed/stable population size N: ------
+# ad 1. Fixed/stable population size N: ----------
 #       Risk factor affects some property of a stable population
 #       (e.g., diseases of individuals, rainy days, successful projects, etc.)
 
@@ -177,7 +194,8 @@ comp_ev_p <- function(r, t, p = 100, ev = 0){
 
 comp_cum_ps <- function(r = 1/2,  # risk per time period
                         t = NA,   # number of time periods/rounds
-                        N = 100   # population size
+                        N = 100,  # population size
+                        bin_names = TRUE  # name states by binary sequence?
 ){
 
   # Generalize version of constant r value to a vector of r values
@@ -203,16 +221,22 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
     if (i == 0){
 
       # prepare data structures:
-      ev <- vector(mode = "list", length = t)
-      ps <- vector(mode = "list", length = t)
+      ev <- vector(mode = "list", length = t)  # number of events/occurrences
+      ps <- vector(mode = "list", length = t)  # cumulative probability of segment
+      bi <- vector(mode = "list", length = t)  # binary representation of state
 
     } else if (i == 1){
 
       # initialize:
       ev[[i]] <- c(1, 0)
       ps[[i]] <- c(N * r[i], N * (1 - r[i]))
+      bi[[i]] <- c("1", "0")
 
-      names(ps[[i]]) <- paste0(ev[[i]], "x")
+      if (bin_names){
+        names(ps[[i]]) <- bi[[i]]
+      } else {
+        names(ps[[i]]) <- paste0(ev[[i]], "x")
+      }
 
     } else {
 
@@ -220,8 +244,13 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
         ev[[i]][c((2 * e - 1), 2 * e)] <- ev[[i - 1]][e] + c(1, 0)
         ps[[i]][c((2 * e - 1), 2 * e)] <- ps[[i - 1]][e] * c(r[i], (1 - r[i]))
+        bi[[i]][c((2 * e - 1), 2 * e)] <- paste0(bi[[i - 1]][e],  c("1", "0"))
 
-        names(ps[[i]]) <- paste0(ev[[i]], "x")
+        if (bin_names){
+          names(ps[[i]]) <- bi[[i]]
+        } else {
+          names(ps[[i]]) <- paste0(ev[[i]], "x")
+        }
 
       } # for e.
 
@@ -242,7 +271,13 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # Generalization to variable values of r (as a vector):
 # comp_cum_ps(r = c(.1, .2, .3), t = NA, N = 100)
 
-# ToDo: Does this work for risk values r < 0 (reducing risks)?
+
+# ToDo: ----
+#
+# - Use binary state names and convert those into number of event occurrences
+#   (via a bin_to_decimal() utility function).
+#
+# 2. Generalization: Does this work for risk values r < 0 (reducing risks)?
 # comp_cum_ps(r = c(.1, -.2, .3), t = NA, N = 100)  # Answer: No, see negative segments!
 
 # # Note:
@@ -317,6 +352,9 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 
 
 ## (+) ToDo: ----------
+
+# - Use binary state names and convert those into number of event occurrences
+#   (via a bin_to_decimal() utility function).
 
 # - 2. Generalization: Make comp_cum_risk() work for
 #   NEGATIVE risk values r < 0 (i.e., risk reductions).
