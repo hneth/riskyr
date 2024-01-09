@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2022 08 14
+## 2024 01 09
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -8,6 +8,8 @@
 ## (C) Conversion functions
 ## (D) Color and plotting functions (mostly moved to plot_util.R)
 ## (E) Text functions
+## (F) Numeric functions
+## (X) Miscellaneous
 
 ## (A) Verification functions: ------
 
@@ -1364,6 +1366,7 @@ is_matrix <- function(mx){
 
   } # if end.
 
+
   return(out)
 
 } # is_matrix().
@@ -1430,6 +1433,7 @@ as_pc <- function(prob, n_digits = 2) {
 
   perc <- NA # initialize
 
+
   if (is_prob(prob)) {
 
     perc <- round(prob * 100, n_digits)  # compute percentage
@@ -1444,6 +1448,7 @@ as_pc <- function(prob, n_digits = 2) {
 
   }
 
+
   return(perc)  # return (numeric)
 
 } # as_pc().
@@ -1456,6 +1461,7 @@ as_pc <- function(prob, n_digits = 2) {
 # as_pc(as_pb(12.3))        # =>  12.3
 # as_pc(NA)
 # as_pc(0/0)
+
 
 ## Removed from documentation (to avoid ERRORS):
 #
@@ -1472,6 +1478,7 @@ as_pc <- function(prob, n_digits = 2) {
 # # perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
 # # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
 # # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
+
 
 
 ## Percentage as probability (4 decimals):
@@ -1517,7 +1524,9 @@ as_pc <- function(prob, n_digits = 2) {
 
 as_pb <- function(perc, n_digits = 4) {
 
+
   prob <- NA # initialize
+
 
   if (is_perc(perc)) {
 
@@ -1530,9 +1539,10 @@ as_pb <- function(perc, n_digits = 4) {
 
   }
 
+
   return(prob)  # numeric value
 
-}
+} # as_pb().
 
 ## Check:
 # as_pb(1/3)          # => 0.0033
@@ -1568,7 +1578,7 @@ incsum <- function(cumsum){
 
   diff(c(0, cumsum))
 
-}
+} # incsum().
 
 ## Check:
 # v <- runif(10)
@@ -1604,7 +1614,7 @@ make_transparent <- function(..., alpha = .50) {
 
   return(new_color)
 
-}
+} # make_transparent().
 
 ## Check:
 # make_transparent(c("black", "red"), alpha =  0)
@@ -1615,13 +1625,17 @@ make_transparent <- function(..., alpha = .50) {
 # grDevices::adjustcolor(col = "green", alpha.f = .50)
 
 
+
 ## (E) Text functions: --------
 
 capitalise_1st <- function(string) {
+
   String <- ""
   String <- paste0(toupper(substr(string, 1, 1)), substr(string, 2, nchar(string)))
+
   return(String)
-}
+
+} # capitalise_1st().
 
 ## Check:
 # capitalise_1st("the end.") # "The end."
@@ -1629,7 +1643,29 @@ capitalise_1st <- function(string) {
 # capitalise_1st(123)        # "123"
 
 
-## (F) Miscellaneous: --------
+
+
+## (F) Numeric functions: --------
+
+# base_2_dec: Convert number represented in some base notation into decimal notation -------
+
+base_2_dec <- function(x, base = 2){
+
+  # +++ here now +++
+
+} # base_2_dec().
+
+
+
+# dec_2_base: Convert number represented in decimal notation to notation in some other base -------
+
+dec_2_base <- function(x, base = 2){
+
+} # dec_2_base().
+
+
+
+## (X) Miscellaneous: --------
 
 # kill_all: Kill all objects in current environment (without warning): ----
 
@@ -1637,7 +1673,7 @@ kill_all <- function(){
 
   rm(list = ls())
 
-}
+} # kill_all().
 
 # Check: ----
 # kill_all()
