@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 08
+## 2024 01 09
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -16,6 +16,9 @@
 #    Absence and presence of risk factor for individuals lead to different proportions in population:
 #    a. individual perspective: affected vs. unaffected proportions individuals
 #    b. collective perspective: # of risky events per individual (i.e., classes/segments of individuals)
+
+# Mathematically, risk categories can be computed by binomial or multi-nominal distributions.
+# However, a generative process model assumes a binary tree with 2 edges/links (risk present vs. absent) for each node.
 
 # - Note on range of r: ----
 #
@@ -45,6 +48,7 @@
 # any reverse dependencies (from leaf to stem) cannot be captured.
 
 
+
 # 2. Changing/variable population size N: --------
 #
 #    Risk factor affects and changes the (magnitude/size of the) population
@@ -53,6 +57,7 @@
 # DV: Population magnitude/size.
 
 # Note on range of r: Allowing for increases and decreases: -1 <= r <= +1.
+
 
 
 
