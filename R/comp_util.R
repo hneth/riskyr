@@ -1682,51 +1682,103 @@ tally <- Vectorize(tally_1, vectorize.args = "s")
 
 
 
-
 # base_2_dec: Convert number represented in some base notation into decimal numerals -------
 
-base_2_dec <- function(x, base = 2){
+base_2_dec <- function(x, base = 2, exp = 0){
 
   # +++ here now +++
 
+  if (x == 0) { # stop:
+
+    return(0)
+
+  } else { # simplify:
+
+    cur_digit <- (x %% 10^(exp + 1)) / 10^exp
+    cur_value <- cur_digit * base^exp
+
+    next_x <- x - cur_digit * 10^exp
+
+    return(cur_value + base_2_dec(x = next_x, base = base, exp = (exp + 1)))
+
+  }
+
 } # base_2_dec().
 
+# # Check:
+# base_2_dec(x = 11, base = 2)
+# base_2_dec(x = 11, base = 7)
+# base_2_dec(x = 101, base = 2)
+# base_2_dec(x = 222, base = 1)  # Note: Non-sensical inputs.
 
 
 # dec_2_base: Convert number represented in decimal numerals to notation in some other base -------
 
-dec_2_base <- function(x, base = 2){
+dec_2_base <- function(x, base = 2, exp = 0){
 
-
-
-} # dec_2_base().
-
-
-dec_to_nondec <- function(cur_num, aim_base, start = 0){
-
-  if (cur_num == 0) {
+  if (x == 0) { # stop:
 
     return(0)
 
-  } else {
+  } else { # simplify:
 
-    rest <- cur_num %% aim_base
+    cur_digit <- x %% base
+    cur_value <- cur_digit * (10^exp)
 
-    add_2 <- rest * (10^start)
+    next_x <- x %/% base
 
-    new_num <- cur_num %/% aim_base
-
-    return(add_2 + dec_to_nondec(cur_num = new_num, aim_base = aim_base, start = start + 1))
+    return(cur_value + dec_2_base(x = next_x, base = base, exp = (exp + 1)))
 
   }
 
-} # dec_to_nondec().
+} # dec_2_base().
 
 # # Check:
-# dec_to_nondec(cur_num = 11, aim_base = 2)
-# dec_to_nondec(cur_num = 2, aim_base = 2)
-# dec_to_nondec(cur_num = 11, aim_base = 3)
-# dec_to_nondec(cur_num = 2, aim_base = 3)
+# dec_2_base(x = 11, base = 2)
+# dec_2_base(x =  2, base = 2)
+# dec_2_base(x = 11, base = 4)
+# dec_2_base(x =  4, base = 3)
+# dec_2_base(x = 651361, base = 2)
+
+
+# # Simulation:
+#
+# N <- 999
+# count <- 0
+#
+# for (i in 1:N){
+#
+#   # Draw samples:
+#   r <- sample(1:99999, size = 1)
+#   b <- sample(2:9, size = 1)
+#
+#   # Compute:
+#   y <- base_2_dec(x = dec_2_base(x = r, base = b), base = b)
+#
+#   # Check:
+#   if (y == r) {
+#
+#     count = count + 1
+#
+#   } else {
+#
+#     print(paste0("FALSE for r = ", r, ", b = ", b, ": y = ", y))
+#
+#   }
+#
+# }
+#
+# if (count == N){
+#   "All TRUE"
+# } else {
+#   paste0(N - count, " of N = ", N, " are FALSE")
+# }
+
+
+# base_2_dec(dec_2_base(123456789, base = 7), base = 7)
+
+
+
 
 ## (X) Miscellaneous: --------
 
