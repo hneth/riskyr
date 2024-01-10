@@ -1647,6 +1647,42 @@ capitalise_1st <- function(string) {
 
 ## (F) Numeric functions: --------
 
+
+# tally: Count number of symbol occurrences in a character scalar (converted into a vector of elements of nchar = 1) ----
+
+tally_1 <- function(s, target = "1"){
+
+  # Verify inputs:
+  if ( !is.character(s) | length(s) > 1){
+    message("tally: s should be a scalar character object (of length 1)")
+  }
+
+  if ( !is.character(target) | length(target) > 1 | nchar(target) > 1 ){
+    message("tally: target should be a scalar character object (of 1 character)")
+  }
+
+  # Main:
+  s_v <- unlist(strsplit(s, split = ""))  # split into a vector of individual characters
+
+  sum(s_v == target)  # count
+
+} # tally_1().
+
+# Vectorized version:
+tally <- Vectorize(tally_1, vectorize.args = "s")
+
+# # Check:
+# tally("10101")
+# tally(c("010", "101", "111"))
+# tally(c("HTTH", "HTHTTH", "ABC"), target = "H")
+
+# # Tests:
+# chars <- paste(LETTERS, collapse = "")
+# unlist(strsplit(chars, split = ""))
+
+
+
+
 # base_2_dec: Convert number represented in some base notation into decimal notation -------
 
 base_2_dec <- function(x, base = 2){
