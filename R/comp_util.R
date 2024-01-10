@@ -1683,7 +1683,7 @@ tally <- Vectorize(tally_1, vectorize.args = "s")
 
 
 
-# base_2_dec: Convert number represented in some base notation into decimal notation -------
+# base_2_dec: Convert number represented in some base notation into decimal numerals -------
 
 base_2_dec <- function(x, base = 2){
 
@@ -1693,13 +1693,40 @@ base_2_dec <- function(x, base = 2){
 
 
 
-# dec_2_base: Convert number represented in decimal notation to notation in some other base -------
+# dec_2_base: Convert number represented in decimal numerals to notation in some other base -------
 
 dec_2_base <- function(x, base = 2){
+
+
 
 } # dec_2_base().
 
 
+dec_to_nondec <- function(cur_num, aim_base, start = 0){
+
+  if (cur_num == 0) {
+
+    return(0)
+
+  } else {
+
+    rest <- cur_num %% aim_base
+
+    add_2 <- rest * (10^start)
+
+    new_num <- cur_num %/% aim_base
+
+    return(add_2 + dec_to_nondec(cur_num = new_num, aim_base = aim_base, start = start + 1))
+
+  }
+
+} # dec_to_nondec().
+
+# # Check:
+# dec_to_nondec(cur_num = 11, aim_base = 2)
+# dec_to_nondec(cur_num = 2, aim_base = 2)
+# dec_to_nondec(cur_num = 11, aim_base = 3)
+# dec_to_nondec(cur_num = 2, aim_base = 3)
 
 ## (X) Miscellaneous: --------
 
