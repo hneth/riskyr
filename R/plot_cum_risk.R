@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 08
+## 2024 01 11
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -82,6 +82,10 @@
 #' @param show_n logical: Show population frequency of risky event occurrences (as bar label)?
 #' Default: \code{show_n = FALSE}.
 #'
+#' @param colors A vector of color values
+#' (for risk event frequency being "hi", "lo", "no", and "bd", respectively).
+#' Default: \code{colors = c("firebrick", "grey96", "green4", "grey40")}.
+#'
 #' @return data of p-values, named by number of event occurrences
 #' (invisibly, as list of named vectors, for each time period t).
 #'
@@ -91,7 +95,9 @@
 plot_cbar <- function(r = .50, t = NA, N = 100,
                       horizontal = TRUE, sort = FALSE,
                       N_max = 100, bar_width = .50,
-                      show_trans = 1, show_ev = TRUE, show_n = FALSE){
+                      show_trans = 1, show_ev = TRUE, show_n = FALSE,
+                      colors = c("firebrick", "grey96", "green4", "grey40")  # for (hi, lo, no, bd), respectively
+                      ){
 
 
   # Handle inputs: ----
@@ -208,10 +214,20 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
   }
 
   # Colors:
-  col_lo  <- "grey96"
-  col_hi  <- "steelblue" # "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
-  brd_col <- "grey40"    # "white" # "grey20"
-  col_no  <- "gold" # "green4"    # "forestgreen" # "deepskyblue"
+
+  # colors <- c("steelblue", "grey96", "gold", "grey40")    # r(rain) vs. sun
+  # colors <- c("firebrick", "grey96", "grey90", "grey40")  # r(danger) vs. neutral
+  # colors <- c("grey40", "grey90", "white", "black")       # grayscale
+  # colors <- c("firebrick", "grey96", "green4", "grey40")  # r(danger) vs. safe (default)
+
+  names(colors) <- c("hi", "lo", "no", "bd")
+
+  col_lo <- colors["lo"]  # "grey96", "white"
+  col_hi <- colors["hi"]  # "firebrick", "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
+  col_bd <- colors["bd"]  # "grey40", "white", "grey20"
+  col_no <- colors["no"]  # "gold", "green4", "forestgreen", "deepskyblue"
+
+
 
 
   # Color palette:
@@ -221,7 +237,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
   pal <- grDevices::colorRampPalette(colors = c(col_lo, col_hi))(n_cols)
 
   # Replace 1st color (ev = 0):
-  pal[1] <- grDevices::colorRampPalette(colors = c("white", col_no))(8)[2]
+  pal[1] <- grDevices::colorRampPalette(colors = c("white", col_no))(10)[3]  # 2-10 := intensity of col_no
   # unikn::seecol(pal)
 
 
@@ -243,7 +259,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
     # Draw bar/box 0:
     plot_cbox(x = N/2, y = t_max, lx = N, ly = bar_width,
               lbl = lbl_0, cex = cex_lbl,
-              col_fill = cur_col, col_brd = brd_col)
+              col_fill = cur_col, col_brd = col_bd)
 
     # Add label (on left):
     text(x = 0, y = t_max, labels = "0:", pos = 2, xpd = TRUE)
@@ -253,7 +269,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
     # Draw bar/box 0:
     plot_cbox(x = 0, y = N/2, lx = bar_width, ly = N,
               lbl = lbl_0, cex = cex_lbl,
-              col_fill = cur_col, col_brd = brd_col)
+              col_fill = cur_col, col_brd = col_bd)
 
     # Add label (on top):
     text(x = 0, y = N_max + 5/N_max, labels = "0:", pos = 3, xpd = TRUE)
@@ -353,13 +369,13 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
         }
 
         if ((show_trans == 2 | show_trans == 3) && (i %% 2 == 0)){ # even segments (2, 4, 6...):
-          polygon(x = xx, y = yy, col = pf_col, border = brd_col)
+          polygon(x = xx, y = yy, col = pf_col, border = col_bd)
         }
 
         # Draw box:
         plot_cbox(x = x_val, y = cur_t, lx = x_width, ly = bar_width,
                   lbl = lbl_i, cex = cex_lbl,
-                  col_fill = cur_col, col_brd = brd_col)
+                  col_fill = cur_col, col_brd = col_bd)
 
 
       } else { # vertical bars:
@@ -370,13 +386,13 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
         }
 
         if ((show_trans == 2 | show_trans == 3) && (i %% 2 == 0)){ # even segments (2, 4, 6...):
-          polygon(x = t_max - yy, y = xx, col = pf_col, border = brd_col)
+          polygon(x = t_max - yy, y = xx, col = pf_col, border = col_bd)
         }
 
         # Draw box:
         plot_cbox(x = t_max - cur_t, y = x_val, lx = bar_width, ly = x_width,
                   lbl = lbl_i, cex = cex_lbl,
-                  col_fill = cur_col, col_brd = brd_col)
+                  col_fill = cur_col, col_brd = col_bd)
 
       }
 
@@ -447,14 +463,22 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #
 # # Note: t = 8 implies 2^8 = 256 segments.
 
+
 # # Generalization to variable values of r (as a vector):
 # plot_cbar(r = seq(.50, .10, by = -.10), t = NA, N = 100)
 # plot_cbar(r = seq(.10, .50, by = +.10), t = NA, N = 100)
 # plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, N = 100)
 
-# # Sunny vs. rainy days (with appropriate colors):
-# plot_cbar(r = .20, t = 7, bar_width = 1, hor = T)
-# plot_cbar(r = .20, t = 7, bar_width = 0, hor = T)
+
+# # Rainy days vs. always sun (with appropriate colors):
+# plot_cbar(r = .20, t = 7, colors = c("steelblue", "grey96", "gold", "grey40"))
+# plot_cbar(r = .20, t = 7, bar_width = 0,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+# plot_cbar(r = .20, t = 7, bar_width = 1, hor = TRUE,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+# plot_cbar(r = .20, t = 7, bar_width = 1, sort = TRUE, hor = TRUE,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+
 
 # ?: +++ here now +++
 
