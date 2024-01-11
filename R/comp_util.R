@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 09
+## 2024 01 11
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1740,42 +1740,86 @@ dec_2_base <- function(x, base = 2, exp = 0){
 # dec_2_base(x =  4, base = 3)
 # dec_2_base(x = 651361, base = 2)
 
+# Problem cases:
 
-# # Simulation:
+# # Note some conflict/erroneous cases:
+# as.character(dec_2_base(68485, base = 2)) # but
+# ds4psy::dec2base(68485, base = 2)
 #
-# N <- 999
+# as.character(dec_2_base(73843, base = 2)) # (is impossible), but
+# ds4psy::dec2base(73843, base = 2)
+#
+# as.character(dec_2_base(76791, base = 2)) # (is impossible), but
+# ds4psy::dec2base(76791, base = 2)
+
+# More conflict cases:
+# 75437
+# 79761
+# 93019
+
+# +++ here now +++
+
+# Questions:
+#
+# - Which function is wrong? (Suspicion: `dec_2_nondec()`, or both)
+# - What's wrong with it?
+# - Why do conflicts only occur for base 2?
+
+
+# Simulation (to locate differences): ----
+
+# # Parameters:
+# N <- 100
 # count <- 0
 #
 # for (i in 1:N){
 #
 #   # Draw samples:
 #   r <- sample(1:99999, size = 1)
-#   b <- sample(2:9, size = 1)
+#   b <- 2 # sample(2:9, size = 1)
 #
 #   # Compute:
-#   y <- base_2_dec(x = dec_2_base(x = r, base = b), base = b)
+#   r_bas <- dec_2_base(x = r, base = b)      # 1. in base
+#   r_dec <- base_2_dec(x = r_bas, base = b)  # 2. in dec
+#
+#   # r_dec <- base_2_dec(x = dec_2_base(x = r, base = b), base = b)
 #
 #   # Check:
-#   if (y == r) {
+#   if (r_dec == r) { # correct:
 #
-#     count = count + 1
+#     count = count + 1  # count correct case
 #
-#   } else {
+#   } else { # Report deviation:
 #
-#     print(paste0("FALSE for r = ", r, ", b = ", b, ": y = ", y))
+#     # Feedback:
+#     print(paste0("FALSE for r = ", r, ", b = ", b, ": r_bas = ", r_bas))
+#
+#     # Locate error:
+#     # 1. dec_2_base() direction:
+#     r_bas_alt <- ds4psy::dec2base(x = r, base = b)  # alternative computation
+#
+#     if (r_bas != r_bas_alt){ # Report difference:
+#       message(paste0("dec_2_base() = ", r_bas, ", but "))
+#       message(paste0("ds4psy::dec2base() = ", r_bas_alt, ". "))
+#     }
+#
+#     # 2. base_2_dec() direction:
+#     r_dec_alt <- ds4psy::base2dec(x = r_bas, base = b)  # alternative computation
+#
+#     if (r_dec != r_dec_alt){ # Report difference:
+#       message(paste0("base_2_dec() = ", r_dec, ", but "))
+#       message(paste0("ds4psy::base2dec() = ", r_dec_alt, ". "))
+#     }
 #
 #   }
-#
 # }
 #
+# # Result:
 # if (count == N){
 #   "All TRUE"
 # } else {
 #   paste0(N - count, " of N = ", N, " are FALSE")
 # }
-
-
-# base_2_dec(dec_2_base(123456789, base = 7), base = 7)
 
 
 
