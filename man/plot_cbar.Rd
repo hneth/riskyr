@@ -14,7 +14,8 @@ plot_cbar(
   bar_width = 0.5,
   show_trans = 1,
   show_ev = TRUE,
-  show_n = FALSE
+  show_n = FALSE,
+  colors = c("firebrick", "grey96", "green4", "grey40")
 )
 }
 \arguments{
@@ -50,6 +51,10 @@ Default: \code{show_ev = TRUE}.}
 
 \item{show_n}{logical: Show population frequency of risky event occurrences (as bar label)?
 Default: \code{show_n = FALSE}.}
+
+\item{colors}{A vector of color values
+(for risk event frequency being "hi", "lo", "no", and "bd", respectively).
+Default: \code{colors = c("firebrick", "grey96", "green4", "grey40")}.}
 }
 \value{
 data of p-values, named by number of event occurrences
