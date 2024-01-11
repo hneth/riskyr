@@ -209,9 +209,10 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
   # Colors:
   col_lo  <- "grey96"
-  col_hi  <- "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
+  col_hi  <- "steelblue" # "firebrick" # "steelblue", "deepskyblue", "deeppink", "olivedrab", "grey20", "red3"
   brd_col <- "grey40"    # "white" # "grey20"
-  col_no  <- "green4"    # "forestgreen" # "deepskyblue"
+  col_no  <- "gold" # "green4"    # "forestgreen" # "deepskyblue"
+
 
   # Color palette:
   n_cols  <- 1 + t
@@ -451,6 +452,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = seq(.10, .50, by = +.10), t = NA, N = 100)
 # plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, N = 100)
 
+# # Sunny vs. rainy days (with appropriate colors):
+# plot_cbar(r = .20, t = 7, bar_width = 1, hor = T)
+# plot_cbar(r = .20, t = 7, bar_width = 0, hor = T)
 
 # ?: +++ here now +++
 
