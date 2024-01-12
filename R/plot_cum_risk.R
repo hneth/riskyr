@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 11
+## 2024 01 12
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -83,7 +83,7 @@
 #' Default: \code{show_n = FALSE}.
 #'
 #' @param colors A vector of color values
-#' (for risk event frequency being "hi", "lo", "no", and "bd", respectively).
+#' (for risk event frequency being "hi", "lo", "no", and "bd" borders, respectively).
 #' Default: \code{colors = c("firebrick", "grey96", "green4", "grey40")}.
 #'
 #' @return data of p-values, named by number of event occurrences
