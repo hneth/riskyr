@@ -1732,6 +1732,14 @@ base_dec <- function(x, base = 2){
 # Check if the 3 conversion functions
 # base_dec(), recursive base_2_dec(), and ds4psy::base2dec() yield identical results.
 
+
+#' Simulation to verify base-to-decimal conversion functions
+#'
+#' \code{sim_check_1} wraps a simulation to verify that 3 conversion functions
+#' \code{base_dec()}, \code{recursive base_2_dec()}, and \code{ds4psy::base2dec()} yield identical results.
+#'
+#' @importFrom ds4psy base2dec
+
 sim_check_1 <- function(N = 100, fb = FALSE){
 
   # Prepare:
@@ -1815,8 +1823,9 @@ base_2_dec <- function(x, base = 2, exp = 0){
 
 
 # dec_2_base: Convert number represented in decimal numerals to notation in some other base -------
+# Recursive Version from Nina:
 
-dec_2_base <- function(x, base = 2, exp = 0){
+dec_2_base <- function(x, base = 2, exp = 0) {
 
   if (x == 0) { # stop:
 
@@ -1824,16 +1833,55 @@ dec_2_base <- function(x, base = 2, exp = 0){
 
   } else { # simplify:
 
-    cur_digit <- x %% base
-    cur_value <- cur_digit * (10^exp)
+    rest  <- x %%  base
+    nxt_x <- x %/% base
 
-    next_x <- x %/% base
+    add_2 <- rest * (10^exp)
 
-    return(cur_value + dec_2_base(x = next_x, base = base, exp = (exp + 1)))
+    # recurse:
+    return(add_2 + dec_2_base(x = nxt_x, base = base, exp = (exp + 1)))
 
   }
 
 } # dec_2_base().
+
+
+# Alternative attempt:
+
+dec_2_base_alt <- function(x, base = 2, exp = 0){
+
+  x <- as.numeric(x)
+
+  if (x == 0) { # stop:
+
+    return("0")
+
+  } else { # simplify:
+
+    cur_remainder <- x %% base^(exp + 1)
+    cur_digit <- cur_remainder %/% base^exp
+    cur_value <- cur_digit * (base^exp)
+
+    # next_x <- x %/% base
+    next_x <- x - cur_value
+
+    # Feedback:
+    fb <- FALSE
+
+    if (fb){
+      message(paste0("x = ", x, ", ", "exp = ", exp, ": "))
+      message(paste0("cur_remainder = ", cur_remainder, ", ",
+                     "cur_digit = ", cur_digit, ", ",
+                     "cur_value = ", cur_value, ", ",
+                     "next_x = ", next_x, "."))
+    }
+
+    # return(cur_value + dec_2_base(x = next_x, base = base, exp = (exp + 1)))
+    as.numeric(paste0(dec_2_base_alt(x = next_x, base = base, exp = (exp + 1)), cur_digit, collapse = ""))
+
+  }
+
+} # dec_2_base_alt().
 
 # # Check:
 # dec_2_base(x = 11, base = 2)
@@ -1873,6 +1921,15 @@ dec_2_base <- function(x, base = 2, exp = 0){
 # Verify that the 2 recursive functions dec_2_base() and base_2_dec() are complementary
 # (i.e., yield the original decimal number when combined).
 # IF NOT, locate the differences between dec_2_base() and ds4psy::dec2base().
+
+
+#' Simulation to verify decimal-to-base and base-to-decimal conversion
+#'
+#' \code{sim_check_2} wraps a simulation to verify that combining the 2 numeral conversion functions
+#' recursive \code{dec_2_base()} and recursive \code{base_2_dec()} yield the original decimal number.
+#'
+#' @importFrom ds4psy dec2base
+#' @importFrom ds4psy base2dec
 
 sim_check_2 <- function(N = 100){
 
