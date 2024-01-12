@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 11
+## 2024 01 12
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1682,11 +1682,111 @@ tally <- Vectorize(tally_1, vectorize.args = "s")
 
 
 
+
+# base_dec: Use polynomial expansion to convert number represented in some base notation into decimal numerals: ------
+
+base_dec <- function(x, base = 2){
+
+  # Prepare:
+  if (x < 0) (is_negative <- TRUE) else (is_negative = FALSE)   # remember
+  n <- as.character(abs(x))  # string of numerals
+  n_pos <- nchar(n)  # number of positions in base
+  d <- unlist(strsplit(n, split = "")) # vector of digits
+
+  tot_val <- 0  # initialize
+
+  # Main:
+  for (i in 1:n_pos){
+
+    # Current digit (as number):
+    cur_n <- as.numeric(d[n_pos - (i - 1)])
+
+    # Note illegal digits (given base):
+    if (cur_n > base - 1){
+      message(paste0("A digit of ", cur_n, " is invalid in base ", base))
+    }
+
+    # Expand polynomial:
+    cur_val <- cur_n  * (base ^ (i - 1))
+    tot_val <- tot_val + cur_val
+
+  }
+
+  # Output:
+  if (is_negative){ tot_val <- tot_val * -1}
+
+  return(tot_val)
+
+} # base_dec().
+
+# # Check:
+# base_dec(111, base = 2)
+# base_dec(111, base = 3)
+# base_dec(111, base = 10)
+
+
+# Simulation 1: Same results for 3 base-to-dec conversion functions? ------
+
+# Check if the 3 conversion functions
+# base_dec(), recursive base_2_dec(), and ds4psy::base2dec() yield identical results.
+
+sim_check_1 <- function(N = 100, fb = FALSE){
+
+  # Prepare:
+  cc <- 0  # count correct
+  # fb <- TRUE  # flag (for user feedback)
+
+  for (i in 1:N){
+
+    # Sample:
+    b <- sample(2:10, 1)
+    r <- as.numeric(paste(c(sample(0:(b - 1), 1),
+                            sample(0:(b - 1), 1),
+                            sample(0:(b - 1), 1),
+                            sample(0:(b - 1), 1),
+                            sample(0:(b - 1), 1)), collapse = ""))
+
+    # Feedback:
+    if (fb){
+      message(paste0("i = ", i, ": Checking for r = ", r, ", base = ", b, ":"))
+    }
+
+    # Compute 3 candidates:
+    c_1 <- base_dec(x = r, base = b)
+    c_2 <- base_2_dec(x = r, base = b)
+    c_3 <- ds4psy::base2dec(x = r, base = b)
+
+    # Compare and report:
+    if (all.equal(c_1, c_2) & all.equal(c_1, c_3)){
+
+      cc <- cc + 1  # increment
+
+    } else {
+
+      message(paste0("Difference for r = ", r, ", base = ", b, ":"))
+      message(paste0("- base_dec() = ", c_1, ", "))
+      message(paste0("- base_2_dec() = ", c_2, ", "))
+      message(paste0("- ds4psy::base2dec() = ", c_3, ".\n"))
+
+    }
+
+  } # loop i.
+
+  # Results:
+  message(paste0(cc, " of N = ", N, " yield identical results."))
+
+} # sim_check_1().
+
+# Check:
+# sim_check_1(10000)  # seems ok.
+
+# +++ here now +++
+
+
 # base_2_dec: Convert number represented in some base notation into decimal numerals -------
+#             using a recursive function.
 
 base_2_dec <- function(x, base = 2, exp = 0){
-
-  # +++ here now +++
 
   if (x == 0) { # stop:
 
@@ -1766,62 +1866,74 @@ dec_2_base <- function(x, base = 2, exp = 0){
 # - Why do conflicts only occur for base 2?
 
 
-# Simulation (to locate differences): ----
+# Simulation 2: Complementary of dec_2_base() and base_2_dec()? ------
 
-# # Parameters:
-# N <- 100
-# count <- 0
-#
-# for (i in 1:N){
-#
-#   # Draw samples:
-#   r <- sample(1:99999, size = 1)
-#   b <- 2 # sample(2:9, size = 1)
-#
-#   # Compute:
-#   r_bas <- dec_2_base(x = r, base = b)      # 1. in base
-#   r_dec <- base_2_dec(x = r_bas, base = b)  # 2. in dec
-#
-#   # r_dec <- base_2_dec(x = dec_2_base(x = r, base = b), base = b)
-#
-#   # Check:
-#   if (r_dec == r) { # correct:
-#
-#     count = count + 1  # count correct case
-#
-#   } else { # Report deviation:
-#
-#     # Feedback:
-#     print(paste0("FALSE for r = ", r, ", b = ", b, ": r_bas = ", r_bas))
-#
-#     # Locate error:
-#     # 1. dec_2_base() direction:
-#     r_bas_alt <- ds4psy::dec2base(x = r, base = b)  # alternative computation
-#
-#     if (r_bas != r_bas_alt){ # Report difference:
-#       message(paste0("dec_2_base() = ", r_bas, ", but "))
-#       message(paste0("ds4psy::dec2base() = ", r_bas_alt, ". "))
-#     }
-#
-#     # 2. base_2_dec() direction:
-#     r_dec_alt <- ds4psy::base2dec(x = r_bas, base = b)  # alternative computation
-#
-#     if (r_dec != r_dec_alt){ # Report difference:
-#       message(paste0("base_2_dec() = ", r_dec, ", but "))
-#       message(paste0("ds4psy::base2dec() = ", r_dec_alt, ". "))
-#     }
-#
-#   }
-# }
-#
-# # Result:
-# if (count == N){
-#   "All TRUE"
-# } else {
-#   paste0(N - count, " of N = ", N, " are FALSE")
-# }
+# Verify that the 2 recursive functions dec_2_base() and base_2_dec() are complementary
+# (i.e., yield the original decimal number when combined).
+# IF NOT, locate the differences between dec_2_base() and ds4psy::dec2base().
 
+sim_check_2 <- function(N = 100){
 
+  # Parameters:
+  # N <- 100
+  count <- 0  # count correct cases
+
+  for (i in 1:N){
+
+    # Draw samples:
+    r <- sample(1:99999, size = 1)  # decimal number
+    b <- 2 # sample(2:9, size = 1)  # base
+
+    # Compute:
+    r_bas <- dec_2_base(x = r, base = b)      # 1. in base
+    r_dec <- base_2_dec(x = r_bas, base = b)  # 2. in dec
+
+    # r_dec <- base_2_dec(x = dec_2_base(x = r, base = b), base = b)
+
+    # Check:
+    if (r_dec == r) { # correct:
+
+      count = count + 1  # count correct case
+
+    } else { # Report deviation:
+
+      # Feedback:
+      print(paste0(i, ": FALSE for r = ", r, ", b = ", b, ": r_bas = ", r_bas, ": "))
+
+      # Locate error:
+
+      # 1. dec_2_base() direction:
+      r_bas_alt <- ds4psy::dec2base(x = r, base = b)  # alternative computation
+
+      if (r_bas != r_bas_alt){ # Report difference:
+        message(paste0("dec_2_base() = ", r_bas, ", but "))
+        message(paste0("ds4psy::dec2base() = ", r_bas_alt, ". "))
+      }
+
+      # 2. base_2_dec() direction:
+      r_dec_alt <- ds4psy::base2dec(x = r_bas, base = b)  # alternative computation
+      r_dec_alt_2 <- base_dec(x = r_bas, base = b)        # 2nd alternative computation
+
+      if (r_dec != r_dec_alt){ # Report difference:
+        message(paste0("base_2_dec() = ", r_dec, ", but "))
+        message(paste0("base_dec() = ", r_dec_alt_2, ", "))
+        message(paste0("ds4psy::base2dec() = ", r_dec_alt, ". "))
+      }
+
+    }
+  }
+
+  # Report summary result:
+  if (count == N){
+    paste0("All ", N, " yield SAME results.")
+  } else {
+    paste0(N - count, " of N = ", N, " yield DIFFERENT results.")
+  }
+
+} # sim_check_2().
+
+# # Check:
+# sim_check_2(100) # shows differences.
 
 
 ## (X) Miscellaneous: --------
