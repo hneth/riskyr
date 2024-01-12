@@ -1723,6 +1723,8 @@ base_dec <- function(x, base = 2){
 # base_dec(111, base = 2)
 # base_dec(111, base = 3)
 # base_dec(111, base = 10)
+# base_dec(-1010, base = 2)  # works for negative numbers
+# base_dec(123, base = 3)    # notes invalid numerals (but proceeds using them)
 
 
 # Simulation 1: Same results for 3 base-to-dec conversion functions? ------
