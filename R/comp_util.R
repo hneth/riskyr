@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 12
+## 2024 01 14
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1741,12 +1741,12 @@ base_2_dec <- function(x, base = 2, exp = 0){
 
   } else { # simplify:
 
-    cur_digit <- (x %% 10^(exp + 1)) / 10^exp
-    cur_value <- cur_digit * base^exp
+    cur_dig <- (x %% 10^(exp + 1)) / 10^exp
+    cur_val <- cur_dig * base^exp
 
-    next_x <- x - cur_digit * 10^exp
+    next_x <- x - cur_dig * 10^exp
 
-    return(cur_value + base_2_dec(x = next_x, base = base, exp = (exp + 1)))
+    return(cur_val + base_2_dec(x = next_x, base = base, exp = (exp + 1)))
 
   }
 
@@ -1782,44 +1782,6 @@ dec_2_base <- function(x, base = 2, exp = 0) {
 
 } # dec_2_base().
 
-
-# Alternative attempt:
-
-dec_2_base_alt <- function(x, base = 2, exp = 0){
-
-  x <- as.numeric(x)
-
-  if (x == 0) { # stop:
-
-    return("0")
-
-  } else { # simplify:
-
-    cur_remainder <- x %% base^(exp + 1)
-    cur_digit <- cur_remainder %/% base^exp
-    cur_value <- cur_digit * (base^exp)
-
-    # next_x <- x %/% base
-    next_x <- x - cur_value
-
-    # Feedback:
-    fb <- FALSE
-
-    if (fb){
-      message(paste0("x = ", x, ", ", "exp = ", exp, ": "))
-      message(paste0("cur_remainder = ", cur_remainder, ", ",
-                     "cur_digit = ", cur_digit, ", ",
-                     "cur_value = ", cur_value, ", ",
-                     "next_x = ", next_x, "."))
-    }
-
-    # return(cur_value + dec_2_base(x = next_x, base = base, exp = (exp + 1)))
-    as.numeric(paste0(dec_2_base_alt(x = next_x, base = base, exp = (exp + 1)), cur_digit, collapse = ""))
-
-  }
-
-} # dec_2_base_alt().
-
 # # Check:
 # dec_2_base(x = 11, base = 2)
 # dec_2_base(x =  2, base = 2)
@@ -1844,13 +1806,102 @@ dec_2_base_alt <- function(x, base = 2, exp = 0){
 # 79761
 # 93019
 
+
+# Alternative attempt: Provide result as character sequence (more precise than numeric for longer sequences):
+
+dec_2_base_alt <- function(x, base = 2, exp = 0){
+
+  # Prepare:
+  fb <- FALSE  # provide user feedback (4debugging)
+
+  x <- as.numeric(x)  # x denotes value (in decimal notation)
+
+  # Main:
+  if (x < base) { # stop:
+
+    if (fb){
+      message(paste0("Stop at x = ", x, ", ", "exp = ", exp, ": "))
+    }
+
+    if (x == 0){
+      return()  # no leading zero
+    } else {
+      return(as.character(x))  #
+    }
+
+  } else { # simplify:
+
+    cur_rem <- x %% (base^(exp + 1))
+    cur_dig <- cur_rem %/% (base^exp)
+    dig_val <- cur_dig  *  (base^exp)
+
+    # next_x <- x %/% base
+    next_x <- x - dig_val
+
+    # Feedback:
+    if (fb){
+      message(paste0("x = ", x, ", ", "exp = ", exp, ": "))
+      message(paste0("cur_rem = ", cur_rem, ", ",
+                     "cur_dig = ", cur_dig, ", ",
+                     "dig_val = ", dig_val, ", ",
+                     "next_x = ", next_x, "."))
+    }
+
+    # Recurse:
+    paste0(dec_2_base_alt(x = next_x, base = base, exp = (exp + 1)), cur_dig, collapse = "")
+
+  }
+
+} # dec_2_base_alt().
+
+# # Check:
+# dec_2_base_alt(x = 11, base = 2)
+
+# dec_2_base_alt(x =  2, base = 2)
+# dec_2_base_alt(x = 11, base = 4)
+# dec_2_base_alt(x =  4, base = 3)
+# dec_2_base_alt(x = 651361, base = 2)
+
+# # Correctly handles former problem cases:
+# as.character(dec_2_base(68485, base = 2)) # is wrong, but
+# dec_2_base_alt(68485, base = 2)           # equals
+# ds4psy::dec2base(68485, base = 2)
+#
+# as.character(dec_2_base(73843, base = 2))  # (is impossible), but
+# dec_2_base_alt(73843, base = 2)            # equals
+# ds4psy::dec2base(73843, base = 2)
+#
+# as.character(dec_2_base(76791, base = 2))      # (is impossible), but
+# as.character(dec_2_base_alt(76791, base = 2))  # equals
+# ds4psy::dec2base(76791, base = 2)
+#
+# # Note that sequences (interpreted as integers) cross R's limit of numeric accuracy:
+# dec_2_base_alt(68485, base = 2)
+# as.character(as.numeric(dec_2_base_alt(68485, base = 2)))
+#
+# dec_2_base_alt(73843, base = 2)
+# as.character(as.numeric(dec_2_base_alt(73843, base = 2)))
+#
+# dec_2_base_alt(76791, base = 2)
+# as.character(as.numeric(dec_2_base_alt(76791, base = 2)))
+#
+# nchar(dec_2_base_alt(68485, base = 2))
+# nchar(dec_2_base_alt(73843, base = 2))
+# nchar(dec_2_base_alt(76791, base = 2))
+
+
 # +++ here now +++
 
 # Questions:
 #
 # - Which function is wrong? (Suspicion: `dec_2_nondec()`, or both)
-# - What's wrong with it?
-# - Why do conflicts only occur for base 2?
+# - What's wrong with it? (Hypothesis: Numeric accuracy of R limited to 16 integers?)
+# - Why do conflicts only occur for base 2? (Suspicion: Low bases get longer more quickly.)
+
+# Lessons learned:
+#
+# - Beware of numeric accuracy/limitations of R
+# - Use character sequences when dealing with strings of non-decimal digits
 
 
 
