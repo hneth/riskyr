@@ -1735,6 +1735,8 @@ base_dec <- function(x, base = 2){
 
 base_2_dec <- function(x, base = 2, exp = 0){
 
+  x <- as.numeric(x)  # x denotes value (in decimal notation)
+
   if (x == 0) { # stop:
 
     return(0)
