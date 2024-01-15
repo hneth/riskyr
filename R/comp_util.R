@@ -1687,6 +1687,8 @@ tally <- Vectorize(tally_1, vectorize.args = "s")
 
 base_dec <- function(x, base = 2){
 
+  x <- as.numeric(x)  # x denotes value (in current notation)
+
   # Prepare:
   if (x < 0) (is_negative <- TRUE) else (is_negative = FALSE)   # remember
   n <- as.character(abs(x))  # string of numerals
