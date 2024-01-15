@@ -82,6 +82,9 @@
 #' @param show_n logical: Show population frequency of risky event occurrences (as bar label)?
 #' Default: \code{show_n = FALSE}.
 #'
+#' @param show_bin logical: Show risky event history as binary state representation (as bar label)?
+#' Default: \code{show_bin = FALSE}.
+#'
 #' @param colors A vector of color values
 #' (for risk event frequency being "hi", "lo", "no", and "bd" borders, respectively).
 #' Default: \code{colors = c("firebrick", "grey96", "green4", "grey40")}.
@@ -95,9 +98,9 @@
 plot_cbar <- function(r = .50, t = NA, N = 100,
                       horizontal = TRUE, sort = FALSE,
                       N_max = 100, bar_width = .50,
-                      show_trans = 1, show_ev = TRUE, show_n = FALSE,
+                      show_trans = 1, show_ev = TRUE, show_n = FALSE, show_bin = FALSE,
                       colors = c("firebrick", "grey96", "green4", "grey40")  # for (hi, lo, no, bd), respectively
-                      ){
+){
 
 
   # Handle inputs: ----
@@ -116,9 +119,16 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
     message("bar_width should be in (0, 1)")
   }
 
-  if (show_n && show_ev){
-    message("Set show_n = TRUE: Setting shown_ev = FALSE")
+  if (show_n && (show_ev | show_bin)){
+    message("Set show_n = TRUE: Setting shown_ev = FALSE and show_bin = FALSE")
+    show_ev  <- FALSE
+    show_bin <- FALSE
+  }
+
+  if (show_bin && (show_ev | show_n)){
+    message("Set show_bin = TRUE: Setting shown_ev = FALSE and show_n = FALSE")
     show_ev <- FALSE
+    show_n  <- FALSE
   }
 
   if (show_trans %in% 0:3 == FALSE){
@@ -133,7 +143,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
   # Compute cumulative probability data: ----
 
-  bin_names <- FALSE  # as labels and colors currently use ev (in names)
+  bin_names <- TRUE # FALSE  # as labels and colors currently use ev (in names)
 
   data <- comp_cum_ps(r = r, t = t, N = N, bin_names = bin_names)  # list of p values (with ev names)
 
@@ -314,17 +324,16 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
       x_val <- x_prv + x_width/2  # current x-value
       x_name <- names(p_cur)      # current x-name
 
-      # ToDo: +++ here now +++:
-      # 1. Use tally() to get ev from binary state names
-      # 2. Allow showing binary state names
+      # x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value (from x_name)
+      x_ev <- tally(x_name)  # using utility function on binary state representation
 
-      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value (from x_name)
-
-      if (show_ev){
+      if (show_ev){ # show ev value:
         lbl_i <- paste0(x_ev)
-      } else if (show_n){
+      } else if (show_bin){ # show binary state name:
+        lbl_i <- paste0(x_name)
+      } else if (show_n){ # show N value:
         lbl_i <- paste0(round(p_cur, 2))
-      } else { # default:
+      } else { # else: No label
         lbl_i <- NA
       }
 
@@ -461,18 +470,24 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = .25, t = 4, N = 100, bar_width = 1)   # only bars
 # plot_cbar(r = .25, t = 4, N = 100, bar_width = 0)   # no bars, only transitions
 #
-# # Dynamics for multiple events:
+# # Bar labels:
+# plot_cbar(t = 4, show_ev = TRUE, show_n = FALSE, show_bin = FALSE)   # event occurrences
+# plot_cbar(t = 4, show_ev = FALSE, show_n = TRUE, show_bin = FALSE)   # Ns
+# plot_cbar(t = 4, show_ev = FALSE, show_n = FALSE, show_bin = TRUE)   # binary state
+# plot_cbar(t = 4, show_ev = FALSE, show_n = FALSE, show_bin = FALSE)  # blank/nothing
+# plot_cbar(t = 5, show_bin = TRUE, horizontal = FALSE)  # vertical bars for longer binary states
+
+# Dynamics for multiple events:
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 1, sort = TRUE, show_ev = FALSE)
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, show_ev = FALSE)
 # plot_cbar(r = .25, t = 8, N = 100, bar_width = 0, sort = TRUE, N_max = 10)  # zooming
 #
 # # Note: t = 8 implies 2^8 = 256 segments.
 
-
 # # Generalization to variable values of r (as a vector):
 # plot_cbar(r = seq(.50, .10, by = -.10), t = NA, N = 100)
-# plot_cbar(r = seq(.10, .50, by = +.10), t = NA, N = 100)
-# plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, N = 100)
+# plot_cbar(r = seq(.10, .50, by = +.10), t = NA, show_bin = TRUE, horizontal = FALSE)
+# plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, show_bin = TRUE)  # final value of 1 => slices of 0 width
 
 
 # # Rainy days vs. always sun (with appropriate colors):
@@ -484,6 +499,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = .20, t = 7, bar_width = 1, sort = TRUE, hor = TRUE,
 #           colors = c("steelblue", "grey96", "gold", "grey40"))
 
+
+# # Large values of r:
+# plot_cbar(r = .90, t = 3, show_bin = TRUE)
 
 # ?: +++ here now +++
 
@@ -565,12 +583,12 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #
 # - 1. Generalization to variable values of r (as a vector).
 
-
-## (+) ToDo: ----------
-
-# - Use binary state names in comp_cum_ps() and
+# - Used binary state names in comp_cum_ps() and
 #   utility fun tally() and base_dec() to convert those into
 #   number of event occurrences (e.g., for color hues).
+
+
+## (+) ToDo: ----------
 
 # - 2. Generalization: Make comp_cum_risk() and plot_cbar() work for
 #   NEGATIVE risk values r < 0 (i.e., risk reductions).
