@@ -313,7 +313,12 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
       x_val <- x_prv + x_width/2  # current x-value
       x_name <- names(p_cur)      # current x-name
-      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value
+
+      # ToDo: +++ here now +++:
+      # 1. Use tally() to get ev from binary state names
+      # 2. Allow showing binary state names
+
+      x_ev <- as.numeric(substr(x_name, 1, nchar(x_name) - 1))  # current ev-value (from x_name)
 
       if (show_ev){
         lbl_i <- paste0(x_ev)
@@ -564,7 +569,8 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 ## (+) ToDo: ----------
 
 # - Use binary state names in comp_cum_ps() and
-#   utility fun to convert those into ev numbers (e.g., for color hues).
+#   utility fun tally() and base_dec() to convert those into
+#   number of event occurrences (e.g., for color hues).
 
 # - 2. Generalization: Make comp_cum_risk() and plot_cbar() work for
 #   NEGATIVE risk values r < 0 (i.e., risk reductions).
