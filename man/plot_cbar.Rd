@@ -15,6 +15,7 @@ plot_cbar(
   show_trans = 1,
   show_ev = TRUE,
   show_n = FALSE,
+  show_bin = FALSE,
   colors = c("firebrick", "grey96", "green4", "grey40")
 )
 }
@@ -51,6 +52,9 @@ Default: \code{show_ev = TRUE}.}
 
 \item{show_n}{logical: Show population frequency of risky event occurrences (as bar label)?
 Default: \code{show_n = FALSE}.}
+
+\item{show_bin}{logical: Show risky event history as binary state representation (as bar label)?
+Default: \code{show_bin = FALSE}.}
 
 \item{colors}{A vector of color values
 (for risk event frequency being "hi", "lo", "no", and "bd" borders, respectively).
