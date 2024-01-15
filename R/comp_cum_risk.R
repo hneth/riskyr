@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 09
+## 2024 01 15
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -276,11 +276,17 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # Generalization to variable values of r (as a vector):
 # comp_cum_ps(r = c(.1, .2, .3), t = NA, N = 100)
 
+# # Converting binary state representation to number of event occurrences and decimal state nr:
+# ls <- comp_cum_ps(r = .1, t = 5, N = 100)
+# # ls
+#
+# l_names <- names(ls[[5]])  # extract names of list element
+# sapply(X = l_names, FUN = tally, USE.NAMES = FALSE)  # Number of event occurrences
+# sapply(X = l_names, FUN = base_dec, base = 2)        # state as decimal number
+
 
 # ToDo: ----
 #
-# - Use binary state names and convert those into number of event occurrences
-#   (via a bin_to_decimal() utility function).
 #
 # 2. Generalization: Does this work for risk values r < 0 (reducing risks)?
 # comp_cum_ps(r = c(.1, -.2, .3), t = NA, N = 100)  # Answer: No, see negative segments!
@@ -354,6 +360,9 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 ## (*) Done: ----------
 
 # - 1. Generalization to variable values of r (as a vector).
+
+# - Using binary state names and convert those into number of event occurrences
+#   (via a tally() and base_dec() utility functions).
 
 
 ## (+) ToDo: ----------
