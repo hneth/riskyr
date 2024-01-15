@@ -1727,8 +1727,6 @@ base_dec <- function(x, base = 2){
 # base_dec(123, base = 3)    # notes invalid numerals (but proceeds using them)
 
 
-# +++ here now +++
-
 
 # base_2_dec: Convert number represented in some base notation into decimal numerals -------
 #             using a recursive function.
@@ -1762,12 +1760,13 @@ base_2_dec <- function(x, base = 2, exp = 0){
 
 
 # dec_2_base: Convert number represented in decimal numerals to notation in some other base -------
-# Recursive Version from Nina:
+
+# Recursive Version (with accuracy limit to 16-digit numeric representations):
 
 dec_2_base <- function(x, base = 2, exp = 0) {
 
+  # Warning:
   fb <- TRUE  # user feedback
-
   if (fb && (exp > 16)){
     warning(paste0("Beware rounding inaccuracies for exp = ", exp))
   }
