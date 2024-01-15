@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 14
+## 2024 01 15
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1766,6 +1766,13 @@ base_2_dec <- function(x, base = 2, exp = 0){
 
 dec_2_base <- function(x, base = 2, exp = 0) {
 
+  fb <- TRUE  # user feedback
+
+  if (fb && (exp > 16)){
+    warning(paste0("Beware rounding inaccuracies for exp = ", exp))
+  }
+
+
   if (x == 0) { # stop:
 
     return(0)
@@ -1791,8 +1798,17 @@ dec_2_base <- function(x, base = 2, exp = 0) {
 # dec_2_base(x =  4, base = 3)
 # dec_2_base(x = 651361, base = 2)
 
-# Problem cases:
+# Warning: Limit in accuracy / number of decimal positions:
+# Converting decimal values larger than 65535 to base 2
+# can yield errors, due to possible rounding inaccuracies.
+#
+# Note:
+# as.character(dec_2_base(x = 65535, base = 2)) # = "1111111111111111" (16x "1")
+#
+# as.character(dec_2_base(65537, base = 2))
+# ds4psy::dec2base(65537, base = 2)
 
+# Problem cases:
 # # Note some conflict/erroneous cases:
 # as.character(dec_2_base(68485, base = 2)) # but
 # ds4psy::dec2base(68485, base = 2)
