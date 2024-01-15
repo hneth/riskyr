@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 12
+## 2024 01 15
 ## Plot cumulative risks
 
 # Task analysis: ------
