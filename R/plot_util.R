@@ -1,6 +1,6 @@
 ## plot_util.R | riskyr
-## 2022 07 31
-## -----------------------------------------------
+## 2024 01 16
+## --------------------
 
 ## (0) Generic plotting functions: ----------
 
@@ -73,7 +73,7 @@ make_box <- function(name, x, y, lx, ly) {
   # Return object:
   obj
 
-}
+} # make_box().
 
 ## Check:
 # box1 <- make_box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
@@ -83,16 +83,31 @@ make_box <- function(name, x, y, lx, ly) {
 
 ## box methods: Create generic print and plot methods for box objects: ---------
 
+#' Print a frequency box object
+#'
+#' \code{print.box} is a utility method that prints a box object.
+#'
+#' @param obj box object
+#'
+#' @family utility functions
+#'
+#' @export
+
 print.box <- function(obj) {
+
   cat("box name:", obj$name, "\n")
   cat("position: x =", obj$x, "; y =", obj$y, "\n")
   cat("width:   lx =", obj$lx, "\n")
   cat("height:  ly =", obj$ly, "\n")
-}
 
-## Note: Export the plot.box() method (to allow using method in riskyr namespace)!
+} # print.box().
 
-#' Plot a frequency box object.
+
+
+## Note: Export the plot.box() method (to allow using method in **riskyr** namespace)!
+
+
+#' Plot a frequency box object
 #'
 #' \code{plot.box} is a utility method that allows to plot low level boxes for \code{riskyr} plots.
 #'
@@ -305,7 +320,7 @@ label_freq <- function(fname,
   ## (5) Return f_lbl: ----
   return(f_lbl)
 
-} # label_freq() end.
+} # label_freq().
 
 ## Check:
 
@@ -589,7 +604,7 @@ label_prob <- function(pname,
   ## (6) Return p_lbl: ----
   return(p_lbl)
 
-} # label_prob() end.
+} # label_prob().
 
 ## Check:
 # label_prob("prev", lbl_type = "default")
