@@ -43,7 +43,8 @@ as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
 
 Other utility functions: 
 \code{\link{as_pc}()},
-\code{\link{plot.box}()}
+\code{\link{plot.box}()},
+\code{\link{print.box}()}
 
 Other display functions: 
 \code{\link{as_pc}()}

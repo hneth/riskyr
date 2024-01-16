@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_util.R
 \name{plot.box}
 \alias{plot.box}
-\title{Plot a frequency box object.}
+\title{Plot a frequency box object}
 \usage{
 \method{plot}{box}(x, cur_freq = freq, lbl_txt = txt, col_pal = pal, ...)
 }
@@ -31,6 +31,7 @@ specified in the "riskyr" object.
 \seealso{
 Other utility functions: 
 \code{\link{as_pb}()},
-\code{\link{as_pc}()}
+\code{\link{as_pc}()},
+\code{\link{print.box}()}
 }
 \concept{utility functions}

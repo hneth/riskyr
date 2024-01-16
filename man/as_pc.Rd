@@ -45,7 +45,8 @@ as_pc(as_pb(12.3))        # 12.3
 
 Other utility functions: 
 \code{\link{as_pb}()},
-\code{\link{plot.box}()}
+\code{\link{plot.box}()},
+\code{\link{print.box}()}
 
 Other display functions: 
 \code{\link{as_pb}()}
