@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 15
+## 2024 01 16
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1804,11 +1804,12 @@ dec_2_base <- function(x, base = 2, exp = 0) {
 # can yield errors, due to possible rounding inaccuracies.
 #
 # Note:
-# as.character(dec_2_base(x = 65535, base = 2)) # = "1111111111111111" (16x "1")
+# 65535 = 2^16 - 1
+# as.character(dec_2_base(x = 65535, base = 2)) # = "1111111111111111" (16 x "1")
 #
-# as.character(dec_2_base(65537, base = 2))
-# ds4psy::dec2base(65537, base = 2)
-
+# as.character(dec_2_base(65536 + 1, base = 2))
+# ds4psy::dec2base(65536 + 1, base = 2)
+#
 # Problem cases:
 # # Note some conflict/erroneous cases:
 # as.character(dec_2_base(68485, base = 2)) # but
@@ -1824,6 +1825,9 @@ dec_2_base <- function(x, base = 2, exp = 0) {
 # 75437
 # 79761
 # 93019
+
+# Solution: The gmp package uses string representations:
+#           (see <https://CRAN.R-project.org/package=gmp>).
 
 
 # Alternative attempt: Provide result as character sequence (more precise than numeric for longer sequences):
