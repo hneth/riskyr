@@ -89,16 +89,18 @@ make_box <- function(name, x, y, lx, ly) {
 #'
 #' @param x A box object
 #'
+#' @param ... Additional parameters to be passed to \code{\link{cat}}.
+#'
 #' @family utility functions
 #'
 #' @export
 
-print.box <- function(x) {
+print.box <- function(x, ...) {
 
-  cat("box name:", x$name, "\n")
-  cat("position: x =", x$x, "; y =", x$y, "\n")
-  cat("width:   lx =", x$lx, "\n")
-  cat("height:  ly =", x$ly, "\n")
+  cat("box name:", x$name, "\n", ...)
+  cat("position: x =", x$x, "; y =", x$y, "\n", ...)
+  cat("width:   lx =", x$lx, "\n", ...)
+  cat("height:  ly =", x$ly, "\n", ...)
 
 } # print.box().
 
