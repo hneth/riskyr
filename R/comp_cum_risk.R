@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 15
+## 2024 01 16
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -273,26 +273,34 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 # comp_cum_ps(r = .1, t = 2, N = 100)
 # comp_cum_ps(r = .1, t = 5, N = 100)
 
+# # Vector names:
+# comp_cum_ps(r = .1, t = 5, bin_names = TRUE)   # names show binary state (full event history)
+# comp_cum_ps(r = .1, t = 5, bin_names = FALSE)  # names show number of event occurrences (e.g., 2x)
+
 # Generalization to variable values of r (as a vector):
 # comp_cum_ps(r = c(.1, .2, .3), t = NA, N = 100)
 
-# # Converting binary state representation to number of event occurrences and decimal state nr:
-# ls <- comp_cum_ps(r = .1, t = 5, N = 100)
-# # ls
-#
+
+# # Operations on list data structure:
+
+# # 1. Cumulative sums:
+# lapply(X = comp_cum_ps(r = .1, t = 5, N = 100), FUN = cumsum)
+
+# # 2. Converting binary state representation to number of event occurrences and decimal state nr:
+# ls <- comp_cum_ps(r = .1, t = 5, bin_names = TRUE)  # use binary names
+# ls
+# # Get names of a list element (vector):
 # l_names <- names(ls[[5]])  # extract names of list element
 # sapply(X = l_names, FUN = tally, USE.NAMES = FALSE)  # Number of event occurrences
-# sapply(X = l_names, FUN = base_dec, base = 2)        # state as decimal number
+# sapply(X = l_names, FUN = base_dec, base = 2)        # state as decimal number (starting with 0)
 
 
 # ToDo: ----
-#
-#
+
 # 2. Generalization: Does this work for risk values r < 0 (reducing risks)?
 # comp_cum_ps(r = c(.1, -.2, .3), t = NA, N = 100)  # Answer: No, see negative segments!
 
-# # Note:
-# lapply(X = comp_cum_ps(r = .1, t = 5, N = 100), FUN = cumsum)
+
 
 
 
@@ -339,7 +347,7 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
     r <- rep(r, times = t)
 
     # User feedback:
-    message(paste0("Made r a vector of length t = ", t, ":"))
+    message(paste0("Created r as a vector of length t = ", t, ":"))
     print(r)
 
   }
@@ -355,20 +363,71 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 # apply_risk_to_population(.50)
 
 
+# Binomial distribution function: ------
+
+# Example from stats::Binomial:
+# Compute P(45 < X < 55) for X Binomial(100, 0.50):
+# sum(dbinom(x = 46:54, size = 100, prob = .50))  # 0.6317984
+
+# # Adaptation:
+# r <- .50
+# t <- 4
+#
+# # Compare:
+# comp_cum_ps(r = r, t = t, N = 1)     # computes p for ALL paths and states
+# dbinom(x = 0:t, size = t, prob = r)  # computes summary prob for # of ev occurrences
+#
+# # Connection: ---
+# ls <- comp_cum_ps(r = r, t = t, N = 1, bin_names = TRUE)  # use binary names
+# # Get names of a list element (vector):
+# v <- ls[[t]]
+# l_names <- names(v)  # extract names of list element
+# l_names
+# n_ev <- sapply(X = l_names, FUN = tally, USE.NAMES = FALSE)  # Number of event occurrences
+# n_ev
+#
+# # Aggregate:
+# tapply(v, n_ev, sum)  # yields array
+#
+# # Verify equality:
+# all.equal(as.vector(tapply(v, n_ev, sum)), dbinom(x = 0:t, size = t, prob = r))
+#
+# # As df: ----
+#
+# df <- data.frame(n_ev = n_ev,
+#                  prob = v)
+# # Aggregate df:
+# tapply(df$prob, df$n_ev, sum)  # yields array
+#
+# # Summarize using magrittr and dplyr: ----
+#
+# library(tidyverse)
+# tb_sum <- df |>
+#   group_by(n_ev) |>
+#   summarize(sum_p = sum(prob))
+# tb_sum
+#
+# # Verify equality:
+# all.equal(tb_sum$sum_p, dbinom(x = 0:t, size = t, prob = r))
+
+
+
 
 
 ## (*) Done: ----------
 
 # - 1. Generalization to variable values of r (as a vector).
 
-# - Using binary state names and convert those into number of event occurrences
-#   (via a tally() and base_dec() utility functions).
+# - Binary state names: comp_cum_ps() uses a binary state names (bin_names = TRUE).
+#   As those state names preserve a path's full risky event history,
+#   they can be used to compute the number of event occurrences (using the tally() function)
+#   of decimal state number (using the bin_dec() function).
 
 
 ## (+) ToDo: ----------
 
-# - Use binary state names and convert those into number of event occurrences
-#   (via a bin_to_decimal() utility function).
+# - Using the binomial formula for computing cumulative risk of
+#   exact event occurrences (X = c) and ranges (X >= c).
 
 # - 2. Generalization: Make comp_cum_risk() work for
 #   NEGATIVE risk values r < 0 (i.e., risk reductions).
