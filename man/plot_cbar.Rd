@@ -57,7 +57,7 @@ Default: \code{show_n = FALSE}.}
 Default: \code{show_bin = FALSE}.}
 
 \item{colors}{A vector of color values
-(for risk event frequency being "hi", "lo", "no", and "bd" borders, respectively).
+(for risk event frequency being \code{"hi"}, \code{"lo"}, \code{"no"}, and \code{"bd"} for borders, respectively).
 Default: \code{colors = c("firebrick", "grey96", "green4", "grey40")}.}
 }
 \value{

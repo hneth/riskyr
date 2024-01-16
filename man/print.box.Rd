@@ -4,10 +4,12 @@
 \alias{print.box}
 \title{Print a frequency box object}
 \usage{
-\method{print}{box}(x)
+\method{print}{box}(x, ...)
 }
 \arguments{
 \item{x}{A box object}
+
+\item{...}{Additional parameters to be passed to \code{\link{cat}}.}
 }
 \description{
 \code{print.box} is a utility method that prints a box object.
