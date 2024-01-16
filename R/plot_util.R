@@ -87,18 +87,18 @@ make_box <- function(name, x, y, lx, ly) {
 #'
 #' \code{print.box} is a utility method that prints a box object.
 #'
-#' @param obj box object
+#' @param x A box object
 #'
 #' @family utility functions
 #'
 #' @export
 
-print.box <- function(obj) {
+print.box <- function(x) {
 
-  cat("box name:", obj$name, "\n")
-  cat("position: x =", obj$x, "; y =", obj$y, "\n")
-  cat("width:   lx =", obj$lx, "\n")
-  cat("height:  ly =", obj$ly, "\n")
+  cat("box name:", x$name, "\n")
+  cat("position: x =", x$x, "; y =", x$y, "\n")
+  cat("width:   lx =", x$lx, "\n")
+  cat("height:  ly =", x$ly, "\n")
 
 } # print.box().
 
