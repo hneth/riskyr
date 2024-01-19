@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 16
+## 2024 01 19
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -49,12 +49,12 @@
 
 
 
-# 2. Changing/variable population size N: --------
+# 2. Changing/variable population/reference set size N: --------
 #
-#    Risk factor affects and changes the (magnitude/size of the) population
+#    Risk factor affects and changes the (magnitude/size of the reference set) population
 #    (e.g., sequential percentage changes, cumulative interest, reducing portfolio value, etc.)
 #
-# DV: Population magnitude/size.
+# DV: Population magnitude/size of reference set.
 
 # Note on range of r: Allowing for increases and decreases: -1 <= r <= +1.
 
@@ -225,7 +225,7 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
     if (i == 0){
 
-      # prepare data structures:
+      # Prepare data structures:
       ev <- vector(mode = "list", length = t)  # number of events/occurrences
       ps <- vector(mode = "list", length = t)  # cumulative probability of segment
       bi <- vector(mode = "list", length = t)  # binary representation of state
@@ -233,9 +233,9 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
     } else if (i == 1){
 
       # initialize:
-      ev[[i]] <- c(1, 0)
-      ps[[i]] <- c(N * r[i], N * (1 - r[i]))
-      bi[[i]] <- c("1", "0")
+      ev[[i]] <- c(1,         0)
+      ps[[i]] <- c(N * r[i],  N * (1 - r[i]))
+      bi[[i]] <- c("1",       "0")
 
       if (bin_names){
         names(ps[[i]]) <- bi[[i]]
@@ -363,6 +363,7 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 # apply_risk_to_population(.50)
 
 
+
 # Binomial distribution function: ------
 
 # Example from stats::Binomial:
@@ -370,7 +371,7 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 # sum(dbinom(x = 46:54, size = 100, prob = .50))  # 0.6317984
 
 # # Adaptation:
-# r <- .50
+# r <- .20
 # t <- 4
 #
 # # Compare:
@@ -378,6 +379,7 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 # dbinom(x = 0:t, size = t, prob = r)  # computes summary prob for # of ev occurrences
 #
 # # Connection: ---
+#
 # ls <- comp_cum_ps(r = r, t = t, N = 1, bin_names = TRUE)  # use binary names
 # # Get names of a list element (vector):
 # v <- ls[[t]]
@@ -409,8 +411,6 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 #
 # # Verify equality:
 # all.equal(tb_sum$sum_p, dbinom(x = 0:t, size = t, prob = r))
-
-
 
 
 
