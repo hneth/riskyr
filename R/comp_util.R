@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 19
+## 2024 01 21
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1913,18 +1913,60 @@ dec_2_base_alt <- function(x, base = 2, exp = 0){
 # nchar(dec_2_base_alt(76791, base = 2))
 
 
-# +++ here now +++
-
 # Questions:
-#
 # - Which function is wrong? (Suspicion: `dec_2_nondec()`, or both)
 # - What's wrong with it? (Hypothesis: Numeric accuracy of R limited to 16 integers?)
 # - Why do conflicts only occur for base 2? (Suspicion: Low bases get longer more quickly.)
 
 # Lessons learned:
-#
 # - Beware of numeric accuracy/limitations of R
 # - Use character sequences when dealing with strings of non-decimal digits
+
+
+
+
+# Percentage changes: --------
+
+# Task: Compute true (geometric) net (aggregate) change of a pcs.
+
+
+# pc_2_fac: Convert a series of percentage(s) pcs into corresponding multiplicative factor(s) ------
+
+pc_2_fac <- function(pcs) {
+
+  # facs <- 1 + pcs/100
+  facs <- (100 + pcs)/100
+
+  return(facs)
+
+} # pc_2_fac().
+
+# # Checks:
+# pc_2_fac(10)  # [1] 1.1
+# pc_2_fac(c(0, +5, +10, +25, +50, +75, +100, +200, +300, +500, +1000))
+# # 1.00  1.05  1.10  1.25  1.50  1.75  2.00  3.00  4.00  6.00 11.00
+# pc_2_fac(c(0, -5, -10, -25, -50, -75, -100, -200, -300, -500, -1000))
+# # 1.00  0.95  0.90  0.75  0.50  0.25  0.00 -1.00 -2.00 -4.00 -9.00
+
+# +++ here now +++
+
+
+
+# fac_2_pc: Reverse: Convert multiplicative factor(s) into corresponding percentage change(s) ------
+
+fac_2_pc <- function(facs) {
+
+  pcs <- (facs * 100) - 100
+
+  return(pcs)
+
+} # fac_2_pc().
+
+# # Checks:
+# fac_2_pc(c(1.00,  1.05,  1.10,  1.25,  1.50,  1.75,  2.00,  3.00,  4.00,  6.00, 11.00))
+# # 0    5   10   25   50   75  100  200  300  500 1000
+# fac_2_pc(c(1.00,  0.95,  0.90,  0.75,  0.50,  0.25,  0.00, -1.00, -2.00, -4.00, -9.00))
+# # 0    -5   -10   -25   -50   -75  -100  -200  -300  -500 -1000
 
 
 
