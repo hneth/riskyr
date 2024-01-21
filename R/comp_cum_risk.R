@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 19
+## 2024 01 21
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -19,6 +19,7 @@
 
 # Mathematically, risk categories can be computed by binomial or multi-nominal distributions.
 # However, a generative process model assumes a binary tree with 2 edges/links (risk present vs. absent) for each node.
+
 
 # - Note on range of r: ----
 #
@@ -41,9 +42,9 @@
 # etc.
 # Thus, each state contains the entire history of each leaf
 # and representation allows for all kinds of questions:
-# number of events: e.g., more than 2 events?
-# parity: e.g., more 1 than 0?
-# patterns: e.g., alternating 0 and 1?
+# - number of events: e.g., more than 2 events?
+# - parity: e.g., more 1 than 0?
+# - patterns: e.g., alternating 0 and 1?
 # Constraint: Dependencies run strictly from stem to leaf,
 # any reverse dependencies (from leaf to stem) cannot be captured.
 
@@ -60,8 +61,7 @@
 
 
 
-
-# B. Problem variants and generalizations: ----
+# B. Problem variants and generalizations: ------
 
 # Basic problems involve a constant value of r and r > 0.
 #
@@ -111,7 +111,7 @@ apply_risk <- function(r, t, pc = 100, ev = 0){
   # Output:
   return(pc)
 
-}
+} # apply_risk().
 
 # # Check:
 # apply_risk(pc = 100, ev = 0, r = .25, t = 2)
@@ -135,7 +135,7 @@ comp_ps <- function(r, t, p = 100){
 
   return(p)
 
-}
+} # comp_ps().
 
 # Check:
 # comp_ps(r = .25, t = 2, p = 100, )
@@ -158,7 +158,7 @@ comp_ev <- function(r, t, ev = 0){
 
   return(ev)
 
-}
+} # comp_ev().
 
 # # Check:
 # comp_ev(r = .25, t = 2, ev = 0)
@@ -181,7 +181,7 @@ comp_ev_p <- function(r, t, p = 100, ev = 0){
 
   return(out)
 
-}
+} # comp_ev_p().
 
 # # Check:
 # comp_ev_p(r = .25, t = 1, p = 100, ev = 0)
@@ -361,6 +361,8 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 
 # # Check:
 # apply_risk_to_population(.50)
+
+
 
 
 
