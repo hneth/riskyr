@@ -132,8 +132,8 @@ is_prob <- function(prob, NA_warn = FALSE) {
 ## Check:
 # ## ways to succeed:
 # is_prob(1/2)                  # => TRUE
-# p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
-# is_prob(p.seq)                # => TRUE (for vector)
+# p_seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
+# is_prob(p_seq)                # => TRUE (for vector)
 #
 # ## watch out for:
 # is_prob(NA)                   # => FALSE + NO warning!
@@ -1648,6 +1648,8 @@ capitalise_1st <- function(string) {
 ## (F) Numeric functions: --------
 
 
+# A. Numeral strings and base conversions: --------
+
 # tally: Count number of symbol occurrences in a character scalar (converted into a vector of elements of nchar = 1) ----
 
 tally_1 <- function(s, target = "1"){
@@ -1925,10 +1927,10 @@ dec_2_base_alt <- function(x, base = 2, exp = 0){
 
 
 
-# Percentage changes: --------
+
+# B. Sequential percentage changes: --------
 
 # Task: Compute true (geometric) net (aggregate) change of a pcs.
-
 
 # pc_2_fac: Convert a series of percentage(s) pcs into corresponding multiplicative factor(s) ------
 
@@ -1967,6 +1969,61 @@ fac_2_pc <- function(facs) {
 # # 0    5   10   25   50   75  100  200  300  500 1000
 # fac_2_pc(c(1.00,  0.95,  0.90,  0.75,  0.50,  0.25,  0.00, -1.00, -2.00, -4.00, -9.00))
 # # 0    -5   -10   -25   -50   -75  -100  -200  -300  -500 -1000
+
+
+
+# aggr_pcs: Aggregate change of a series of percentage changes ------
+
+# Compute true (geometric) net (aggregate) change of a pcs with SAME overall effect (to replace):
+# True (geometric) net change of a pcs:
+
+aggr_pcs <- function(pcs) {
+
+  # Goal: Replace a pcs (a series of arbitrary percentage changes)
+  #       by 1 percentage change of y% with the SAME overall effect.
+
+  # initialize:
+  f_pcs <- NA
+  f_y <- NA
+  p_y <- NA
+  p_y.formula <- NA
+
+  # 1) in 3 steps:
+  f_pcs <- pc_2_fac(pcs)  # 1. convert pcs into corresponding multiplicative factors.
+  f_y   <- prod(f_pcs)    # 2. compute the product of all factors as a new factor f_y.
+  p_y   <- fac_2_pc(f_y)  # 3. convert resulting factor f_y into a percentage change.
+
+  ## Same 3 steps in one:
+  # p_y_2 <- fac_2_pc(prod(pc_2_fac(pcs)))
+
+  # 2) using formula (derived in "relativeChangePerception_yymmdd.Rmd"):
+  p_y_formula <- (100 * (prod((100 + pcs)/100))) - 100
+
+  # Test both solutions for equality:
+  if (!all.equal(p_y, p_y_formula)) {
+    warning("Warning: 3 steps differ from formula result in aggr_pcs().")
+  }
+
+  return(p_y)
+
+} # aggr_pcs().
+
+
+# # Check:
+# aggr_pcs(33)                 #  33 (works for scalars)
+# aggr_pcs(c(10, 20))          #  32
+# aggr_pcs(c(50, -50))         # -25
+# aggr_pcs(c(50, -50, 100/3))  # 0 !
+# aggr_pcs(rep(10, 10))        # 159.3742
+#
+# # Example: Weekly changes over 1 year (52 weeks):
+# wc <- 11  # percentage of weekly change
+#
+# up_dn_52weeks <- rep(c(wc, (-1 * wc)), 26)  # start with gain:
+# aggr_pcs(up_dn_52weeks)    # -27.13187
+#
+# dn_up_52weeks <- rep(c((-1 * wc), wc), 26)  # start with loss:
+# aggr_pcs(dn_up_52weeks)    # -27.13187 (same)
 
 
 
