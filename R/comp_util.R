@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2024 01 21
+## 2024 01 22
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -8,8 +8,9 @@
 ## (C) Conversion functions
 ## (D) Color and plotting functions (mostly moved to plot_util.R)
 ## (E) Text functions
-## (F) Numeric functions
+## (F) Numeric and numeral functions
 ## (X) Miscellaneous
+
 
 ## (A) Verification functions: ------
 
@@ -20,13 +21,14 @@
 #  +. is_suff_freq_set      (ToDo)
 #  5. is_complement         (exported)
 #  6. is_prob_range         (NOT exported)
-#  7. is_extreme_prob_set   (exported)
-#  8. is_valid_prob_pair    (exported)
-#  9. is_valid_prob_set     (exported)
-# 10. is_valid_prob_triple  [exported, but deprecated]
-# 11. is_matrix             (exported)
+#  7. is_integer            (exported)
+#  8. is_extreme_prob_set   (exported)
+#  9. is_valid_prob_pair    (exported)
+# 10. is_valid_prob_set     (exported)
+# 11. is_valid_prob_triple  [exported, but deprecated]
+# 12. is_matrix             (exported)
 
-## is_prob: Verify that input is a probability ------
+# is_prob: Verify that input is a probability ------
 
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
@@ -89,7 +91,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
     val <- FALSE
 
     if (NA_warn) {
-      warning(paste0(prob, " contains NA values. "))
+      warning(paste0(paste(prob, collapse = ", "), " contains NA values. "))
     }
   }
 
@@ -98,7 +100,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
   #   val <- FALSE
   #
   #   if (NA_warn) {
-  #     warning(paste0(prob, " contains NaN values. "))
+  #     warning(paste0(paste(prob, collapse = ", "), " contains NaN values. "))
   #   }
   # }
 
@@ -107,7 +109,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
     val <- FALSE
 
     if (NA_warn) {
-      warning(paste0(prob, " contains non-numeric values. "))
+      warning(paste0(paste(prob, collapse = ", "), " contains non-numeric values. "))
     }
   }
 
@@ -116,7 +118,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
     val <- FALSE
 
     if (NA_warn) {
-      warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
+      warning(paste0(paste(prob, collapse = ", "), " contains values beyond the range from 0 to 1. "))
     }
   }
 
@@ -147,7 +149,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 # is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
 
 
-## is_perc: Verify that input is a percentage ------
+# is_perc: Verify that input is a percentage ------
 
 #' Verify that input is a percentage (numeric value from 0 to 100).
 #'
@@ -198,38 +200,39 @@ is_perc <- function(perc) {
 
     val <- FALSE
 
-    warning(paste0(perc, " contains NA values. "))
+    warning(paste0(paste(perc, collapse = ", "), " contains NA values. "))
   }
 
   else if (sum(is.nan(perc)) > 0) {
 
     val <- FALSE
 
-    warning(paste0(perc, " contains NaN values. "))
+    warning(paste0(paste(perc, collapse = ", "), " contains NaN values. "))
   }
 
   else if (sum(!is.numeric(perc)) > 0) {
     val <- FALSE
-    warning(paste0(perc, " contains non-numeric values. "))
+    warning(paste0(paste(perc, collapse = ", "), " contains non-numeric values. "))
   }
 
-  else if (sum((perc < 0) || (perc > 100)) > 0) {
+  else if ((sum(perc < 0) > 0) || (sum(perc > 100) > 0)) {
 
     val <- FALSE
 
-    warning(paste0(perc, " contains values beyond the range from 0 to 100. "))
+    warning(paste0(paste(perc, collapse = ", "), " contains values beyond the range from 0 to 100. "))
   }
 
   else {  # one way to succeed:
 
     val <- TRUE
+
   }
 
   return(val)
 
 }
 
-## is_freq: Verify that input is a frequency -------
+# is_freq: Verify that input is a frequency -------
 
 #' Verify that input is a frequency (positive integer value).
 #'
@@ -277,28 +280,28 @@ is_freq <- function(freq) {
 
     val <- FALSE
 
-    warning(paste0(freq, " contains NA values. "))
+    warning(paste0(paste(freq, collapse = ", "), " contains NA values. "))
   }
 
   else if (sum(is.nan(freq)) > 0) {
 
     val <- FALSE
 
-    warning(paste0(freq, " contains NaN values. "))
+    warning(paste0(paste(freq, collapse = ", "), " contains NaN values. "))
   }
 
   else if (sum(!is.numeric(freq)) > 0) {
 
     val <- FALSE
 
-    warning(paste0(freq, " contains non-numeric values. "))
+    warning(paste0(paste(freq, collapse = ", "), " contains non-numeric values. "))
   }
 
   else if (sum((freq < 0)) > 0) {
 
     val <- FALSE
 
-    warning(paste0(freq, " contains negative values (< 0). "))
+    warning(paste0(paste(freq, collapse = ", "), " contains negative values (< 0). "))
   }
 
   # else if (!all.equal(freq, as.integer(freq))) {
@@ -306,7 +309,7 @@ is_freq <- function(freq) {
 
     val <- FALSE
 
-    warning(paste0(freq, " contains non-integer values. "))
+    warning(paste0(paste(freq, collapse = ", "), " contains non-integer values. "))
   }
 
   else { # one way to succeed:
@@ -320,7 +323,7 @@ is_freq <- function(freq) {
 } # is_freq().
 
 
-## is_suff_prob_set: Verify that sufficient set of probabilities is provided ------
+# is_suff_prob_set: Verify that sufficient set of probabilities is provided ------
 
 #' Verify a sufficient set of probability inputs.
 #'
@@ -469,7 +472,7 @@ is_suff_prob_set <- function(prev,
 
 
 
-## is_complement: Verify that 2 numbers are complements -------
+# is_complement: Verify that 2 numbers are complements -------
 
 #' Verify that two numbers are complements.
 #'
@@ -595,7 +598,7 @@ is_complement <- function(p1, p2, tol = .01) {
 # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 
 
-## is_prob_range: Verify that some_range includes exactly 2 numeric prob values (from 0 to 1): ------
+# is_prob_range: Verify that some_range includes exactly 2 numeric prob values (from 0 to 1): ------
 
 is_prob_range <- function(some_range) {
 
@@ -692,11 +695,12 @@ is_integer <- function(x, tol = .Machine$double.eps^0.5) {
 # is.integer(1+2)
 # is_integer(1+2)
 
+
 ## (B) Beware of extreme cases: ------
 ##     Verify if the current set of (sufficient) probabilities
 ##     describe an extreme case:
 
-## is_extreme_prob_set: Verify that a prob set is an extreme case ------
+# is_extreme_prob_set: Verify that a prob set is an extreme case ------
 
 #' Verify that a set of probabilities describes an extreme case.
 #'
@@ -948,7 +952,7 @@ is_extreme_prob_set <- function(prev,
 # plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 
 
-## is_valid_prob_pair: Verify a pair of probability inputs -------
+# is_valid_prob_pair: Verify a pair of probability inputs -------
 
 # Verify that 2 probabilities are valid inputs
 # for a pair of complementary probabilities:
@@ -1053,7 +1057,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 # is_valid_prob_pair(c(.301, .299), .7)   # => TRUE
 
 
-## is_valid_prob_set: Verify a set of probability inputs ------
+# is_valid_prob_set: Verify a set of probability inputs ------
 
 # Verify that a set of up to 5 probabilities can
 # be interpreted as valid probability inputs:
@@ -1207,7 +1211,7 @@ is_valid_prob_set <- function(prev,
 # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
 
 
-## is_valid_prob_triple: Verify a triple of essential probability inputs -------
+# is_valid_prob_triple: Verify a triple of essential probability inputs -------
 
 # Verify that a triple of inputs can
 # be interpreted as valid set of 3 essential probabilites:
@@ -1292,7 +1296,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 # # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
 # # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 
-## is_matrix: Verify that mx is a numeric 2x2 contingency table: ------
+# is_matrix: Verify that mx is a numeric 2x2 contingency table: ------
 
 #' Verify a 2x2 matrix as a numeric contingency table.
 #'
@@ -1382,11 +1386,12 @@ is_matrix <- function(mx){
 # is_matrix(as.table(matrix(0:3, nrow = 2, ncol = 2)))
 
 
+
 ## (C) Conversion functions: --------
 
 ## Toggle between showing probabilities and percentages:
 
-## as_pc: Show a probability as a (numeric and rounded) percentage ------
+# as_pc: Show a probability as a (numeric and rounded) percentage ------
 
 #' Display a probability as a (numeric and rounded) percentage.
 #'
@@ -1483,7 +1488,7 @@ as_pc <- function(prob, n_digits = 2) {
 
 ## Percentage as probability (4 decimals):
 
-## as_pb: Show a percentage as a (numeric and rounded) probability ------
+# as_pb: Show a percentage as a (numeric and rounded) probability ------
 
 #' Display a percentage as a (numeric and rounded) probability.
 #'
@@ -1572,17 +1577,8 @@ as_pb <- function(perc, n_digits = 4) {
 # # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
 
 
-## incsum: Incremental sum (as an inverse of cumsum): ------
 
-incsum <- function(cumsum){
 
-  diff(c(0, cumsum))
-
-} # incsum().
-
-## Check:
-# v <- runif(10)
-# all.equal(incsum(cumsum(v)), v)
 
 
 
@@ -1593,7 +1589,7 @@ incsum <- function(cumsum){
 # - Use unikn pkg or functions for color settings.
 
 
-## make_transparent: Make colors transparent ----
+# make_transparent: Make colors transparent ----
 
 make_transparent <- function(..., alpha = .50) {
 
@@ -1626,7 +1622,10 @@ make_transparent <- function(..., alpha = .50) {
 
 
 
+
 ## (E) Text functions: --------
+
+# capitalise_1st: Capitalize initial character of a string ------
 
 capitalise_1st <- function(string) {
 
@@ -1645,12 +1644,27 @@ capitalise_1st <- function(string) {
 
 
 
-## (F) Numeric functions: --------
+## (F) Numeric and numeral functions: --------
 
 
-# A. Numeral strings and base conversions: --------
 
-# tally: Count number of symbol occurrences in a character scalar (converted into a vector of elements of nchar = 1) ----
+# - A. Numeric and numeral sequences: --------
+
+# incsum: Incremental sum (as an inverse of cumsum): ------
+
+incsum <- function(cumsum){
+
+  diff(c(0, cumsum))
+
+} # incsum().
+
+## Check:
+# v <- runif(10)
+# all.equal(incsum(cumsum(v)), v)
+
+
+
+# tally: Count number of symbol occurrences in a character scalar (converted into a vector of elements of nchar = 1) ------
 
 tally_1 <- function(s, target = "1"){
 
@@ -1684,6 +1698,7 @@ tally <- Vectorize(tally_1, vectorize.args = "s")
 
 
 
+# - B. Base conversions: --------
 
 # base_dec: Use polynomial expansion to convert number represented in some base notation into decimal numerals: ------
 
@@ -1928,13 +1943,17 @@ dec_2_base_alt <- function(x, base = 2, exp = 0){
 
 
 
-# B. Sequential percentage changes: --------
+
+# - C. Sequential percentage changes: --------
 
 # Task: Compute true (geometric) net (aggregate) change of a pcs.
 
-# pc_2_fac: Convert a series of percentage(s) pcs into corresponding multiplicative factor(s) ------
+# pc_2_fac: Convert a series of percentage changes (pcs) into corresponding multiplicative factor(s) ------
 
 pc_2_fac <- function(pcs) {
+
+  # Verify percentage values:
+  is_perc(pcs)
 
   # facs <- 1 + pcs/100
   facs <- (100 + pcs)/100
@@ -1943,22 +1962,23 @@ pc_2_fac <- function(pcs) {
 
 } # pc_2_fac().
 
-# # Checks:
+# Checks:
 # pc_2_fac(10)  # [1] 1.1
 # pc_2_fac(c(0, +5, +10, +25, +50, +75, +100, +200, +300, +500, +1000))
-# # 1.00  1.05  1.10  1.25  1.50  1.75  2.00  3.00  4.00  6.00 11.00
+# 1.00  1.05  1.10  1.25  1.50  1.75  2.00  3.00  4.00  6.00 11.00
 # pc_2_fac(c(0, -5, -10, -25, -50, -75, -100, -200, -300, -500, -1000))
-# # 1.00  0.95  0.90  0.75  0.50  0.25  0.00 -1.00 -2.00 -4.00 -9.00
-
-# +++ here now +++
+# 1.00  0.95  0.90  0.75  0.50  0.25  0.00 -1.00 -2.00 -4.00 -9.00
 
 
 
-# fac_2_pc: Reverse: Convert multiplicative factor(s) into corresponding percentage change(s) ------
+# fac_2_pc: Reverse: Convert multiplicative factor(s) into corresponding percentage changes ------
 
 fac_2_pc <- function(facs) {
 
   pcs <- (facs * 100) - 100
+
+  # Verify percentage values:
+  is_perc(pcs)
 
   return(pcs)
 
@@ -1971,6 +1991,7 @@ fac_2_pc <- function(facs) {
 # # 0    -5   -10   -25   -50   -75  -100  -200  -300  -500 -1000
 
 
+# +++ here now +++
 
 # aggr_pcs: Aggregate change of a series of percentage changes ------
 
@@ -1986,9 +2007,9 @@ aggr_pcs <- function(pcs) {
   f_pcs <- NA
   f_y <- NA
   p_y <- NA
-  p_y.formula <- NA
+  p_y_formula <- NA
 
-  # 1) in 3 steps:
+  # 1) Use 3 functions/steps:
   f_pcs <- pc_2_fac(pcs)  # 1. convert pcs into corresponding multiplicative factors.
   f_y   <- prod(f_pcs)    # 2. compute the product of all factors as a new factor f_y.
   p_y   <- fac_2_pc(f_y)  # 3. convert resulting factor f_y into a percentage change.
@@ -2001,7 +2022,7 @@ aggr_pcs <- function(pcs) {
 
   # Test both solutions for equality:
   if (!all.equal(p_y, p_y_formula)) {
-    warning("Warning: 3 steps differ from formula result in aggr_pcs().")
+    warning("Result of 3 functions differs from formula result.")
   }
 
   return(p_y)
@@ -2011,19 +2032,26 @@ aggr_pcs <- function(pcs) {
 
 # # Check:
 # aggr_pcs(33)                 #  33 (works for scalars)
-# aggr_pcs(c(10, 20))          #  32
+# aggr_pcs(c(10,  20))         #  32
 # aggr_pcs(c(50, -50))         # -25
-# aggr_pcs(c(50, -50, 100/3))  # 0 !
+# aggr_pcs(c(50, -50, 100/3))  #   0 !
 # aggr_pcs(rep(10, 10))        # 159.3742
 #
 # # Example: Weekly changes over 1 year (52 weeks):
-# wc <- 11  # percentage of weekly change
+# wc <- 10  # percentage of weekly change
 #
-# up_dn_52weeks <- rep(c(wc, (-1 * wc)), 26)  # start with gain:
-# aggr_pcs(up_dn_52weeks)    # -27.13187
+# # Intuition: Does order matter? (Commutativity):
+# up_dn_52weeks <- rep(c(+wc, -wc), times = 26)  # start with 1 gain:
+# aggr_pcs(up_dn_52weeks)    # -22.99...
 #
-# dn_up_52weeks <- rep(c((-1 * wc), wc), 26)  # start with loss:
-# aggr_pcs(dn_up_52weeks)    # -27.13187 (same)
+# up_first_half <- rep(c(+wc, -wc), each = 26)  # start with 26 gains:
+# aggr_pcs(up_first_half)    # -22.99...
+#
+# dn_up_52weeks <- rep(c(-wc, +wc), times = 26)  # start with 1 loss:
+# aggr_pcs(dn_up_52weeks)    # -22.99... (same)
+#
+# dn_first_half <- rep(c(-wc, +wc), each = 26)  # start with 26 losses:
+# aggr_pcs(dn_first_half)    # -22.99...
 
 
 
@@ -2039,6 +2067,7 @@ kill_all <- function(){
 
 # Check: ----
 # kill_all()
+
 
 ## (*) Done: --------
 
