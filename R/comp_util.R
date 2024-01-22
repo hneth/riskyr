@@ -1644,6 +1644,7 @@ capitalise_1st <- function(string) {
 
 
 
+
 ## (F) Numeric and numeral functions: --------
 
 
@@ -2028,7 +2029,6 @@ aggr_pcs <- function(pcs) {
   return(p_y)
 
 } # aggr_pcs().
-
 
 # # Check:
 # aggr_pcs(33)                 #  33 (works for scalars)
