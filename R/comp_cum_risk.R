@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 21
+## 2024 01 23
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -339,6 +339,8 @@ comp_cum_ps <- function(r = 1/2,  # risk per time period
 
 apply_risk_to_population <- function(r, t = NA, N = 100){
 
+  # Prepare: ----
+
   # ToDo: Ensure that r values are in -1 <= r <= +1.
 
   if ((length(r) == 1) && (is.numeric(t))){
@@ -347,22 +349,81 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
     r <- rep(r, times = t)
 
     # User feedback:
-    message(paste0("Created r as a vector of length t = ", t, ":"))
-    print(r)
+    # message(paste0("Created r as a vector of length t = ", t, ":"))
+    # print(r)
 
   }
 
+  # Turn probabilities (or negative probabilities) into percentages:
+  if (is_prob(abs(r))){
+
+    r_neg <- (r < 0)  # index of negative values
+
+    r_pc <- as_pc(abs(r))
+
+    r_pc[r_neg] <- r_pc[r_neg] * -1  # re-apply negative values
+
+    # User feedback:
+    # message(paste0("Turned probability r into percentages r_pc = "))
+    # print(r_pc)
+
+  }
+
+  # Data structure:
+  nr <- length(r)
+  N_out <- rep(NA, nr)
+
+
+  # Main: ----
+
+  for (i in 1:nr){
+
+    if (i == 1){
+
+      N_out[i] <- N * pc_2_fac(r_pc[i])
+
+    } else {
+
+      N_out[i] <- N_out[(i - 1)] * pc_2_fac(r_pc[i])
+
+    } # if.
+
+  } # for loop.
+
+
   # +++ here now +++
 
-  # Output:
-  r
+  # Verify by comparing to aggregate change:
+  N_final <- N * pc_2_fac(aggr_pcs(r_pc))
+  eps <- .000001  # epsilon
 
-}
+  if (abs(N_final - N_out[nr]) > eps){
+
+    warning(paste0("Final value of N_out = ", N_out[nr], " differs from aggregate change N_final = ", N_final))
+
+  }
+
+
+  # Output: ----
+
+  names(N_out) <- paste0(r_pc, "%")
+
+  return(N_out)
+
+} # apply_risk_to_population().
+
 
 # # Check:
-# apply_risk_to_population(.50)
-
-
+# apply_risk_to_population(.10)
+# apply_risk_to_population(.10, t = 5)
+# apply_risk_to_population(c(.10, .20, .30), t = 3)
+#
+# # Contrast:
+# apply_risk_to_population(c( .20,  .30, -.50))
+# apply_risk_to_population(c(-.20, -.30,  .50))
+#
+# apply_risk_to_population(c( .10,  .20,  .30, -.60))
+# apply_risk_to_population(c(-.10, -.20, -.30,  .60))
 
 
 
