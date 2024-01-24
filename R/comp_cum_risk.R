@@ -1,5 +1,5 @@
 ## comp_cum_risk.R | riskyr
-## 2024 01 23
+## 2024 01 24
 ## Compute cumulative risks
 
 # Task analysis: ----------
@@ -391,8 +391,6 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
   } # for loop.
 
 
-  # +++ here now +++
-
   # Verify by comparing to aggregate change:
   N_final <- N * pc_2_fac(aggr_pcs(r_pc))
   eps <- .000001  # epsilon
@@ -402,6 +400,8 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
     warning(paste0("Final value of N_out = ", N_out[nr], " differs from aggregate change N_final = ", N_final))
 
   }
+
+  # +++ here now +++
 
 
   # Output: ----
@@ -424,6 +424,9 @@ apply_risk_to_population <- function(r, t = NA, N = 100){
 #
 # apply_risk_to_population(c( .10,  .20,  .30, -.60))
 # apply_risk_to_population(c(-.10, -.20, -.30,  .60))
+#
+# apply_risk_to_population(seq(-.50, +.50, by = +.10))  # ascending pcs
+# apply_risk_to_population(seq(+.50, -.50, by = -.10))  # descending pcs
 
 
 
