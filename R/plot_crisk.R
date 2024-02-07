@@ -1,5 +1,5 @@
 ## plot_crisk.R | riskyr
-## 2022 08 09
+## 2024 02 06
 ## Plot cumulative risk curve
 ## -----------------------------------------------
 
@@ -1202,6 +1202,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 # (b) adding functionality:
 # - compute and show curve of all remainin
 # - add an option for only plotting remaining risk area?
+#   (e.g., by zooming in on reduced x-axis range, as in N_max arg of plot_cbar())
 # - explore better curve fitting options (e.g., linear/cubic fits, rather than splines)
 #   and modularize fitting parts (as separate functions)
 # - add data/option for population decrements (on top of plot)
