@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_gitless$
+^images$
 ^_R_retired$
 ^data-raw$
 ^CODE_OF_CONDUCT\.md$
