@@ -22,7 +22,7 @@ status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org
 -->
 <!-- riskyr logo: -->
 
-# riskyr 0.4.0.9012 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.4.0.9016 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 <!-- 
@@ -724,7 +724,7 @@ We appreciate your feedback, comments, or questions.
 <!-- riskyr logo: -->
 
 <a href = "https://github.com/hneth/riskyr/">
-<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
+<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/logo.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
 </a>
 <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) -->
@@ -844,7 +844,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2024-01-05 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2024-02-16 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
