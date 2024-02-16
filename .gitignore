@@ -1,4 +1,4 @@
-## .gitignore | riskyr | 2021 03 22:
+## .gitignore | riskyr | 2024 02 16:
 
 ## 1. generic stuff: -----
 
@@ -63,6 +63,7 @@ CRAN-RELEASE
 # dirs:
 _gitless
 data-raw
+images
 
 # files:
 .PowerFolder
