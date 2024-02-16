@@ -1,5 +1,7 @@
 
-# riskyr 0.4.0.9002
+# riskyr 0.4.0.9016
+
+<img src = "./inst/pix/logo.png" alt = "riskyr" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
 
 <!-- Development version: --> 
 
@@ -17,7 +19,7 @@ Changes since last release:
 
 ## Minor changes
 
-- none yet 
+- New hexagon version of logo.
 
 <!-- Blank line. --> 
 
@@ -331,6 +333,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2023-01-15.]
+[`NEWS.md` updated on 2024-02-16.]
 
 <!-- eof -->
