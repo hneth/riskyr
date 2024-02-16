@@ -89,8 +89,8 @@ Other lists containing current scenario information:
 \code{\link{accu}},
 \code{\link{freq}},
 \code{\link{num}},
-\code{\link{pal_bwp}},
 \code{\link{pal_bw}},
+\code{\link{pal_bwp}},
 \code{\link{pal_kn}},
 \code{\link{pal_mbw}},
 \code{\link{pal_mod}},
@@ -99,9 +99,9 @@ Other lists containing current scenario information:
 \code{\link{pal_unikn}},
 \code{\link{pal_vir}},
 \code{\link{prob}},
+\code{\link{txt}},
 \code{\link{txt_TF}},
-\code{\link{txt_org}},
-\code{\link{txt}}
+\code{\link{txt_org}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

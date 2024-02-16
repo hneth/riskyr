@@ -66,11 +66,11 @@ Other probabilities:
 \code{\link{spec}}
 
 Other metrics: 
-\code{\link{accu}},
 \code{\link{acc}},
+\code{\link{accu}},
+\code{\link{comp_acc}()},
 \code{\link{comp_accu_freq}()},
 \code{\link{comp_accu_prob}()},
-\code{\link{comp_acc}()},
 \code{\link{comp_err}()}
 }
 \concept{metrics}

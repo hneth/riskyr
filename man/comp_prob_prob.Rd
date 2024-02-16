@@ -147,9 +147,9 @@ comp_prob_prob(1,  1, 1,  1)  # only warning: is_complement not in tolerated ran
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 Other functions computing frequencies: 
+\code{\link{comp_freq}()},
 \code{\link{comp_freq_freq}()},
 \code{\link{comp_freq_prob}()},
-\code{\link{comp_freq}()},
 \code{\link{comp_min_N}()}
 
 Other format conversion functions: 

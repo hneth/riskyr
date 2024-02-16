@@ -115,9 +115,9 @@ Other probabilities:
 
 Other metrics: 
 \code{\link{accu}},
+\code{\link{comp_acc}()},
 \code{\link{comp_accu_freq}()},
 \code{\link{comp_accu_prob}()},
-\code{\link{comp_acc}()},
 \code{\link{comp_err}()},
 \code{\link{err}}
 }

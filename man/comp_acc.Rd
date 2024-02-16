@@ -141,14 +141,14 @@ Other functions computing probabilities:
 \code{\link{comp_fart}()},
 \code{\link{comp_mirt}()},
 \code{\link{comp_ppod}()},
-\code{\link{comp_prob_freq}()},
 \code{\link{comp_prob}()},
+\code{\link{comp_prob_freq}()},
 \code{\link{comp_sens}()},
 \code{\link{comp_spec}()}
 
 Other metrics: 
-\code{\link{accu}},
 \code{\link{acc}},
+\code{\link{accu}},
 \code{\link{comp_accu_freq}()},
 \code{\link{comp_accu_prob}()},
 \code{\link{comp_err}()},

@@ -34,8 +34,8 @@ pal_vir["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 \code{\link{init_pal}} initializes color information.
 
 Other color palettes: 
-\code{\link{pal_bwp}},
 \code{\link{pal_bw}},
+\code{\link{pal_bwp}},
 \code{\link{pal_crisk}},
 \code{\link{pal_kn}},
 \code{\link{pal_mbw}},
@@ -48,19 +48,19 @@ Other lists containing current scenario information:
 \code{\link{accu}},
 \code{\link{freq}},
 \code{\link{num}},
-\code{\link{pal_bwp}},
+\code{\link{pal}},
 \code{\link{pal_bw}},
+\code{\link{pal_bwp}},
 \code{\link{pal_kn}},
 \code{\link{pal_mbw}},
 \code{\link{pal_mod}},
 \code{\link{pal_org}},
 \code{\link{pal_rgb}},
 \code{\link{pal_unikn}},
-\code{\link{pal}},
 \code{\link{prob}},
+\code{\link{txt}},
 \code{\link{txt_TF}},
-\code{\link{txt_org}},
-\code{\link{txt}}
+\code{\link{txt_org}}
 }
 \concept{color palettes}
 \concept{lists containing current scenario information}

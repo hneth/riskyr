@@ -206,8 +206,8 @@ comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # NAs + warning (sens & spec
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 Other functions computing frequencies: 
-\code{\link{comp_freq_freq}()},
 \code{\link{comp_freq}()},
+\code{\link{comp_freq_freq}()},
 \code{\link{comp_min_N}()},
 \code{\link{comp_prob_prob}()}
 

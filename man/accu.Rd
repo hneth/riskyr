@@ -125,8 +125,9 @@ The corresponding generating function \code{\link{comp_accu_prob}} computes exac
 Other lists containing current scenario information: 
 \code{\link{freq}},
 \code{\link{num}},
-\code{\link{pal_bwp}},
+\code{\link{pal}},
 \code{\link{pal_bw}},
+\code{\link{pal_bwp}},
 \code{\link{pal_kn}},
 \code{\link{pal_mbw}},
 \code{\link{pal_mod}},
@@ -134,17 +135,16 @@ Other lists containing current scenario information:
 \code{\link{pal_rgb}},
 \code{\link{pal_unikn}},
 \code{\link{pal_vir}},
-\code{\link{pal}},
 \code{\link{prob}},
+\code{\link{txt}},
 \code{\link{txt_TF}},
-\code{\link{txt_org}},
-\code{\link{txt}}
+\code{\link{txt_org}}
 
 Other metrics: 
 \code{\link{acc}},
+\code{\link{comp_acc}()},
 \code{\link{comp_accu_freq}()},
 \code{\link{comp_accu_prob}()},
-\code{\link{comp_acc}()},
 \code{\link{comp_err}()},
 \code{\link{err}}
 }

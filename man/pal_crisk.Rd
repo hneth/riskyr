@@ -45,8 +45,8 @@ pal_crisk  # show color palette (and names)
 \code{\link{init_pal}} initializes color information.
 
 Other color palettes: 
-\code{\link{pal_bwp}},
 \code{\link{pal_bw}},
+\code{\link{pal_bwp}},
 \code{\link{pal_kn}},
 \code{\link{pal_mbw}},
 \code{\link{pal_mod}},
