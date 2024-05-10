@@ -5,6 +5,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
 [![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color='00a9e0')](https://www.r-pkg.org:443/pkg/riskyr)
+[![Total
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr)
 [![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 <!-- Devel badges end. -->
 
@@ -844,7 +846,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2024-02-16 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2024-05-10 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
