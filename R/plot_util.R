@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2024 01 16
+## 2024 05 24
 ## --------------------
 
 ## (0) Generic plotting functions: ----------
@@ -167,7 +167,7 @@ plot.box <- function(x,
 
 
 
-## (2) Constructing and plotting labels, boxes, and links: ----------
+## (2) Constructing and plotting labels, boxes, links, and labels: ----------
 
 ## (A) Labels: ------
 
@@ -850,7 +850,7 @@ plot_freq_label <- function(fname,                # name of a known freq
 # plot_freq_label("dec_cor", .5, .2, lbl_type = "namnum", cur_freq = f2)
 
 ## (B) Boxes: ------
-## (a) Plotting boxes: ------
+##  (a) Box plotting: ------
 
 ## plot_vbox: Plot a vertical box (x = center, y = bottom) with text label ----------
 
@@ -1260,7 +1260,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 
 
-## (b) Computing box dimensions (width lx): -------
+##  (b) Computing box dimensions (width lx): -------
 
 
 ## comp_freq_fbox: Compute freq value of fbox (based on fname and cur_freq) --------
@@ -1661,7 +1661,7 @@ comp_ly_fsqr <- function(fname, area_N,
 ## ToDo: Vectorize comp_ly_fsqr (to allow computing many ly values at once).
 
 
-## (3) Links: ------
+## (C) Links: ------
 
 ## plot_line: Plot a line (or arrow) between 2 points (with optional text label): ------
 
@@ -1903,12 +1903,12 @@ plot_poly <- function(x1, y1, x2, y2,      # coordinates of edge 1 (p1 and p2)
 #                       ...                   # other graphical parameters
 # )
 # {
-#   ## (0) Draw line from p1 to p2: ----
+##  (0) Draw line from p1 to p2: ----
 #
 #   # lines(c(x0, x1), c(y0, y1), ...)
 #
 #
-#   ## (1) Draw n_arr arrows: ----
+##  (1) Draw n_arr arrows: ----
 #
 #   # Split line into n_arr + 1 segments:
 #   Ax = seq(x0, x1, length = n_arr + 1)
@@ -1922,7 +1922,7 @@ plot_poly <- function(x1, y1, x2, y2,      # coordinates of edge 1 (p1 and p2)
 #            ...)
 #   }
 #
-#   ## (3) Optional text label: ------
+##  (3) Optional text label: ------
 #
 #   if (!is.na(lbl_x)) { # if lbl_x exists:
 #
@@ -2075,7 +2075,6 @@ plot_link <- function(box1, box2,                # 2 boxes
     }
 
     # (2) Interpret current color info:
-
     col_brd <- col_pal["brd"]  # current border color
     col_txt <- col_pal["txt"]  # current text color
 
@@ -2253,28 +2252,33 @@ plot_link <- function(box1, box2,                # 2 boxes
 # plot_link(box_N, box_ct, 7, 7, lbl_pos = 3)  # 7-8: link from NE to NE corner, lbl top
 # plot_link(box_N, box_ct, 8, 5, lbl_pos = 2)  # 7-8: link from SE to SW corner, lbl left
 # plot_link(box_ct, box_hi, 1, 7, arr_code = +2,
-#           lbl_pos = 3, srt = 90, lbl_off = 0)  # 1-7: arrow from bottom center to NW corner, vetical lbl
+#           lbl_pos = 3, srt = 90, lbl_off = 0)  # 1-7: arrow from bottom center to NW corner, vertical lbl
 #
 # ## Link options:
 # ## (a) Global prob: Link 2 freq boxes with a known prob:
 # plot_link(box_N, box_ct, 4, 3, lbl_pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl_pos = 1, cex = .8)
-# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"], # ToDo: col_fill and
-#           lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8) # col_txt matched by multiple arguments.
+# plot_link(box_ct, box_hi, 1, 3, arr_code = -3,
+#           # col_fill = pal["hi"], col_txt = pal["hi"],  # ToDo: col_fill and col_txt matched by multiple arguments.
+#           lbl_type = "namnum", lbl_pos = 2, cex = .8)
 #
 # ## (b) Local prob:
 # p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
 # plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl_pos = NULL, cex = .8,
-#           arr_code = -3, col_fill = "firebrick", col_txt = "firebrick")
-# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col_fill = "steelblue",
-#           lbl_type = "namnum", lbl_pos = 4, col_txt = "steelblue", cex = .8)
+#           # col_fill = "firebrick", col_txt = "firebrick", # ToDo: col_fill and col_txt matched by multiple arguments.
+#           arr_code = -3)
+# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3,
+#           lbl_type = "namnum", lbl_pos = 4,
+#           # col_fill = "steelblue", col_txt = "steelblue", # ToDo: col_fill and col_txt matched by multiple arguments.
+#           cex = .8)
 #
 # ## (c) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
 #           lbl_pos = 2, cex = .8,
-#           col_txt = "steelblue", col_fill = "sienna2", lwd = 3)
+#           # col_txt = "steelblue", col_fill = "sienna2", # ToDo: col_fill and col_txt matched by multiple arguments.
+#           lwd = 3)
 
 ## Note:
 ## Functionality included in plot_link: plot_plink/plot_prob:
@@ -2287,10 +2291,10 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## 4. Call plot_link with p_lbl as lbl
 
 
-## (4) Define and plot margin labels: ----------
+## (D) Define and plot margin labels: ----------
 
 
-## (a) make_freq_lbl: Label current frequency values ------
+##  (a) make_freq_lbl: Label current frequency values ------
 
 make_freq_lbl <- function(hi, mi, fa, cr,
                           lbl_txt = txt   # current txt
@@ -2318,7 +2322,7 @@ make_freq_lbl <- function(hi, mi, fa, cr,
 # make_freq_lbl(11, 22, 33, 44)
 # make_freq_lbl(11, 22, 33, 44, lbl_txt = txt_TF)
 
-## (b) make_cond_lbl: Label current key parameters/probabilities by condition ------
+##  (b) make_cond_lbl: Label current key parameters/probabilities by condition ------
 
 make_cond_lbl <- function(prev, sens, spec) {
 
@@ -2448,7 +2452,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 # make_cond_lbl(NA, NA, 2/3)
 
 
-## (c) make_dec_lbl:  Label current key parameters/probabilities by decision ------
+##  (c) make_dec_lbl:  Label current key parameters/probabilities by decision ------
 
 make_dec_lbl <- function(ppod, PPV, NPV) {
 
@@ -2470,7 +2474,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 # make_dec_lbl(ppod = 1/3, PPV = 2/3, NPV = 1/7)
 
 
-## (d) make_accu_lbl: Label current accuracy values ------
+##  (d) make_accu_lbl: Label current accuracy values ------
 
 make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
@@ -2523,7 +2527,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 # make_accu_lbl(acc = 1/3)
 # make_accu_lbl(acc = 1/3, w = 2/3, wacc = 3/7, mcc = 1/7)
 
-## (e) label_note: Create a standard note when area is scaled: --------
+##  (e) label_note: Create a standard note when area is scaled: --------
 
 label_note <- function(area = NULL, scale = "f") {
 
@@ -2704,9 +2708,9 @@ plot_mar <- function(show_freq = TRUE,
 # plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
 
 
-## (5) Miscellaneous plotting functions: ----------
+## (+) Miscellaneous plotting functions: ----------
 
-## all_equal: Check if all elements of a vector (e.g., of color names) are equal: --------
+##  all_equal: Check if all elements of a vector (e.g., of color names) are equal: --------
 
 ## Note: Avoiding the tricky business of color similarity:
 
@@ -2769,7 +2773,7 @@ all_equal <- function(v) {
 # all_equal(c("black", par("fg"), pal_bwp[["ppv"]]))      # TRUE
 
 
-## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
+##  factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
 
 factors_min_diff <- function (n) {
   n_sqrt <- sqrt(n)
@@ -2790,7 +2794,7 @@ factors_min_diff <- function (n) {
 ## Adapted from Ian Kopacka's solution to a question at:
 ## https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
 
-# Documentation: ----
+##   Documentation: ----
 
 ####
 #
@@ -2862,7 +2866,7 @@ factors_min_diff <- function (n) {
 #
 ####
 
-# Definition: ----
+##   Definition: ----
 
 box_text <- function(x, y, labels = NA,
                      col_lbl = NULL, col_bg = NA, col_bg_brd = NA,
