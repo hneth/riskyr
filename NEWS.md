@@ -333,6 +333,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2024-02-16.]
+[`NEWS.md` updated on 2024-11-28.]
 
 <!-- eof -->
