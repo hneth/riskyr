@@ -1,21 +1,24 @@
-citHeader("To cite riskyr in derivations and publications, please use:")
 
-citEntry(entry = "Manual",
-         title        = "riskyr: Rendering Risk Literacy more Transparent",
-         author       = personList(as.person("Hansjörg Neth"),
-                                   as.person("Felix Gaisbauer"),
-                                   as.person("Nico Gradwohl"),
-                                   as.person("Wolfgang Gaissmaier")),
+citHeader("To cite 'riskyr' in derivations and publications, please use:")
+
+bibentry(bibtype = "Manual",
+         title  = "riskyr: Rendering risk literacy more transparent",
+         author = c(person("Hansjoerg", "Neth", role = c("aut", "cre"), email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")),
+             person("Gaisbauer", "Felix", role = "aut", comment = c(ORCID = "0000-0002-1285-1246")),
+             person("Gradwohl", "Nico", role = "aut", comment = c(ORCID = "0000-0002-8703-905X")),
+             person("Gaissmaier", "Wolfgang", role = "aut", comment = c(ORCID = "0000-0001-6273-178X"))),
          year         = "2022",
          organization = "Social Psychology and Decision Sciences, University of Konstanz",
          address      = "Konstanz, Germany",
          note         = "R package (version 0.4.0, Aug. 15, 2022)",
          url          = "https://CRAN.R-project.org/package=riskyr",
+         doi          = "10.32614/CRAN.package.riskyr",
 
          textVersion  =
            paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022).",
                  "riskyr: Rendering Risk Literacy more Transparent.",
                  "Social Psychology and Decision Sciences, University of Konstanz, Germany.",
                  "Computer software (R package version 0.4.0, Aug. 15, 2022).",
-                 "Retrieved from <https://CRAN.R-project.org/package=riskyr>.")
+                 "Retrieved from <https://CRAN.R-project.org/package=riskyr>.",
+                 "doi <https://doi.org/10.32614/CRAN.package.riskyr>")
          )
