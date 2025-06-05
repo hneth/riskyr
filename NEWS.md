@@ -1,5 +1,5 @@
 
-# riskyr 0.4.0.9016
+# riskyr 0.4.0.9017
 
 <img src = "./inst/pix/logo.png" alt = "riskyr" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
 
@@ -26,6 +26,7 @@ Changes since last release:
 
 ## Micro changes 
 
+- Updated citation info (using `bibentry()` for CRAN compatibility) 
 - Package maintenance:
     - Add GitHub action (R-CMD-check standard)
     - Update `README` and online documentation 
@@ -333,6 +334,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2024-11-28.]
+[`NEWS.md` updated on 2025-06-05.]
 
 <!-- eof -->
