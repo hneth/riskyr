@@ -57,31 +57,38 @@ txt_lbl_def <- list(
 # txt_lbl_def$cond_true_lbl
 
 
+
 ## prob_lbl_def: Define a list of all probability labels: ----------
 
 ## ToDo: Integrate prob_lbl_def into txt (to make current set of probability names adjustable).
+##       +++ here now +++
 
 prob_lbl_def <- list(
 
   # (a) by condition:
-  prev = "Prevalence",
+  prev   = "Prevalence", # prior
   prev_c = "1 - prevalence",
+
   sens = "Sensitivity",       # aka. hit rate, recall
   mirt = "Miss rate",         # rate of type-2 errors, beta
   spec = "Specificity",       # aka. true negative rate, correct rejection rate
   fart = "False alarm rate",  # aka. false positive rate, rate of type-1 errors, alpha
 
+
   # (b) by decision:
-  ppod = "Proportion positive",
+  ppod   = "Proportion positive",
   ppod_c = "Proportion negative",  # OR "1 - ppod"
-  PPV = "Positive predictive value (PPV)",  # aka. precision
+
+  PPV = "Positive predictive value (PPV)",  # aka. precision / p( H_1 | data)
   FDR = "False detection rate",             # aka. false discovery rate
   NPV = "Negative predictive value (NPV)",  # aka. true omission rate
   FOR = "False omission rate",
 
+
   # (c) by accuracy:
   acc = "Rate correct",        # correct, accurate
   err = "Rate incorrect",      # error rate, inaccurate
+
   acc_hi = "p(hi | dec_cor)",  # "Proportion positive correct" (ppcor)
   acc_cr = "p(cr | dec_cor)",  # "Proportion negative correct" (pncor)
   err_mi = "p(mi | dec_err)",
@@ -156,7 +163,7 @@ prob_lbl_def <- list(
 #' # Customizing current text elements:
 #' txt <- init_txt(scen_lbl = "My scenario",
 #'                 scen_src = "My source",
-#'                 N_lbl = "My population")
+#'                 N_lbl    = "My population")
 #'
 #' @family functions initializing scenario information
 #'

@@ -61,7 +61,8 @@
 ##   - derived: all other values
 
 
-## A: Define probabilities by condition: ---------
+
+## [A]: Define probabilities by condition: ---------
 
 ## ***: 3 essential probabilities: prev; sens, spec/fart.
 
@@ -525,7 +526,10 @@ spec <- 1/2 # default specificity
 fart <- 1 - spec   # default false alarm rate
 
 
-## B: Define probabilities by decision: ------------------------
+
+
+## [B]: Define probabilities by decision: ------------------------
+
 
 ## (0) Proportion of positive decisions (ppod, PR): -----
 
@@ -609,9 +613,10 @@ fart <- 1 - spec   # default false alarm rate
 ppod <- 1/2  # default rate of positive decisions/bias
 
 
+
 ## Predictive values (PVs): ----------------------
 
-## (1) PPV: positive predictive value ------------
+## (1) PPV: Positive predictive value ------------
 
 #' The positive predictive value of a decision process or diagnostic procedure.
 #'
@@ -703,7 +708,8 @@ ppod <- 1/2  # default rate of positive decisions/bias
 PPV <- 1/2  # default of positive predictive value (PPV)
 
 
-## (2) FDR: false detection rate = 1 - PPV -------
+
+## (2) FDR: False detection rate = 1 - PPV -------
 
 #' The false detection rate of a decision process or diagnostic procedure.
 #'
@@ -790,7 +796,8 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 
 
-## (3) NPV: negative predictive value ------------
+
+## (3) NPV: Negative predictive value ------------
 
 #' The negative predictive value of a decision process or diagnostic procedure.
 #'
@@ -877,6 +884,7 @@ FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 NPV <- 1/2  # default of negative predictive value (NPV)
 
 
+
 ## (4) FOR: False omission rate = 1 - NPV --------
 
 #' The false omission rate (FOR) of a decision process or diagnostic procedure.
@@ -959,7 +967,10 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 FOR <- 1 - NPV  # default of false omission rate (FOR)
 
 
-## C: Define probabilities by accuracy: ----------
+
+
+## [C]: Define probabilities by accuracy: ----------
+
 
 ## (1) Accuracy acc: --------
 
@@ -1059,6 +1070,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 acc <- 1/2  # initialize to random accuracy
 
 
+
 ## (2) Error rate err: --------
 
 #' Error rate (err) as the probability of an incorrect decision.
@@ -1106,6 +1118,8 @@ acc <- 1/2  # initialize to random accuracy
 #' \code{\link{is_prob}} verifies probabilities.
 
 err <- (1 - acc)  # initialize err to complement of accuracy
+
+
 
 ## (*) Done: -------------------------------------
 
