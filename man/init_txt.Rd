@@ -104,7 +104,7 @@ length(init_txt())  # 21
 # Customizing current text elements:
 txt <- init_txt(scen_lbl = "My scenario",
                 scen_src = "My source",
-                N_lbl = "My population")
+                N_lbl    = "My population")
 
 }
 \seealso{
