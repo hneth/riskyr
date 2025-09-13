@@ -684,7 +684,7 @@ vignettes and obtaining additional information.
 
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 
-<a href="https://www.spds.uni-konstanz.de/">
+<a href="https://spds.uni-konstanz.de/">
 <img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/>
 <!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> -->
 </a>
@@ -693,12 +693,12 @@ vignettes and obtaining additional information.
 literacy.  
 The current version (0.5.0, as of Sep 15, 2025) is under active
 development. Its primary designers are [Hansjörg
-Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix
-Gaisbauer](https://www.spds.uni-konstanz.de/people), [Nico
-Gradwohl](https://www.spds.uni-konstanz.de/people), and [Wolfgang
-Gaissmaier](https://www.spds.uni-konstanz.de/people), who are
+Neth](https://spds.uni-konstanz.de/hans-neth), [Felix
+Gaisbauer](https://spds.uni-konstanz.de/people), [Nico
+Gradwohl](https://spds.uni-konstanz.de/people), and [Wolfgang
+Gaissmaier](https://spds.uni-konstanz.de/people), who are
 researchers at the department of [Social Psychology and Decision
-Sciences](https://www.spds.uni-konstanz.de/) at the [University of
+Sciences](https://spds.uni-konstanz.de/) at the [University of
 Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The **riskyr** package is open source software written in

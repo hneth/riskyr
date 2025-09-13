@@ -498,7 +498,7 @@ If so, call `riskyr.guide()` for viewing the package vignettes and obtaining add
 
 <!-- uni.kn logo and link to SPDS: -->  
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
-<a href="https://www.spds.uni-konstanz.de/">
+<a href="https://spds.uni-konstanz.de/">
 <img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/>
 <!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> 
 </a>
@@ -506,11 +506,11 @@ If so, call `riskyr.guide()` for viewing the package vignettes and obtaining add
 **riskyr** originated out of a series of lectures and workshops on risk literacy.  
 The current version (0.5.0, as of Sep 15, 2025) is under active development. 
 Its primary designers are 
-[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
-[Felix Gaisbauer](https://www.spds.uni-konstanz.de/people), 
-[Nico Gradwohl](https://www.spds.uni-konstanz.de/people), and 
-[Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/people), who are researchers at the department of 
-[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de/) at the 
+[Hansjörg Neth](https://spds.uni-konstanz.de/hans-neth), 
+[Felix Gaisbauer](https://spds.uni-konstanz.de/people), 
+[Nico Gradwohl](https://spds.uni-konstanz.de/people), and 
+[Wolfgang Gaissmaier](https://spds.uni-konstanz.de/people), who are researchers at the department of 
+[Social Psychology and Decision Sciences](https://spds.uni-konstanz.de/) at the 
 [University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
 The **riskyr** package is open source software written in [R](https://www.r-project.org/) and released under the 
@@ -654,7 +654,7 @@ Heuristics: Tools for an uncertain world.
 In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
 New York, NY: Wiley Online Library. 
 doi: [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394) 
-([Available online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))  
+([Available online](https://neth.de/wordpress/wp-content/uploads/2015/04/NethGigerenzer15_Heuristics_ToolsUncertainty_EmergingTrends0394.pdf))  
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 

@@ -148,7 +148,7 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr/)   
 ## Contact
 
 <!-- uni.kn logo and link to SPDS: -->  
-<a href="https://www.spds.uni-konstanz.de/">
+<a href="https://spds.uni-konstanz.de/">
 <img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:15;"/> 
 </a>
 

@@ -603,7 +603,7 @@ Heuristics: Tools for an uncertain world.
 In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
 New York, NY: Wiley Online Library. 
 doi: [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394) 
-([Available online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))  
+([Available online](https://neth.de/wordpress/wp-content/uploads/2015/04/NethGigerenzer15_Heuristics_ToolsUncertainty_EmergingTrends0394.pdf))  
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 
@@ -646,7 +646,7 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr/)   
 ## Contact
 
 <!-- uni.kn logo and link to SPDS: -->  
-<a href="https://www.spds.uni-konstanz.de/">
+<a href="https://spds.uni-konstanz.de/">
 <img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:15;"/> 
 </a>
 

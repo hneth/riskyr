@@ -10,16 +10,16 @@ url: https://hneth.github.io/riskyr/
 
 authors:
   Hansjoerg Neth:
-    href: https://www.spds.uni-konstanz.de/hans-neth
+    href: https://spds.uni-konstanz.de/hans-neth
   Felix Gaisbauer:
-    href: https://www.spds.uni-konstanz.de/felix-gaisbauer
+    href: https://spds.uni-konstanz.de/felix-gaisbauer
   Nico Gradwohl:
-    # href: https://www.spds.uni-konstanz.de/nico-gradwohl
-    href: https://www.spds.uni-konstanz.de/en/node/1231
+    # href: https://spds.uni-konstanz.de/nico-gradwohl
+    href: https://spds.uni-konstanz.de/en/node/1231
   Wolfgang Gaissmaier:
-    href: https://www.spds.uni-konstanz.de/wolfgang-gaissmaier
+    href: https://spds.uni-konstanz.de/wolfgang-gaissmaier
   SPDS:
-    href: https://www.spds.uni-konstanz.de/
+    href: https://spds.uni-konstanz.de/
 
 development:
   mode: release # devel OR release
