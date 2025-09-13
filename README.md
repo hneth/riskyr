@@ -703,7 +703,8 @@ Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The **riskyr** package is open source software written in
 [R](https://www.r-project.org/) and released under the [GPL
-2](https://tldrlegal.com/license/gnu-general-public-license-v2) \| [GPL
+2](https://www.tldrlegal.com/license/gnu-general-public-license-v2) \|
+[GPL
 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
 licenses.
 
