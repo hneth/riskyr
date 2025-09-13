@@ -53,13 +53,13 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
 plot(my_scenario)
 
 ## ----plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5----
-#  plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
-#  plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
+# plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
+# plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 
 ## ----prism-practice, echo = FALSE, eval = FALSE, fig.align = "center"---------
-#  plot(my_scenario, area = "hr")
-#  plot(my_scenario, area = "no", by = "cdac")
-#  plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
+# plot(my_scenario, area = "hr")
+# plot(my_scenario, area = "no", by = "cdac")
+# plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
 
 ## ----icons, fig.align = "center", fig.width = 5.5, fig.height = 3.5-----------
 plot(my_scenario, type = "icons")
@@ -99,11 +99,11 @@ s10$scen_apa  # shows current source:
 summary(s10) # summarizes key scenario information:
 
 ## ----s10-icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5---------------
-#  plot(s10, type = "tab")                   # plot 2x2 table
-#  plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array
-#  plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
-#  plot(s10, type = "area")                  # plot an area plot
-#  plot(s10, type = "bar", dir = 2)          # plot a bar chart
+# plot(s10, type = "tab")                   # plot 2x2 table
+# plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array
+# plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
+# plot(s10, type = "area")                  # plot an area plot
+# plot(s10, type = "bar", dir = 2)          # plot a bar chart
 
 ## ----s10-prism-1, fig.align = "center", fig.width = 6, fig.height = 4.5-------
 plot(s10, 
@@ -112,13 +112,13 @@ plot(s10,
      p_lbl = "num")    # probability labels: numeric only
 
 ## ----s10-prism-2, eval = FALSE------------------------------------------------
-#  plot(s10, by = "cdac", area = "sq")
-#  plot(s10, by = "ac", area = "hr")
+# plot(s10, by = "cdac", area = "sq")
+# plot(s10, by = "ac", area = "hr")
 
 ## ----s10-curve, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5----
-#  plot(s10, type = "curve",
-#       what = "all",  # plot "all" available curves
-#       uc = .05)      # with a 5%-uncertainty range
+# plot(s10, type = "curve",
+#      what = "all",  # plot "all" available curves
+#      uc = .05)      # with a 5%-uncertainty range
 
 ## ----opar-set, echo = FALSE---------------------------------------------------
 # opar <- par(no.readonly = TRUE)  # save plot settings.
