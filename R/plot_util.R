@@ -140,7 +140,7 @@ plot.box <- function(x,
 
   # print("@@@@ I am the plot.box() method!")
 
-  ## Call plot_fbox helper function:
+  ## Call plot_fbox() helper function:
   plot_fbox(fname = x$name,
             x  = x$x,   y = x$y,
             lx = x$lx, ly = x$ly,
