@@ -79,7 +79,9 @@ reference:
   - starts_with("txt")
 - title: Visualization
   desc: Functions for creating graphical representations of riskyr scenarios.
-  contents: starts_with("plot")
+  contents:
+  - starts_with("plot")
+  - print.box
 - title: Probabilities
   desc: Lists and objects representing probability information.
   contents:
