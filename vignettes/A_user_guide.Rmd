@@ -1,7 +1,7 @@
 ---
 title: "riskyr User Guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2021 03 31"
+date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -468,6 +468,7 @@ plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here). 
 
+
 #### Prism plot
 
 The _prism_ plot (called network diagram in version\ 0.1.0 of **riskyr**) is a generalization of the _tree_ diagram (see Wassner et al., 2004). 
@@ -479,6 +480,7 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 ```
 
 Changing the `by` and `area` options provides a variety of perspectives on a scenario. Additionally, all plotting functions provide summary information on scenario parameters and current accuracy metrics on the lower margin. Setting `mar_notes = FALSE` gets rid of this display. Similarly, setting `scen_lbl = ""` removes the title and sub-title above the plot.
+
 
 #### Alternative perspectives
 
