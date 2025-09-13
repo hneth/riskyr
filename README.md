@@ -696,8 +696,8 @@ development. Its primary designers are [Hansjörg
 Neth](https://spds.uni-konstanz.de/hans-neth), [Felix
 Gaisbauer](https://spds.uni-konstanz.de/people), [Nico
 Gradwohl](https://spds.uni-konstanz.de/people), and [Wolfgang
-Gaissmaier](https://spds.uni-konstanz.de/people), who are
-researchers at the department of [Social Psychology and Decision
+Gaissmaier](https://spds.uni-konstanz.de/people), who are researchers at
+the department of [Social Psychology and Decision
 Sciences](https://spds.uni-konstanz.de/) at the [University of
 Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
@@ -844,7 +844,7 @@ information.
   and behavioral sciences*. New York, NY: Wiley Online Library. doi:
   [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394)
   ([Available
-  online](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
+  online](https://neth.de/wordpress/wp-content/uploads/2015/04/NethGigerenzer15_Heuristics_ToolsUncertainty_EmergingTrends0394.pdf))
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
   (2021). Perspectives on the 2x2 matrix: Solving semantically distinct
