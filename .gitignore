@@ -1,4 +1,4 @@
-## .gitignore | riskyr | 2024 02 16:
+## .gitignore | riskyr | 2025 09 13
 
 ## 1. generic stuff: -----
 
@@ -56,7 +56,7 @@ CRAN-RELEASE
 ^_pkgdown\.yml$
 ^pkgdown$
 ^logo.png$
-
+docs
 
 ## 3. Project files: -----
 

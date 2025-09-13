@@ -1,8 +1,8 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2025 09 15
+## spds, uni.kn | 2025 09 13
 ## -------------------------
 
-## site info: ----------
+## site info: ------
 
 title: riskyr
 
@@ -14,7 +14,6 @@ authors:
   Felix Gaisbauer:
     href: https://spds.uni-konstanz.de/felix-gaisbauer
   Nico Gradwohl:
-    # href: https://spds.uni-konstanz.de/nico-gradwohl
     href: https://spds.uni-konstanz.de/en/node/1231
   Wolfgang Gaissmaier:
     href: https://spds.uni-konstanz.de/wolfgang-gaissmaier
@@ -32,41 +31,39 @@ toc:
   depth: 3
 
 
-## navigation menu: ----------
+## navigation menu: ------
 
 navbar:
-  title: "riskyr"
-  type: default # inverse
+  title: riskyr
+  type: default
   left:
-    - text: "Home"
-      icon: fa-home
-      href: index.html
-    - text: "Getting started"
+  - text: Home
+    icon: fa-home
+    href: index.html
+  - text: Getting started
+    href: articles/E_riskyr_primer.html
+  - text: All articles
+    menu:
+    - text: User guide
+      href: articles/A_user_guide.html
+    - text: Data formats
+      href: articles/B_data_formats.html
+    - text: Confusion matrix
+      href: articles/C_confusion_matrix.html
+    - text: Functional perspectives
+      href: articles/D_functional_perspectives.html
+    - text: Quick start primer
       href: articles/E_riskyr_primer.html
-    - text: "All articles"
-      # icon: fa-info
-      menu:
-        - text: "User guide"
-          href: articles/A_user_guide.html
-        - text: "Data formats"
-          href: articles/B_data_formats.html
-        - text: "Confusion matrix"
-          href: articles/C_confusion_matrix.html
-        - text: "Functional perspectives"
-          href: articles/D_functional_perspectives.html
-        - text: "Quick start primer"
-          href: articles/E_riskyr_primer.html
-    - text: "Reference"
-      # icon: fa-gear
-      href: reference/index.html
-    - text: "News"
-      href: news/index.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
   right:
-    - icon: fa-github
-      href: https://hneth.github.io/riskyr/
+  - icon: fa-github
+    href: https://hneth.github.io/riskyr/
 
 
-## reference: ----------
+## reference: ------
 
 reference:
 - title: Initialization
@@ -82,8 +79,7 @@ reference:
   - starts_with("txt")
 - title: Visualization
   desc: Functions for creating graphical representations of riskyr scenarios.
-  contents:
-  - starts_with("plot")
+  contents: starts_with("plot")
 - title: Probabilities
   desc: Lists and objects representing probability information.
   contents:
@@ -105,16 +101,17 @@ reference:
   desc: Lists and objects representing frequencies (i.e., various subsets of a population).
   contents:
   - freq
-  - "`N`"
-  - "`cond_false`"
-  - "`cond_true`"
+  - '`N`'
+  - '`cond_false`'
+  - '`cond_true`'
   - starts_with("dec_")
   - hi
   - mi
   - fa
   - cr
 - title: Computation and conversion
-  desc: Computing parameters and translating between representational formats and data/descriptions.
+  desc: Computing parameters and translating between representational formats and
+    data/descriptions.
   contents:
   - starts_with("comp_")
   - starts_with("read_")
@@ -137,9 +134,7 @@ reference:
   - starts_with("mlm_")
 
 
-
-
-## figure settings: ----------
+## figure settings: ------
 
 figures:
   dev: grDevices::png
@@ -150,4 +145,5 @@ figures:
   fig.height: 4.5
   fig.retina: 2
 
-## eof. ----------
+
+## eof. ------
