@@ -56,7 +56,7 @@ CRAN-RELEASE
 ^_pkgdown\.yml$
 ^pkgdown$
 ^logo.png$
-docs
+# docs
 
 ## 3. Project files: -----
 
