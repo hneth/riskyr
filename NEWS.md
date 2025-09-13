@@ -1,38 +1,44 @@
 
-# riskyr 0.4.0.9017
+# riskyr 0.5.0
 
 <img src = "./inst/pix/logo.png" alt = "riskyr" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
 
-<!-- Development version: --> 
-
-The current development version (0.4.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+**riskyr 0.5.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2025-09-15. 
+This version fixes minor issues for CRAN compatibility. 
 
 Changes since last release:  
 
+
+<!-- Major: --> 
 
 ## Major changes
 
 - none yet 
 
-<!-- Blank line. --> 
 
+<!-- Minor: --> 
 
 ## Minor changes
 
-- New hexagon version of logo.
-
-<!-- Blank line. --> 
+- New hexagon version of logo
 
 
-## Micro changes 
+<!-- Micro/details: --> 
+
+
+## Details
 
 - Updated citation info (using `bibentry()` for CRAN compatibility) 
 - Package maintenance:
-    - Add GitHub action (R-CMD-check standard)
+    - Add GitHub actions (R-CMD-check and Rhub workflows)
     - Update `README` and online documentation 
 
 <!-- Blank line. --> 
 
+
+<!-- Development version: --> 
+
+The current development version of **riskyr** is available at <https://github.com/hneth/riskyr/>. 
 
 <!-- Previous version: --> 
 
@@ -89,7 +95,7 @@ Changes since last release:
 
 <!-- Micro/details: --> 
 
-## Micro changes 
+## Details 
 
 - Fix bug in `plot_bar()` that caused incorrect bar labels.
 - Update URLs in `README.md` and all vignettes to <https://riskyr.org/>. 
@@ -288,6 +294,7 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 - Many additions and corrections in documentation, examples, and vignettes. 
 
+
 ### Details 
 
 - `plot_icons()`: Bug fix to also swap symbols in legend when the symbol order is changed manually.
@@ -310,13 +317,13 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 ---------- 
 
-**References** 
+## References
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2022). 
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025). 
 riskyr: Rendering Risk Literacy more Transparent.  
-  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.4.0, Aug. 15, 2022). 
+  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.5.0, Sep 15, 2025). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
 
@@ -334,6 +341,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2025-06-05.]
+[`NEWS.md` updated on 2025-09-15.]
 
 <!-- eof -->
