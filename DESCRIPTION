@@ -9,7 +9,7 @@ Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
              person("Nico", "Gradwohl", role = "aut", comment = c(ORCID = "0000-0002-8703-905X")),  
              person("Wolfgang", "Gaissmaier", role = "aut", comment = c(ORCID = "0000-0001-6273-178X"))) 
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
-Description: Risk-related information (like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments) can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, 'riskyr' computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent (see Neth et al., 2021 <doi:10.3389/fpsyg.2020.567817>, for details).  
+Description: Risk-related information (like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments) can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, 'riskyr' computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent (see <doi:10.3389/fpsyg.2020.567817>, for details).  
 Depends:
     R (>= 3.4.0)
 Imports:
