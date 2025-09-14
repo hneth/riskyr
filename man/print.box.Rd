@@ -21,3 +21,4 @@ Other utility functions:
 \code{\link{plot.box}()}
 }
 \concept{utility functions}
+\keyword{internal}

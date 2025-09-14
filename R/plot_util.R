@@ -93,7 +93,7 @@ make_box <- function(name, x, y, lx, ly) {
 #'
 #' @family utility functions
 #'
-#'
+#' @keywords internal
 
 print.box <- function(x, ...) {
 
