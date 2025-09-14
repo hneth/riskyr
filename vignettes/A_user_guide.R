@@ -109,49 +109,49 @@ s <- riskyr(scen_lbl = "Mammography screening",
 ## ----riskyr-scenario-summary--------------------------------------------------
 summary(s)  # provides an overview over key scenario information:
 
-## ----riskyr-scenario-plot, fig.width = 6, fig.height = 5----------------------
+## ----riskyr-scenario-plot, fig.width = 6, fig.height = 5, fig.alt = "Default prism diagram of a risky scenario."----
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 
-## ----plot-icons-1, warning = FALSE, fig.width = 6, fig.height = 4, fig.show = 'hold', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+## ----plot-icons-1, warning = FALSE, fig.width = 6, fig.height = 4, fig.show = 'hold', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals.", fig.alt = "Icon array of a riskyr scenario"----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
 
-## ----plot-tree-cd, fig.width = 6, fig.height = 4, fig.show = 'hold', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
+## ----plot-tree-cd, fig.width = 6, fig.height = 4, fig.show = 'hold', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals.", fig.alt = "Tree diagram of a riskyr scenario"----
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 
-## ----plot-mosaic-cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
+## ----plot-mosaic-cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups.", fig.alt = "Area plot of a riskyr scenario"----
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 
-## ----plot-bar, eval = FALSE, fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "A bar plot."----
+## ----plot-bar, eval = FALSE, fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "A bar plot.", fig.alt = "Bar plot of a riskyr scenario"----
 # plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #          by = "all", dir = 2, title_lbl = "Mammography screening")
 
-## ----plot-prism, fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."----
+## ----plot-prism, fig.width = 6, fig.height = 5, fig.show = 'hold', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size.", fig.alt = "Prism plot of a riskyr scenario"----
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 
-## ----plot-tree-dc, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by decision."----
+## ----plot-tree-dc, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by decision.", fig.alt = "Prism plot for a riskyr scenario on mammography screening"----
 # plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #            by = "dc", title_lbl = "Mammography screening", col_pal = pal_mod)
 
-## ----plot-tree-ac, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by accuracy"----
+## ----plot-tree-ac, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by accuracy", fig.alt = "Tree diagram of a riskyr scenario on mammography screening"----
 # plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #            by = "ac", title_lbl = "Mammography screening")
 
-## ----plot-mosaic-dc, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
+## ----plot-mosaic-dc, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision.", fig.alt = "Area plot of a riskyr scenario on mammography screening"----
 # plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #           by = "cddc",    # show by condition x decision
 #           p_split = "h",  # horizontal perspective is primary
 #           title_lbl = "Mammography screening")
 
-## ----plot-tree-dc-vr, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."----
+## ----plot-tree-dc-vr, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles.", fig.alt = "Tree diagram with horizontal rectangles of a riskyr scenario"----
 # plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #            by = "dc", area = "hr", title_lbl = "Mammography screening")
 
-## ----plot-icons-mosaic, eval = FALSE, warning = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts."----
+## ----plot-icons-mosaic, eval = FALSE, warning = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts.", fig.alt = "Mosaic icon array of a riskyr scenario"----
 # plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #            arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 2,
 #            title_lbl = "Mammography screening")
