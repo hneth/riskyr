@@ -2,7 +2,6 @@
 
 S3method(plot,box)
 S3method(plot,riskyr)
-S3method(print,box)
 S3method(print,summary.riskyr)
 S3method(summary,riskyr)
 export(FFTrees_riskyr)

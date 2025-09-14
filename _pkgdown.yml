@@ -1,5 +1,5 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2025 09 13
+## spds, uni.kn | 2025 09 14
 ## -------------------------
 
 ## site info: ------
@@ -21,7 +21,7 @@ authors:
     href: https://spds.uni-konstanz.de/
 
 development:
-  mode: release # devel OR release
+  mode: release  # devel OR release
 
 # template:
 #   bootstrap: 5
@@ -81,7 +81,6 @@ reference:
   desc: Functions for creating graphical representations of riskyr scenarios.
   contents:
   - starts_with("plot")
-  - print.box
 - title: Probabilities
   desc: Lists and objects representing probability information.
   contents:
