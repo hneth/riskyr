@@ -23,6 +23,9 @@ authors:
 development:
   mode: release  # devel OR release
 
+template:
+  bootstrap: 5
+
 # template:
 #   bootstrap: 5
 #   bootswatch: lumen
