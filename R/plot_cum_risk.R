@@ -16,15 +16,6 @@
 #    (e.g., sequential percentage changes, cumulative interest, reducing value, etc.)
 
 
-# B. Problem variants and generalizations: ----
-
-# Basic problems involve a constant value of r and r > 0.
-#
-# This implies 2 generalizations:
-# 1. Variable values of r (as a vector of values).
-# 2. Risk increases (0 < r <= 1) and risk reductions (-1 <= r < 0).
-
-
 
 # B. Problem variants and generalizations: ----
 
@@ -33,6 +24,7 @@
 # This implies 2 generalizations:
 # 1. Variable values of r (as a vector of values).
 # 2. Risk increases (0 < r <= 1) and risk reductions (-1 <= r < 0).
+
 
 # ad 1. Compute cumulative risks: ------
 

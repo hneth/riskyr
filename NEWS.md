@@ -8,13 +8,7 @@ This version fixes minor issues for CRAN compatibility.
 
 Changes since last release:  
 
-
 <!-- Major: --> 
-
-## Major changes
-
-- none yet 
-
 
 <!-- Minor: --> 
 
