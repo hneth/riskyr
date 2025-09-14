@@ -1,7 +1,7 @@
 
 # riskyr 0.5.0
 
-<img src = "./inst/pix/logo.png" alt = "riskyr" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
+<img src = "./inst/pix/logo.png" alt = "riskyr cube logo" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
 
 **riskyr 0.5.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2025-09-15. 
 This version fixes minor issues for CRAN compatibility. 
@@ -12,22 +12,23 @@ Changes since last release:
 
 <!-- Minor: --> 
 
-## Minor changes
-
-- New hexagon version of logo
-
-
 <!-- Micro/details: --> 
-
 
 ## Details
 
-- Updated citation info (using `bibentry()` for CRAN compatibility) 
+- Remove experimental code 
+
 - Package maintenance:
     - Add GitHub actions (R-CMD-check and Rhub workflows)
-    - Update `README` and online documentation 
+    - Update `README` and online documentation   
 
 <!-- Blank line. --> 
+
+- Updated citation info (using `bibentry()` for CRAN compatibility) 
+
+- Use hexagon version of logo
+
+
 
 
 <!-- Development version: --> 
