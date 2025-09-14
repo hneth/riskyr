@@ -12,11 +12,11 @@ authors:
   Hansjoerg Neth:
     href: https://spds.uni-konstanz.de/hans-neth
   Felix Gaisbauer:
-    href: https://spds.uni-konstanz.de/felix-gaisbauer
+    href: https://spds.uni-konstanz.de/people
   Nico Gradwohl:
-    href: https://spds.uni-konstanz.de/en/node/1231
+    href: https://spds.uni-konstanz.de/people
   Wolfgang Gaissmaier:
-    href: https://spds.uni-konstanz.de/wolfgang-gaissmaier
+    href: https://spds.uni-konstanz.de/people
   SPDS:
     href: https://spds.uni-konstanz.de/
 
@@ -64,6 +64,8 @@ navbar:
   right:
   - icon: fa-github
     href: https://hneth.github.io/riskyr/
+    aria-label: View source code on GitHub
+
 
 
 ## reference: ------

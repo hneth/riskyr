@@ -182,13 +182,13 @@ We always _can_ inspect the details of `my_scenario` by computing additional met
 
 ##### Prism plot
 
-```{r plot-default, include = TRUE, fig.align = "center", fig.width = 6, fig.height = 5}
+```{r plot-default, include = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.alt = "Example of a plot showing a default riskyr scenario"}
 plot(my_scenario)
 ```
 
 A _prism plot_ (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the `area` argument and show the names of the frequencies (as provided by our text labels) by adding the `f_lbl = "nam"` argument. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5}
+```{r plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5, fig.alt = "Illustrating riskyr plotting options"}
 plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 ```
@@ -214,7 +214,7 @@ Use `?plot_prism` for the documentation of `plot_prism()` to learn about and try
 An _icon array_ displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). 
 We can use this display for our scenario by using the `plot()` function and specifying the `type = "icons"`:
 
-```{r icons, fig.align = "center", fig.width = 5.5, fig.height = 3.5}
+```{r icons, fig.align = "center", fig.width = 5.5, fig.height = 3.5, fig.alt = "An icon array of a riskyr scenario."}
 plot(my_scenario, type = "icons")
 ```
 
@@ -235,11 +235,12 @@ In the present case, we were interested in a person's conditional probability of
 summary(my_scenario, summarize = "prob")
 ```
 
+
 #### Alternative perspectives
 
 An alternative way to view the our scenario is a _frequency tree_ that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
 
-```{r tree-plot, fig.align = "center", fig.width = 6, fig.height = 3.5}
+```{r tree-plot, fig.align = "center", fig.width = 6, fig.height = 3.5, fig.alt = "A tree diagram of a riskyr scenario."}
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
@@ -250,7 +251,7 @@ The tree also depicts additional information that corresponds to our `summary` f
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev` (and additionally assumes a 5%-uncertainty concerning the exact parameter values): 
 
-```{r plotting-curve, fig.align = "center", fig.width = 5.5, fig.height = 4.5}
+```{r plotting-curve, fig.align = "center", fig.width = 5.5, fig.height = 4.5, fig.alt = "A curve showing PPV and NPV as a function of prev"}
 plot(my_scenario, type = "curve", uc = .05)
 ```
 
@@ -312,7 +313,7 @@ Note that ---\ in this particular population\ --- the prevalence for the conditi
 
 To eyeball basic scenario information, we can visualize it in many different ways. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r s10-icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5}
+```{r s10-icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5, fig.alt = "Examples of riskyr plots"}
 plot(s10, type = "tab")                   # plot 2x2 table 
 plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array 
 plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
@@ -324,7 +325,7 @@ These initial inspections reveal that the overall accuracy of the decision consi
 
 Next, we could another prism diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
-```{r s10-prism-1, fig.align = "center", fig.width = 6, fig.height = 4.5}
+```{r s10-prism-1, fig.align = "center", fig.width = 6, fig.height = 4.5, fig.alt = "Example of a riskyr prism plot with freq scaled as horizontal bars"}
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -373,7 +374,7 @@ They only set and reset the\ R plotting space to allow plotting both planes next
 # par(mfrow = c(1, 2))           # 1 row with 2 plots:
 ```
 
-```{r s10-planes, fig.align = "center", fig.show = "hold", fig.width = 3.5, fig.height = 3}
+```{r s10-planes, fig.align = "center", fig.show = "hold", fig.width = 3.5, fig.height = 3, fig.alt = "More riskyr plots"}
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
 plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
 plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
