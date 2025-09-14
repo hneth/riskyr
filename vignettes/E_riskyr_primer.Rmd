@@ -1,6 +1,6 @@
 ---
 title: "Quick Start Primer"
-author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
+author: "Hansjörg Neth & Nico Gradwohl, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 

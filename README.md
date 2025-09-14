@@ -865,7 +865,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2025-09-13 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2025-09-14 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
