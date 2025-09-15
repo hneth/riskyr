@@ -2,7 +2,7 @@
 # riskyr 0.5.0.9001 
 
 <!-- riskyr cube logo: --> 
-<img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr cube logo" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 
 This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. 
@@ -350,7 +350,7 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 ## References
 
 <!-- riskyr cube logo: --> 
-<img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr cube logo" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 To cite **riskyr** in derivations and publications please use:
 
