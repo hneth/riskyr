@@ -1,7 +1,40 @@
 
-# riskyr 0.5.0
+# riskyr 0.5.0.9001 
 
 <img src = "./inst/pix/logo.png" alt = "riskyr cube logo" align = "right" width = "180" style = "width: 180px; float: right; border:20;"/>
+
+This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. 
+
+**riskyr 0.5.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2025-09-15. 
+This version adds functionality and fixes some bugs. 
+
+Changes since last release:  
+
+<!-- Major: --> 
+
+<!-- Minor: --> 
+
+<!-- Micro/details: --> 
+
+## Details
+
+- Add experimental code 
+
+- Package maintenance:  
+    - Update `README` and online documentation   
+
+<!-- Blank line. --> 
+
+
+<!-- Development version: --> 
+
+<!-- The current development version of **riskyr** is available at <https://github.com/hneth/riskyr/>. -->
+
+<!-- Published versions: --> 
+
+---------- 
+
+# riskyr 0.5.0
 
 **riskyr 0.5.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2025-09-15. 
 This version fixes minor issues for CRAN compatibility. 

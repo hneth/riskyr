@@ -21,11 +21,11 @@ authors:
     href: https://spds.uni-konstanz.de/
 
 development:
-  mode: release # devel OR release
+  mode: devel # devel OR release
 
 template:
   bootstrap: 5
-  # bootswatch: lumen
+  bootswatch: lumen
 
 toc:
   depth: 3
