@@ -56,6 +56,7 @@ Collate: 'comp_util.R'
 Encoding: UTF-8
 LazyData: true
 License: GPL-2 | GPL-3
+DOI: 10.32614/CRAN.package.riskyr
 URL: https://riskyr.org/, https://CRAN.R-project.org/package=riskyr, https://github.com/hneth/riskyr/, https://hneth.github.io/riskyr/
 BugReports: https://github.com/hneth/riskyr/issues/
 VignetteBuilder: knitr
