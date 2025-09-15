@@ -756,7 +756,9 @@ To cite **riskyr** in derivations and publications, please use:
   Social Psychology and Decision Sciences, University of Konstanz,
   Germany.  
   Computer software (R package version 0.5.0, Sep 15, 2025).  
-  Retrieved from <https://CRAN.R-project.org/package=riskyr>.
+  Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
+  DOI
+  [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
 
 A BibTeX entry for LaTeX users is:
 
@@ -768,7 +770,8 @@ A BibTeX entry for LaTeX users is:
       address = {Konstanz, Germany},
       note = {R package (version 0.5.0, Sep 15, 2025)},
       url = {https://CRAN.R-project.org/package=riskyr},
-      }    
+      doi = {10.32614/CRAN.package.riskyr}
+      }   
 
 Calling `citation("riskyr")` in the package also provides this
 information.
