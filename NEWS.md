@@ -1,5 +1,5 @@
 
-# riskyr 0.5.0.9001 
+# riskyr 0.5.0.9002 
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
@@ -7,22 +7,30 @@
 
 This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. 
 
-**riskyr 0.5.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2025-09-15. 
-This version adds functionality and fixes some bugs. 
+This version adds functionality and details, and fixes some bugs. 
 
 Changes since last release:  
 
 <!-- Major: --> 
 
+## Major changes
+
+- none yet
+
+
 <!-- Minor: --> 
+
+## Minor changes
+
+- Add experimental code 
+
 
 <!-- Micro/details: --> 
 
 ## Details
 
-- Add experimental code 
-
 - Package maintenance:  
+    - Add doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr) to citation  
     - Update `README` and online documentation   
 
 <!-- Blank line. --> 
@@ -42,10 +50,6 @@ Changes since last release:
 This version fixes minor issues for CRAN compatibility. 
 
 Changes since last release:  
-
-<!-- Major: --> 
-
-<!-- Minor: --> 
 
 <!-- Micro/details: --> 
 
@@ -354,10 +358,12 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025). 
-riskyr: Rendering Risk Literacy more Transparent.  
-  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.5.0, Sep 15, 2025). 
-  Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025).  
+  riskyr: Rendering Risk Literacy more Transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany.  
+  Computer software (R package version 0.5.0, Sep 15, 2025).   
+  Retrieved from <https://CRAN.R-project.org/package=riskyr>.   
+  doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)  
 
 
 <!-- Background article: -->
@@ -367,13 +373,13 @@ The following **article** provides details on the conceptual and theoretical bac
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies.  
   _Frontiers in Psychology_, _11_, 567817. 
-  doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+  doi [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
 <!-- Footer: -->
 
 ---------- 
 
-[`NEWS.md` updated on 2025-09-15.]
+[`NEWS.md` updated on 2025-09-16.]
 
 <!-- eof -->

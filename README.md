@@ -30,7 +30,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](htt
 
 <!-- riskyr logo: -->
 
-# riskyr 0.5.0.9001 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.5.0.9002 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 
@@ -757,7 +757,7 @@ To cite **riskyr** in derivations and publications, please use:
   Germany.  
   Computer software (R package version 0.5.0, Sep 15, 2025).  
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
-  DOI
+  doi
   [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
 
 A BibTeX entry for LaTeX users is:
@@ -866,7 +866,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2025-09-15 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2025-09-16 by [hn](https://neth.de).\]
 
 <!-- eof -->
 

@@ -11,10 +11,12 @@ output: github_document
 [![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 <!-- Devel badges end. -->
 
+
 <!-- Release badges start: -->
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) -->
 <!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color="00a9e0")](https://www.r-pkg.org/pkg/riskyr) -->
 <!-- Release badges end. -->
+
 
 <!-- Possible status badges: 
 [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
@@ -564,7 +566,8 @@ To cite **riskyr** in derivations and publications, please use:
   Social Psychology and Decision Sciences, University of Konstanz, Germany.  
   Computer software (R package version 0.5.0, Sep 15, 2025).   
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.   
-  DOI [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)  
+  doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)  
+
 
 A BibTeX entry for LaTeX users is: 
 
