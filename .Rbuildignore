@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.github$
 ^_gitless$
 ^images$
 ^_R_retired$
@@ -14,5 +15,5 @@
 ^logo.png$
 ^cran-comments.md$
 ^CRAN-RELEASE$
-^\.github$
 ^CRAN-SUBMISSION$
+^CITATION.cff$

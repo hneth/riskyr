@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Neth"
+  given-names: "Hansjörg"
+  orcid: "https://orcid.org/0000-0001-5427-3141"
+title: "riskyr: Rendering Risk Literacy more Transparent"
+version: 0.5.0
+date-released: 2025-09-15
+doi: "10.32614/CRAN.package.riskyr"
+url: "https://CRAN.R-project.org/package=riskyr"
