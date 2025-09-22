@@ -1,5 +1,5 @@
 
-# riskyr 0.5.0.9002 
+# riskyr `r packageVersion('riskyr')`
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
@@ -380,6 +380,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2025-09-16.]
+[`NEWS.md` updated on 2025-09-17.]
 
 <!-- eof -->
