@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2022 09 08
+## 2025 10 11
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -336,7 +336,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   fx_x_shift <- .025
   fx_y_shift <- .035
 
-  lang_de <- FALSE # TRUE # use German language labels?
+  aux_line <- TRUE   # plot diagonal line(s) for comparison with baseline
+  lang_de  <- FALSE  # TRUE # use German language labels?
 
 
   ## (2) Define and interpret prev_range: ------
@@ -582,6 +583,39 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   }
 
 
+  ## (+) Plot diagonal auxiliary lines / baselines: ------
+
+  if (aux_line){ # plot diagonals as auxiliary lines / baselines:
+
+    if ("ppv" %in% what){ # 1st diagonal:
+
+      col_aux <- col_pal["ppv"]  # use default color for PPV
+
+      segments(x0 = 0, y0 = 0,
+               x1 = 1, y1 = 1,
+               col = col_aux,
+               lty = 1, lwd = 1/2)
+
+    }
+
+
+    if ("npv" %in% what){ # 2nd diagonal:
+
+      col_aux <- col_pal["npv"]  # use default color for NPV
+
+      segments(x0 = 0, y0 = 1,
+               x1 = 1, y1 = 0,
+               col = col_aux,
+               lty = 1, lwd = 1/2)
+
+    }
+
+  } # if (aux_line...).
+
+  # +++ here now +++
+
+
+
   ## (4) Plot elements of what: ----------
 
   ## (a) prev: ----------
@@ -598,7 +632,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
         pos_prev <- which(what == "prev")  # find position of "prev" in what
         col_prev <- what_col[pos_prev]     # use color specified for prev
       } else {
-        col_prev <- grey(.50, alpha = .99) # use default color for prev
+        col_prev <- grey(.50, alpha = .99) # default color for prev
       }
 
       ## legend:
@@ -1478,6 +1512,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 
 ## (*) Done: ----------
+
+# Added diagonal segments as auxiliary lines to compare curves with their baseline
+# (controlled by aux_line variable above)
 
 # Added prev_range argument (to allow zooming into prevalence ranges). [2019 01 25]
 
