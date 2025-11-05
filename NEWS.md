@@ -1,5 +1,5 @@
 
-# riskyr 0.5.0.9002
+# riskyr 0.5.0.9003
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>

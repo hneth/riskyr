@@ -453,7 +453,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #
 # plot_cbar(r = .25, t = 4, N = 100, show_n = TRUE)  # view Ns
 # plot_cbar(r = .25, t = 4, N = 100, sort = TRUE)    # sorting by ev
-# plot_cbar(r = .25, t = 4, N = 100, N_max = 50)     # zooming
+# plot_cbar(r = .25, t = 4, N = 100, N_max = 50)     # zooming in
 #
 # plot_cbar(r = .25, t = 4, N = 100, show_trans = 0)  # only bars
 # plot_cbar(r = .25, t = 4, N = 100, show_trans = 1)  # bars and new risk transitions
@@ -492,7 +492,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #           colors = c("steelblue", "grey96", "gold", "grey40"))
 
 
-# # Large values of r:
+# # Large r values:
 # plot_cbar(r = .90, t = 3, show_bin = TRUE)
 
 # ?: +++ here now +++
