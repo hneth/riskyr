@@ -1,7 +1,7 @@
 ---
-title: "Confusion Matrix and Metrics"
+title: "Confusion matrix and accuracy metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2021 03 31"
+date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -30,8 +30,8 @@ Behold the aptly named "confusion matrix":
 |              | Condition |         |          |          |            
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
 | **Decision** | present (`TRUE`):    | absent (`FALSE`):     |     Sum:  |  (b) by decision: |  
-| positive (`TRUE`):   | `hi`         | `fa`         | `dec_pos` | `PPV` = `hi`/`dec_pos` |
-| negative (`FALSE`):  | `mi`         | `cr`         | `dec_neg` | `NPV` = `cr`/`dec_neg` |
+| positive ('`TRUE`'):   | `hi`         | `fa`         | `dec_pos` | `PPV` = `hi`/`dec_pos` |
+| negative ('`FALSE`'):  | `mi`         | `cr`         | `dec_neg` | `NPV` = `cr`/`dec_neg` |
 |      Sum:    | `cond_true`  | `cond_false` |       `N` |         `prev` =  `cond_true`/`N`     |
 | (a) by condition  | `sens` = `hi`/`cond_true` | `spec` = `cr`/`cond_false` | `ppod` = `dec_pos`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
@@ -61,13 +61,15 @@ Condensed to its core, the 2x2 matrix cross-tabulates (or "confuses") two binary
 |              | Condition | |
 | ------:      |:----:|:----:|      
 | **Decision** | present (`TRUE`): | absent (`FALSE`): | 
-| positive (`TRUE`):     |  `hi`   |  `fa`    |
-| negative (`FALSE`):    |  `mi`   |  `cr`    | 
+| positive ('`TRUE`'):   |  `hi`   |  `fa`    |
+| negative ('`FALSE`'):  |  `mi`   |  `cr`    | 
 
 
-Fortunately, this table is not so confusing any more: It shows four frequency counts (or "joint" frequencies) that result from cross-tabulating two binary dimensions. 
+Fortunately, this table is not so confusing any more: 
+It shows four frequency counts (or "joint" frequencies) that result from cross-tabulating two binary dimensions. 
 And, perhaps surprisingly, all other metrics of interest in various contexts and domains follow from this simple core in a straightforward way. 
 In the following, we illustrate how the other metrics can be constructed from the four essential frequencies.
+
 
 ### Adopting two perspectives on a population
 
@@ -378,6 +380,6 @@ We appreciate your feedback, comments, or questions.
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
+| E. | [Quick start primer](E_riskyr_primer.html) | A primer on using **riskyr** |
 
 <!-- eof. -->

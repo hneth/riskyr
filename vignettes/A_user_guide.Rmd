@@ -1,5 +1,5 @@
 ---
-title: "riskyr User Guide"
+title: "riskyr user guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: 
@@ -26,12 +26,14 @@ url_riskyr_org <- "https://riskyr.org/"
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
 > (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
 
+
 <!-- Introduction: --> 
 
 What is the probability of a disease or clinical condition given a positive test result? 
 This is a common and fairly simple question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities (e.g., see Mandel & Navarrete, 2015, and Trevethan, 2017, for overviews), but find it easier to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015). 
+
 
 <!-- On riskyr: -->
 
@@ -44,19 +46,20 @@ Decades of research on probabilistic reasoning and risk literacy have shown that
 
 **riskyr** is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between frequencies and probabilities. The main goal of **riskyr** is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in different applied domains (Hertwig & Grüne-Yanoff, 2017). Although our motivation and the majority of our examples stem from health care and medical treatments, the same relationships and tasks also govern the interplay of risks and effects in other semantic domains (e.g., accidents, climate and weather risks, or financial risks). 
 
-This guide illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:
+This guide illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. 
+It proceeds in three steps:
 
 1. We first present the problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' theorem) remains opaque and is rightfully perceived as difficult.
 
 2. We then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
 
-3. Finally, we show how **riskyr** can help to render the problem more transparent by providing three sets of tools:
+3. Finally, **riskyr** helps rendering problems more transparent by providing three sets of tools:
 
-    A. A fancy calculator that allows the computation of probabilities and frequencies; 
+    A. Functions for computing probabilities and frequencies; 
    
-    B. A set of functions that translate between different representational formats; 
+    B. Functions for translating between different representational formats; 
    
-    C. A variety of visualizations that illustrate relationships between frequencies and probabilities.
+    C. Visualizations that illustrate relationships between frequencies and probabilities.
 
 
 This introduction focuses on the practical aspects of using **riskyr**. 
@@ -85,6 +88,7 @@ A basic motivation for developing **riskyr** was to facilitate our understanding
 > What is the probability that she actually has breast cancer?    
 > 
 > (Hoffrage et al., 2015, p.\ 3)  
+
 
 ### Information provided and asked
 
@@ -672,6 +676,6 @@ We appreciate your feedback, comments, or questions.
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
+| E. | [Quick start primer](E_riskyr_primer.html) | A primer on using **riskyr** |
 
 <!-- eof. -->
