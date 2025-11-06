@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2024 01 26
+## 2025 11 06
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -482,22 +482,6 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = seq(.50, 1.0, by = +.25), t = NA, show_bin = TRUE)  # final value of 1 => slices of 0 width
 
 
-# # Rainy days vs. always sun (with appropriate colors):
-# plot_cbar(r = .20, t = 7, colors = c("steelblue", "grey96", "gold", "grey40"))
-# plot_cbar(r = .20, t = 7, bar_width = 0,
-#           colors = c("steelblue", "grey96", "gold", "grey40"))
-# plot_cbar(r = .20, t = 7, bar_width = 1, hor = TRUE,
-#           colors = c("steelblue", "grey96", "gold", "grey40"))
-# plot_cbar(r = .20, t = 7, bar_width = 1, sort = TRUE, hor = TRUE,
-#           colors = c("steelblue", "grey96", "gold", "grey40"))
-
-
-# # Large r values:
-# plot_cbar(r = .90, t = 3, show_bin = TRUE)
-
-# ?: +++ here now +++
-
-
 # ToDo: Generalize to allow for risk reductions (-1 <= r < 0):
 
 # Note: Allowing for recovery or risk reduction (r < 0) requires
@@ -507,7 +491,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # (but unclear, whether all affected segments decrease by the same rate).
 
 
-# Further tests:
+# Further tests: ------
 
 # plot_cbar(r = .50, t = 3, N = 100)
 # plot_cbar(r = .50, t = 3, N = 100, sort = TRUE)  # sorting
@@ -520,18 +504,13 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = .05, t = 5, N_max = 25)  # zooming in
 # plot_cbar(r = .05, t = 5, sort = TRUE, N_max = 5)  # sorting & zooming in
 
-# # Problems from McCloy, Byrne, & Johnson-Laird (2010): p. 508
-# # 1. Pregnancy (10%/90%), conjunctive: 1/2/3 year, disjunctive 3 year:
-# plot_cbar(r = .10, t = 3, N = 1000, N_max = 1000)
-# # 2. Kapi fruit (20%/80%), conjunctive: 1/2/3 year, disjunctive 3 year:
-# plot_cbar(r = .20, t = 3, N = 1000, N_max = 1000)
-# # 3. Eye infection (30%/70%), conjunctive: 1/2/3 year, disjunctive 3 year:
-# plot_cbar(r = .30, t = 3, N = 1000, N_max = 1000)
+
+
 
 
 # # Note some visual insights: ------
 # # (i.e., insights based on visualizations):
-#
+
 # # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
 # plot_cbar(r = .01, t = 5, sort = F, N_max =  5)
 # plot_cbar(r = .05, t = 5, sort = F, N_max = 25)
@@ -552,6 +531,96 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # plot_cbar(r = c(.4, .3, .2))  # (seemingly rapid decrease), but same affected proportions overall:
 # plot_cbar(r = c(.4, .2, .3), sort = TRUE)  # => The 8 final segments always
 # plot_cbar(r = c(.3, .2, .4), sort = TRUE)  #    contain the same permutations!
+
+
+# Problems from the literature: ------
+
+# A: Problems from McCloy, Byrne, & Johnson-Laird (2010): ------
+
+# Example in text (p. 500): ----
+# "Now suppose you are given a drug that has a risk of a harmful side effect of 5% in a year.
+#  What are the chances that you will not experience the harmful side effect if you take the drug for a period of five years?"
+# Solution: "...there is a 78% chance that the harmful side effect will not occur over five years."
+# Graphical solution:
+# plot_cbar(r = .05, t = 5, N = 100, N_max = 100,
+#           show_ev = TRUE, show_n = TRUE, horizontal = FALSE)
+
+# Problems (p. 508):
+
+# # 1. Pregnancy pill ----
+# Text (p. 515):
+# Pregnancy scenario
+# The probability that a woman using the contraceptive Primon will
+# experience no unwanted pregnancies at all during a period of one year is 90%.
+# That is, women using the contraceptive as directed have a 10% probability of becoming pregnant in any one year.
+# Problems (p. 508):
+# Pregnancy (10%/90%), conjunctive: 1/2/3 year, disjunctive 3 year.
+# Graphical solution:
+# plot_cbar(r = .10, t = 3, N = 100, show_n = TRUE)
+
+# 2. Kapi fruit ----
+# Text (p. 515)
+# Food scenario
+# Kapi fruit is a popular delicacy in part of the world.
+# Even when correctly prepared kapi fruit may still contain some toxins, and
+# there is a 20% probability that a person eating a portion of kapi fruit will suffer from severe stomach pains and develop some liver damage.
+# That is, there is an 80% probability that a person eating a portion of kapi fruit will suffer no ill effects.
+# Problems (p. 508):
+# Kapi fruit (20%/80%), conjunctive: 1/2/3 year, disjunctive 3 year.
+# Graphical solution:
+# plot_cbar(r = .20, t = 3, N = 100, N_max = 100, show_n = TRUE)
+
+# # 3. Eye infection ----
+# Text (p. 515)
+# Infection scenario
+# In a remote village there is an outbreak of an infection, which causes damage to the retina of the eye, once every year.
+# In any one year, the probability of a person in the village becoming ill with the infection is 30%.
+# That is, a person from the village has a 70% probability of not suffering from the infection over the course of a year.
+# Problems (p. 508):
+# Eye infection (30%/70%), conjunctive: 1/2/3 year, disjunctive 3 year.
+# Graphical solution:
+# plot_cbar(r = .30, t = 3, N = 100, show_n = TRUE)
+
+
+
+
+# B: Investing in innovation ecosystems: -----
+
+# Exp.\ 2 of Adner & Feiler (2019)
+# Imagine an innovation ecosystem whose success depends on six different components.
+# Each component has an independent chance of 75% to be successfully developed by a particular deadline.
+# As you consider investing into this innovation ecosystem, you are asking yourself:
+# [Our own questions:]
+# - What is the chance that at least one of the first 2 components fail?
+# - What is the overall chance of success?
+#
+# Graphical solution:
+# plot_cbar(r = .25, t = 6, N = 100, N_max = 100,
+#           show_ev = TRUE, show_n = TRUE, horizontal = FALSE)
+
+
+# C: Rainy days vs. always sunny  ------
+
+# Text:
+# Suppose the probability of a rainy day in the summer is 20%, while 80% of the days are sunny.
+# - What is the probability of at least one rainy day in a 3-day block seminar?
+# - What is the probability of an entire week of sunny weather?
+#
+# Graphical solution (with appropriate colors):
+# plot_cbar(r = .20, t = 7, colors = c("steelblue", "grey96", "gold", "grey40"), show_n = TRUE)
+# plot_cbar(r = .20, t = 7, bar_width = 0,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+# plot_cbar(r = .20, t = 7, bar_width = 1, show_n = TRUE, horiz = TRUE,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+# plot_cbar(r = .20, t = 7, bar_width = .5, sort = TRUE,
+#           horiz = FALSE, show_n = TRUE,
+#           colors = c("steelblue", "grey96", "gold", "grey40"))
+
+# ?: +++ here now +++
+
+
+# # Large r values: ----
+# plot_cbar(r = .90, t = 3, show_bin = TRUE)
 
 
 
