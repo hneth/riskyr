@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2024 05 24
+## 2025 11 07
 ## --------------------
 
 ## (0) Generic plotting functions: ----------
@@ -51,8 +51,8 @@ class(box0) <- "box"  # name class
 make_box <- function(name, x, y, lx, ly) {
 
   # Note: It is good practice to give the constructor function
-  #       the same name as the class (here: box).  However, as
-  #       the function box exists (in graphics), we use make_box() here.
+  #       the same name as the class (here: `box`).  However, as
+  #       the function box exists (in **graphics**), we use `make_box()` here.
 
   # Check integrity of arguments:
   if (!is.character(name)) stop("name must be a character.")
@@ -817,6 +817,7 @@ plot_freq_label <- function(fname,                # name of a known freq
   ## Determine f_lbl:
   f_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep,
                       cur_freq = cur_freq, lbl_txt = lbl_txt)  # create label corresponding to fname
+
   f_lbl <- paste0(f_lbl, suffix)  # add suffix
 
   f_lbl <- capitalise_1st(f_lbl)  # capitalize 1st letter
@@ -849,8 +850,12 @@ plot_freq_label <- function(fname,                # name of a known freq
 # plot_freq_label("hi", .5, .3, lbl_type = "namnum", cur_freq = f2)
 # plot_freq_label("dec_cor", .5, .2, lbl_type = "namnum", cur_freq = f2)
 
+
 ## (B) Boxes: ------
+
+
 ##  (a) Box plotting: ------
+
 
 ## plot_vbox: Plot a vertical box (x = center, y = bottom) with text label ----------
 
@@ -1009,6 +1014,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 ## Distinguish between 2 separate box plotting functions:
 #   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
 #   2. plot_fbox (that determines current freq label/value/color for known freq).
+
 
 ## plot_cbox: Plot a CENTERED box (x = center, y = center) with text label ----------
 
