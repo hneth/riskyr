@@ -1,5 +1,5 @@
 ## plot_cum_risk.R | riskyr
-## 2025 11 06
+## 2025 11 07
 ## Plot cumulative risks
 
 # Task analysis: ------
@@ -616,7 +616,9 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 #           horiz = FALSE, show_n = TRUE,
 #           colors = c("steelblue", "grey96", "gold", "grey40"))
 
+
 # ?: +++ here now +++
+
 
 
 # # Large r values: ----
