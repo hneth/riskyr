@@ -381,6 +381,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2025-11-06.]
+[`NEWS.md` updated on 2025-12-24.]
 
 <!-- eof -->
