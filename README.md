@@ -30,7 +30,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](htt
 
 <!-- riskyr logo: -->
 
-# riskyr 0.5.0.9002 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.5.0.9004 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 
@@ -866,7 +866,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2025-09-16 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2026-01-08 by [hn](https://neth.de).\]
 
 <!-- eof -->
 

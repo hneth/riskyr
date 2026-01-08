@@ -2,7 +2,9 @@
 output: github_document
 ---
 
+
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
+
 
 <!-- Devel badges start: -->
 [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
@@ -11,12 +13,10 @@ output: github_document
 [![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
 <!-- Devel badges end. -->
 
-
 <!-- Release badges start: -->
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) -->
 <!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color="00a9e0")](https://www.r-pkg.org/pkg/riskyr) -->
 <!-- Release badges end. -->
-
 
 <!-- Possible status badges: 
 [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 

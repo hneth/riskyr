@@ -5,7 +5,7 @@
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 
-This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. 
+This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-01-08] 
 
 This version adds functionality and details, and fixes some bugs. 
 
@@ -381,6 +381,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2025-12-24.]
+[`NEWS.md` updated on 2026-01-08.]
 
 <!-- eof -->
