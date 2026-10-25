@@ -2,8 +2,8 @@
 % Please edit documentation in R/init_prob.R
 \name{mirt}
 \alias{mirt}
-\alias{FNR}
 \alias{beta}
+\alias{FNR}
 \title{The miss rate of a decision process or diagnostic procedure.}
 \usage{
 mirt

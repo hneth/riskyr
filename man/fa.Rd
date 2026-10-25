@@ -2,7 +2,7 @@
 % Please edit documentation in R/init_freq.R
 \name{fa}
 \alias{fa}
-\alias{FP,}
+\alias{FP}
 \alias{type-I-errors}
 \title{Frequency of false alarms or false positives (FP).}
 \usage{

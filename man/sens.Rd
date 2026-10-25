@@ -2,10 +2,10 @@
 % Please edit documentation in R/init_prob.R
 \name{sens}
 \alias{sens}
-\alias{TPR}
-\alias{HR}
 \alias{power}
 \alias{recall}
+\alias{HR}
+\alias{TPR}
 \title{The sensitivity (or hit rate) of a decision process or diagnostic procedure.}
 \usage{
 sens

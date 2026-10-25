@@ -2,9 +2,9 @@
 % Please edit documentation in R/init_prob.R
 \name{fart}
 \alias{fart}
-\alias{FPR,}
-\alias{alpha,}
+\alias{alpha}
 \alias{fallout}
+\alias{FPR}
 \title{The false alarm rate (or false positive rate) of a decision process or diagnostic procedure.}
 \usage{
 fart

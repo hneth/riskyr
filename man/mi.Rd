@@ -2,7 +2,7 @@
 % Please edit documentation in R/init_freq.R
 \name{mi}
 \alias{mi}
-\alias{FN,}
+\alias{FN}
 \alias{type-II-errors}
 \title{Frequency of misses or false negatives (FN).}
 \usage{
