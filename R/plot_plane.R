@@ -602,23 +602,23 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
-  plane <- persp(x, y, z,
-                 theta = theta, phi = phi, d = d, expand = expand,  # perspective
-                 col = cur_col,     # color of surface facets
-                 # border = NA,     # color of line between surface facets (NA disables borders)
-                 border = line_col, # color of line between surface facets (NA disables borders)
-                 ltheta = ltheta, shade = shade, # illumination
-                 ticktype = "detailed",
-                 nticks = 6, # at 20% intervals
-                 xlab = "sens",
-                 ylab = "spec",
-                 zlab = z_lbl,
-                 zlim = z_lim,
-                 cex = cex_lbl,
-                 cex.axis = cex_lbl,
-                 cex.lab = cex_lbl,
-                 # optional:
-                 lwd = line_wd  # width of border and axes lines
+  plane <- graphics::persp(x, y, z,
+                           theta = theta, phi = phi, d = d, expand = expand,  # perspective
+                           col = cur_col,     # color of surface facets
+                           # border = NA,     # color of line between surface facets (NA disables borders)
+                           border = line_col, # color of line between surface facets (NA disables borders)
+                           ltheta = ltheta, shade = shade, # illumination
+                           ticktype = "detailed",
+                           nticks = 6, # at 20% intervals
+                           xlab = "sens",
+                           ylab = "spec",
+                           zlab = z_lbl,
+                           zlim = z_lim,
+                           cex = cex_lbl,
+                           cex.axis = cex_lbl,
+                           cex.lab = cex_lbl,
+                           # optional:
+                           lwd = line_wd  # width of border and axes lines
   )
 
   ## (5) Add cur_val as point(s) to plot: ------
@@ -642,7 +642,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     }
 
     ## Add point(s) to plot:
-    proj_pt <- trans3d(sens, spec, cur_val, plane)
+    proj_pt <- grDevices::trans3d(sens, spec, cur_val, plane)
     plane <- points(proj_pt, pch = pt_pch, col = bd_col, bg = pt_col, lwd = pt_lwd, cex = pt_cex)
 
   }
