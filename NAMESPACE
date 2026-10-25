@@ -2,6 +2,7 @@
 
 S3method(plot,box)
 S3method(plot,riskyr)
+S3method(print,box)
 S3method(print,summary.riskyr)
 S3method(summary,riskyr)
 export(FFTrees_riskyr)
@@ -80,37 +81,45 @@ export(txt)
 export(txt_TF)
 export(txt_org)
 export(write_popu)
-importFrom(grDevices,adjustcolor)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,colorRampPalette)
-importFrom(grDevices,dev.size)
-importFrom(grDevices,grey)
-importFrom(grDevices,rgb)
-importFrom(grDevices,trans3d)
-importFrom(grDevices,xy.coords)
-importFrom(graphics,abline)
-importFrom(graphics,arrows)
-importFrom(graphics,axis)
-importFrom(graphics,barplot)
-importFrom(graphics,box)
-importFrom(graphics,curve)
-importFrom(graphics,grid)
-importFrom(graphics,legend)
-importFrom(graphics,lines)
-importFrom(graphics,mtext)
-importFrom(graphics,par)
-importFrom(graphics,persp)
-importFrom(graphics,plot)
-importFrom(graphics,points)
-importFrom(graphics,polygon)
-importFrom(graphics,rect)
-importFrom(graphics,rug)
-importFrom(graphics,segments)
-importFrom(graphics,text)
-importFrom(graphics,title)
-importFrom(stats,predict)
-importFrom(stats,runif)
-importFrom(stats,setNames)
-importFrom(stats,smooth.spline)
-importFrom(utils,browseVignettes)
-importFrom(utils,vignette)
+importFrom(grDevices,
+  adjustcolor,
+  col2rgb,
+  colorRampPalette,
+  dev.size,
+  grey,
+  rgb,
+  trans3d,
+  xy.coords
+)
+importFrom(graphics,
+  abline,
+  arrows,
+  axis,
+  barplot,
+  box,
+  curve,
+  grid,
+  legend,
+  lines,
+  mtext,
+  par,
+  persp,
+  plot,
+  points,
+  polygon,
+  rect,
+  rug,
+  segments,
+  text,
+  title
+)
+importFrom(stats,
+  predict,
+  runif,
+  setNames,
+  smooth.spline
+)
+importFrom(utils,
+  browseVignettes,
+  vignette
+)
