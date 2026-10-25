@@ -222,7 +222,7 @@ prev <- 1/2  # default prevalence
 #' }
 #'
 #' @aliases
-#' TPR HR power recall
+#' power recall HR TPR
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -312,7 +312,7 @@ sens <- 1/2  # default sensitivity
 #' }
 #'
 #' @aliases
-#' FNR beta
+#' beta FNR
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -500,7 +500,7 @@ spec <- 1/2 # default specificity
 #' }
 #'
 #' @aliases
-#' FPR, alpha, fallout
+#' alpha fallout FPR
 #'
 #' @examples
 #' fart <- .25     # sets a false alarm rate of 25%
