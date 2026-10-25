@@ -64,8 +64,8 @@ write_popu(s4, cond_lbl = "X", dec_lbl = "Y", sdt_lbl = "class")  # data from sa
 \code{\link{txt}} for current text settings;
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
-Other functions converting data/descriptions: 
-\code{\link{comp_popu}()},
-\code{\link{read_popu}()}
+Other functions converting data/descriptions:
+\code{\link[=comp_popu]{comp_popu()}},
+\code{\link[=read_popu]{read_popu()}}
 }
 \concept{functions converting data/descriptions}

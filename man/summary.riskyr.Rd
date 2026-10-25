@@ -36,9 +36,9 @@ summary(scenarios$n4)
 \seealso{
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
-Other riskyr scenario functions: 
-\code{\link{plot.riskyr}()},
-\code{\link{riskyr}()}
+Other riskyr scenario functions:
+\code{\link[=plot.riskyr]{plot.riskyr()}},
+\code{\link[=riskyr]{riskyr()}}
 }
 \concept{riskyr scenario functions}
 \concept{summary functions}

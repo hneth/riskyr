@@ -103,8 +103,8 @@ comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other functions converting data/descriptions: 
-\code{\link{read_popu}()},
-\code{\link{write_popu}()}
+Other functions converting data/descriptions:
+\code{\link[=read_popu]{read_popu()}},
+\code{\link[=write_popu]{write_popu()}}
 }
 \concept{functions converting data/descriptions}

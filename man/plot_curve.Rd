@@ -207,17 +207,17 @@ plot_curve(main = "Black-and-white print version",
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other visualization functions: 
-\code{\link{plot.riskyr}()},
-\code{\link{plot_area}()},
-\code{\link{plot_bar}()},
-\code{\link{plot_crisk}()},
-\code{\link{plot_fnet}()},
-\code{\link{plot_icons}()},
-\code{\link{plot_mosaic}()},
-\code{\link{plot_plane}()},
-\code{\link{plot_prism}()},
-\code{\link{plot_tab}()},
-\code{\link{plot_tree}()}
+Other visualization functions:
+\code{\link[=plot.riskyr]{plot.riskyr()}},
+\code{\link[=plot_area]{plot_area()}},
+\code{\link[=plot_bar]{plot_bar()}},
+\code{\link[=plot_crisk]{plot_crisk()}},
+\code{\link[=plot_fnet]{plot_fnet()}},
+\code{\link[=plot_icons]{plot_icons()}},
+\code{\link[=plot_mosaic]{plot_mosaic()}},
+\code{\link[=plot_plane]{plot_plane()}},
+\code{\link[=plot_prism]{plot_prism()}},
+\code{\link[=plot_tab]{plot_tab()}},
+\code{\link[=plot_tree]{plot_tree()}}
 }
 \concept{visualization functions}

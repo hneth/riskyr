@@ -23,7 +23,7 @@ in some target population as a function of age.
 \seealso{
 \code{\link{plot_crisk}} plots cumulative risk curves.
 
-Other datasets: 
+Other datasets:
 \code{\link{BRCA1}},
 \code{\link{BRCA1_mam}},
 \code{\link{BRCA1_ova}},

@@ -146,16 +146,16 @@ comp_prob_prob(1,  1, 1,  1)  # only warning: is_complement not in tolerated ran
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-Other functions computing frequencies: 
-\code{\link{comp_freq}()},
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_min_N}()}
+Other functions computing frequencies:
+\code{\link[=comp_freq]{comp_freq()}},
+\code{\link[=comp_freq_freq]{comp_freq_freq()}},
+\code{\link[=comp_freq_prob]{comp_freq_prob()}},
+\code{\link[=comp_min_N]{comp_min_N()}}
 
-Other format conversion functions: 
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_prob_freq}()}
+Other format conversion functions:
+\code{\link[=comp_freq_freq]{comp_freq_freq()}},
+\code{\link[=comp_freq_prob]{comp_freq_prob()}},
+\code{\link[=comp_prob_freq]{comp_prob_freq()}}
 }
 \concept{format conversion functions}
 \concept{functions computing frequencies}

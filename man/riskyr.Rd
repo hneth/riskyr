@@ -235,14 +235,14 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 \code{\link{init_txt}} and \code{\link{txt}} for current text settings;
 \code{\link{init_pal}} and \code{\link{pal}} for current color settings.
 
-Other riskyr scenario functions: 
-\code{\link{plot.riskyr}()},
-\code{\link{summary.riskyr}()}
+Other riskyr scenario functions:
+\code{\link[=plot.riskyr]{plot.riskyr()}},
+\code{\link[=summary.riskyr]{summary.riskyr()}}
 
-Other functions initializing scenario information: 
-\code{\link{init_num}()},
-\code{\link{init_pal}()},
-\code{\link{init_txt}()}
+Other functions initializing scenario information:
+\code{\link[=init_num]{init_num()}},
+\code{\link[=init_pal]{init_pal()}},
+\code{\link[=init_txt]{init_txt()}}
 }
 \concept{functions initializing scenario information}
 \concept{riskyr scenario functions}

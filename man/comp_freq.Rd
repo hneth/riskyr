@@ -239,10 +239,10 @@ comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # NAs + warning (sens beyond r
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-Other functions computing frequencies: 
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_min_N}()},
-\code{\link{comp_prob_prob}()}
+Other functions computing frequencies:
+\code{\link[=comp_freq_freq]{comp_freq_freq()}},
+\code{\link[=comp_freq_prob]{comp_freq_prob()}},
+\code{\link[=comp_min_N]{comp_min_N()}},
+\code{\link[=comp_prob_prob]{comp_prob_prob()}}
 }
 \concept{functions computing frequencies}

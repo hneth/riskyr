@@ -148,17 +148,17 @@ plot_tree(by = "ac")  # tree by accuracy
 \seealso{
 \code{\link{plot_prism}} is the new version of this function.
 
-Other visualization functions: 
-\code{\link{plot.riskyr}()},
-\code{\link{plot_area}()},
-\code{\link{plot_bar}()},
-\code{\link{plot_crisk}()},
-\code{\link{plot_curve}()},
-\code{\link{plot_fnet}()},
-\code{\link{plot_icons}()},
-\code{\link{plot_mosaic}()},
-\code{\link{plot_plane}()},
-\code{\link{plot_prism}()},
-\code{\link{plot_tab}()}
+Other visualization functions:
+\code{\link[=plot.riskyr]{plot.riskyr()}},
+\code{\link[=plot_area]{plot_area()}},
+\code{\link[=plot_bar]{plot_bar()}},
+\code{\link[=plot_crisk]{plot_crisk()}},
+\code{\link[=plot_curve]{plot_curve()}},
+\code{\link[=plot_fnet]{plot_fnet()}},
+\code{\link[=plot_icons]{plot_icons()}},
+\code{\link[=plot_mosaic]{plot_mosaic()}},
+\code{\link[=plot_plane]{plot_plane()}},
+\code{\link[=plot_prism]{plot_prism()}},
+\code{\link[=plot_tab]{plot_tab()}}
 }
 \concept{visualization functions}

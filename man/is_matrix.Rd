@@ -40,16 +40,16 @@ based on a shared structure of binary contingencies.
 doi: \doi{10.3389/fpsyg.2020.567817}
 }
 \seealso{
-Other verification functions: 
-\code{\link{is_complement}()},
-\code{\link{is_extreme_prob_set}()},
-\code{\link{is_freq}()},
-\code{\link{is_integer}()},
-\code{\link{is_perc}()},
-\code{\link{is_prob}()},
-\code{\link{is_suff_prob_set}()},
-\code{\link{is_valid_prob_pair}()},
-\code{\link{is_valid_prob_set}()},
-\code{\link{is_valid_prob_triple}()}
+Other verification functions:
+\code{\link[=is_complement]{is_complement()}},
+\code{\link[=is_extreme_prob_set]{is_extreme_prob_set()}},
+\code{\link[=is_freq]{is_freq()}},
+\code{\link[=is_integer]{is_integer()}},
+\code{\link[=is_perc]{is_perc()}},
+\code{\link[=is_prob]{is_prob()}},
+\code{\link[=is_suff_prob_set]{is_suff_prob_set()}},
+\code{\link[=is_valid_prob_pair]{is_valid_prob_pair()}},
+\code{\link[=is_valid_prob_set]{is_valid_prob_set()}},
+\code{\link[=is_valid_prob_triple]{is_valid_prob_triple()}}
 }
 \concept{verification functions}

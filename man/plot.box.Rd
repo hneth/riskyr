@@ -29,9 +29,9 @@ underlying plotting functions.}
 specified in the "riskyr" object.
 }
 \seealso{
-Other utility functions: 
-\code{\link{as_pb}()},
-\code{\link{as_pc}()},
-\code{\link{print.box}()}
+Other utility functions:
+\code{\link[=as_pb]{as_pb()}},
+\code{\link[=as_pc]{as_pc()}},
+\code{\link[=print.box]{print.box()}}
 }
 \concept{utility functions}

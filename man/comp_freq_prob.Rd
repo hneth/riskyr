@@ -205,16 +205,16 @@ comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # NAs + warning (sens & spec
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-Other functions computing frequencies: 
-\code{\link{comp_freq}()},
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_min_N}()},
-\code{\link{comp_prob_prob}()}
+Other functions computing frequencies:
+\code{\link[=comp_freq]{comp_freq()}},
+\code{\link[=comp_freq_freq]{comp_freq_freq()}},
+\code{\link[=comp_min_N]{comp_min_N()}},
+\code{\link[=comp_prob_prob]{comp_prob_prob()}}
 
-Other format conversion functions: 
-\code{\link{comp_freq_freq}()},
-\code{\link{comp_prob_freq}()},
-\code{\link{comp_prob_prob}()}
+Other format conversion functions:
+\code{\link[=comp_freq_freq]{comp_freq_freq()}},
+\code{\link[=comp_prob_freq]{comp_prob_freq()}},
+\code{\link[=comp_prob_prob]{comp_prob_prob()}}
 }
 \concept{format conversion functions}
 \concept{functions computing frequencies}

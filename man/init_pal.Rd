@@ -92,9 +92,9 @@ pal <- init_pal(brd_col = NA)          # => remove a color
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other functions initializing scenario information: 
-\code{\link{init_num}()},
-\code{\link{init_txt}()},
-\code{\link{riskyr}()}
+Other functions initializing scenario information:
+\code{\link[=init_num]{init_num()}},
+\code{\link[=init_txt]{init_txt()}},
+\code{\link[=riskyr]{riskyr()}}
 }
 \concept{functions initializing scenario information}

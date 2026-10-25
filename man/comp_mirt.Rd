@@ -40,23 +40,23 @@ comp_mirt(comp_complement(0.123))  # => 0.123
 \code{\link{prob}} contains current probability information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other functions computing probabilities: 
-\code{\link{comp_FDR}()},
-\code{\link{comp_FOR}()},
-\code{\link{comp_NPV}()},
-\code{\link{comp_PPV}()},
-\code{\link{comp_acc}()},
-\code{\link{comp_accu_freq}()},
-\code{\link{comp_accu_prob}()},
-\code{\link{comp_comp_pair}()},
-\code{\link{comp_complement}()},
-\code{\link{comp_complete_prob_set}()},
-\code{\link{comp_err}()},
-\code{\link{comp_fart}()},
-\code{\link{comp_ppod}()},
-\code{\link{comp_prob}()},
-\code{\link{comp_prob_freq}()},
-\code{\link{comp_sens}()},
-\code{\link{comp_spec}()}
+Other functions computing probabilities:
+\code{\link[=comp_FDR]{comp_FDR()}},
+\code{\link[=comp_FOR]{comp_FOR()}},
+\code{\link[=comp_NPV]{comp_NPV()}},
+\code{\link[=comp_PPV]{comp_PPV()}},
+\code{\link[=comp_acc]{comp_acc()}},
+\code{\link[=comp_accu_freq]{comp_accu_freq()}},
+\code{\link[=comp_accu_prob]{comp_accu_prob()}},
+\code{\link[=comp_comp_pair]{comp_comp_pair()}},
+\code{\link[=comp_complement]{comp_complement()}},
+\code{\link[=comp_complete_prob_set]{comp_complete_prob_set()}},
+\code{\link[=comp_err]{comp_err()}},
+\code{\link[=comp_fart]{comp_fart()}},
+\code{\link[=comp_ppod]{comp_ppod()}},
+\code{\link[=comp_prob]{comp_prob()}},
+\code{\link[=comp_prob_freq]{comp_prob_freq()}},
+\code{\link[=comp_sens]{comp_sens()}},
+\code{\link[=comp_spec]{comp_spec()}}
 }
 \concept{functions computing probabilities}

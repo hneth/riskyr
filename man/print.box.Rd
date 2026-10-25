@@ -15,10 +15,10 @@
 \code{print.box} is a utility method that prints a box object.
 }
 \seealso{
-Other utility functions: 
-\code{\link{as_pb}()},
-\code{\link{as_pc}()},
-\code{\link{plot.box}()}
+Other utility functions:
+\code{\link[=as_pb]{as_pb()}},
+\code{\link[=as_pc]{as_pc()}},
+\code{\link[=plot.box]{plot.box()}}
 }
 \concept{utility functions}
 \keyword{internal}

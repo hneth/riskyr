@@ -90,8 +90,8 @@ plot(s_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_rgb, p
 \code{\link{popu}} for data format;
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
-Other functions converting data/descriptions: 
-\code{\link{comp_popu}()},
-\code{\link{write_popu}()}
+Other functions converting data/descriptions:
+\code{\link[=comp_popu]{comp_popu()}},
+\code{\link[=write_popu]{write_popu()}}
 }
 \concept{functions converting data/descriptions}

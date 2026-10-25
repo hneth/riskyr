@@ -82,16 +82,16 @@ all.equal(freq, freq_freq)  # => should be TRUE!
 \code{\link{is_prob}} verifies probability inputs;
 \code{\link{is_freq}} verifies frequency inputs.
 
-Other functions computing frequencies: 
-\code{\link{comp_freq}()},
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_min_N}()},
-\code{\link{comp_prob_prob}()}
+Other functions computing frequencies:
+\code{\link[=comp_freq]{comp_freq()}},
+\code{\link[=comp_freq_prob]{comp_freq_prob()}},
+\code{\link[=comp_min_N]{comp_min_N()}},
+\code{\link[=comp_prob_prob]{comp_prob_prob()}}
 
-Other format conversion functions: 
-\code{\link{comp_freq_prob}()},
-\code{\link{comp_prob_freq}()},
-\code{\link{comp_prob_prob}()}
+Other format conversion functions:
+\code{\link[=comp_freq_prob]{comp_freq_prob()}},
+\code{\link[=comp_prob_freq]{comp_prob_freq()}},
+\code{\link[=comp_prob_prob]{comp_prob_prob()}}
 }
 \concept{format conversion functions}
 \concept{functions computing frequencies}

@@ -43,13 +43,13 @@ as_pc(as_pb(12.3))        # 12.3
 \code{\link{comp_complement}} computes a probability's complement;
 \code{\link{comp_comp_pair}} computes pairs of complements.
 
-Other utility functions: 
-\code{\link{as_pb}()},
-\code{\link{plot.box}()},
-\code{\link{print.box}()}
+Other utility functions:
+\code{\link[=as_pb]{as_pb()}},
+\code{\link[=plot.box]{plot.box()}},
+\code{\link[=print.box]{print.box()}}
 
-Other display functions: 
-\code{\link{as_pb}()}
+Other display functions:
+\code{\link[=as_pb]{as_pb()}}
 }
 \concept{display functions}
 \concept{utility functions}
