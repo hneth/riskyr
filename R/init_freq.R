@@ -197,8 +197,7 @@ hi <- 0  # default hits (TP)
 #' }
 #'
 #' @aliases
-#' FN
-#' type-II-errors
+#' FN, type-II-errors
 #'
 #' @family essential parameters
 #' @family frequencies
@@ -255,8 +254,7 @@ mi <- 0  # default misses (FN)
 #' }
 #'
 #' @aliases
-#' FP
-#' type-I-errors
+#' FP, type-I-errors
 #'
 #' @family essential parameters
 #' @family frequencies

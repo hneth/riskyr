@@ -500,9 +500,7 @@ spec <- 1/2 # default specificity
 #' }
 #'
 #' @aliases
-#' FPR
-#' alpha
-#' fallout
+#' FPR, alpha, fallout
 #'
 #' @examples
 #' fart <- .25     # sets a false alarm rate of 25%
