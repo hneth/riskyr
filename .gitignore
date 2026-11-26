@@ -53,9 +53,6 @@ cran-comments.md
 CRAN-RELEASE
 
 # pkgdown:
-^_pkgdown\.yml$
-^pkgdown$
-^logo.png$
 # docs
 
 ## 3. Project files: -----
