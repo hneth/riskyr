@@ -1,5 +1,5 @@
 
-# riskyr 0.5.0.9004
+# riskyr 0.5.0.9005
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
@@ -68,12 +68,6 @@ Changes since last release:
 
 - Use hexagon version of logo
 
-
-
-
-<!-- Development version: --> 
-
-The current development version of **riskyr** is available at <https://github.com/hneth/riskyr/>. 
 
 <!-- Previous version: --> 
 
@@ -381,6 +375,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2026-01-08.]
+[`NEWS.md` updated on 2026-11-25.]
 
 <!-- eof -->

@@ -2,7 +2,7 @@ Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
 Version: 0.5.0.9005
-Date: 2026-10-25
+Date: 2026-11-25
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")), 
              person("Felix", "Gaisbauer", role = "aut", comment = c(ORCID = "0000-0002-1285-1246")), 
@@ -61,4 +61,4 @@ URL: https://riskyr.org/, https://CRAN.R-project.org/package=riskyr, https://git
 BugReports: https://github.com/hneth/riskyr/issues/
 VignetteBuilder: knitr
 Language: en-US
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
