@@ -69,7 +69,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   plot_area(prev = prev, sens = sens, spec = spec, mirt = mirt, fart = fart,
             N = N, by = by,
-            title_lbl = title_lbl,
+            main = title_lbl,
             col_pal = pal_mod # ,
             # ...  # additional paramters
   )

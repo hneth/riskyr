@@ -335,13 +335,13 @@ plot_area <- function(prev = num$prev,    # probabilities
                       brd_dis = .06,      # distance of prob links from border. (Adjust to avoid overlapping labels).
 
                       ## Text and color:
-                      lbl_txt = txt,      # labels and text elements
+                      lbl_txt = txt,        # labels and text elements
                       main = txt$scen_lbl,  # main title
                       sub = "type",         # subtitle ("type" shows generic plot type info)
                       title_lbl = NULL,     # DEPRECATED plot title, replaced by main
-                      cex_lbl = .90,      # size of freq & text labels
-                      cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
-                      col_pal = pal,      # color palette
+                      cex_lbl = .90,        # size of freq & text labels
+                      cex_p_lbl = NA,       # size of prob labels (set to cex_lbl - .05 by default)
+                      col_pal = pal,        # color palette
 
                       ## Generic options:
                       mar_notes = FALSE,  # show margin notes?
@@ -2000,12 +2000,12 @@ plot_area <- function(prev = num$prev,    # probabilities
 # # Customizing text and color:
 # plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #           by = "cddc", p_split = "v", scale = "p",
-#           title_lbl = "Custom text and color:",
+#           main = "Custom text and color:",
 #           lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #           f_lwd = 2, col_pal = pal_rgb)  # custom color
 # plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #           by = "cdac", p_split = "h", scale = "p",
-#           title_lbl = "Custom text and color:",
+#           main = "Custom text and color:",
 #           lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
 #           f_lwd = 1, col_pal = pal_kn)  # custom color
 #
