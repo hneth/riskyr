@@ -7,7 +7,7 @@
 comp_fart(spec)
 }
 \arguments{
-\item{spec}{The decision's specificity value \code{\link{spec}} as a probability.}
+\item{spec}{The decision's specificity \code{\link{spec}} as a probability.}
 }
 \value{
 The decision's false alarm rate \code{\link{fart}} as a probability.

@@ -78,6 +78,7 @@ Other verification functions:
 \code{\link[=is_perc]{is_perc()}},
 \code{\link[=is_prob]{is_prob()}},
 \code{\link[=is_suff_prob_set]{is_suff_prob_set()}},
+\code{\link[=is_valid_freq_set]{is_valid_freq_set()}},
 \code{\link[=is_valid_prob_set]{is_valid_prob_set()}},
 \code{\link[=is_valid_prob_triple]{is_valid_prob_triple()}}
 }

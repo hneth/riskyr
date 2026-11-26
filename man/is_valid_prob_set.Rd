@@ -20,14 +20,14 @@ provided that the condition is \code{TRUE}).
 provided that the condition is \code{TRUE}).
 \code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
+\item{spec}{The decision's specificity \code{\link{spec}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
 \code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{tol}{A numeric tolerance value used by \code{\link{is_complement}}.}
@@ -116,6 +116,7 @@ Other verification functions:
 \code{\link[=is_perc]{is_perc()}},
 \code{\link[=is_prob]{is_prob()}},
 \code{\link[=is_suff_prob_set]{is_suff_prob_set()}},
+\code{\link[=is_valid_freq_set]{is_valid_freq_set()}},
 \code{\link[=is_valid_prob_pair]{is_valid_prob_pair()}},
 \code{\link[=is_valid_prob_triple]{is_valid_prob_triple()}}
 }

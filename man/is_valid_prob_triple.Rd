@@ -14,7 +14,7 @@ is_valid_prob_triple(prev, sens, spec)
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
+\item{spec}{The decision's specificity \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).}
 }
@@ -72,6 +72,7 @@ Other verification functions:
 \code{\link[=is_perc]{is_perc()}},
 \code{\link[=is_prob]{is_prob()}},
 \code{\link[=is_suff_prob_set]{is_suff_prob_set()}},
+\code{\link[=is_valid_freq_set]{is_valid_freq_set()}},
 \code{\link[=is_valid_prob_pair]{is_valid_prob_pair()}},
 \code{\link[=is_valid_prob_set]{is_valid_prob_set()}}
 }

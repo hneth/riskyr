@@ -14,28 +14,28 @@ comp_prob(
 )
 }
 \arguments{
-\item{prev}{The condition's prevalence value \code{\link{prev}}
-(i.e., the probability of the condition being \code{TRUE}).}
+\item{prev}{The condition's prevalence \code{\link{prev}}
+(i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity value \code{\link{sens}}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).
-\code{sens} is optional when its complement \code{\link{mirt}} is provided.}
+\code{sens} is optional when its complement \code{mirt} is provided.}
 
-\item{mirt}{The decision's miss rate value \code{\link{mirt}}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
 (i.e., the conditional probability of a negative decision
 provided that the condition is \code{TRUE}).
-\code{mirt} is optional when its complement \code{\link{sens}} is provided.}
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when its complement \code{\link{fart}} is provided.}
+\item{spec}{The decision's specificity \code{\link{spec}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
+\code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{\link{spec}} is provided.}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
+\code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{tol}{A numeric tolerance value for \code{\link{is_complement}}.
 Default: \code{tol = .01}.}

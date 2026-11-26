@@ -7,23 +7,23 @@
 is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
 }
 \arguments{
-\item{prev}{The condition's prevalence value \code{\link{prev}}
+\item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
 
 \item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).
-\code{sens} is optional when is complement \code{mirt} is provided.}
+\code{sens} is optional when its complement \code{mirt} is provided.}
 
 \item{mirt}{The decision's miss rate \code{\link{mirt}}
 (i.e., the conditional probability of a negative decision
 provided that the condition is \code{TRUE}).
-\code{mirt} is optional when is complement \code{sens} is provided.}
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
 \item{spec}{The decision's specificity \code{\link{spec}}
 (i.e., the conditional probability of a negative decision
 provided that the condition is \code{FALSE}).
-\code{spec} is optional when is complement \code{fart} is provided.}
+\code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability of a positive decision
@@ -112,6 +112,7 @@ Other verification functions:
 \code{\link[=is_perc]{is_perc()}},
 \code{\link[=is_prob]{is_prob()}},
 \code{\link[=is_suff_prob_set]{is_suff_prob_set()}},
+\code{\link[=is_valid_freq_set]{is_valid_freq_set()}},
 \code{\link[=is_valid_prob_pair]{is_valid_prob_pair()}},
 \code{\link[=is_valid_prob_set]{is_valid_prob_set()}},
 \code{\link[=is_valid_prob_triple]{is_valid_prob_triple()}}

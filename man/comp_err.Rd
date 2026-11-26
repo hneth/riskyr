@@ -14,7 +14,7 @@ comp_err(prev, sens, spec)
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
+\item{spec}{The decision's specificity \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).}
 }

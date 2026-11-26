@@ -7,16 +7,16 @@
 comp_min_N(prev, sens, spec, min_freq = 1)
 }
 \arguments{
-\item{prev}{The condition's prevalence value \code{\link{prev}}
-(i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence \code{\link{prev}}
+(i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity value  \code{\link{sens}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{TRUE}).}
 
-\item{spec}{The specificity value  \code{\link{spec}}
+\item{spec}{The decision's specificity \code{\link{spec}}
 (i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).}
+of a negative decision provided that the condition is \code{FALSE}).}
 
 \item{min_freq}{The minimum frequency of each combination of
 a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).

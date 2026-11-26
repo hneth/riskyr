@@ -1,5 +1,6 @@
-A_user_guide.html
-B_data_formats.html
-C_confusion_matrix.html
-D_functional_perspectives.html
-E_riskyr_primer.html
+# Vignette build artifacts (generated from .Rmd at build time):
+*.html
+*.R
+
+# macOS:
+.DS_Store

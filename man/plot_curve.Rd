@@ -19,6 +19,7 @@ plot_curve(
   show_points = TRUE,
   log_scale = FALSE,
   prev_range = c(0, 1),
+  aux_line = TRUE,
   lbl_txt = txt,
   main = txt$scen_lbl,
   sub = "type",
@@ -46,13 +47,13 @@ provided that the condition is \code{TRUE}).
 \code{mirt} is optional when its complement \code{sens} is provided.}
 
 \item{spec}{The decision's specificity \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
 \code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{what}{Vector of character codes that specify the
@@ -97,6 +98,11 @@ Default: \code{log_scale = FALSE}.}
 \item{prev_range}{Range (minimum and maximum) of \code{\link{prev}} values
 on x-axis (i.e., values in \code{c(0, 1)} range).
 Default: \code{prev_range = c(0, 1)}.}
+
+\item{aux_line}{Boolean value for showing diagonal auxiliary lines
+(i.e., baselines) for the \code{"PPV"} and \code{"NPV"} curves,
+to ease their comparison with corresponding baselines.
+Default: \code{aux_line = TRUE}.}
 
 \item{lbl_txt}{Labels and text elements.
 Default: \code{lbl_txt = \link{txt}}.}

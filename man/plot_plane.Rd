@@ -39,23 +39,21 @@ plot_plane(
 \item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).
-\code{sens} is optional when its complement \code{mirt} is provided.
-If \code{sens = NA}, then \code{show_points = FALSE}.}
+\code{sens} is optional when its complement \code{mirt} is provided.}
 
 \item{mirt}{The decision's miss rate \code{\link{mirt}}
 (i.e., the conditional probability of a negative decision
 provided that the condition is \code{TRUE}).
 \code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when its complement \code{fart} is provided.
-If \code{spec = NA}, then \code{show_points = FALSE}.}
+\item{spec}{The decision's specificity \code{\link{spec}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
+\code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{what}{A character code that specifies one metric

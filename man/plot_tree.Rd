@@ -38,15 +38,28 @@ plot_tree(
 )
 }
 \arguments{
-\item{prev}{The condition's prevalence \code{\link{prev}}.}
+\item{prev}{The condition's prevalence \code{\link{prev}}
+(i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity \code{\link{sens}}.}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when its complement \code{mirt} is provided.}
 
-\item{mirt}{The decision's miss rate \code{\link{mirt}}.}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}.}
+\item{spec}{The decision's specificity \code{\link{spec}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
+\code{spec} is optional when its complement \code{fart} is provided.}
 
-\item{fart}{The decision's false alarm rate \code{\link{fart}}.}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
+\code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{N}{The number of individuals in the population.}
 

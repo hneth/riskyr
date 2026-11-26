@@ -20,14 +20,14 @@ provided that the condition is \code{TRUE}).
 provided that the condition is \code{TRUE}).
 \code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
+\item{spec}{The decision's specificity \code{\link{spec}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{FALSE}).
 \code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
 \value{
