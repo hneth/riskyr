@@ -5,7 +5,7 @@
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 
-This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-01-08] 
+This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-11-26] 
 
 This version adds functionality and details, and fixes some bugs. 
 
@@ -22,8 +22,7 @@ Changes since last release:
 
 ## Minor changes
 
-- Add diagonal auxiliary lines to `plot_curve()` (to compare PPV and NPV curves to corresponding baselines)
-- Add experimental code and examples 
+- Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (to compare PPV and NPV curves to corresponding baselines)
 
 
 <!-- Micro/details: --> 
