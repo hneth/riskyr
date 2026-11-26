@@ -104,10 +104,7 @@
 #'
 #' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @inheritParams is_valid_freq_set
 #'
 #' @param w   The weighting parameter \code{w} (from 0 to 1)
 #' for computing weighted accuracy \code{wacc}.
@@ -178,8 +175,6 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
     warning("The weighting parameter w (for wacc) must range from 0 to 1.")
   }
 
-  ## ToDo: Verify that a valid set of 4 freq was provided.
-
   # (2) Initialize accu list: # Metric:
   accu <- list("acc"  = NA,    # 1. overall accuracy
                "w"    = w,     #    weighting parameter w
@@ -187,6 +182,9 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
                "mcc"  = NA,    # 3. MCC
                "f1s"  = NA     # 4. F1 score
   )
+
+  # Verify that a valid set of 4 frequencies was provided:
+  if (!verify_freq_quad(hi, mi, fa, cr, "accu_freq")) return(accu)
 
   # (3) Compute combined frequencies from 4 essential frequencies:
 
@@ -365,28 +363,7 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'
 #' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.

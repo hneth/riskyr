@@ -200,16 +200,7 @@ init_freq <- function() {
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @param N The number of individuals in the population.
 #' If \code{\link{N}} is unknown (\code{NA}),

@@ -39,10 +39,7 @@
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @inheritParams is_valid_freq_set
 #'
 #'
 #' @examples
@@ -110,6 +107,9 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   dec_err    <- NA
 
   prob <- init_prob()  # initialize prob (containing only NA values)
+
+  ## Verify that a valid set of 4 frequencies was provided:
+  if (!verify_freq_quad(hi, mi, fa, cr, "prob_freq")) return(prob)
 
   ## Compute compound freq from 4 essential freq:
 
@@ -245,10 +245,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 #'
 #' \code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @inheritParams is_valid_freq_set
 #'
 #' @family functions computing probabilities from frequencies
 #'

@@ -88,22 +88,11 @@ num.def <- list("prev" = .25, # round(runif(1, .01, .50), 2),  # .5   # prevalen
 #' If no \code{\link{N}} is provided, a suitable minimum value is
 #' computed by \code{\link{comp_min_N}}.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
+#' @inheritParams comp_prob_prob
 #'
-#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{\link{fart}} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
 #' @param N The population size \code{\link{N}}.
 #'

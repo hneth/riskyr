@@ -217,28 +217,7 @@ init_prob <- function() {
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of the condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity value \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{\link{mirt}} is provided.
-#'
-#' @param mirt The decision's miss rate value \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{\link{sens}} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{\link{fart}} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{\link{spec}} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.

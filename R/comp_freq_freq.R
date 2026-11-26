@@ -39,10 +39,7 @@
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @inheritParams is_valid_freq_set
 #'
 #'
 #' @examples
@@ -103,6 +100,9 @@ comp_freq_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
   dec_neg    <- NA
 
   new_freq <- init_freq()  # initialize new_freq (containing only NA values). BEWARE: Must NOT be "freq"!!!
+
+  ## Verify that a valid set of 4 frequencies was provided:
+  if (!verify_freq_quad(hi, mi, fa, cr, "freq_freq")) return(new_freq)
 
 
   ## Compute 5 other freq from 4 essential freq:

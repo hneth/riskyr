@@ -29,16 +29,7 @@
 #' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
 #' Using the option \code{round = FALSE} turns off rounding.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
-#'
-#' @param sens The decision's sensitivity value  \code{\link{sens}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is TRUE).
-#'
-#' @param spec The specificity value  \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
+#' @inheritParams comp_PPV
 #'
 #' @param min_freq The minimum frequency of each combination of
 #' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).

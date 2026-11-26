@@ -30,10 +30,7 @@
 #' and 3 columns (e.g., \code{"X/truth/cd", "Y/test/dc", "SDT/cell/class"}).
 #' encoded as ordered factors (with 2, 2, and 4 levels, respectively).
 #'
-#' @param hi The number of hits \code{\link{hi}} (or true positives).
-#' @param mi The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @inheritParams is_valid_freq_set
 #'
 #' @param cond_lbl Text label for condition dimension ("by cd" perspective).
 #' @param cond_true_lbl Text label for \code{\link{cond_true}} cases.
@@ -93,6 +90,10 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
                       sdt_lbl = txt$sdt_lbl,
                       hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
+
+  ## Verify that a valid set of 4 (integer) frequencies was provided:
+  ## (comp_popu creates a population of individuals, so frequencies must be integers)
+  if (!verify_freq_quad(hi, mi, fa, cr, "popu", allow_noninteger = FALSE)) return(NULL)
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond_true  <- (hi + fa)

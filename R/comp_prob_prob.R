@@ -177,7 +177,7 @@ comp_sens <- function(mirt) {
 #' \code{\link{comp_spec}} and uses the generic function
 #' \code{\link{comp_complement}}.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}} as a probability.
+#' @param spec The decision's specificity \code{\link{spec}} as a probability.
 #'
 #' @return The decision's false alarm rate \code{\link{fart}} as a probability.
 #'
@@ -365,28 +365,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 #' \code{\link{spec}} and \code{\link{fart}}) and
 #' returns the complete set of 5 probabilities.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @return A vector of 5 probabilities:
 #' \code{c(\link{prev}, \link{sens}, \link{mirt}, \link{spec}, \link{fart})}.
@@ -484,16 +463,7 @@ comp_complete_prob_set <- function(prev,
 #' Importantly, positive decisions \code{\link{dec_pos}}
 #' are not necessarily correct decisions \code{\link{dec_cor}}.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return The proportion of positive decisions \code{\link{ppod}} as a probability.
 #' A warning is provided for NaN values.
@@ -538,8 +508,7 @@ comp_ppod <- function(prev, sens, spec) {
 
   ppod <- NA # initialize
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "ppod")) return(ppod)  # verify inputs
 
   ## Definition: ppod = dec_pos / N  =  (hi + fa) / (hi + mi + fa + cr)
 
@@ -599,7 +568,7 @@ comp_ppod <- function(prev, sens, spec) {
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
+#' @param spec The decision's specificity \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
@@ -644,7 +613,7 @@ comp_PPV <- function(prev, sens, spec) {
 
   PPV <- NA # initialize
 
-  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "PPV")) return(PPV)  # verify inputs
 
   ## Definition: PPV = hi / dec_pos  =  hi / (hi + fa)
 
@@ -697,16 +666,7 @@ comp_PPV <- function(prev, sens, spec) {
 #' and does not round results.
 #'
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #'
 #' @return The false detection rate \code{\link{FDR}} as a probability.
@@ -740,7 +700,7 @@ comp_FDR <- function(prev, sens, spec) {
   FDR <- NA # initialize
   # PPV <- NA
 
-  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "FDR")) return(FDR)  # verify inputs
 
   ## Definition: FDR = fa / dec_pos  =  fa / (hi + fa)
 
@@ -784,16 +744,7 @@ comp_FDR_PPV <- function(PPV) {
 #' \code{comp_NPV} uses probabilities (not frequencies)
 #' and does not round results.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return The negative predictive value \code{\link{NPV}} as a probability.
 #' A warning is provided for NaN values.
@@ -831,7 +782,7 @@ comp_NPV <- function(prev, sens, spec) {
 
   NPV <- NA # initialize
 
-  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "NPV")) return(NPV)  # verify inputs
 
   ## Definition: NPV = cr / dec_neg  =  cr / (mi + cr)
 
@@ -883,16 +834,7 @@ comp_NPV <- function(prev, sens, spec) {
 #' \code{comp_FOR} uses probabilities (not frequencies)
 #' and does not round results.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return The false omission rate \code{\link{FOR}} as a probability.
 #' A warning is provided for NaN values.
@@ -920,7 +862,7 @@ comp_FOR <- function(prev, sens, spec) {
   FOR <- NA  # initialize
   # NPV <- NA
 
-  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "FOR")) return(FOR)  # verify inputs
 
   ## Definition: FOR =  mi / dec_neg  =  mi / (cr + mi)
 
@@ -1033,16 +975,7 @@ comp_FOR_NPV <- function(NPV) {
 #' See \code{\link{accu}} for other accuracy metrics
 #' and several possible interpretations of accuracy.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return Overall accuracy \code{\link{acc}} as a probability (proportion).
 #' A warning is provided for NaN values.
@@ -1098,8 +1031,7 @@ comp_acc <- function(prev, sens, spec) {
 
   acc <- NA  # initialize
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "acc")) return(acc)  # verify inputs
 
   ## Definition: acc = dec_cor / N  =  (hi + cr) / (hi + mi + fa + cr)
   ##             but from exact (not rounded) frequencies!
@@ -1163,16 +1095,7 @@ comp_acc <- function(prev, sens, spec) {
 #' \code{\link{accu}} for other accuracy metrics
 #' and several possible interpretations of accuracy.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return Overall error rate \code{\link{err}} as a probability (proportion).
 #' A warning is provided for NaN values.
@@ -1225,8 +1148,7 @@ comp_err <- function(prev, sens, spec) {
   err <- NA  # initialize
   acc <- NA
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+  if (!verify_prob_triple(prev, sens, spec, "err")) return(err)  # verify inputs
 
   ## Use comp_acc to compute accuracy:
   acc <- comp_acc(prev, sens, spec)
