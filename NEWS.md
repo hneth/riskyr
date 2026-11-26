@@ -1,5 +1,5 @@
 
-# riskyr 0.5.0.9005
+# riskyr 0.5.0.9006
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
@@ -24,17 +24,30 @@ Changes since last release:
 
 - Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (to compare PPV and NPV curves to corresponding baselines)
 
+- Add `is_valid_freq_set()` for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`, `cr`) — a frequency analog to `is_valid_prob_set()` that (by default) also accepts exact (non-integer) frequencies
+
+- Add input validation to functions computing probabilities and frequencies:
+    - Functions computing metrics from probabilities (e.g., `comp_PPV()`, `comp_NPV()`, `comp_FDR()`, `comp_FOR()`, `comp_ppod()`, `comp_acc()`, `comp_err()`) now verify their `prev`, `sens`, and `spec` inputs
+    - Functions computing from frequencies (e.g., `comp_accu_freq()`, `comp_prob_freq()`, `comp_freq_freq()`, `comp_popu()`) now verify their `hi`, `mi`, `fa`, and `cr` inputs
+    - Invalid (or incomplete) input sets now yield `NA` (with a warning) instead of silently computing invalid values. 
+    Note: `comp_prob_freq()` and `comp_freq_freq()` now require a complete set of 4 valid frequencies
+
 
 <!-- Micro/details: --> 
 
 ## Details
 
+- Reduce code and documentation redundancy:  
+    - Use `@inheritParams` to remove duplicated documentation of shared probability (`prev`, `sens`, `mirt`, `spec`, `fart`) and frequency (`hi`, `mi`, `fa`, `cr`) parameters across functions  
+    - Add an internal helper for combining plot titles and subtitles (used by all plot functions)  
+    - Consolidate repeated input-verification logic into internal helpers  
+
+<!-- next: --> 
+
 - Package maintenance:  
     - Add doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr) to citation  
-    - Update `README` and online documentation   
-
-<!-- Blank line. --> 
-
+    - Update `README` and online documentation 
+    
 
 <!-- Development version: --> 
 
