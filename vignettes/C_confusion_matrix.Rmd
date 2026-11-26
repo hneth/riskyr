@@ -36,7 +36,8 @@ Behold the aptly named "confusion matrix":
 | (a) by condition  | `sens` = `hi`/`cond_true` | `spec` = `cr`/`cond_false` | `ppod` = `dec_pos`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
-This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
+This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). 
+While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
 Fortunately, the key representational structure can also be understood as a 2x2 matrix (aka. 2-by-2 contingency table), which is actually quite simple, and rather straightforward in its implications. In the following, we identify the most important aspects and some key measures that a risk-literate person should know (see [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for a more detailed account). 
 
@@ -219,6 +220,7 @@ Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` a
 The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal ---\ measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
 
 While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or serve different purposes. We distinguish between specific and general metrics.
+
 
 ### A. Specific metrics: Conditional probabilities
 
