@@ -500,23 +500,6 @@ requirement for our test is an extremely high specificity. Although our
 current specificity value of 95% (`spec = .95`) may sound pretty good,
 it is still not high enough to yield a `PPV` beyond 40%.
 
-<!--
-&#10;#### Plots currently under development
-&#10;The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
-&#10;
-``` r
-## Install current development version: 
-# install.packages("devtools")
-devtools::install_github("hneth/riskyr")
-&#10;## Preview latest functions (riskyr > v0.0.1.930):
-plot(hustosis, type = "prism", by = "cddc")  
-plot(hustosis, type = "tree",  by = "ac") 
-plot(hustosis, type = "area",  by = "cddc")
-plot(hustosis, type = "tab",   by = "cddc")
-plot(hustosis, type = "bar",   dir = 2)
-```
-&#10;-->
-
 <!-- 2: Loading and using pre-defined scenarios -->
 
 ### Using existing scenarios

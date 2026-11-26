@@ -357,27 +357,6 @@ plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 
 The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. Although our current specificity value of 95% (`spec = .95`) may sound pretty good, it is still not high enough to yield a `PPV` beyond 40%. 
 
-<!--
-
-#### Plots currently under development
-
-The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
-
-```{r preview-current-dev, echo = TRUE, eval = FALSE}
-## Install current development version: 
-# install.packages("devtools")
-devtools::install_github("hneth/riskyr")
-
-## Preview latest functions (riskyr > v0.0.1.930):
-plot(hustosis, type = "prism", by = "cddc")  
-plot(hustosis, type = "tree",  by = "ac") 
-plot(hustosis, type = "area",  by = "cddc")
-plot(hustosis, type = "tab",   by = "cddc")
-plot(hustosis, type = "bar",   dir = 2)
-```
-
--->
-
 <!-- 2: Loading and using pre-defined scenarios -->
 
 ### Using existing scenarios
