@@ -353,28 +353,7 @@ is_freq <- function(freq) {
 #' consistency of its arguments. See \code{\link{is_prob}} and
 #' \code{\link{is_complement}} for this purpose.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @return A Boolean value:
 #' \code{TRUE} if the probabilities provided are sufficient,
@@ -722,28 +701,7 @@ is_integer <- function(x, tol = .Machine$double.eps^0.5) {
 #' \code{\link{is_valid_prob_pair}} and
 #' \code{\link{is_valid_prob_set}} for these purposes.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when is complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when is complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity \code{\link{spec}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @return A Boolean value:
 #' \code{TRUE} if an extreme case is identified;
@@ -1094,28 +1052,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' that describe extreme cases and \code{\link{init_num}}
 #' for initializing basic parameters.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @param tol A numeric tolerance value used by \code{\link{is_complement}}.
 #'
@@ -1231,16 +1168,7 @@ is_valid_prob_set <- function(prev,
 #' Use \code{\link{is_extreme_prob_set}} to verify extreme cases and
 #' \code{\link{comp_complete_prob_set}} to complete sets of valid probabilities.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
+#' @inheritParams comp_PPV
 #'
 #' @return A Boolean value:
 #' \code{TRUE} if the probabilities provided are valid;
@@ -1295,6 +1223,125 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 # # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
 # # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
 # # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+
+## verify_prob_triple: Internal guard verifying (prev, sens, spec) as probabilities ------
+## Used by metric functions (comp_PPV, comp_NPV, comp_FDR, comp_FOR, comp_ppod, comp_acc, comp_err).
+## Returns TRUE if (prev, sens, spec) are valid probabilities; else warns and returns FALSE.
+## Note: is_valid_prob_triple() is vector-safe (via any() in is_prob()), so this works for
+## both scalar and vector inputs (e.g., when called from comp_prob_matrix() or plot_curve()).
+
+verify_prob_triple <- function(prev, sens, spec, metric = "metric") {
+
+  if (!is_valid_prob_triple(prev, sens, spec)) {
+    warning(paste0("comp_", metric, "(): Inputs 'prev', 'sens', and 'spec' ",
+                   "must each be probabilities (i.e., numeric values in the range from 0 to 1)."))
+    return(FALSE)
+  }
+
+  return(TRUE)
+
+} # verify_prob_triple().
+
+## Check:
+# verify_prob_triple(.1, .8, .9, "PPV")  # => TRUE
+# verify_prob_triple(2, .8, .9, "PPV")   # => FALSE + warning
+
+
+## is_valid_freq_set: Verify a set of 4 essential frequencies ------
+
+#' Verify a set of 4 essential frequencies.
+#'
+#' \code{is_valid_freq_set} is a function that verifies that a set of
+#' 4 essential frequencies (\code{\link{hi}}, \code{\link{mi}},
+#' \code{\link{fa}}, and \code{\link{cr}}) forms a valid set
+#' (i.e., each value is a non-missing, non-negative numeric value).
+#'
+#' \code{is_valid_freq_set} is the frequency analog of
+#' \code{\link{is_valid_prob_set}} and uses \code{\link{is_freq}}-style
+#' criteria, but (by default) also accepts non-integer frequencies,
+#' as \strong{riskyr} uses exact (i.e., non-rounded) frequencies internally.
+#' Setting \code{allow_noninteger = FALSE} additionally requires that all
+#' 4 frequencies are integers (e.g., for creating a population of individuals).
+#'
+#' The function is vector-safe: When provided with vectors of frequencies,
+#' it returns a single Boolean value that is \code{TRUE} only if \emph{all}
+#' elements are valid frequencies.
+#'
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
+#' @param allow_noninteger  Boolean value for allowing non-integer
+#' (i.e., exact, non-rounded) frequencies.
+#' Default: \code{allow_noninteger = TRUE}.
+#'
+#' @return A Boolean value: \code{TRUE} if the 4 frequencies form a
+#' valid set; otherwise \code{FALSE}.
+#'
+#' @examples
+#' is_valid_freq_set(1, 2, 3, 4)            # => TRUE
+#' is_valid_freq_set(10.5, 2, 3, 4)         # => TRUE (non-integer allowed by default)
+#' is_valid_freq_set(10.5, 2, 3, 4, allow_noninteger = FALSE)  # => FALSE
+#' is_valid_freq_set(1, 2, 3, NA)           # => FALSE (contains NA)
+#' is_valid_freq_set(1, 2, 3, -4)           # => FALSE (contains negative value)
+#'
+#' @family verification functions
+#'
+#' @seealso
+#' \code{\link{is_freq}} verifies (integer) frequencies;
+#' \code{\link{is_valid_prob_set}} verifies sets of probabilities;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{freq}} contains current frequency information.
+#'
+#' @export
+
+is_valid_freq_set <- function(hi, mi, fa, cr, allow_noninteger = TRUE) {
+
+  val <- FALSE  # initialize
+
+  freq_vec <- c(hi, mi, fa, cr)
+
+  if ( is.numeric(freq_vec) &&          # all numeric (c() coerces to chr otherwise)
+       !any(is.na(freq_vec)) &&         # no NA/NaN values
+       all(freq_vec >= 0) &&            # no negative values
+       ( allow_noninteger || all(freq_vec %% 1 == 0) )  # integers (if required)
+  ) {
+    val <- TRUE
+  }
+
+  return(val)
+
+} # is_valid_freq_set().
+
+## Check:
+# is_valid_freq_set(1, 2, 3, 4)    # => TRUE
+# is_valid_freq_set(1, 2, 3, NA)   # => FALSE
+# is_valid_freq_set(1, 2, 3, -4)   # => FALSE
+# is_valid_freq_set(1.5, 2, 3, 4, allow_noninteger = FALSE)  # => FALSE
+
+
+## verify_freq_quad: Internal guard verifying (hi, mi, fa, cr) as a valid freq set ------
+## Used by freq-based functions (comp_accu_freq, comp_popu, comp_prob_freq, comp_freq_freq).
+## Returns TRUE if (hi, mi, fa, cr) form a valid frequency set; else warns and returns FALSE.
+
+verify_freq_quad <- function(hi, mi, fa, cr, fn = "function", allow_noninteger = TRUE) {
+
+  if (!is_valid_freq_set(hi, mi, fa, cr, allow_noninteger = allow_noninteger)) {
+    kind <- if (allow_noninteger) "non-negative numeric values" else "non-negative integers"
+    warning(paste0("comp_", fn, "(): Inputs 'hi', 'mi', 'fa', and 'cr' ",
+                   "must each be valid frequencies (i.e., ", kind, ")."))
+    return(FALSE)
+  }
+
+  return(TRUE)
+
+} # verify_freq_quad().
+
+## Check:
+# verify_freq_quad(1, 2, 3, 4, "accu_freq")              # => TRUE
+# verify_freq_quad(1, 2, 3, NA, "accu_freq")             # => FALSE + warning
+
 
 # is_matrix: Verify that mx is a numeric 2x2 contingency table: ------
 
