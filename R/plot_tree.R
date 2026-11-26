@@ -12,15 +12,7 @@
 #'
 #' \code{plot_tree} is deprecated -- please use \code{\link{plot_prism}} instead.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}.
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}.
-#'
-#' @param mirt The decision's miss rate \code{\link{mirt}}.
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}.
+#' @inheritParams comp_prob_prob
 #'
 #' @param N The number of individuals in the population.
 #'

@@ -37,25 +37,7 @@
 #' If \code{prev = NA}, the curves in \code{what}
 #' are plotted without points (i.e., \code{show_points = FALSE}).
 #'
-#' @param sens  The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt  The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec  The decision's specificity \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart  The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @param what  Vector of character codes that specify the
 #' selection of curves to be plotted. Currently available
@@ -1333,13 +1315,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   # Combine title + subtitle: ----
 
-  if ( (main != "") & (sub == "") ){ # only main title:
-    cur_title_lbl <- main
-  } else if ( (main == "") & (sub != "") ){ # only subtitle:
-    cur_title_lbl <- sub
-  } else { # combine both:
-    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
-  }
+  cur_title_lbl <- make_title_sub(main, sub)  # combine main title and subtitle
 
 
   # Plot title: ----

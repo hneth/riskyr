@@ -40,28 +40,7 @@
 #' The frequency net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 #' for analysis and details.
 #'
-#' @param prev  The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens  The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
-#' @param mirt  The decision's miss rate \code{\link{mirt}}
-#' (i.e., the conditional probability of a negative decision
-#' provided that the condition is \code{TRUE}).
-#' \code{mirt} is optional when its complement \code{sens} is provided.
-#'
-#' @param spec  The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when its complement \code{fart} is provided.
-#'
-#' @param fart  The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @inheritParams comp_prob_prob
 #'
 #' @param N  The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
@@ -1603,13 +1582,7 @@ plot_fnet <- function(prev = num$prev,    # probabilities
 
   # Combine title + subtitle: ----
 
-  if ( (main != "") & (sub == "") ){ # only main title:
-    cur_title_lbl <- main
-  } else if ( (main == "") & (sub != "") ){ # only subtitle:
-    cur_title_lbl <- sub
-  } else { # combine both:
-    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
-  }
+  cur_title_lbl <- make_title_sub(main, sub)  # combine main title and subtitle
 
 
   # Plot title: ----

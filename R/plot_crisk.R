@@ -1066,13 +1066,7 @@ plot_crisk <- function(x,         # x-values (as vector or df)
 
   # Combine title + subtitle: ----
 
-  if ( (main != "") & (sub == "") ){ # only main title:
-    cur_title_lbl <- main
-  } else if ( (main == "") & (sub != "") ){ # only subtitle:
-    cur_title_lbl <- sub
-  } else { # combine both:
-    cur_title_lbl <- paste0(main, ":\n", sub)  # add ":" and line break
-  }
+  cur_title_lbl <- make_title_sub(main, sub)  # combine main title and subtitle
 
 
   # Plot title: ----
