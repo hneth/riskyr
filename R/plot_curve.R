@@ -100,6 +100,11 @@
 #' on x-axis (i.e., values in \code{c(0, 1)} range).
 #' Default: \code{prev_range = c(0, 1)}.
 #'
+#' @param aux_line  Boolean value for showing diagonal auxiliary lines
+#' (i.e., baselines) for the \code{"PPV"} and \code{"NPV"} curves,
+#' to ease their comparison with corresponding baselines.
+#' Default: \code{aux_line = TRUE}.
+#'
 #' @param lbl_txt  Labels and text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
@@ -218,6 +223,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        show_points = TRUE,    # show points at current prev?
                        log_scale = FALSE,     # x-axis on log scale?
                        prev_range = c(0, 1),  # Min and max prev values on x-axis (in c(0, 1)). Default: prev_range = c(0, 1).
+                       aux_line = TRUE,       # plot diagonal auxiliary lines / baselines (for PPV and NPV curves)?
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
@@ -336,7 +342,6 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   fx_x_shift <- .025
   fx_y_shift <- .035
 
-  aux_line <- TRUE   # plot diagonal line(s) for comparison with baseline
   lang_de  <- FALSE  # TRUE # use German language labels?
 
 
@@ -1514,7 +1519,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 ## (*) Done: ----------
 
 # Added diagonal segments as auxiliary lines to compare curves with their baseline
-# (controlled by aux_line variable above)
+# (controlled by the aux_line argument)
 
 # Added prev_range argument (to allow zooming into prevalence ranges). [2019 01 25]
 
