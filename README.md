@@ -30,7 +30,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](htt
 
 <!-- riskyr logo: -->
 
-# riskyr 0.5.0.9005 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.5.0.9006 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 
