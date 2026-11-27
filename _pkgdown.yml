@@ -20,12 +20,13 @@ authors:
   SPDS:
     href: https://spds.uni-konstanz.de/
 
+
 development:
-  mode: devel
+  mode: devel  # release | devel
 
 template:
   bootstrap: 5
-  bootswatch: lumen
+  bootswatch: spacelab  # lumen | spacelab
 
 toc:
   depth: 3
