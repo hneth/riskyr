@@ -1,5 +1,5 @@
 ## _pkgdown.yml | riskyr
-## spds, uni.kn | 2025 09 15
+## spds, uni.kn | 2026 11 27
 ## -------------------------
 
 ## site info: ------
@@ -21,7 +21,7 @@ authors:
     href: https://spds.uni-konstanz.de/
 
 development:
-  mode: devel # devel OR release
+  mode: devel
 
 template:
   bootstrap: 5
@@ -63,8 +63,6 @@ navbar:
     href: https://hneth.github.io/riskyr/
     aria-label: View source code on GitHub
 
-
-
 ## reference: ------
 
 reference:
@@ -81,8 +79,7 @@ reference:
   - starts_with("txt")
 - title: Visualization
   desc: Functions for creating graphical representations of riskyr scenarios.
-  contents:
-  - starts_with("plot")
+  contents: starts_with("plot")
 - title: Probabilities
   desc: Lists and objects representing probability information.
   contents:
