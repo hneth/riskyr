@@ -3,16 +3,15 @@
 [![riskyr](../inst/pix/riskyr_cube.png)](https://github.com/hneth/riskyr/)
 
 **riskyr** is a toolbox for rendering risk literacy more transparent.
-Its goal is to gain insights into risk-related scenarios with a minimum
-of hassle and maximum of fun.
+Its goal is to gain insights into risk-related scenarios by playing with
+their parameters, translating between representations, and adopting
+different perspectives.
 
 This page assumes that you just installed the **riskyr** package and are
-eager to see what you can do with it.  
-(See the [User
+eager to see what you can do with it. (See the [User
 guide](https://hneth.github.io/riskyr/dev/articles/A_user_guide.md) for
 a more comprehensive introduction and [Neth et al.,
-2021](https://doi.org/10.3389/fpsyg.2020.567817), for its theoretical
-background.)
+2021](https://doi.org/10.3389/fpsyg.2020.567817), for details.)
 
 ## Getting started
 
