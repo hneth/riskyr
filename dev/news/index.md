@@ -60,6 +60,7 @@ Changes since last release:
 &nbsp;
 
 - Maintenance:
+  - Add a **testthat** test suite (for verifying core functionality);  
   - Add doi
     [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
     to citation;  
