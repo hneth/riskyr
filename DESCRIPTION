@@ -17,7 +17,8 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    spelling
+    spelling,
+    testthat (>= 3.0.0)
 Collate: 'comp_util.R'
          'init_txt.R'
          'init_pal.R'
@@ -61,3 +62,4 @@ BugReports: https://github.com/hneth/riskyr/issues/
 VignetteBuilder: knitr
 Language: en-US
 Config/roxygen2/version: 8.1.1
+Config/testthat/edition: 3
