@@ -2,7 +2,7 @@
 # riskyr 0.6.0
 
 <!-- riskyr cube logo: --> 
-<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
+<img src = "https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 **riskyr 0.6.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2026-11-30. 
 This version adds some functionality, but mostly improves robustness by reducing redundancy. 
@@ -354,7 +354,7 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 ## References
 
 <!-- riskyr cube logo: --> 
-<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
+<img src = "https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 To cite **riskyr** in derivations and publications please use:
 
