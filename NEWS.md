@@ -62,9 +62,7 @@ Changes since last release:
 
 ## Details
 
-- Remove experimental code 
-
-- Package maintenance:
+- Maintenance:
     - Add GitHub actions (R-CMD-check and Rhub workflows)
     - Update `README` and online documentation   
 
