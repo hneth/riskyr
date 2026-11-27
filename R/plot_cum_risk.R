@@ -511,7 +511,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 # # Note some visual insights: ------
 # # (i.e., insights based on visualizations):
 
-# # 1. Small cumulative risks (r < .10) behave almost additively/linearly:
+# # 1. Small cumulative risks (r < .10) behave almost in an additive/linear fashion:
 # plot_cbar(r = .01, t = 5, sort = F, N_max =  5)
 # plot_cbar(r = .05, t = 5, sort = F, N_max = 25)
 # plot_cbar(r = .10, t = 5, sort = F, N_max = 50)
@@ -528,7 +528,7 @@ plot_cbar <- function(r = .50, t = NA, N = 100,
 
 # # 4. Permutation/order effects for varying risk magnitudes: Compare
 # plot_cbar(r = c(.2, .3, .4))  # (seemingly linear increase of affected proportion) with
-# plot_cbar(r = c(.4, .3, .2))  # (seemingly rapid decrease), but same affected proportions overall:
+# plot_cbar(r = c(.4, .3, .2))  # (seemingly rapid decrease), but SAME affected proportions overall:
 # plot_cbar(r = c(.4, .2, .3), sort = TRUE)  # => The 8 final segments always
 # plot_cbar(r = c(.3, .2, .4), sort = TRUE)  #    contain the same permutations!
 
