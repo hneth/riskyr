@@ -59,7 +59,7 @@ url_riskyr_org <- "https://riskyr.org/"
 
 <!-- Current package Description (updated on 2025-09-13): -->
 
-Risk-related information ---\ like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments\ --- can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent 
+Risk-related information --- like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments --- can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent 
 (see [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for details).
 
 
@@ -125,6 +125,7 @@ The current development version can be installed from its [GitHub](https://githu
 devtools::install_github('hneth/riskyr')
 ```
 
+
 ### Available resources
 
 - An **interactive online version** is available at [https://riskyr.org/](`r url_riskyr_org`). 
@@ -132,6 +133,7 @@ devtools::install_github('hneth/riskyr')
 - The **package documentation** is available online:  
     - current release version: <https://hneth.github.io/riskyr/> 
     - current development version: <https://hneth.github.io/riskyr/dev/>
+
 
 ## Quick start guide 
 
@@ -171,12 +173,14 @@ The problem description provides three essential probabilities:
 3. The device's or diagnostic decision's _false alarm rate_ is 5%: `fart = .05`, 
 implying a _specificity_ of (100% $-$ 5%) = 95%: `spec = .95`.  
 
+
 #### Understanding the questions asked
 
 The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are _not_ simply the decision's sensitivity or specificity values. Instead, we are asked to provide two _conditional_ probabilities:
 
 - The conditional probability of suffering from the condition given a positive test result, <br>aka. the _positive predictive value_ (`PPV`). 
 - The conditional probability of being free of the condition given a negative test result, <br>aka. the _negative predictive value_ (`NPV`). 
+
 
 #### Translating into frequencies
 
@@ -196,6 +200,7 @@ Here is how **riskyr** allows you to view and solve such problems:
 ```{r load-riskyr, eval = TRUE, message = FALSE, warning = FALSE}
 library(riskyr)  # loads the package
 ```
+
 
 #### Creating a scenario from probabilities
 
@@ -229,6 +234,7 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 If find these answers surprising, you are an ideal candidate for additional insights into the realm of risk literacy. 
 A key component of **riskyr** is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call `riskyr.guide()` for various vignettes that provide more detailed information.) 
+
 
 #### Creating a scenario from frequencies
 
@@ -295,7 +301,7 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 
 A new type of visualization combines elements from 2x2 tables with those of tree or double tree diagrams. 
 The _frequency net_ (Binder et al., 2020) is similar to a 2x2 table insofar as its perspectives (shown by arranging marginal frequencies in a vertical vs. horizontal fashion) do not suggest an order or dependency (in contrast to trees or mosaic plots). 
-Additionally, the frequency net allows showing 3\ kinds of (_marginal_, _conditional_, and _joint_) probabilities:
+Additionally, the frequency net allows showing three kinds of (_marginal_, _conditional_, and _joint_) probabilities:
 
 ```{r ex1-fnet, eval = FALSE, fig.width = 6, fig.height = 5}
 plot(hustosis, type = "fnet", by = "cddc",
@@ -380,14 +386,14 @@ Although our current specificity value of 95% (`spec = .95`) seems decent, it is
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), **riskyr** provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). 
+As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), **riskyr** provides a set of --- currently `r length(scenarios) - 1` --- pre-defined scenarios (stored in a list `scenarios`). 
 Here, we provide an example that shows how we can select and explore them. 
 
 #### Selecting a scenario
 
 Let us assume we want to learn more about the controversy surrounding screening procedures of prostate-cancer (known as PSA screening). 
 Scenario\ 10 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). 
-To select a scenario, we assign it to an R object. For instance, we can assign Scenario\ 10 to\ `s10` as follows:
+To select a scenario, we assign it to an R object. For instance, we can assign Scenario\ 10 to `s10` as follows:
 
 ```{r ex2-select, eval = TRUE}
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
@@ -396,7 +402,7 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 
 #### Scenario summary 
 
-Our selected scenario object\ `s10` is a list with `r length(s10)` elements, which describe it in both text and numeric variables. 
+Our selected scenario object `s10` is a list with `r length(s10)` elements, which describe it in both text and numeric variables. 
 The following commands provide an overview of `s10` in text form:
 
 ```{r ex2-basic-info, eval = FALSE}
@@ -425,7 +431,7 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
 
 <!-- Note: -->
 
-A prism plot (or network diagram) combines 2\ tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). 
+A prism plot (or network diagram) combines two tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). 
 **riskyr** provides several variants of prism plots. 
 To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
 
@@ -441,7 +447,7 @@ plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
 
 #### Frequency net
 
-Just like the 2x2 matrix/table, area plot, and prism plot, the frequency net allows selecting 2\ out of 3\ perspectives. 
+Just like the 2x2 matrix/table, area plot, and prism plot, the frequency net allows selecting 2 out of 3 perspectives. 
 Additionally, the shape and size of the frequency boxes can be adjusted by using the `area = "sq"` option. 
 The following example shows a frequency net by condition and accuracy (`by = "cdac"`) without the joint probabilities, 
 with custom settings for labels, links, and colors: 
@@ -517,7 +523,7 @@ If so, call `riskyr.guide()` for viewing the package vignettes and obtaining add
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="https://spds.uni-konstanz.de/">
 <img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/>
-<!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> 
+<!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> -->
 </a>
 
 **riskyr** originated out of a series of lectures and workshops on risk literacy.  
