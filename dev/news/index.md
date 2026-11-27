@@ -2,7 +2,8 @@
 
 ## riskyr 0.6.0
 
-![riskyr cube](./inst/pix/riskyr_cube.png)
+![riskyr
+cube](https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png)
 
 **riskyr 0.6.0** was released [on
 CRAN](https://CRAN.R-project.org/package=riskyr) on 2026-11-30. This
@@ -503,7 +504,8 @@ CRAN](https://CRAN.R-project.org/package=riskyr) on February 19, 2018.
 
 ### References
 
-![riskyr cube](./inst/pix/riskyr_cube.png)
+![riskyr
+cube](https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png)
 
 To cite **riskyr** in derivations and publications please use:
 

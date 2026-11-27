@@ -2,9 +2,9 @@
 
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information — like the prevalence of conditions, the
+Risk-related information — like the prevalence of conditions, the
 sensitivity and specificity of diagnostic tests, or the effectiveness of
-interventions or treatments — can be expressed in terms of frequencies
+interventions or treatments — can be expressed in terms of frequencies
 or probabilities. By providing a toolbox of corresponding metrics and
 representations, **riskyr** computes, translates, and visualizes
 risk-related information in a variety of ways. Adopting multiple
@@ -332,7 +332,7 @@ of tree or double tree diagrams. The *frequency net* (Binder et al.,
 2020) is similar to a 2x2 table insofar as its perspectives (shown by
 arranging marginal frequencies in a vertical vs. horizontal fashion) do
 not suggest an order or dependency (in contrast to trees or mosaic
-plots). Additionally, the frequency net allows showing 3 kinds of
+plots). Additionally, the frequency net allows showing three kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
 ``` r
@@ -479,7 +479,7 @@ Let us assume we want to learn more about the controversy surrounding
 screening procedures of prostate-cancer (known as PSA screening).
 Scenario 10 in our collection of `scenarios` is from an article on this
 topic (Arkes & Gaissmaier, 2012). To select a scenario, we assign it to
-an R object. For instance, we can assign Scenario 10 to `s10` as
+an R object. For instance, we can assign Scenario 10 to `s10` as
 follows:
 
 ``` r
@@ -489,7 +489,7 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 
 #### Scenario summary
 
-Our selected scenario object `s10` is a list with 30 elements, which
+Our selected scenario object `s10` is a list with 30 elements, which
 describe it in both text and numeric variables. The following commands
 provide an overview of `s10` in text form:
 
@@ -526,7 +526,7 @@ frequency values)](inst/pix/README-ex2-tree-1.png)
 A prism plot (as tree diagram, with square size corresponding to
 frequency values)
 
-A prism plot (or network diagram) combines 2 tree diagrams to
+A prism plot (or network diagram) combines two tree diagrams to
 simultaneously provide two perspectives on a population (see Wassner et
 al., 2004). **riskyr** provides several variants of prism plots. To
 avoid redundancy to the previous tree diagram, the following version
@@ -550,7 +550,7 @@ frequency values)
 #### Frequency net
 
 Just like the 2x2 matrix/table, area plot, and prism plot, the frequency
-net allows selecting 2 out of 3 perspectives. Additionally, the shape
+net allows selecting 2 out of 3 perspectives. Additionally, the shape
 and size of the frequency boxes can be adjusted by using the
 `area = "sq"` option. The following example shows a frequency net by
 condition and accuracy (`by = "cdac"`) without the joint probabilities,
