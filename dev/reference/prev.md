@@ -1,7 +1,7 @@
-# The prevalence (baseline probability) of a condition.
+# The prevalence (baseline probability or prior) of a condition.
 
-`prev` defines a condition's prevalence value (or baseline probability):
-The probability of the condition being `TRUE`.
+`prev` defines a condition's prevalence value (aka. incidence rate or
+prior): The baseline probability of the condition being `TRUE`.
 
 ## Usage
 
@@ -17,8 +17,8 @@ Understanding or obtaining the prevalence value `prev`:
 
   `prev = p(condition = TRUE)`
 
-  or the base rate (or baseline probability) of the condition's
-  occurrence or truth.
+  or the base rate (baseline probability or prior) of the condition's
+  occurrence or being true.
 
 - In terms of frequencies, `prev` is the ratio of
   [`cond_true`](https://hneth.github.io/riskyr/dev/reference/cond_true.md)
@@ -41,11 +41,13 @@ Understanding or obtaining the prevalence value `prev`:
   [`acc`](https://hneth.github.io/riskyr/dev/reference/acc.md) (when
   adopting a "by accuracy" perspective).
 
-- Alternative names: base rate of condition, proportion affected, rate
-  of condition `= TRUE` cases.
+- Alternative names: base rate of condition, proportion affected, prior,
+  rate of condition `= TRUE` cases.
 
-  `prev` is often distinguished from the *incidence rate* (i.e., the
-  rate of new cases within a certain time period).
+  In Bayesian contexts, `prev` is typically known as `prior`.
+
+  In medical contexts, `prev` is often distinguished from the *incidence
+  rate* (i.e., the rate of new cases within a certain time period).
 
 - Dependencies: `prev` is a feature of the population and of the
   condition, but independent of the decision process or diagnostic

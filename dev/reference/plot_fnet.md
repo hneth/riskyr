@@ -61,7 +61,7 @@ net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 
   The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`).
+  the probability of condition being `TRUE`, aka. *prior*).
 
 - sens:
 

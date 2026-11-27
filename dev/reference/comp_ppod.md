@@ -1,8 +1,8 @@
 # Compute the proportion of positive decisions (ppod) from probabilities.
 
 `comp_ppod` computes the proportion of positive decisions
-[`ppod`](https://hneth.github.io/riskyr/dev/reference/ppod.md) from 3
-essential probabilities
+[`ppod`](https://hneth.github.io/riskyr/dev/reference/ppod.md) (aka.
+bias) from 3 essential probabilities
 [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md),
 [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md), and
 [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md).
@@ -39,14 +39,15 @@ comp_ppod(prev, sens, spec)
 
 The proportion of positive decisions
 [`ppod`](https://hneth.github.io/riskyr/dev/reference/ppod.md) as a
-probability. A warning is provided for NaN values.
+probability. A warning is provided for `NaN` values.
 
 ## Details
 
 `comp_ppod` uses probabilities (not frequencies) as inputs and returns a
 proportion (probability) without rounding.
 
-Definition: `ppod` is proportion (or probability) of positive decisions:
+Definition: `ppod` is the proportion (or probability) of positive
+decisions (aka. bias):
 
 `ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)`
 

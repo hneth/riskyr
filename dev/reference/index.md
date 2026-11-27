@@ -104,7 +104,7 @@ Lists and objects representing probability information.
 - [`prob`](https://hneth.github.io/riskyr/dev/reference/prob.md) : List
   current probability information.
 - [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) : The
-  prevalence (baseline probability) of a condition.
+  prevalence (baseline probability or prior) of a condition.
 - [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) : The
   sensitivity (or hit rate) of a decision process or diagnostic
   procedure.
