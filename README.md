@@ -63,8 +63,8 @@ literacy more transparent (see [Neth et al.,
 
 ## Motivation
 
-> Solving a problem simply means representing it <br> so as to make the
-> solution transparent. (H.A. Simon)[^1]
+> *Solving a problem simply means representing it* <br> *so as to make
+> the solution transparent.* (H.A. Simon)[^1]
 
 <!-- Risk perception as representational effects: -->
 
@@ -73,39 +73,43 @@ The goals of **riskyr** are less of a *computational* and more of a
 multiple formats, facilitate the translation between them, and provide a
 variety of attractive visualizations that emphasize different aspects of
 risk-related scenarios (see [Neth et al.,
-2021](https://doi.org/10.3389/fpsyg.2020.567817), for theoretical
-details). Whereas people find it difficult to understand and compute
-information expressed in terms of probabilities, the same information is
-easier to understand and compute when expressed in terms of frequencies
-(e.g., Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather
-than just expressing probabilities in terms of frequencies, **riskyr**
-allows translating between formats and illustrates the relationships
-between different representations in a variety of ways. Switching
-between and interacting with different representations fosters
-transparency and boosts human understanding of risk-related
-information.[^2]
+2021](https://doi.org/10.3389/fpsyg.2020.567817), for details). Whereas
+people find it difficult to understand and compute information expressed
+in terms of probabilities, the same information is easier to understand
+and compute when expressed in terms of (natural) frequencies (e.g.,
+Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather than
+just expressing probabilities in terms of frequencies, **riskyr** allows
+translating between formats and illustrates the relationships between
+different representations in a variety of ways. Switching between and
+interacting with different representations fosters transparency and
+boosts human understanding of risk-related information.[^2]
 
 <!-- Defining "risk" (in footnote): -->
 
-<!-- On "riskyr": -->
+<!-- Principles of riskyr: -->
 
-The basic assumptions and aspirations driving the current development of
+The basic principles and aspirations driving the current development of
 **riskyr** include:
 
-1.  Effective training in risk literacy requires transparent
-    representations, smart strategies, and simple tools.
+1.  **Simplicity** and **transparency**: Effective training in risk
+    literacy requires transparent representations, smart strategies, and
+    simple tools.
 
-2.  We aim to provide a set of (computational and representational)
-    functions that facilitate various calculations, translations between
-    formats, and enable a range of alternative views on the interplay
-    between probabilities and frequencies.
+2.  **Computation** of values and **translation** between formats: We
+    provide (computational and representational) functions that
+    facilitate calculations and translations between formats, and
+    provide alternative views on the interplay between probabilities and
+    frequencies in risk-related scenarios.
 
-3.  Just as no single tool fits all tasks, no single graph illustrates
-    all aspects of a problem. A variety of visualizations that
-    illustrate the interplay of parameters and metrics can facilitate
-    active and explorative learning. It is particularly helpful to view
-    relationships from alternative perspectives and to observe the
-    change of one parameter as a function of others.
+3.  **Flexibility** of perspectives and tools: Just as no single tool
+    fits all tasks, no single graph illustrates all aspects of a
+    problem. A variety of visualizations that illustrate the interplay
+    of parameters and metrics facilitates active and explorative
+    learning. It is particularly helpful to view relationships from
+    alternative perspectives and to observe the change of one parameter
+    as a function of others.
+
+<!-- Features: -->
 
 Based on these assumptions and goals, **riskyr** provides a range of
 computational and representational tools. Importantly, the objects and
@@ -324,8 +328,8 @@ plot(hustosis)  # default plot
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-prism-1.png" alt="Prism plot" />
-<figcaption aria-hidden="true">Prism plot</figcaption>
+<img src="inst/pix/README-ex1-prism-1.png" alt="A prism plot" />
+<figcaption aria-hidden="true">A prism plot</figcaption>
 </figure>
 
 #### Tree diagram
@@ -347,8 +351,8 @@ plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-tree-1.png" alt="Tree diagram" />
-<figcaption aria-hidden="true">Tree diagram</figcaption>
+<img src="inst/pix/README-ex1-tree-1.png" alt="A tree diagram" />
+<figcaption aria-hidden="true">A tree diagram</figcaption>
 </figure>
 
 This particular tree splits the population of `N = 1000` individuals
@@ -387,8 +391,9 @@ plot(hustosis, type = "fnet", by = "cddc",
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-fnet-1.png" alt="Frequency net" />
-<figcaption aria-hidden="true">Frequency net</figcaption>
+<img src="inst/pix/README-ex1-fnet-1.png"
+alt="A frequency net diagram" />
+<figcaption aria-hidden="true">A frequency net diagram</figcaption>
 </figure>
 
 See the `plot_fnet()` function for options and details.
@@ -403,8 +408,8 @@ plot(hustosis, type = "icons")   # plot an icon array
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-icons-1.png" alt="Icon array" />
-<figcaption aria-hidden="true">Icon array</figcaption>
+<img src="inst/pix/README-ex1-icons-1.png" alt="An icon array" />
+<figcaption aria-hidden="true">An icon array</figcaption>
 </figure>
 
 While this particular icon array is highly regular (as both the icons
@@ -425,24 +430,25 @@ plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-area-1.png" alt="Area/mosaic plot" />
-<figcaption aria-hidden="true">Area/mosaic plot</figcaption>
+<img src="inst/pix/README-ex1-area-1.png" alt="An area/mosaic plot" />
+<figcaption aria-hidden="true">An area/mosaic plot</figcaption>
 </figure>
 
 #### Table plot
 
 When not scaling the size of rectangles by their relative frequencies or
 probabilities, we can plot basic scenario information as a 2-by-2
-confusion (or contingency) table (see `?plot_tab` for details and
-examples):
+confusion (or contingency) table (aka. 2x2 matrix, see `?plot_tab` for
+details and examples):
 
 ``` r
 plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-tab-1.png" alt="Table plot" />
-<figcaption aria-hidden="true">Table plot</figcaption>
+<img src="inst/pix/README-ex1-tab-1.png"
+alt="A 2x2 matrix/table plot" />
+<figcaption aria-hidden="true">A 2x2 matrix/table plot</figcaption>
 </figure>
 
 #### Bar plot
@@ -455,13 +461,13 @@ plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspect
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-bar-1.png" alt="Bar plot" />
-<figcaption aria-hidden="true">Bar plot</figcaption>
+<img src="inst/pix/README-ex1-bar-1.png" alt="A bar plot" />
+<figcaption aria-hidden="true">A bar plot</figcaption>
 </figure>
 
 #### Curves
 
-By adopting a functional perspective, we can ask how the values of some
+Adopting a functional perspective, we can ask how the values of some
 probabilities (e.g., the predictive values `PPV` and `NPV`) change as a
 function of another (e.g., the condition’s prevalence `prev`, see
 `?plot_curve` for details and examples):
@@ -471,8 +477,10 @@ plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevale
 ```
 
 <figure>
-<img src="inst/pix/README-ex1-curve-1.png" alt="Probability curves" />
-<figcaption aria-hidden="true">Probability curves</figcaption>
+<img src="inst/pix/README-ex1-curve-1.png"
+alt="Two probability curves: PPV/NPV as a function of prevalence" />
+<figcaption aria-hidden="true">Two probability curves: PPV/NPV as a
+function of prevalence</figcaption>
 </figure>
 
 #### Planes
@@ -487,18 +495,16 @@ details and examples):
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
-<figure>
-<img src="inst/pix/README-ex1-plane-1.png" alt="Probability plane" />
-<figcaption aria-hidden="true">Probability plane</figcaption>
-</figure>
+![A probability plane: PPV as a function of sensitivity and
+specificity](inst/pix/README-ex1-plane-1.png) <!-- Note: -->
 
 The L-shape of this plane reveals a real problem with our current test:
 Given a prevalence of 4% for hustosis in our target population, the
 `PPV` remains very low for the majority of the possible range of
-sensitivity and specificity values. To achieve a high `PPV`, the key
+sensitivity and specificity values. To achieve a higher `PPV`, the key
 requirement for our test is an extremely high specificity. Although our
-current specificity value of 95% (`spec = .95`) may sound pretty good,
-it is still not high enough to yield a `PPV` beyond 40%.
+current specificity value of 95% (`spec = .95`) seems decent, it is
+still not high enough to yield a `PPV` beyond 40%.
 
 <!-- 2: Loading and using pre-defined scenarios -->
 
@@ -508,16 +514,16 @@ As defining your own scenarios can be cumbersome and the literature is
 full of risk-related problems (often referred to as “Bayesian
 reasoning”), **riskyr** provides a set of — currently 24 — pre-defined
 scenarios (stored in a list `scenarios`). Here, we provide an example
-that shows how you can select and explore them.
+that shows how we can select and explore them.
 
 #### Selecting a scenario
 
-Let us assume you want to learn more about the controversy surrounding
+Let us assume we want to learn more about the controversy surrounding
 screening procedures of prostate-cancer (known as PSA screening).
-Scenario 10 in our collection of `scenarios` is from an article on this
-topic (Arkes & Gaissmaier, 2012). To select a particular scenario,
-simply assign it to an R object. For instance, we can assign Scenario 10
-to `s10`:
+Scenario 10 in our collection of `scenarios` is from an article on this
+topic (Arkes & Gaissmaier, 2012). To select a scenario, we assign it to
+an R object. For instance, we can assign Scenario 10 to `s10` as
+follows:
 
 ``` r
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
@@ -525,7 +531,7 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 
 #### Scenario summary
 
-Our selected scenario object `s10` is a list with 30 elements, which
+Our selected scenario object `s10` is a list with 30 elements, which
 describe it in both text and numeric variables. The following commands
 provide an overview of `s10` in text form:
 
@@ -556,12 +562,14 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
 
 <figure>
 <img src="inst/pix/README-ex2-tree-1.png"
-alt="Prism/tree plot (with scaled squares)" />
-<figcaption aria-hidden="true">Prism/tree plot (with scaled
-squares)</figcaption>
+alt="A prism plot (as tree diagram, with square size corresponding to frequency values)" />
+<figcaption aria-hidden="true">A prism plot (as tree diagram, with
+square size corresponding to frequency values)</figcaption>
 </figure>
 
-The prism plot (or network diagram) combines 2 tree diagrams to
+<!-- Note: -->
+
+A prism plot (or network diagram) combines 2 tree diagrams to
 simultaneously provide two perspectives on a population (see Wassner et
 al., 2004). **riskyr** provides several variants of prism plots. To
 avoid redundancy to the previous tree diagram, the following version
@@ -577,15 +585,17 @@ plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
 
 <figure>
 <img src="inst/pix/README-ex2-prism-hr-1.png"
-alt="Prism plot (with scaled horizontal rectangles)" />
-<figcaption aria-hidden="true">Prism plot (with scaled horizontal
-rectangles)</figcaption>
+alt="A prism plot (with scaled horizontal rectangles corresponding to frequency values)" />
+<figcaption aria-hidden="true">A prism plot (with scaled horizontal
+rectangles corresponding to frequency values)</figcaption>
 </figure>
+
+<!-- next: -->
 
 #### Frequency net
 
-Just like the 2x2 table, area plot, and prism plot, the frequency net
-allows selecting two out of three perspectives. Additionally, the shape
+Just like the 2x2 matrix/table, area plot, and prism plot, the frequency
+net allows selecting 2 out of 3 perspectives. Additionally, the shape
 and size of the frequency boxes can be adjusted by using the
 `area = "sq"` option. The following example shows a frequency net by
 condition and accuracy (`by = "cdac"`) without the joint probabilities,
@@ -599,10 +609,12 @@ plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accurac
 
 <figure>
 <img src="inst/pix/README-ex2-fnet-1.png"
-alt="Frequency net (with custom perspective and options)" />
-<figcaption aria-hidden="true">Frequency net (with custom perspective
+alt="A frequency net (with custom perspective and options)" />
+<figcaption aria-hidden="true">A frequency net (with custom perspective
 and options)</figcaption>
 </figure>
+
+<!-- next: -->
 
 #### Icon array
 
@@ -761,6 +773,9 @@ information.
 
 ### References
 
+Articles and books on the scientific background of the **riskyr**
+package:
+
 - Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the
   prostate-cancer screening controversy. *Psychological Science*, *23*,
   547–553.
@@ -849,7 +864,7 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2026-11-26 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2026-11-27 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
@@ -858,23 +873,23 @@ information.
 
 [^2]: To clarify our notion of “risk” in this context, we need to
     distinguish it from its everyday usage as anything implying a chance
-    of danger or harm.  
-    In basic research on judgment and decision making and the more
-    applied fields of risk perception and risk communication, the term
-    *risk* typically refers to decisions or events for which the options
-    and their consequences are known and probabilities for all possible
-    outcomes can be provided.  
-    For our present purposes, the notion of risk-related information
-    refers to any scenario in which some events of interest are
-    determined by probabilities. While it is important that quantitative
-    (estimates of) probabilities are provided, their origin, reliability
-    and validity is not questioned here. Thus, the probabilities
-    provided can be based on clinical intuition, on recordings of
-    extensive experience, or on statistical simulation models (e.g.,
-    repeatedly casting dice and counting the frequencies of outcomes).  
+    of danger or harm. In basic research on *Judgment and decision
+    making* and the more applied fields of *Risk perception* and *Risk
+    communication*, the term *risk* typically refers to decisions or
+    events for which all options and their consequences, as well as
+    their probabilities are *known* and *available*. For our present
+    purposes, the notion of risk-related information refers to any
+    scenario in which some events of interest are determined by a set of
+    frequencies or probabilities. While it is important *that*
+    quantitative (estimates of) probabilities are provided, their
+    origin, reliability and validity is not questioned here. Thus, the
+    frequencies or probabilities provided can be based on clinical
+    intuition, on recordings of extensive experience, statistical
+    models, or simulations (e.g., sampling and counting the frequencies
+    of outcomes).  
     This notion of *risk* is typically contrasted with the much wider
     notion of *uncertainty* in which options or probabilities are
-    unknown or cannot be quantified. (See Gigerenzer and Gaissmaier,
+    *unknown* or cannot be quantified. (See Gigerenzer and Gaissmaier,
     2011, or Neth and Gigerenzer, 2015, on this conceptual distinction
     and corresponding decision strategies.)
 
