@@ -23,8 +23,8 @@ url_riskyr_org <- "https://riskyr.org/"
 
 <!-- Motto: --> 
 
-> "Solving a problem simply means representing it so as to make the solution transparent."<br>
-> (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
+> _Solving a problem simply means representing it so as to make the solution transparent._<br>
+> (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd\ ed.). The MIT Press, Cambridge, MA. (p.\ 132).]
 
 
 <!-- Introduction: --> 
@@ -49,13 +49,14 @@ Decades of research on probabilistic reasoning and risk literacy have shown that
 This guide illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. 
 It proceeds in three steps:
 
-1. We first present the problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' theorem) remains opaque and is rightfully perceived as difficult.
+1. We first present the problem in the probabilistic format that is commonly used in textbooks. 
+This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' theorem) remains opaque and is rightfully perceived as difficult.
 
 2. We then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
 
 3. Finally, **riskyr** helps rendering problems more transparent by providing three sets of tools:
 
-    A. Functions for computing probabilities and frequencies; 
+    A. Functions for computing frequencies and probabilities; 
    
     B. Functions for translating between different representational formats; 
    
@@ -108,7 +109,7 @@ They typically provide some risk-related information (i.e., specific probabiliti
 
   - `fart` = $p( \mathrm{positive\ test}\ |\ \mathrm{no\ breast\ cancer} ) = 9.6\%$
 
-and can also be expressed by its complement (aka. the test's _specificity_):  
+and can also be expressed by its complement (i.e., the test's _specificity_):  
 
   - `spec` = 1 -- `fart` = $p( \mathrm{negative\ test}\ |\ \mathrm{no\ cancer} ) = 90.4\%$  
 
