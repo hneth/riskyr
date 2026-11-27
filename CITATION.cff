@@ -14,7 +14,7 @@ authors:
   given-names: "Wolfgang"
   orcid: "https://orcid.org/0000-0001-6273-178X"
 title: "riskyr: Rendering Risk Literacy more Transparent"
-version: 0.5.0
-date-released: 2025-09-15
+version: 0.6.0
+date-released: 2026-11-30
 doi: "10.32614/CRAN.package.riskyr"
 url: "https://CRAN.R-project.org/package=riskyr"

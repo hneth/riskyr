@@ -30,7 +30,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](htt
 
 <!-- riskyr logo: -->
 
-# riskyr 0.5.0.9006 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr 0.6.0 <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 
@@ -684,7 +684,7 @@ vignettes and obtaining additional information.
 
 **riskyr** originated out of a series of lectures and workshops on risk
 literacy.  
-The current version (0.5.0, as of Sep 15, 2025) is under active
+The current version (0.6.0, as of Nov 30, 2026) is under active
 development. Its primary designers are [Hansjörg
 Neth](https://spds.uni-konstanz.de/hans-neth), [Felix
 Gaisbauer](https://spds.uni-konstanz.de/people), [Nico
@@ -746,11 +746,11 @@ We appreciate your feedback, comments, or questions.
 
 To cite **riskyr** in derivations and publications, please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025).  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2026).  
   riskyr: Rendering Risk Literacy more Transparent.  
   Social Psychology and Decision Sciences, University of Konstanz,
   Germany.  
-  Computer software (R package version 0.5.0, Sep 15, 2025).  
+  Computer software (R package version 0.6.0, Nov 30, 2026).  
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
   doi
   [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
@@ -760,10 +760,10 @@ A BibTeX entry for LaTeX users is:
     @Manual{riskyr,
       title = {riskyr: Rendering Risk Literacy more Transparent},
       author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-      year = {2025},
+      year = {2026},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.5.0, Sep 15, 2025)},
+      note = {R package (version 0.6.0, Nov 30, 2026)},
       url = {https://CRAN.R-project.org/package=riskyr},
       doi = {10.32614/CRAN.package.riskyr}
       }   

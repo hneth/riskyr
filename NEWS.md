@@ -1,59 +1,52 @@
 
-# riskyr 0.5.0.9006
+# riskyr 0.6.0
 
 <!-- riskyr cube logo: --> 
 <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
+**riskyr 0.6.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2026-11-30. 
+This version adds some functionality, but mostly improves robustness by reducing redundancy. 
 
-This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-11-26]
-
-This version adds functionality and details, and fixes some bugs. 
+<!-- This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-11-30] --> 
 
 Changes since last release:  
-
-<!-- Major: --> 
-
-## Major changes
-
-- none yet
-
 
 <!-- Minor: --> 
 
 ## Minor changes
 
-- Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (to compare PPV and NPV curves to corresponding baselines)
+- Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (to compare PPV and NPV curves to corresponding baselines).
 
-- Add `is_valid_freq_set()` for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`, `cr`) — a frequency analog to `is_valid_prob_set()` that (by default) also accepts exact (non-integer) frequencies
+- Add `is_valid_freq_set()` for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`, `cr`) — a frequency analog to `is_valid_prob_set()` that (by default) also accepts exact (non-integer) frequencies.
 
 - Add input validation to functions computing frequencies and probabilities:
-    - Functions computing metrics from frequencies (e.g., `comp_accu_freq()`, `comp_prob_freq()`, `comp_freq_freq()`, `comp_popu()`) now verify their `hi`, `mi`, `fa`, and `cr` inputs  
-    - Functions computing metrics from probabilities (e.g., `comp_PPV()`, `comp_NPV()`, `comp_FDR()`, `comp_FOR()`, `comp_ppod()`, `comp_acc()`, `comp_err()`) now verify their `prev`, `sens`, and `spec` inputs  
-    - Invalid or incomplete input sets now yield `NA` (with a warning) instead of silently computing invalid values
+    - Functions computing metrics from frequencies (e.g., `comp_accu_freq()`, `comp_prob_freq()`, `comp_freq_freq()`, `comp_popu()`) now verify their `hi`, `mi`, `fa`, and `cr` inputs;  
+    - Functions computing metrics from probabilities (e.g., `comp_PPV()`, `comp_NPV()`, `comp_FDR()`, `comp_FOR()`, `comp_ppod()`, `comp_acc()`, `comp_err()`) now verify their `prev`, `sens`, and `spec` inputs;  
+    - Invalid or incomplete input sets now yield `NA` (with a warning) instead of silently computing invalid values.
 
 
 <!-- Micro/details: --> 
 
 ## Details
 
-- Reduce code and documentation redundancy: 
-    - Consolidate repeated input-verification logic into internal helpers 
-    - Use `@inheritParams` to remove duplicated documentation of shared probability (`prev`, `sens`, `spec`, `mirt`, `fart`) and frequency (`hi`, `mi`, `fa`, `cr`) parameters   
-    - Add an internal helper for combining plot titles and subtitles (used by all plot functions)  
+- Reduce redundancy: 
+    - Consolidate repeated input-verification logic into internal helpers; 
+    - Use `@inheritParams` to remove duplicated documentation of shared probability (`prev`, `sens`, `spec`, `mirt`, `fart`) and frequency (`hi`, `mi`, `fa`, `cr`) parameters;    
+    - Add an internal helper for combining plot titles and subtitles (used by all plot functions).  
  
 <!-- next: --> 
 
-- Package maintenance:  
-    - Add doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr) to citation  
-    - Update `README` and online documentation 
+- Maintenance:  
+    - Add doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr) to citation;  
+    - Update documentation and `README`. 
     
 
 <!-- Development version: --> 
 
-<!-- The current development version of **riskyr** is available at <https://github.com/hneth/riskyr/>. -->
+The current development version of **riskyr** is available at <https://github.com/hneth/riskyr/>.
 
 
-<!-- Published versions: --> 
+<!-- Previous version: --> 
 
 ---------- 
 
@@ -365,10 +358,10 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025).  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2026).  
   riskyr: Rendering Risk Literacy more Transparent.  
   Social Psychology and Decision Sciences, University of Konstanz, Germany.  
-  Computer software (R package version 0.5.0, Sep 15, 2025).   
+  Computer software (R package version 0.6.0, Nov 30, 2026).   
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.   
   doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)  
 
@@ -387,6 +380,6 @@ Perspectives on the 2x2 matrix: Solving semantically distinct problems based on 
 
 ---------- 
 
-[`NEWS.md` updated on 2026-11-26.]
+[`NEWS.md` updated on 2026-11-30.]
 
 <!-- eof -->
