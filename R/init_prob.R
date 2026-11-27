@@ -68,11 +68,11 @@
 
 ## (0) prev*** = base rate of condition: ---------
 
-#' The prevalence (baseline probability) of a condition.
+#' The prevalence (baseline probability or prior) of a condition.
 #'
 #' \code{prev} defines a condition's prevalence value
-#' (or baseline probability):
-#' The probability of the condition being \code{TRUE}.
+#' (aka. incidence rate or prior):
+#' The baseline probability of the condition being \code{TRUE}.
 #'
 #' Understanding or obtaining the prevalence value \code{prev}:
 #'
@@ -83,8 +83,8 @@
 #'
 #'   \code{prev = p(condition = TRUE)}
 #'
-#'   or the base rate (or baseline probability)
-#'   of the condition's occurrence or truth.
+#'   or the base rate (baseline probability or prior)
+#'   of the condition's occurrence or being true.
 #'
 #'   \item In terms of frequencies,
 #'   \code{prev} is the ratio of
@@ -105,10 +105,13 @@
 #'   \item Alternative names:
 #'   base rate of condition,
 #'   proportion affected,
+#'   prior,
 #'   rate of condition \code{= TRUE} cases.
 #'
-#'   \code{prev} is often distinguished from the \emph{incidence rate}
-#'   (i.e., the rate of new cases within a certain time period).
+#'   In Bayesian contexts, \code{prev} is typically known as \code{prior}.
+#'
+#'   In medical contexts, \code{prev} is often distinguished from the
+#'   \emph{incidence rate} (i.e., the rate of new cases within a certain time period).
 #'
 #'   \item Dependencies:
 #'   \code{prev} is a feature of the population
@@ -127,7 +130,7 @@
 #' }
 #'
 #' @aliases
-#' baserate_cond_true
+#' baserate_cond_true prior
 #'
 #' @examples
 #' prev <- .10     # sets a prevalence value of 10%
@@ -540,7 +543,7 @@ fart <- 1 - spec   # default false alarm rate
 #'
 #' \code{ppod} is also known as \code{bias}, though the latter term is also
 #' used to describe a systematic tendency to deviate in any --- rather
-#' than just positive --- direction.
+#' than just a positive --- direction.
 #'
 #' Understanding or obtaining the proportion of positive decisions \code{ppod}:
 #'
@@ -608,7 +611,7 @@ fart <- 1 - spec   # default false alarm rate
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 
-ppod <- 1/2  # default rate of positive decisions/bias
+ppod <- 1/2  # base rate of positive decisions/bias
 
 
 

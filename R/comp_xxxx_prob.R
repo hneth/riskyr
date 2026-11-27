@@ -332,7 +332,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'  }
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
+#' (i.e., the probability of condition being \code{TRUE}, aka. \emph{prior}).
 #'
 #' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
@@ -463,10 +463,11 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
 
 ## (*) Done: -----------
 
-## - etc.
+## - ...
+
 
 ## (+) ToDo: ----------
 
-## - etc.
+## - ...
 
 ## eof. ------------------------------------------

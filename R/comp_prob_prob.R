@@ -440,20 +440,20 @@ comp_complete_prob_set <- function(prev,
 ## (2) by decision: Compute probabilities of decisions/cases from probabilities: ------------------
 
 
-## (a) ppod = proportion of positive decisions (PR) from probabilities: ------
+## (a) comp_ppod = proportion of positive decisions (PR) from probabilities: ------
 
 #' Compute the proportion of positive decisions (ppod) from probabilities.
 #'
 #' \code{comp_ppod} computes the proportion of positive decisions \code{\link{ppod}}
-#' from 3 essential probabilities
+#' (aka. bias) from 3 essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 #'
 #' \code{comp_ppod} uses probabilities (not frequencies) as
 #' inputs and returns a proportion (probability)
 #' without rounding.
 #'
-#' Definition: \code{ppod} is
-#' proportion (or probability) of positive decisions:
+#' Definition: \code{ppod} is the
+#' proportion (or probability) of positive decisions (aka. bias):
 #'
 #' \code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 #'
@@ -466,7 +466,7 @@ comp_complete_prob_set <- function(prev,
 #' @inheritParams comp_PPV
 #'
 #' @return The proportion of positive decisions \code{\link{ppod}} as a probability.
-#' A warning is provided for NaN values.
+#' A warning is provided for \code{NaN} values.
 #'
 #' @examples
 #' # (1) ways to work:
@@ -546,6 +546,7 @@ comp_ppod <- function(prev, sens, spec) {
 
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
 
 ## (b) Positive predictive value (PPV) ------------
 
