@@ -340,7 +340,7 @@ essential probabilities `prev`, `sens`, and `spec` (with `spec` = 1 –
 ``` r
 
 library("riskyr")  # loads the package
-#> Welcome to riskyr (v0.5.0.9006)!
+#> Welcome to riskyr (v0.6.0)!
 #> 
 #>       N
 #>     /  \
