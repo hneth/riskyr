@@ -397,8 +397,8 @@ al. (2021)](https://doi.org/10.3389/fpsyg.2020.567817).
   FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal
   decision trees. *Judgment and Decision Making*, *12*, 344–368.
   <https://doi.org/10.1017/S1930297500006239> (Available online:
-  [pdf](https://journal.sjdm.org/17/17217/jdm17217.pdf) \|
-  [html](https://journal.sjdm.org/17/17217/jdm17217.html) \| [R
+  [pdf](https://jbaron.org/journal/17/17217/jdm17217.pdf) \|
+  [html](https://jbaron.org/journal/17/17217/jdm17217.html) \| [R
   package](https://CRAN.R-project.org/package=FFTrees) )
 
 Links to related Wikipedia articles:
