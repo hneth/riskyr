@@ -18,7 +18,7 @@ comp_freq_prob(
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
-(i.e., the probability of condition being \code{TRUE}).}
+(i.e., the probability of condition being \code{TRUE}, aka. \emph{prior}).}
 
 \item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision

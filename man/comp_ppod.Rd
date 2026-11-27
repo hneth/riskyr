@@ -20,11 +20,11 @@ of a negative decision provided that the condition is \code{FALSE}).}
 }
 \value{
 The proportion of positive decisions \code{\link{ppod}} as a probability.
-A warning is provided for NaN values.
+A warning is provided for \code{NaN} values.
 }
 \description{
 \code{comp_ppod} computes the proportion of positive decisions \code{\link{ppod}}
-from 3 essential probabilities
+(aka. bias) from 3 essential probabilities
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 }
 \details{
@@ -32,8 +32,8 @@ from 3 essential probabilities
 inputs and returns a proportion (probability)
 without rounding.
 
-Definition: \code{ppod} is
-proportion (or probability) of positive decisions:
+Definition: \code{ppod} is the
+proportion (or probability) of positive decisions (aka. bias):
 
 \code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 

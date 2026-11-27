@@ -16,7 +16,7 @@ a decision being \code{positive} (but not necessarily accurate/correct).
 \details{
 \code{ppod} is also known as \code{bias}, though the latter term is also
 used to describe a systematic tendency to deviate in any --- rather
-than just positive --- direction.
+than just a positive --- direction.
 
 Understanding or obtaining the proportion of positive decisions \code{ppod}:
 

@@ -3,14 +3,15 @@
 \name{prev}
 \alias{prev}
 \alias{baserate_cond_true}
-\title{The prevalence (baseline probability) of a condition.}
+\alias{prior}
+\title{The prevalence (baseline probability or prior) of a condition.}
 \usage{
 prev
 }
 \description{
 \code{prev} defines a condition's prevalence value
-(or baseline probability):
-The probability of the condition being \code{TRUE}.
+(aka. incidence rate or prior):
+The baseline probability of the condition being \code{TRUE}.
 }
 \details{
 Understanding or obtaining the prevalence value \code{prev}:
@@ -22,8 +23,8 @@ Understanding or obtaining the prevalence value \code{prev}:
 
   \code{prev = p(condition = TRUE)}
 
-  or the base rate (or baseline probability)
-  of the condition's occurrence or truth.
+  or the base rate (baseline probability or prior)
+  of the condition's occurrence or being true.
 
   \item In terms of frequencies,
   \code{prev} is the ratio of
@@ -44,10 +45,13 @@ Understanding or obtaining the prevalence value \code{prev}:
   \item Alternative names:
   base rate of condition,
   proportion affected,
+  prior,
   rate of condition \code{= TRUE} cases.
 
-  \code{prev} is often distinguished from the \emph{incidence rate}
-  (i.e., the rate of new cases within a certain time period).
+  In Bayesian contexts, \code{prev} is typically known as \code{prior}.
+
+  In medical contexts, \code{prev} is often distinguished from the
+  \emph{incidence rate} (i.e., the rate of new cases within a certain time period).
 
   \item Dependencies:
   \code{prev} is a feature of the population
