@@ -26,10 +26,13 @@ valid set; otherwise \code{FALSE}.
 \description{
 \code{is_valid_freq_set} is a function that verifies that a set of
 4 essential frequencies (\code{\link{hi}}, \code{\link{mi}},
-\code{\link{fa}}, and \code{\link{cr}}) forms a valid set
+\code{\link{fa}}, and \code{\link{cr}}) forms a valid set of frequencies
 (i.e., each value is a non-missing, non-negative numeric value).
 }
 \details{
+Importantly, the \emph{values} of the frequencies are \emph{not}
+checked for consistency with current probabilities or population size parameters.
+
 \code{is_valid_freq_set} is the frequency analog of
 \code{\link{is_valid_prob_set}} and uses \code{\link{is_freq}}-style
 criteria, but (by default) also accepts non-integer frequencies,
@@ -42,11 +45,11 @@ it returns a single Boolean value that is \code{TRUE} only if \emph{all}
 elements are valid frequencies.
 }
 \examples{
-is_valid_freq_set(1, 2, 3, 4)            # => TRUE
-is_valid_freq_set(10.5, 2, 3, 4)         # => TRUE (non-integer allowed by default)
+is_valid_freq_set(1, 2, 3, 4)    # => TRUE
+is_valid_freq_set(10.5, 2, 3, 4) # => TRUE (non-integer allowed by default)
 is_valid_freq_set(10.5, 2, 3, 4, allow_noninteger = FALSE)  # => FALSE
-is_valid_freq_set(1, 2, 3, NA)           # => FALSE (contains NA)
-is_valid_freq_set(1, 2, 3, -4)           # => FALSE (contains negative value)
+is_valid_freq_set(1, 2, 3, NA)   # => FALSE (due to NA)
+is_valid_freq_set(1, 2, 3, -4)   # => FALSE (due to negative value)
 
 }
 \seealso{

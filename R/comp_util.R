@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2025 07 24
+## 2026 11 26
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -26,7 +26,10 @@
 #  9. is_valid_prob_pair    (exported)
 # 10. is_valid_prob_set     (exported)
 # 11. is_valid_prob_triple  [exported, but deprecated]
-# 12. is_matrix             (exported)
+# 12. is_valid_freq_set     (exported)
+# 13. verify_freq_quad      (NOT exported)
+# 14. is_matrix             (exported)
+
 
 # is_prob: Verify that input is a probability ------
 
@@ -1253,8 +1256,11 @@ verify_prob_triple <- function(prev, sens, spec, metric = "metric") {
 #'
 #' \code{is_valid_freq_set} is a function that verifies that a set of
 #' 4 essential frequencies (\code{\link{hi}}, \code{\link{mi}},
-#' \code{\link{fa}}, and \code{\link{cr}}) forms a valid set
+#' \code{\link{fa}}, and \code{\link{cr}}) forms a valid set of frequencies
 #' (i.e., each value is a non-missing, non-negative numeric value).
+#'
+#' Importantly, the \emph{values} of the frequencies are \emph{not}
+#' checked for consistency with current probabilities or population size parameters.
 #'
 #' \code{is_valid_freq_set} is the frequency analog of
 #' \code{\link{is_valid_prob_set}} and uses \code{\link{is_freq}}-style
@@ -1280,11 +1286,11 @@ verify_prob_triple <- function(prev, sens, spec, metric = "metric") {
 #' valid set; otherwise \code{FALSE}.
 #'
 #' @examples
-#' is_valid_freq_set(1, 2, 3, 4)            # => TRUE
-#' is_valid_freq_set(10.5, 2, 3, 4)         # => TRUE (non-integer allowed by default)
+#' is_valid_freq_set(1, 2, 3, 4)    # => TRUE
+#' is_valid_freq_set(10.5, 2, 3, 4) # => TRUE (non-integer allowed by default)
 #' is_valid_freq_set(10.5, 2, 3, 4, allow_noninteger = FALSE)  # => FALSE
-#' is_valid_freq_set(1, 2, 3, NA)           # => FALSE (contains NA)
-#' is_valid_freq_set(1, 2, 3, -4)           # => FALSE (contains negative value)
+#' is_valid_freq_set(1, 2, 3, NA)   # => FALSE (due to NA)
+#' is_valid_freq_set(1, 2, 3, -4)   # => FALSE (due to negative value)
 #'
 #' @family verification functions
 #'
@@ -1307,7 +1313,11 @@ is_valid_freq_set <- function(hi, mi, fa, cr, allow_noninteger = TRUE) {
        all(freq_vec >= 0) &&            # no negative values
        ( allow_noninteger || all(freq_vec %% 1 == 0) )  # integers (if required)
   ) {
+
+    # Note: Frequency VALUE or their SUM is NOT considered!
+
     val <- TRUE
+
   }
 
   return(val)
@@ -1321,17 +1331,23 @@ is_valid_freq_set <- function(hi, mi, fa, cr, allow_noninteger = TRUE) {
 # is_valid_freq_set(1.5, 2, 3, 4, allow_noninteger = FALSE)  # => FALSE
 
 
-## verify_freq_quad: Internal guard verifying (hi, mi, fa, cr) as a valid freq set ------
-## Used by freq-based functions (comp_accu_freq, comp_popu, comp_prob_freq, comp_freq_freq).
-## Returns TRUE if (hi, mi, fa, cr) form a valid frequency set; else warns and returns FALSE.
+## verify_freq_quad: Internal helper verifying (hi, mi, fa, cr) as a valid freq set ------
+#  Used by freq-based functions (comp_accu_freq, comp_popu, comp_prob_freq, comp_freq_freq).
+#  Returns TRUE if (hi, mi, fa, cr) form a valid frequency set; else warns and returns FALSE.
+#  Note: Frequency VALUE or their SUM is NOT considered!
 
 verify_freq_quad <- function(hi, mi, fa, cr, fn = "function", allow_noninteger = TRUE) {
 
   if (!is_valid_freq_set(hi, mi, fa, cr, allow_noninteger = allow_noninteger)) {
+
+    # Distinguish 2 kinds/types of legitimate input values:
     kind <- if (allow_noninteger) "non-negative numeric values" else "non-negative integers"
-    warning(paste0("comp_", fn, "(): Inputs 'hi', 'mi', 'fa', and 'cr' ",
+
+    warning(paste0("verify_freq_quad: comp_", fn, "(): Inputs 'hi', 'mi', 'fa', and 'cr' ",
                    "must each be valid frequencies (i.e., ", kind, ")."))
+
     return(FALSE)
+
   }
 
   return(TRUE)
