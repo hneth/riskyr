@@ -30,6 +30,7 @@ plot_curve(
   show_points = TRUE,
   log_scale = FALSE,
   prev_range = c(0, 1),
+  aux_line = TRUE,
   lbl_txt = txt,
   main = txt$scen_lbl,
   sub = "type",
@@ -143,6 +144,12 @@ plot_curve(
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) values
   on x-axis (i.e., values in `c(0, 1)` range). Default:
   `prev_range = c(0, 1)`.
+
+- aux_line:
+
+  Boolean value for showing diagonal auxiliary lines (i.e., baselines)
+  for the `"PPV"` and `"NPV"` curves, to ease their comparison with
+  corresponding baselines. Default: `aux_line = TRUE`.
 
 - lbl_txt:
 

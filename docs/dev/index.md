@@ -1,10 +1,10 @@
-# riskyr 0.5.0.9005
+# riskyr 0.6.0
 
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information — like the prevalence of conditions, the
+Risk-related information — like the prevalence of conditions, the
 sensitivity and specificity of diagnostic tests, or the effectiveness of
-interventions or treatments — can be expressed in terms of frequencies
+interventions or treatments — can be expressed in terms of frequencies
 or probabilities. By providing a toolbox of corresponding metrics and
 representations, **riskyr** computes, translates, and visualizes
 risk-related information in a variety of ways. Adopting multiple
@@ -15,43 +15,45 @@ literacy more transparent (see [Neth et al.,
 
 ## Motivation
 
-> Solving a problem simply means representing it  
-> so as to make the solution transparent. (H.A. Simon)[^1]
+> *Solving a problem simply means representing it*  
+> *so as to make the solution transparent.* (H.A. Simon)[^1]
 
 The goals of **riskyr** are less of a *computational* and more of a
 *representational* nature: We express risk-related information in
 multiple formats, facilitate the translation between them, and provide a
 variety of attractive visualizations that emphasize different aspects of
 risk-related scenarios (see [Neth et al.,
-2021](https://doi.org/10.3389/fpsyg.2020.567817), for theoretical
-details). Whereas people find it difficult to understand and compute
-information expressed in terms of probabilities, the same information is
-easier to understand and compute when expressed in terms of frequencies
-(e.g., Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather
-than just expressing probabilities in terms of frequencies, **riskyr**
-allows translating between formats and illustrates the relationships
-between different representations in a variety of ways. Switching
-between and interacting with different representations fosters
-transparency and boosts human understanding of risk-related
-information.[^2]
+2021](https://doi.org/10.3389/fpsyg.2020.567817), for details). Whereas
+people find it difficult to understand and compute information expressed
+in terms of probabilities, the same information is easier to understand
+and compute when expressed in terms of (natural) frequencies (e.g.,
+Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather than
+just expressing probabilities in terms of frequencies, **riskyr** allows
+translating between formats and illustrates the relationships between
+different representations in a variety of ways. Switching between and
+interacting with different representations fosters transparency and
+boosts human understanding of risk-related information.[^2]
 
-The basic assumptions and aspirations driving the current development of
+The basic principles and aspirations driving the current development of
 **riskyr** include:
 
-1.  Effective training in risk literacy requires transparent
-    representations, smart strategies, and simple tools.
+1.  **Simplicity** and **transparency**: Effective training in risk
+    literacy requires transparent representations, smart strategies, and
+    simple tools.
 
-2.  We aim to provide a set of (computational and representational)
-    functions that facilitate various calculations, translations between
-    formats, and enable a range of alternative views on the interplay
-    between probabilities and frequencies.
+2.  **Computation** of values and **translation** between formats: We
+    provide (computational and representational) functions that
+    facilitate calculations and translations between formats, and
+    provide alternative views on the interplay between probabilities and
+    frequencies in risk-related scenarios.
 
-3.  Just as no single tool fits all tasks, no single graph illustrates
-    all aspects of a problem. A variety of visualizations that
-    illustrate the interplay of parameters and metrics can facilitate
-    active and explorative learning. It is particularly helpful to view
-    relationships from alternative perspectives and to observe the
-    change of one parameter as a function of others.
+3.  **Flexibility** of perspectives and tools: Just as no single tool
+    fits all tasks, no single graph illustrates all aspects of a
+    problem. A variety of visualizations that illustrate the interplay
+    of parameters and metrics facilitates active and explorative
+    learning. It is particularly helpful to view relationships from
+    alternative perspectives and to observe the change of one parameter
+    as a function of others.
 
 Based on these assumptions and goals, **riskyr** provides a range of
 computational and representational tools. Importantly, the objects and
@@ -268,9 +270,9 @@ plot(hustosis)  # default plot
 # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
 ```
 
-![Prism plot](inst/pix/README-ex1-prism-1.png)
+![A prism plot](inst/pix/README-ex1-prism-1.png)
 
-Prism plot
+A prism plot
 
 #### Tree diagram
 
@@ -290,9 +292,9 @@ For instance, the following command plots a frequency tree by decisions:
 plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
-![Tree diagram](inst/pix/README-ex1-tree-1.png)
+![A tree diagram](inst/pix/README-ex1-tree-1.png)
 
-Tree diagram
+A tree diagram
 
 This particular tree splits the population of `N = 1000` individuals
 into two subgroups *by decision* (`by = "dc"`) and contains the answer
@@ -321,7 +323,7 @@ of tree or double tree diagrams. The *frequency net* (Binder et al.,
 2020) is similar to a 2x2 table insofar as its perspectives (shown by
 arranging marginal frequencies in a vertical vs. horizontal fashion) do
 not suggest an order or dependency (in contrast to trees or mosaic
-plots). Additionally, the frequency net allows showing 3 kinds of
+plots). Additionally, the frequency net allows showing three kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
 ``` r
@@ -329,9 +331,9 @@ plot(hustosis, type = "fnet", by = "cddc",
      f_lbl = "namnum")  # plot frequency net
 ```
 
-![Frequency net](inst/pix/README-ex1-fnet-1.png)
+![A frequency net diagram](inst/pix/README-ex1-fnet-1.png)
 
-Frequency net
+A frequency net diagram
 
 See the
 [`plot_fnet()`](https://hneth.github.io/riskyr/dev/reference/plot_fnet.md)
@@ -346,9 +348,9 @@ individuals in our population:
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
-![Icon array](inst/pix/README-ex1-icons-1.png)
+![An icon array](inst/pix/README-ex1-icons-1.png)
 
-Icon array
+An icon array
 
 While this particular icon array is highly regular (as both the icons
 and classification types are ordered), **riskyr** provides many
@@ -371,15 +373,15 @@ for details and examples):
 plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
-![Area/mosaic plot](inst/pix/README-ex1-area-1.png)
+![An area/mosaic plot](inst/pix/README-ex1-area-1.png)
 
-Area/mosaic plot
+An area/mosaic plot
 
 #### Table plot
 
 When not scaling the size of rectangles by their relative frequencies or
 probabilities, we can plot basic scenario information as a 2-by-2
-confusion (or contingency) table (see
+confusion (or contingency) table (aka. 2x2 matrix, see
 [`?plot_tab`](https://hneth.github.io/riskyr/dev/reference/plot_tab.md)
 for details and examples):
 
@@ -387,9 +389,9 @@ for details and examples):
 plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
-![Table plot](inst/pix/README-ex1-tab-1.png)
+![A 2x2 matrix/table plot](inst/pix/README-ex1-tab-1.png)
 
-Table plot
+A 2x2 matrix/table plot
 
 #### Bar plot
 
@@ -402,13 +404,13 @@ for details and examples):
 plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 ```
 
-![Bar plot](inst/pix/README-ex1-bar-1.png)
+![A bar plot](inst/pix/README-ex1-bar-1.png)
 
-Bar plot
+A bar plot
 
 #### Curves
 
-By adopting a functional perspective, we can ask how the values of some
+Adopting a functional perspective, we can ask how the values of some
 probabilities (e.g., the predictive values `PPV` and `NPV`) change as a
 function of another (e.g., the condition’s prevalence `prev`, see
 [`?plot_curve`](https://hneth.github.io/riskyr/dev/reference/plot_curve.md)
@@ -418,9 +420,10 @@ for details and examples):
 plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
-![Probability curves](inst/pix/README-ex1-curve-1.png)
+![Two probability curves: PPV/NPV as a function of
+prevalence](inst/pix/README-ex1-curve-1.png)
 
-Probability curves
+Two probability curves: PPV/NPV as a function of prevalence
 
 #### Planes
 
@@ -435,17 +438,16 @@ for details and examples):
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
-![Probability plane](inst/pix/README-ex1-plane-1.png)
-
-Probability plane
+![A probability plane: PPV as a function of sensitivity and
+specificity](inst/pix/README-ex1-plane-1.png)
 
 The L-shape of this plane reveals a real problem with our current test:
 Given a prevalence of 4% for hustosis in our target population, the
 `PPV` remains very low for the majority of the possible range of
-sensitivity and specificity values. To achieve a high `PPV`, the key
+sensitivity and specificity values. To achieve a higher `PPV`, the key
 requirement for our test is an extremely high specificity. Although our
-current specificity value of 95% (`spec = .95`) may sound pretty good,
-it is still not high enough to yield a `PPV` beyond 40%.
+current specificity value of 95% (`spec = .95`) seems decent, it is
+still not high enough to yield a `PPV` beyond 40%.
 
 ### Using existing scenarios
 
@@ -453,16 +455,16 @@ As defining your own scenarios can be cumbersome and the literature is
 full of risk-related problems (often referred to as “Bayesian
 reasoning”), **riskyr** provides a set of — currently 24 — pre-defined
 scenarios (stored in a list `scenarios`). Here, we provide an example
-that shows how you can select and explore them.
+that shows how we can select and explore them.
 
 #### Selecting a scenario
 
-Let us assume you want to learn more about the controversy surrounding
+Let us assume we want to learn more about the controversy surrounding
 screening procedures of prostate-cancer (known as PSA screening).
-Scenario 10 in our collection of `scenarios` is from an article on this
-topic (Arkes & Gaissmaier, 2012). To select a particular scenario,
-simply assign it to an R object. For instance, we can assign Scenario 10
-to `s10`:
+Scenario 10 in our collection of `scenarios` is from an article on this
+topic (Arkes & Gaissmaier, 2012). To select a scenario, we assign it to
+an R object. For instance, we can assign Scenario 10 to `s10` as
+follows:
 
 ``` r
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
@@ -499,11 +501,13 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
 
-![Prism/tree plot (with scaled squares)](inst/pix/README-ex2-tree-1.png)
+![A prism plot (as tree diagram, with square size corresponding to
+frequency values)](inst/pix/README-ex2-tree-1.png)
 
-Prism/tree plot (with scaled squares)
+A prism plot (as tree diagram, with square size corresponding to
+frequency values)
 
-The prism plot (or network diagram) combines 2 tree diagrams to
+A prism plot (or network diagram) combines two tree diagrams to
 simultaneously provide two perspectives on a population (see Wassner et
 al., 2004). **riskyr** provides several variants of prism plots. To
 avoid redundancy to the previous tree diagram, the following version
@@ -517,15 +521,16 @@ plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
      p_lbl = "num")                                  # numeric probability labels
 ```
 
-![Prism plot (with scaled horizontal
-rectangles)](inst/pix/README-ex2-prism-hr-1.png)
+![A prism plot (with scaled horizontal rectangles corresponding to
+frequency values)](inst/pix/README-ex2-prism-hr-1.png)
 
-Prism plot (with scaled horizontal rectangles)
+A prism plot (with scaled horizontal rectangles corresponding to
+frequency values)
 
 #### Frequency net
 
-Just like the 2x2 table, area plot, and prism plot, the frequency net
-allows selecting two out of three perspectives. Additionally, the shape
+Just like the 2x2 matrix/table, area plot, and prism plot, the frequency
+net allows selecting 2 out of 3 perspectives. Additionally, the shape
 and size of the frequency boxes can be adjusted by using the
 `area = "sq"` option. The following example shows a frequency net by
 condition and accuracy (`by = "cdac"`) without the joint probabilities,
@@ -537,10 +542,10 @@ plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accurac
      f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
 ```
 
-![Frequency net (with custom perspective and
+![A frequency net (with custom perspective and
 options)](inst/pix/README-ex2-fnet-1.png)
 
-Frequency net (with custom perspective and options)
+A frequency net (with custom perspective and options)
 
 #### Icon array
 
@@ -594,7 +599,7 @@ for viewing the package vignettes and obtaining additional information.
 
 **riskyr** originated out of a series of lectures and workshops on risk
 literacy.  
-The current version (0.5.0, as of Sep 15, 2025) is under active
+The current version (0.6.0, as of Nov 30, 2026) is under active
 development. Its primary designers are [Hansjörg
 Neth](https://spds.uni-konstanz.de/hans-neth), [Felix
 Gaisbauer](https://spds.uni-konstanz.de/people), [Nico
@@ -650,11 +655,11 @@ logo](./inst/pix/logo.png "riskyr")](https://github.com/hneth/riskyr/)
 
 To cite **riskyr** in derivations and publications, please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025).  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2026).  
   riskyr: Rendering Risk Literacy more Transparent.  
   Social Psychology and Decision Sciences, University of Konstanz,
   Germany.  
-  Computer software (R package version 0.5.0, Sep 15, 2025).  
+  Computer software (R package version 0.6.0, Nov 30, 2026).  
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
   doi
   [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
@@ -665,10 +670,10 @@ A BibTeX entry for LaTeX users is:
 @Manual{riskyr,
   title = {riskyr: Rendering Risk Literacy more Transparent},
   author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-  year = {2025},
+  year = {2026},
   organization = {Social Psychology and Decision Sciences, University of Konstanz},
   address = {Konstanz, Germany},
-  note = {R package (version 0.5.0, Sep 15, 2025)},
+  note = {R package (version 0.6.0, Nov 30, 2026)},
   url = {https://CRAN.R-project.org/package=riskyr},
   doi = {10.32614/CRAN.package.riskyr}
   }   
@@ -678,6 +683,9 @@ Calling `citation("riskyr")` in the package also provides this
 information.
 
 ### References
+
+Articles and books on the scientific background of the **riskyr**
+package:
 
 - Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the
   prostate-cancer screening controversy. *Psychological Science*, *23*,
@@ -765,30 +773,30 @@ information.
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2026-11-26 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2026-11-28 by [hn](https://neth.de).\]
 
 [^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
     The MIT Press, Cambridge, MA. (p. 132).
 
 [^2]: To clarify our notion of “risk” in this context, we need to
     distinguish it from its everyday usage as anything implying a chance
-    of danger or harm.  
-    In basic research on judgment and decision making and the more
-    applied fields of risk perception and risk communication, the term
-    *risk* typically refers to decisions or events for which the options
-    and their consequences are known and probabilities for all possible
-    outcomes can be provided.  
-    For our present purposes, the notion of risk-related information
-    refers to any scenario in which some events of interest are
-    determined by probabilities. While it is important that quantitative
-    (estimates of) probabilities are provided, their origin, reliability
-    and validity is not questioned here. Thus, the probabilities
-    provided can be based on clinical intuition, on recordings of
-    extensive experience, or on statistical simulation models (e.g.,
-    repeatedly casting dice and counting the frequencies of outcomes).  
+    of danger or harm. In basic research on *Judgment and decision
+    making* and the more applied fields of *Risk perception* and *Risk
+    communication*, the term *risk* typically refers to decisions or
+    events for which all options and their consequences, as well as
+    their probabilities are *known* and *available*. For our present
+    purposes, the notion of risk-related information refers to any
+    scenario in which some events of interest are determined by a set of
+    frequencies or probabilities. While it is important *that*
+    quantitative (estimates of) probabilities are provided, their
+    origin, reliability and validity is not questioned here. Thus, the
+    frequencies or probabilities provided can be based on clinical
+    intuition, on recordings of extensive experience, statistical
+    models, or simulations (e.g., sampling and counting the frequencies
+    of outcomes).  
     This notion of *risk* is typically contrasted with the much wider
     notion of *uncertainty* in which options or probabilities are
-    unknown or cannot be quantified. (See Gigerenzer and Gaissmaier,
+    *unknown* or cannot be quantified. (See Gigerenzer and Gaissmaier,
     2011, or Neth and Gigerenzer, 2015, on this conceptual distinction
     and corresponding decision strategies.)
 

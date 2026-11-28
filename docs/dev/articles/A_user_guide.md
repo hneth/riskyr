@@ -1,7 +1,7 @@
 # riskyr user guide
 
-> “Solving a problem simply means representing it so as to make the
-> solution transparent.”  
+> *Solving a problem simply means representing it so as to make the
+> solution transparent.*  
 > (H.A. Simon)[^1]
 
 What is the probability of a disease or clinical condition given a
@@ -47,7 +47,7 @@ three steps:
 3.  Finally, **riskyr** helps rendering problems more transparent by
     providing three sets of tools:
 
-    A. Functions for computing probabilities and frequencies;
+    A. Functions for computing frequencies and probabilities;
 
     B. Functions for translating between different representational
     formats;
@@ -110,7 +110,7 @@ probabilities:
 - `fart` =
   $`p( \mathrm{positive\ test}\ |\ \mathrm{no\ breast\ cancer} ) = 9.6\%`$
 
-and can also be expressed by its complement (aka. the test’s
+and can also be expressed by its complement (i.e., the test’s
 *specificity*):
 
 - `spec` = 1 – `fart` =
@@ -339,7 +339,7 @@ essential probabilities `prev`, `sens`, and `spec` (with `spec` = 1 –
 
 ``` r
 library("riskyr")  # loads the package
-#> Welcome to riskyr (v0.5.0.9005)!
+#> Welcome to riskyr (v0.6.0)!
 #> 
 #>       N
 #>     /  \
@@ -1026,7 +1026,7 @@ We appreciate your feedback, comments, or questions.
 | D. | [Functional perspectives](https://hneth.github.io/riskyr/dev/articles/D_functional_perspectives.md) | Adopting functional perspectives |
 | E. | [Quick start primer](https://hneth.github.io/riskyr/dev/articles/E_riskyr_primer.md) | A primer on using **riskyr** |
 
-[^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
+[^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
     The MIT Press, Cambridge, MA. (p. 132).
 
 [^2]: The actual sample size `N` chosen is irrelevant for computing

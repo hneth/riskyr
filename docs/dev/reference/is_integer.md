@@ -48,6 +48,7 @@ Other verification functions:
 [`is_perc()`](https://hneth.github.io/riskyr/dev/reference/is_perc.md),
 [`is_prob()`](https://hneth.github.io/riskyr/dev/reference/is_prob.md),
 [`is_suff_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_suff_prob_set.md),
+[`is_valid_freq_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_freq_set.md),
 [`is_valid_prob_pair()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_pair.md),
 [`is_valid_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_set.md),
 [`is_valid_prob_triple()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_triple.md)

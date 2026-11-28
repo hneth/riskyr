@@ -40,7 +40,7 @@ comp_freq(
 
 - spec:
 
-  The decision's specificity value
+  The decision's specificity
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`).

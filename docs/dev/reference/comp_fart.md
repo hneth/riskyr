@@ -17,7 +17,7 @@ comp_fart(spec)
 
 - spec:
 
-  The decision's specificity value
+  The decision's specificity
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) as a
   probability.
 

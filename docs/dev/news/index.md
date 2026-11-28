@@ -1,34 +1,65 @@
 # Changelog
 
-## riskyr 0.5.0.9005
+## riskyr 0.6.0
 
-![riskyr cube](./inst/pix/riskyr_cube.png)
+![riskyr
+cube](https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png)
 
-This is the development version of **riskyr** available at
-<https://github.com/hneth/riskyr/>. \[2026-01-08\]
-
-This version adds functionality and details, and fixes some bugs.
+**riskyr 0.6.0** was released [on
+CRAN](https://CRAN.R-project.org/package=riskyr) on 2026-11-30. This
+version adds some functionality, but mostly improves robustness and
+reduces redundancy.
 
 Changes since last release:
 
-### Major changes
-
-- none yet
-
 ### Minor changes
 
-- Add diagonal auxiliary lines to
+- Add `aux_line` argument to
   [`plot_curve()`](https://hneth.github.io/riskyr/dev/reference/plot_curve.md)
-  (to compare PPV and NPV curves to corresponding baselines)
-- Add experimental code and examples
+  for showing diagonal auxiliary lines (for comparing PPV and NPV curves
+  to corresponding baselines).
+
+- Add
+  [`is_valid_freq_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_freq_set.md)
+  for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`,
+  `cr`) — a frequency analog to
+  [`is_valid_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_set.md)
+  — that (by default) also accepts exact (non-integer) frequencies.
+
+- Add input validation to functions computing frequencies and
+  probabilities:
+
+  - Functions computing metrics from frequencies (e.g.,
+    [`comp_prob_freq()`](https://hneth.github.io/riskyr/dev/reference/comp_prob_freq.md))
+    now verify their `hi`, `mi`, `fa`, and `cr` inputs;  
+  - Functions computing metrics from probabilities (e.g.,
+    [`comp_acc()`](https://hneth.github.io/riskyr/dev/reference/comp_acc.md))
+    now verify their `prev`, `sens`, and `spec` inputs;  
+  - Invalid or incomplete input sets now yield `NA` (with a warning)
+    instead of silently computing invalid values.
 
 ### Details
 
-- Package maintenance:
+- Reduce redundancy:
+  - Consolidate input-verification logic into internal helpers;
+  - Use `@inheritParams` to remove duplicated documentation of shared
+    probability (`prev`, `sens`, `spec`, `mirt`, `fart`) and frequency
+    (`hi`, `mi`, `fa`, `cr`) parameters;  
+  - Add an internal helper for combining plot titles and subtitles (used
+    by all plot functions).
+
+&nbsp;
+
+- Maintenance:
+  - Add a test suite for verifying core functionality (based on
+    **testthat**);  
   - Add doi
     [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
-    to citation  
-  - Update `README` and online documentation
+    to citation;  
+  - Update documentation and `README`.
+
+The current development version of **riskyr** is available at
+<https://github.com/hneth/riskyr/>.
 
 ------------------------------------------------------------------------
 
@@ -44,10 +75,7 @@ Changes since last release:
 
 ### Details
 
-- Remove experimental code
-
-- Package maintenance:
-
+- Maintenance:
   - Add GitHub actions (R-CMD-check and Rhub workflows)
   - Update `README` and online documentation
 
@@ -466,15 +494,16 @@ CRAN](https://CRAN.R-project.org/package=riskyr) on February 19, 2018.
 
 ### References
 
-![riskyr cube](./inst/pix/riskyr_cube.png)
+![riskyr
+cube](https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png)
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2025).  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2026).  
   riskyr: Rendering Risk Literacy more Transparent.  
   Social Psychology and Decision Sciences, University of Konstanz,
   Germany.  
-  Computer software (R package version 0.5.0, Sep 15, 2025).  
+  Computer software (R package version 0.6.0, Nov 30, 2026).  
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
   doi
   [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr)
@@ -490,4 +519,4 @@ theoretical background:
 
 ------------------------------------------------------------------------
 
-\[`NEWS.md` updated on 2026-11-25.\]
+\[`NEWS.md` updated on 2026-11-30.\]

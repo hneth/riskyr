@@ -19,7 +19,7 @@ as its output."><meta property="og:image" content="https://hneth.github.io/risky
 
     <a class="navbar-brand me-2" href="../index.html">riskyr</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.0.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,36 +79,36 @@ as its output.</p>
 
 
 <dl><dt id="arg-prev">prev<a class="anchor" aria-label="anchor" href="#arg-prev"></a></dt>
-<dd><p>The condition's prevalence value <code><a href="prev.html">prev</a></code>
-(i.e., the probability of the condition being <code>TRUE</code>).</p></dd>
+<dd><p>The condition's prevalence <code><a href="prev.html">prev</a></code>
+(i.e., the probability of condition being <code>TRUE</code>, aka. <em>prior</em>).</p></dd>
 
 
 <dt id="arg-sens">sens<a class="anchor" aria-label="anchor" href="#arg-sens"></a></dt>
-<dd><p>The decision's sensitivity value <code><a href="sens.html">sens</a></code>
+<dd><p>The decision's sensitivity <code><a href="sens.html">sens</a></code>
 (i.e., the conditional probability of a positive decision
 provided that the condition is <code>TRUE</code>).
-<code>sens</code> is optional when its complement <code><a href="mirt.html">mirt</a></code> is provided.</p></dd>
+<code>sens</code> is optional when its complement <code>mirt</code> is provided.</p></dd>
 
 
 <dt id="arg-mirt">mirt<a class="anchor" aria-label="anchor" href="#arg-mirt"></a></dt>
-<dd><p>The decision's miss rate value <code><a href="mirt.html">mirt</a></code>
+<dd><p>The decision's miss rate <code><a href="mirt.html">mirt</a></code>
 (i.e., the conditional probability of a negative decision
 provided that the condition is <code>TRUE</code>).
-<code>mirt</code> is optional when its complement <code><a href="sens.html">sens</a></code> is provided.</p></dd>
+<code>mirt</code> is optional when its complement <code>sens</code> is provided.</p></dd>
 
 
 <dt id="arg-spec">spec<a class="anchor" aria-label="anchor" href="#arg-spec"></a></dt>
-<dd><p>The decision's specificity value <code><a href="spec.html">spec</a></code>
-(i.e., the conditional probability
-of a negative decision provided that the condition is <code>FALSE</code>).
-<code>spec</code> is optional when its complement <code><a href="fart.html">fart</a></code> is provided.</p></dd>
+<dd><p>The decision's specificity <code><a href="spec.html">spec</a></code>
+(i.e., the conditional probability of a negative decision
+provided that the condition is <code>FALSE</code>).
+<code>spec</code> is optional when its complement <code>fart</code> is provided.</p></dd>
 
 
 <dt id="arg-fart">fart<a class="anchor" aria-label="anchor" href="#arg-fart"></a></dt>
 <dd><p>The decision's false alarm rate <code><a href="fart.html">fart</a></code>
-(i.e., the conditional probability
-of a positive decision provided that the condition is <code>FALSE</code>).
-<code>fart</code> is optional when its complement <code><a href="spec.html">spec</a></code> is provided.</p></dd>
+(i.e., the conditional probability of a positive decision
+provided that the condition is <code>FALSE</code>).
+<code>fart</code> is optional when its complement <code>spec</code> is provided.</p></dd>
 
 
 <dt id="arg-tol">tol<a class="anchor" aria-label="anchor" href="#arg-tol"></a></dt>

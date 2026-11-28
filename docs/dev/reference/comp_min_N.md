@@ -21,23 +21,23 @@ comp_min_N(prev, sens, spec, min_freq = 1)
 
 - prev:
 
-  The condition's prevalence value
+  The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being TRUE).
+  the probability of condition being `TRUE`).
 
 - sens:
 
-  The decision's sensitivity value
+  The decision's sensitivity
   [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) (i.e.,
   the conditional probability of a positive decision provided that the
-  condition is TRUE).
+  condition is `TRUE`).
 
 - spec:
 
-  The specificity value
+  The decision's specificity
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
-  condition is FALSE).
+  condition is `FALSE`).
 
 - min_freq:
 
