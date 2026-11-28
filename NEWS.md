@@ -5,7 +5,7 @@
 <img src = "https://raw.githubusercontent.com/hneth/riskyr/master/inst/pix/riskyr_cube.png" alt = "riskyr cube" align = "right" width = "160" style = "width: 160px; float: right; border:20;"/>
 
 **riskyr 0.6.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on 2026-11-30. 
-This version adds some functionality, but mostly improves robustness by reducing redundancy. 
+This version adds some functionality, but mostly improves robustness and reduces redundancy. 
 
 <!-- This is the development version of **riskyr** available at <https://github.com/hneth/riskyr/>. [2026-11-30] --> 
 
@@ -15,13 +15,13 @@ Changes since last release:
 
 ## Minor changes
 
-- Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (to compare PPV and NPV curves to corresponding baselines).
+- Add `aux_line` argument to `plot_curve()` for showing diagonal auxiliary lines (for comparing PPV and NPV curves to corresponding baselines).
 
-- Add `is_valid_freq_set()` for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`, `cr`) — a frequency analog to `is_valid_prob_set()` that (by default) also accepts exact (non-integer) frequencies.
+- Add `is_valid_freq_set()` for verifying a set of 4 essential frequencies (`hi`, `mi`, `fa`, `cr`) --- a frequency analog to `is_valid_prob_set()` --- that (by default) also accepts exact (non-integer) frequencies.
 
 - Add input validation to functions computing frequencies and probabilities:  
-    - Functions computing metrics from frequencies (e.g., `comp_accu_freq()`, `comp_prob_freq()`, `comp_freq_freq()`, `comp_popu()`) now verify their `hi`, `mi`, `fa`, and `cr` inputs;  
-    - Functions computing metrics from probabilities (e.g., `comp_PPV()`, `comp_NPV()`, `comp_FDR()`, `comp_FOR()`, `comp_ppod()`, `comp_acc()`, `comp_err()`) now verify their `prev`, `sens`, and `spec` inputs;  
+    - Functions computing metrics from frequencies (e.g., `comp_prob_freq()`) now verify their `hi`, `mi`, `fa`, and `cr` inputs;  
+    - Functions computing metrics from probabilities (e.g., `comp_acc()`) now verify their `prev`, `sens`, and `spec` inputs;  
     - Invalid or incomplete input sets now yield `NA` (with a warning) instead of silently computing invalid values.
 
 
@@ -30,14 +30,14 @@ Changes since last release:
 ## Details
 
 - Reduce redundancy:  
-    - Consolidate repeated input-verification logic into internal helpers; 
+    - Consolidate input-verification logic into internal helpers; 
     - Use `@inheritParams` to remove duplicated documentation of shared probability (`prev`, `sens`, `spec`, `mirt`, `fart`) and frequency (`hi`, `mi`, `fa`, `cr`) parameters;    
     - Add an internal helper for combining plot titles and subtitles (used by all plot functions).  
  
 <!-- next: --> 
 
 - Maintenance:  
-    - Add a **testthat** test suite (for verifying core functionality);  
+    - Add a test suite for verifying core functionality (based on **testthat**);  
     - Add doi [10.32614/CRAN.package.riskyr](https://doi.org/10.32614/CRAN.package.riskyr) to citation;  
     - Update documentation and `README`.   
     
