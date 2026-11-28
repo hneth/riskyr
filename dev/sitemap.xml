@@ -1,4 +1,5 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://hneth.github.io/riskyr/dev/404.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/articles/A_user_guide.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/articles/B_data_formats.html</loc></url>
@@ -50,9 +51,15 @@
 <url><loc>https://hneth.github.io/riskyr/dev/reference/comp_prob_prob.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/comp_sens.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/comp_spec.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/cond.false.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/cond.true.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/cond_false.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/cond_true.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/cr.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/dec.cor.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/dec.err.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/dec.neg.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/dec.pos.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/dec_cor.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/dec_err.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/dec_neg.html</loc></url>
@@ -81,6 +88,9 @@
 <url><loc>https://hneth.github.io/riskyr/dev/reference/is_valid_prob_triple.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/mi.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/mirt.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/mlm_focus.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/mlm_frame.html</loc></url>
+<url><loc>https://hneth.github.io/riskyr/dev/reference/mlm_trans.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/num.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/pal.html</loc></url>
 <url><loc>https://hneth.github.io/riskyr/dev/reference/pal_bw.html</loc></url>

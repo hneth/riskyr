@@ -74,7 +74,6 @@ The current release of **riskyr** is available from
 <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
-
 install.packages('riskyr')  # install riskyr from CRAN client
 library('riskyr')           # load to use the package
 ```
@@ -84,7 +83,6 @@ The current development version can be installed from its
 <https://github.com/hneth/riskyr/>:
 
 ``` r
-
 # install.packages('devtools')
 devtools::install_github('hneth/riskyr')
 ```
@@ -175,7 +173,6 @@ questions as:
 Here is how **riskyr** allows you to view and solve such problems:
 
 ``` r
-
 library(riskyr)  # loads the package
 ```
 
@@ -187,7 +184,6 @@ function and entering the information provided by our problem as its
 arguments:
 
 ``` r
-
 hustosis <- riskyr(scen_lbl = "Example", 
                    cond_lbl = "Hustosis",
                    dec_lbl = "Screening",
@@ -209,7 +205,6 @@ To obtain a quick overview of key parameter values, we ask for the
 `summary` of `hustosis`:
 
 ``` r
-
 summary(hustosis)  # summarizes key parameter values: 
 ```
 
@@ -240,7 +235,6 @@ scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and
 `cr`) as follows:
 
 ``` r
-
 hustosis_2 <- riskyr(scen_lbl = "Example", 
                      cond_lbl = "Hustosis",
                      dec_lbl = "Screening",
@@ -254,7 +248,6 @@ As we took the values of these frequencies from the `summary` of
 information as `hustosis`:
 
 ``` r
-
 all.equal(hustosis, hustosis_2)  # do both contain the same information? 
 #> [1] TRUE
 ```
@@ -271,7 +264,6 @@ network diagram) that shows key frequencies of a scenario as nodes and
 key probabilities as edges linking the nodes:
 
 ``` r
-
 plot(hustosis)  # default plot
 
 # => internally calls plot_prism(...) with many additional arguments:
@@ -297,7 +289,6 @@ obtained by plotting a scenario with 1 of 3 perspectives:
 For instance, the following command plots a frequency tree by decisions:
 
 ``` r
-
 plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
@@ -336,7 +327,6 @@ plots). Additionally, the frequency net allows showing three kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
 ``` r
-
 plot(hustosis, type = "fnet", by = "cddc",
      f_lbl = "namnum")  # plot frequency net
 ```
@@ -355,7 +345,6 @@ An icon array shows the classification result for each of `N = 1000`
 individuals in our population:
 
 ``` r
-
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
@@ -381,7 +370,6 @@ size of rectangles (see
 for details and examples):
 
 ``` r
-
 plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
@@ -398,7 +386,6 @@ confusion (or contingency) table (aka. 2x2 matrix, see
 for details and examples):
 
 ``` r
-
 plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
@@ -414,7 +401,6 @@ bars (see
 for details and examples):
 
 ``` r
-
 plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 ```
 
@@ -431,7 +417,6 @@ function of another (e.g., the condition’s prevalence `prev`, see
 for details and examples):
 
 ``` r
-
 plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
@@ -450,7 +435,6 @@ of our test for a given prevalence (`prev`, see
 for details and examples):
 
 ``` r
-
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
@@ -483,7 +467,6 @@ an R object. For instance, we can assign Scenario 10 to `s10` as
 follows:
 
 ``` r
-
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 ```
 
@@ -494,7 +477,6 @@ describe it in both text and numeric variables. The following commands
 provide an overview of `s10` in text form:
 
 ``` r
-
 s10$scen_lbl   # a descriptive label
 s10$cond_lbl   # the current condition
 s10$dec_lbl    # the current decision
@@ -515,7 +497,6 @@ boxes are depicted as squares with area sizes that are scaled by
 relative frequencies (using the `area = "sq"` argument):
 
 ``` r
-
 plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
@@ -536,7 +517,6 @@ rectangles (`area = "hr"`) so that their relative width reflect the
 number of people in the corresponding subgroup:
 
 ``` r
-
 plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
      p_lbl = "num")                                  # numeric probability labels
 ```
@@ -557,7 +537,6 @@ condition and accuracy (`by = "cdac"`) without the joint probabilities,
 with custom settings for labels, links, and colors:
 
 ``` r
-
 plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
      area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
      f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
@@ -571,21 +550,18 @@ A frequency net (with custom perspective and options)
 #### Icon array
 
 ``` r
-
 plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
 ```
 
 #### Area plot
 
 ``` r
-
 plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
 ```
 
 #### Table plot
 
 ``` r
-
 plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
 ```
 
@@ -595,7 +571,6 @@ The following curves show the values of several conditional
 probabilities as a function of prevalence:
 
 ``` r
-
 plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
@@ -610,7 +585,6 @@ The following surface shows the negative predictive value (NPV) as a
 function of sensitivity and specificity (for a given prevalence):
 
 ``` r
-
 plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 

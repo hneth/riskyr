@@ -49,6 +49,7 @@ of PPV develop as a function of prevalence? The
 function illustrates this relationship:
 
 ``` r
+
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
            main = "Mammography screening", cex.lbl = .8)
@@ -76,6 +77,7 @@ about 60% (graph not shown here to save space, but try running the
 following code for yourself):
 
 ``` r
+
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
@@ -107,6 +109,7 @@ bias or proportion of positive decisions `ppod` and the overall
 accuracy `acc` also vary as a function of the prevalence `prev`:
 
 ``` r
+
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
@@ -137,6 +140,7 @@ Some examples (not shown here, but please try evaluating the following
 function calls):
 
 ``` r
+
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  
            main = "A. Mammography (BRCA1)", cex.lbl = .8)
 ```
@@ -150,6 +154,7 @@ sensitivity and specificity for a given prevalence.
 Related plots (showing different probabilities) include:
 
 ``` r
+
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  
            main = "B. Mammography (BRCA1)", cex.lbl = .8)
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", what_col = "firebrick", 

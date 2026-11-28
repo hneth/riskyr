@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/hneth/riskyr/blob/HEAD/inst/CITATION)
+[`inst/CITATION`](https://github.com/hneth/riskyr/blob/master/inst/CITATION)
 
 Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2026). riskyr:
 Rendering Risk Literacy more Transparent. Social Psychology and Decision

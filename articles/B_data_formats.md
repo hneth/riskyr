@@ -36,6 +36,7 @@ following prism plot shows both frequencies (as nodes) and probabilities
 (as edges connecting the nodes) from two perspectives:
 
 ``` r
+
 library("riskyr") # load the "riskyr" package
 
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
@@ -238,27 +239,23 @@ The following relationships hold among the conditional probabilities:
 - The sensitivity `sens` and miss rate `mirt` are complements:
 
 ``` math
-
 \texttt{sens} = 1 - \texttt{mirt}
 ```
  - The specificity `spec` and false alarm rate `fart` are complements:
 
 ``` math
-
 \texttt{spec} = 1 - \texttt{fart}
 ```
  - The positive predictive value `PPV` and false detection rate `FDR`
 are complements:
 
 ``` math
-
 \texttt{PPV} = 1 - \texttt{FDR}
 ```
  - The negative predictive value `NPV` and false omission rate `FOR` are
 complements:
 
 ``` math
-
 \texttt{NPV} = 1 - \texttt{FOR}
 ```
 
@@ -342,6 +339,7 @@ inputs:
 and illustrates the relationship between frequencies and probabilities:
 
 ``` r
+
 plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
            N = 10,         # population frequency
            scale = "f",    # scale by frequency, rather than probability ("p") 
