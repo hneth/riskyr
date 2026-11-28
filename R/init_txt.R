@@ -427,18 +427,18 @@ txt_org <- txt  # copy txt
 
 #' Alternative text labels (TP, FN, FP, TN).
 #'
-#' \code{txt_TF} is initialized to alternative text labels
-#' to define a frequency naming scheme in which
-#' (hi, mi, fa, cr) are called (TP, FN, FP, TN).
+#' \code{txt_TF} is initialized to a set of text labels
+#' to enable an alternative frequency naming scheme in which
+#' "hi, mi, fa, cr" are labeled as "TP, FN, FP, TN".
 #'
 #' See \code{\link{txt}} for details and default text information.
 #'
 #' Assign \code{txt <- txt_TF} to use as default text labels.
 #'
 #' @examples
-#' txt_TF        # shows text labels of txt_TF
-#' txt_TF["hi"]  # shows the current label for hits ("TP")
-#' txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
+#' txt_TF                     # shows all labels of txt_TF
+#' txt_TF["hi_lbl"]           # shows current label for hits ("TP")
+#' txt_TF["hi_lbl"] <- "hit"  # re-label hits (change "TP" to "hit")
 #'
 #' @family lists containing current scenario information
 #'
@@ -459,7 +459,7 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 ## Check:
 # length(txt_TF) # 21
 # txt_TF$sdt_lbl # unchanged from txt_lbl_def
-# txt_TF$hi      # "TP", rather than "hi"
+# txt_TF$hi_lbl      # "TP", rather than "hi"
 
 
 ## Language-specific settings for text labels: --------

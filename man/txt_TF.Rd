@@ -7,9 +7,9 @@
 txt_TF
 }
 \description{
-\code{txt_TF} is initialized to alternative text labels
-to define a frequency naming scheme in which
-(hi, mi, fa, cr) are called (TP, FN, FP, TN).
+\code{txt_TF} is initialized to a set of text labels
+to enable an alternative frequency naming scheme in which
+"hi, mi, fa, cr" are labeled as "TP, FN, FP, TN".
 }
 \details{
 See \code{\link{txt}} for details and default text information.
@@ -17,9 +17,9 @@ See \code{\link{txt}} for details and default text information.
 Assign \code{txt <- txt_TF} to use as default text labels.
 }
 \examples{
-txt_TF        # shows text labels of txt_TF
-txt_TF["hi"]  # shows the current label for hits ("TP")
-txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
+txt_TF                     # shows all labels of txt_TF
+txt_TF["hi_lbl"]           # shows current label for hits ("TP")
+txt_TF["hi_lbl"] <- "hit"  # re-label hits (change "TP" to "hit")
 
 }
 \seealso{
