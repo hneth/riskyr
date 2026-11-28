@@ -22,11 +22,11 @@ authors:
 
 
 development:
-  mode: devel  # release | devel
+  mode: release  # release | devel
 
 template:
   bootstrap: 5
-  bootswatch: spacelab  # lumen | spacelab
+  bootswatch: lumen  # lumen | spacelab
 
 toc:
   depth: 3

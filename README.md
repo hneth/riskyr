@@ -3,20 +3,22 @@
 
 <!-- Devel badges start: -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
-[![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color=%2200a9e0%22)](https://www.r-pkg.org:443/pkg/riskyr)
-[![Total
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr)
-[![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) -->
+
+<!-- [![Downloads/month](https://cranlogs.r-pkg.org/badges/riskyr?color="00a9e0")](https://www.r-pkg.org:443/pkg/riskyr) -->
+
+<!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=blue)](https://www.r-pkg.org/pkg/riskyr) -->
+
+<!-- [![R-CMD-check](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hneth/riskyr/actions/workflows/R-CMD-check.yaml) -->
+
 <!-- Devel badges end. -->
 
 <!-- Release badges start: -->
 
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) -->
-
-<!-- [![Total downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color="00a9e0")](https://www.r-pkg.org/pkg/riskyr) -->
-
+[![CRAN
+status](https://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
+[![Total
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/riskyr?color=%2200a9e0%22)](https://www.r-pkg.org/pkg/riskyr)
 <!-- Release badges end. -->
 
 <!-- Possible status badges: 
@@ -864,7 +866,7 @@ package:
 
 ------------------------------------------------------------------------
 
-\[`README.Rmd` updated on 2026-11-27 by [hn](https://neth.de).\]
+\[`README.Rmd` updated on 2026-11-28 by [hn](https://neth.de).\]
 
 <!-- eof -->
 
