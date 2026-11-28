@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2021 03 26
+## 2026 11 28
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -365,9 +365,9 @@ init_txt <- function(#
 #' }
 #'
 #' @examples
-#' txt           # Show  all current names and elements
+#' txt           # Show all elements and current labels
 #' txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
-#' txt$scen_lbl <- "My example"  # Set a new scenario title
+#' txt$scen_lbl <- "An example"  # Define a new scenario label
 #'
 #' @family lists containing current scenario information
 #'
@@ -389,7 +389,7 @@ init_txt <- function(#
 txt <- init_txt()
 
 ## Check:
-# txt          # displays all current names and elements
+# txt          # displays all current element and labels/names
 # txt$scen_lbl # displays the current scenario label (e.g., used in plot titles)
 # txt$scen_lbl <- "My favorite example" # sets a new scenario title
 
@@ -452,7 +452,7 @@ txt_org <- txt  # copy txt
 
 txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
   cond_lbl = "True condition", cond_true_lbl = "present", cond_false_lbl = "absent",
-  dec_lbl = "Outcome", dec_pos_lbl = "positive", dec_neg_lbl = "negative",
+  dec_lbl = "Outcome",  dec_pos_lbl = "positive", dec_neg_lbl = "negative",
   acc_lbl = "Accuracy", dec_cor_lbl = "correct",  dec_err_lbl = "incorrect",
   hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 

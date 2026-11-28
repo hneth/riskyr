@@ -108,9 +108,9 @@ of the 2x2 contingency table (e.g., condition x decision, using SDT).
 }
 }
 \examples{
-txt           # Show  all current names and elements
+txt           # Show all elements and current labels
 txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
-txt$scen_lbl <- "My example"  # Set a new scenario title
+txt$scen_lbl <- "An example"  # Define a new scenario label
 
 }
 \seealso{
