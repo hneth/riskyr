@@ -30,7 +30,7 @@ comp_FDR(prev, sens, spec)
 
 - spec:
 
-  The decision's specificity
+  The decision's specificity value
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`).

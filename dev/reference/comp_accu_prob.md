@@ -30,7 +30,7 @@ comp_accu_prob(
 
   The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`, aka. *prior*).
+  the probability of condition being `TRUE`).
 
 - sens:
 
@@ -50,7 +50,7 @@ comp_accu_prob(
 
 - spec:
 
-  The decision's specificity
+  The decision's specificity value
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`). `spec` is optional when its complement `fart`
@@ -328,7 +328,7 @@ comp_accu_prob(prev = 0, sens = NaN, spec = 1)      # returns list of NA values
 #> $f1s
 #> [1] NA
 #> 
-comp_accu_prob(prev = 0, sens = 0, spec = 1)        # perfect acc = 1, but f1s is NaN
+comp_accu_prob(prev = 0, sens = 0, spec = 1)     # perfect acc = 1, but f1s is NaN
 #> Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.
 #> $acc
 #> [1] 1
@@ -345,7 +345,7 @@ comp_accu_prob(prev = 0, sens = 0, spec = 1)        # perfect acc = 1, but f1s i
 #> $f1s
 #> [1] NaN
 #> 
-comp_accu_prob(prev = .5, sens = .5, spec = .5)     # random performance
+comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 #> $acc
 #> [1] 0.5
 #> 
@@ -361,7 +361,7 @@ comp_accu_prob(prev = .5, sens = .5, spec = .5)     # random performance
 #> $f1s
 #> [1] 0.5
 #> 
-comp_accu_prob(prev = .5, sens = 1,  spec = 1)      # perfect accuracy
+comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
 #> $acc
 #> [1] 1
 #> 
@@ -377,7 +377,7 @@ comp_accu_prob(prev = .5, sens = 1,  spec = 1)      # perfect accuracy
 #> $f1s
 #> [1] 1
 #> 
-comp_accu_prob(prev = .5, sens = 0,  spec = 0)      # zero accuracy, but f1s is NaN
+comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, but f1s is NaN
 #> $acc
 #> [1] 0
 #> 
@@ -393,7 +393,7 @@ comp_accu_prob(prev = .5, sens = 0,  spec = 0)      # zero accuracy, but f1s is 
 #> $f1s
 #> [1] NaN
 #> 
-comp_accu_prob(prev = 1,  sens = 1,  spec = 0)      # perfect, but see wacc (0.5) and mcc (0)
+comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #> Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.
 #> $acc
 #> [1] 1
@@ -412,7 +412,7 @@ comp_accu_prob(prev = 1,  sens = 1,  spec = 0)      # perfect, but see wacc (0.5
 #> 
 
 # Effects of w:
-comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights: wacc == acc
+comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
 #> $acc
 #> [1] 0.5
 #> 
@@ -428,7 +428,7 @@ comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights: wacc 
 #> $f1s
 #> [1] 0.5454545
 #> 
-comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens => wacc up
+comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens: wacc up
 #> $acc
 #> [1] 0.5
 #> 
@@ -444,7 +444,7 @@ comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens 
 #> $f1s
 #> [1] 0.5454545
 #> 
-comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight on spec => wacc down
+comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight on spec: wacc down
 #> $acc
 #> [1] 0.5
 #> 

@@ -26,32 +26,34 @@ init_num(
 
 - prev:
 
-  The condition's prevalence
+  The condition's prevalence value
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`, aka. *prior*).
+  the probability of condition being `TRUE`).
 
 - sens:
 
-  The decision's sensitivity
+  The decision's sensitivity value
   [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) (i.e.,
   the conditional probability of a positive decision provided that the
   condition is `TRUE`).
 
 - spec:
 
-  The decision's specificity
+  The decision's specificity value
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
-  condition is `FALSE`). `spec` is optional when its complement `fart`
-  is provided.
+  condition is `FALSE`). `spec` is optional when is complement
+  [`fart`](https://hneth.github.io/riskyr/dev/reference/fart.md) is
+  provided.
 
 - fart:
 
   The decision's false alarm rate
   [`fart`](https://hneth.github.io/riskyr/dev/reference/fart.md) (i.e.,
   the conditional probability of a positive decision provided that the
-  condition is `FALSE`). `fart` is optional when its complement `spec`
-  is provided.
+  condition is `FALSE`). `fart` is optional when its complement
+  [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) is
+  provided.
 
 - N:
 

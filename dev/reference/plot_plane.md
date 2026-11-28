@@ -47,7 +47,7 @@ plot_plane(
 
   The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`, aka. *prior*).
+  the probability of condition being `TRUE`).
 
 - sens:
 
@@ -55,7 +55,7 @@ plot_plane(
   [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) (i.e.,
   the conditional probability of a positive decision provided that the
   condition is `TRUE`). `sens` is optional when its complement `mirt` is
-  provided.
+  provided. If `sens = NA`, then `show_points = FALSE`.
 
 - mirt:
 
@@ -67,11 +67,11 @@ plot_plane(
 
 - spec:
 
-  The decision's specificity
+  The decision's specificity value
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`). `spec` is optional when its complement `fart`
-  is provided.
+  is provided. If `spec = NA`, then `show_points = FALSE`.
 
 - fart:
 

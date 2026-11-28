@@ -61,7 +61,7 @@ net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 
   The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`, aka. *prior*).
+  the probability of condition being `TRUE`).
 
 - sens:
 
@@ -81,7 +81,7 @@ net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 
 - spec:
 
-  The decision's specificity
+  The decision's specificity value
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`). `spec` is optional when its complement `fart`

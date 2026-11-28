@@ -12,7 +12,7 @@ ppod
 ## Details
 
 `ppod` is also known as `bias`, though the latter term is also used to
-describe a systematic tendency to deviate in any — rather than just a
+describe a systematic tendency to deviate in any — rather than just
 positive — direction.
 
 Understanding or obtaining the proportion of positive decisions `ppod`:

@@ -1,7 +1,7 @@
 # riskyr user guide
 
-> *Solving a problem simply means representing it so as to make the
-> solution transparent.*  
+> “Solving a problem simply means representing it so as to make the
+> solution transparent.”  
 > (H.A. Simon)[^1]
 
 What is the probability of a disease or clinical condition given a
@@ -47,7 +47,7 @@ three steps:
 3.  Finally, **riskyr** helps rendering problems more transparent by
     providing three sets of tools:
 
-    A. Functions for computing frequencies and probabilities;
+    A. Functions for computing probabilities and frequencies;
 
     B. Functions for translating between different representational
     formats;
@@ -110,7 +110,7 @@ probabilities:
 - `fart` =
   $`p( \mathrm{positive\ test}\ |\ \mathrm{no\ breast\ cancer} ) = 9.6\%`$
 
-and can also be expressed by its complement (i.e., the test’s
+and can also be expressed by its complement (aka. the test’s
 *specificity*):
 
 - `spec` = 1 – `fart` =
@@ -338,9 +338,8 @@ essential probabilities `prev`, `sens`, and `spec` (with `spec` = 1 –
 `fart`) that were provided in the original problem:
 
 ``` r
-
 library("riskyr")  # loads the package
-#> Welcome to riskyr (v0.6.0)!
+#> Welcome to riskyr (v0.5.0.9005)!
 #> 
 #>       N
 #>     /  \
@@ -367,7 +366,6 @@ takes three essential probabilities as inputs and returns a list of
 13 probabilities as its output:
 
 ``` r
-
 # Compute probabilities from 3 essential probabilities:                 # Input arguments:
 p1 <- comp_prob_prob(prev = .01, sens = .80, spec =   NA, fart = .096)  # prev, sens, NA,   fart
 p2 <- comp_prob_prob(prev = .01, sens = .80, spec = .904, fart =   NA)  # prev, sens, spec, NA 
@@ -393,7 +391,6 @@ the object computed by `comp_prob_prob` is actually a list of 10
 probabilities and can be inspected by printing `p1` (as a vector):
 
 ``` r
-
 unlist(p1)
 #>        prev        sens        mirt        spec        fart        ppod 
 #> 0.010000000 0.800000000 0.200000000 0.904000000 0.096000000 0.103040000 
@@ -421,7 +418,6 @@ our problem — the version reframed in terms of frequencies — yields the
 same solution:
 
 ``` r
-
 # Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:
 p4 <- comp_prob_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990) # prev, sens, NA, fart
 
@@ -445,7 +441,6 @@ The
 function computes desired frequencies from given probabilities:
 
 ``` r
-
 # Compute frequencies from probabilities:
 f1 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000)
 f2 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000)
@@ -470,7 +465,6 @@ frequencies (that no longer round to integers), use the `round = FALSE`
 argument:
 
 ``` r
-
 # Compute frequencies from probabilities (without rounding):
 f3 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000, round = FALSE)
 f4 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000, round = FALSE)
@@ -485,7 +479,6 @@ does not compute just one frequency, but a list of 11 frequencies. Their
 names and values can be inspected by printing `f1` (as a vector):
 
 ``` r
-
 unlist(f1)
 #>          N  cond_true cond_false    dec_pos    dec_neg    dec_cor    dec_err 
 #>       1000         10        990        103        897        903         97 
@@ -510,7 +503,6 @@ directions. Consequently, **riskyr** also allows to compute
 probabilities by providing frequencies:
 
 ``` r
-
 # Compute probabilities from frequencies:
 p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essential frequencies
 ```
@@ -523,7 +515,6 @@ essential frequencies that were listed as `hi`, `mi`, `fa`, and `cr` in
 probabilities from above (saved in `p4`):
 
 ``` r
-
 # Check equality of outputs:
 all.equal(p5, p4)
 ```
@@ -535,7 +526,6 @@ probabilities to frequencies and then from the resulting frequencies to
 probabilities — the original probabilities appear again:
 
 ``` r
-
 # Pick 3 random probability inputs:
 rand.p <- runif(n = 3, min = 0, max = 1)
 rand.p
@@ -556,7 +546,6 @@ Similarly, going full circle from frequencies to probabilities and back
 returns the original frequencies:
 
 ``` r
-
 # Pick 4 random frequencies:
 rand.f <- round(runif(n = 4, min = 0, max = 10^3), 0)
 rand.f  
@@ -591,7 +580,6 @@ formats and only want to get a quick overview of the key variables of a
 risk-related situation, you can always define a `riskyr` scenario:
 
 ``` r
-
 s <- riskyr(scen_lbl = "Mammography screening", 
             cond_lbl = "breast cancer",
             cond_true_lbl = "cancer", cond_false_lbl = "no cancer",
@@ -610,7 +598,6 @@ size of `N = 1000`. Use the `summary` command to get an overview over
 its key parameters:
 
 ``` r
-
 summary(s)  # provides an overview over key scenario information:
 #> Scenario:  Mammography screening 
 #> 
@@ -658,7 +645,6 @@ The fastest way to get an overview over a scenario `s` is by plotting
 it:
 
 ``` r
-
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 ```
 
@@ -708,7 +694,6 @@ provided by an *icon array* that represents each individual as a symbol
 which is color-coded:
 
 ``` r
-
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
@@ -729,7 +714,6 @@ by a *tree* diagram that shows the population and the frequency of
 subgroups as its nodes and the probabilities as its edges:
 
 ``` r
-
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 #> Argument 'title_lbl' is deprecated. Please use 'main' instead.
@@ -767,7 +751,6 @@ rectangles that represent parts of the population. In the following
 sizes represent the relative frequencies of the corresponding subgroups:
 
 ``` r
-
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 #> Argument 'title_lbl' is deprecated. Please use 'main' instead.
@@ -792,7 +775,6 @@ The tree diagrams from above can also be depicted as a vertical bar
 plot:
 
 ``` r
-
 plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
          by = "all", dir = 2, title_lbl = "Mammography screening")
 ```
@@ -819,7 +801,6 @@ its center row. By scaling nodes by either frequency or probability,
 a variety of ways:
 
 ``` r
-
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 #> Argument 'title_lbl' is deprecated. Please use 'main' instead.
@@ -856,7 +837,6 @@ tree diagram splits the population by decisions into `dec_pos` and
 `dec_neg` cases:
 
 ``` r
-
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "dc", title_lbl = "Mammography screening", col_pal = pal_mod)
 ```
@@ -869,7 +849,6 @@ accuracy into cases of TRUE and FALSE (`dec_cor` and `dec_err`)
 decisions:
 
 ``` r
-
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "ac", title_lbl = "Mammography screening")
 ```
@@ -880,7 +859,6 @@ the population of the area/mosaic plot can first be split by decisions
 `p_split = "h"`:
 
 ``` r
-
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           by = "cddc",    # show by condition x decision
           p_split = "h",  # horizontal perspective is primary 
@@ -894,7 +872,6 @@ further highlights the correspondence by representing the relative
 frequencies of subgroups by the proportions of rectangles:
 
 ``` r
-
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "dc", area = "hr", title_lbl = "Mammography screening")
 ```
@@ -905,7 +882,6 @@ Even when relaxing the positional constraint of icons in the icon array,
 the similarity is still visible:
 
 ``` r
-
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 2,  
            title_lbl = "Mammography screening")
@@ -1050,7 +1026,7 @@ We appreciate your feedback, comments, or questions.
 | D. | [Functional perspectives](https://hneth.github.io/riskyr/dev/articles/D_functional_perspectives.md) | Adopting functional perspectives |
 | E. | [Quick start primer](https://hneth.github.io/riskyr/dev/articles/E_riskyr_primer.md) | A primer on using **riskyr** |
 
-[^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
+[^1]: Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.).
     The MIT Press, Cambridge, MA. (p. 132).
 
 [^2]: The actual sample size `N` chosen is irrelevant for computing
