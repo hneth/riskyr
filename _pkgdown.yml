@@ -22,7 +22,7 @@ authors:
 
 
 development:
-  mode: devel  # release | devel
+  mode: release  # release | devel
 
 template:
   bootstrap: 5
