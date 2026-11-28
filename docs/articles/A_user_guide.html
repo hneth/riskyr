@@ -5,17 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>riskyr User Guide • riskyr</title>
+<title>riskyr user guide • riskyr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="riskyr User Guide">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="riskyr user guide">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">riskyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,11 +63,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>riskyr User Guide</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>riskyr user guide</h1>
                         <h4 data-toc-skip class="author">Hansjörg Neth,
 SPDS, uni.kn</h4>
             
-            <h4 data-toc-skip class="date">2025-09-15</h4>
+            <h4 data-toc-skip class="date">2026-11-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/HEAD/vignettes/A_user_guide.Rmd" class="external-link"><code>vignettes/A_user_guide.Rmd</code></a></small>
       <div class="d-none name"><code>A_user_guide.Rmd</code></div>
@@ -77,9 +77,9 @@ SPDS, uni.kn</h4>
     
 <!-- Motto: -->
 <blockquote>
-<p>“Solving a problem simply means representing it so as to make the
-solution transparent.”<br> (H.A. Simon)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Simon, H.A. (1996). &lt;em&gt;The Sciences of the
-Artificial&lt;/em&gt; (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).&lt;/p&gt;"><sup>1</sup></a></p>
+<p><em>Solving a problem simply means representing it so as to make the
+solution transparent.</em><br> (H.A. Simon)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Simon, H.A. (1996). &lt;em&gt;The Sciences of the
+Artificial&lt;/em&gt; (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).&lt;/p&gt;"><sup>1</sup></a></p>
 </blockquote>
 <!-- Introduction: -->
 <p>What is the probability of a disease or clinical condition given a
@@ -120,14 +120,13 @@ rightfully perceived as difficult.</p></li>
 <li><p>We then translate the problem into natural frequencies and show
 how this facilitates its comprehension and solution.</p></li>
 <li>
-<p>Finally, we show how <strong>riskyr</strong> can help to render
-the problem more transparent by providing three sets of tools:</p>
-<p>A. A fancy calculator that allows the computation of probabilities
-and frequencies;</p>
-<p>B. A set of functions that translate between different
-representational formats;</p>
-<p>C. A variety of visualizations that illustrate relationships between
-frequencies and probabilities.</p>
+<p>Finally, <strong>riskyr</strong> helps rendering problems more
+transparent by providing three sets of tools:</p>
+<p>A. Functions for computing frequencies and probabilities;</p>
+<p>B. Functions for translating between different representational
+formats;</p>
+<p>C. Visualizations that illustrate relationships between frequencies
+and probabilities.</p>
 </li>
 </ol>
 <p>This introduction focuses on the practical aspects of using
@@ -199,7 +198,7 @@ or test, which is the conditional probability:</li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mspace width="0.222em"></mspace><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">|</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">o</mi><mspace width="0.222em"></mspace><mi mathvariant="normal">b</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mspace width="0.222em"></mspace><mi mathvariant="normal">c</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>9.6</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">p( \mathrm{positive\ test}\ |\ \mathrm{no\ breast\ cancer} ) = 9.6\%</annotation></semantics></math>
 </li>
 </ul>
-<p>and can also be expressed by its complement (aka. the test’s
+<p>and can also be expressed by its complement (i.e., the test’s
 <em>specificity</em>):</p>
 <ul>
 <li>
@@ -505,7 +504,7 @@ following function computes the positive predictive value
 <code>fart</code>) that were provided in the original problem:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://riskyr.org/" class="external-link">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span></span>
-<span><span class="co">#&gt; Welcome to riskyr (v0.5.0)!</span></span>
+<span><span class="co">#&gt; Welcome to riskyr (v0.6.0)!</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;       N</span></span>
 <span><span class="co">#&gt;     /  \</span></span>
@@ -782,7 +781,7 @@ command to get an overview over its key parameters:</p>
 by plotting it:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></span></code></pre></div>
-<p><img src="A_user_guide_files/figure-html/riskyr-scenario-plot-1.png" alt="Default prism diagram of a risky scenario." width="576"></p>
+<p><img src="A_user_guide_files/figure-html/riskyr-scenario-plot-1.png" class="r-plt" alt="Default prism diagram of a risky scenario." width="576"></p>
 <p>The default plot used by <strong>riskyr</strong> when not specifying
 a desired plot type is a so-called <em>prism</em> plot (aka. double
 tree). However, there are many other types of plots and customization
@@ -836,7 +835,7 @@ a symbol which is color-coded:</p>
 <span>           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot-icons-1-1.png" alt="Icon array of a riskyr scenario" width="576"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-icons-1-1.png" class="r-plt" alt="Icon array of a riskyr scenario" width="576"><p class="caption">
 An icon array showing the mammography scenario for a population of 1000
 individuals.
 </p>
@@ -854,7 +853,7 @@ of subgroups as its nodes and the probabilities as its edges:</p>
 <span>           by <span class="op">=</span> <span class="st">"cd"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot-tree-cd-1.png" alt="Tree diagram of a riskyr scenario" width="576"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-tree-cd-1.png" class="r-plt" alt="Tree diagram of a riskyr scenario" width="576"><p class="caption">
 A tree diagram that applies the provided probabilities and frequencies
 to a population of 1000 individuals.
 </p>
@@ -891,7 +890,7 @@ corresponding subgroups:</p>
 <span>          title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="A_user_guide_files/figure-html/plot-mosaic-cd-1.png" alt="Area plot of a riskyr scenario" width="576"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-mosaic-cd-1.png" class="r-plt" alt="Area plot of a riskyr scenario" width="576"><p class="caption">
 An area plot in which area sizes represent the probabilities/relative
 frequencies of subgroups.
 </p>
@@ -938,7 +937,7 @@ probabilities in a variety of ways:</p>
 <span>           by <span class="op">=</span> <span class="st">"cddc"</span>, area <span class="op">=</span> <span class="st">"sq"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot-prism-1.png" alt="Prism plot of a riskyr scenario" width="576"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-prism-1.png" class="r-plt" alt="Prism plot of a riskyr scenario" width="576"><p class="caption">
 A prism plot that integrates 2 tree diagrams and represents relative
 frequency by area size.
 </p>
@@ -1206,7 +1205,8 @@ perspectives</a></td>
 <td align="right">E.</td>
 <td align="left"><a href="E_riskyr_primer.html">Quick start
 primer</a></td>
-<td align="left">Quick start primer</td>
+<td align="left">A primer on using <strong>riskyr</strong>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1224,7 +1224,7 @@ primer</a></td>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -5,17 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Confusion Matrix and Metrics • riskyr</title>
+<title>Confusion matrix and accuracy metrics • riskyr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Confusion Matrix and Metrics">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Confusion matrix and accuracy metrics">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">riskyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,11 +63,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Confusion Matrix and Metrics</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Confusion matrix and accuracy metrics</h1>
                         <h4 data-toc-skip class="author">Hansjörg Neth,
 SPDS, uni.kn</h4>
             
-            <h4 data-toc-skip class="date">2021 03 31</h4>
+            <h4 data-toc-skip class="date">2026-11-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/HEAD/vignettes/C_confusion_matrix.Rmd" class="external-link"><code>vignettes/C_confusion_matrix.Rmd</code></a></small>
       <div class="d-none name"><code>C_confusion_matrix.Rmd</code></div>
@@ -100,7 +100,7 @@ SPDS, uni.kn</h4>
 <td align="center">(b) by decision:</td>
 </tr>
 <tr class="even">
-<td align="right">positive (<code>TRUE</code>):</td>
+<td align="right">positive (‘<code>TRUE</code>’):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
 <td align="center"><code>dec_pos</code></td>
@@ -110,7 +110,7 @@ SPDS, uni.kn</h4>
 </td>
 </tr>
 <tr class="odd">
-<td align="right">negative (<code>FALSE</code>):</td>
+<td align="right">negative (‘<code>FALSE</code>’):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
 <td align="center"><code>dec_neg</code></td>
@@ -199,12 +199,12 @@ other. This sounds more complicated than it is:</p>
 <td align="center">absent (<code>FALSE</code>):</td>
 </tr>
 <tr class="even">
-<td align="right">positive (<code>TRUE</code>):</td>
+<td align="right">positive (‘<code>TRUE</code>’):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
 </tr>
 <tr class="odd">
-<td align="right">negative (<code>FALSE</code>):</td>
+<td align="right">negative (‘<code>FALSE</code>’):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
 </tr>
@@ -340,7 +340,7 @@ scenario as <code>type = "tab"</code>):</p>
 <span><span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>         p_lbl <span class="op">=</span> <span class="st">"def"</span><span class="op">)</span> <span class="co"># show condition probabilies (by default)</span></span></code></pre></div>
 <div class="figure">
-<img src="C_confusion_matrix_files/figure-html/plot-tab-demo-1.png" alt="Example of a 2x2 confusion table in **riskyr**." width="576"><p class="caption">
+<img src="C_confusion_matrix_files/figure-html/plot-tab-demo-1.png" class="r-plt" alt="Example of a 2x2 confusion table in **riskyr**." width="576"><p class="caption">
 Example of a 2x2 confusion table in <strong>riskyr</strong>.
 </p>
 </div>
@@ -429,7 +429,7 @@ as a third perspective (e.g., by specifying the perspective
 <span>         p_lbl <span class="op">=</span> <span class="st">"def"</span>, title_lbl <span class="op">=</span> <span class="st">"Scenario 2"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
 <div class="figure">
-<img src="C_confusion_matrix_files/figure-html/plot-tab-cdac-1.png" alt="Arranging a 2x2 confusion table by condition and by accuracy." width="576"><p class="caption">
+<img src="C_confusion_matrix_files/figure-html/plot-tab-cdac-1.png" class="r-plt" alt="Arranging a 2x2 confusion table by condition and by accuracy." width="576"><p class="caption">
 Arranging a 2x2 confusion table by condition and by accuracy.
 </p>
 </div>
@@ -650,13 +650,13 @@ al. (2021)</a>.</p>
 <li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier,
 W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct
 problems based on a shared structure of binary contingencies.
-<em>Frontiers in Psychology</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">10.3389/fpsyg.2020.567817</a>
-(<a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">Available
+<em>Frontiers in Psychology</em>, <em>11</em>, 567817. <a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link uri">https://doi.org/10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817" class="external-link">Available
 online</a>)</p></li>
 <li><p>Phillips, N. D., Neth, H., Woike, J. K., &amp; Gaissmaier, W.
 (2017). FFTrees: A toolbox to create, visualize, and evaluate
 fast-and-frugal decision trees. <em>Judgment and Decision Making</em>,
-<em>12</em>, 344–368. (Available online: <a href="https://journal.sjdm.org/17/17217/jdm17217.pdf" class="external-link">pdf</a> | <a href="https://journal.sjdm.org/17/17217/jdm17217.html" class="external-link">html</a> | <a href="https://CRAN.R-project.org/package=FFTrees" class="external-link">R package</a>
+<em>12</em>, 344–368. <a href="https://doi.org/10.1017/S1930297500006239" class="external-link uri">https://doi.org/10.1017/S1930297500006239</a> (Available
+online: <a href="https://jbaron.org/journal/17/17217/jdm17217.pdf" class="external-link">pdf</a> | <a href="https://jbaron.org/journal/17/17217/jdm17217.html" class="external-link">html</a> | <a href="https://CRAN.R-project.org/package=FFTrees" class="external-link">R package</a>
 )</p></li>
 </ul>
 <p>Links to related Wikipedia articles:</p>
@@ -778,7 +778,8 @@ perspectives</a></td>
 <td align="right">E.</td>
 <td align="left"><a href="E_riskyr_primer.html">Quick start
 primer</a></td>
-<td align="left">Quick start primer</td>
+<td align="left">A primer on using <strong>riskyr</strong>
+</td>
 </tr>
 </tbody>
 </table>
@@ -796,7 +797,7 @@ primer</a></td>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

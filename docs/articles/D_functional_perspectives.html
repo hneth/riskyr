@@ -5,17 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Adopting Functional Perspectives • riskyr</title>
+<title>Adopting functional perspectives • riskyr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adopting Functional Perspectives">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adopting functional perspectives">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">riskyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,11 +63,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Adopting Functional Perspectives</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Adopting functional perspectives</h1>
                         <h4 data-toc-skip class="author">Hansjörg Neth,
 SPDS, uni.kn</h4>
             
-            <h4 data-toc-skip class="date">2021 03 31</h4>
+            <h4 data-toc-skip class="date">2026-11-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/HEAD/vignettes/D_functional_perspectives.Rmd" class="external-link"><code>vignettes/D_functional_perspectives.Rmd</code></a></small>
       <div class="d-none name"><code>D_functional_perspectives.Rmd</code></div>
@@ -134,10 +134,9 @@ illustrates this relationship:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, </span>
 <span>           what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span><span class="op">)</span>, </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
+<span>           main <span class="op">=</span> <span class="st">"Mammography screening"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot-curve-1-1.png" alt="A riskyr curve plot showing PPV and NPV as a function of prev." width="576"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-curve-1-1.png" class="r-plt" alt="A riskyr curve plot showing PPV and NPV as a function of prev." width="576"><p class="caption">
 Showing PPV and NPV as a function of prevalence (for a prevalance of 1%
 and given values of sensitivity and specificity) in the original
 mammography screening scenario.
@@ -161,7 +160,7 @@ save space, but try running the following code for yourself):</p>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, </span>
 <span>           what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span><span class="op">)</span>, </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span></code></pre></div>
+<span>           main <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span></code></pre></div>
 <p>This shows that — given an increased prevalence value
 <code>prev</code> of 60% — the positive predictive
 value <code>PPV</code> of a positive test result increases from 7.8% (in
@@ -185,11 +184,10 @@ also vary as a function of the prevalence <code>prev</code>:</p>
 <code class="sourceCode R"><span><span class="va">high.prev</span> <span class="op">&lt;-</span> <span class="fl">.60</span>   <span class="co"># assume increased prevalence due to BRCA1 mutation</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, </span>
-<span>           what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span>, <span class="st">"ppod"</span>, <span class="st">"acc"</span><span class="op">)</span>, </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, uc <span class="op">=</span> <span class="fl">.05</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
+<span>           what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span>, <span class="st">"ppod"</span>, <span class="st">"acc"</span><span class="op">)</span>, aux_line <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>           main <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, uc <span class="op">=</span> <span class="fl">.05</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot-curve-3-1.png" alt="A riskyr curve plot showing PPV, NPV, acc, and ppod as a function of prev." width="576"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-curve-3-1.png" class="r-plt" alt="A riskyr curve plot showing PPV, NPV, acc, and ppod as a function of prev." width="576"><p class="caption">
 Curves that show PPV/NPV, ppod, and acc as a function of an prevalence
 (for given values of sensitivity and specificity) when assuming an
 increased prevalence of 60% and an uncertainty range of 5%.
@@ -209,10 +207,9 @@ for a given prevalence <code>prev</code>:</p>
 following function calls):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"PPV"</span>,  </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"A. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Argument 'title_lbl' is deprecated. Please use 'main' instead.</span></span></code></pre></div>
+<span>           main <span class="op">=</span> <span class="st">"A. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot-plane-PPV-1.png" alt="A riskyr plane plot showing PPV as a function of sens and spec" width="480"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-plane-PPV-1.png" class="r-plt" alt="A riskyr plane plot showing PPV as a function of sens and spec" width="480"><p class="caption">
 Plane showing the positive predictive value (PPV) as a function of
 sensitivity and specificity for a given prevalence.
 </p>
@@ -220,11 +217,11 @@ sensitivity and specificity for a given prevalence.
 <p>Related plots (showing different probabilities) include:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"NPV"</span>,  </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"B. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
+<span>           main <span class="op">=</span> <span class="st">"B. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"ppod"</span>, what_col <span class="op">=</span> <span class="st">"firebrick"</span>, </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"C. Mammography (BRCA1)"</span>, phi <span class="op">=</span> <span class="fl">45</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
+<span>           main <span class="op">=</span> <span class="st">"C. Mammography (BRCA1)"</span>, phi <span class="op">=</span> <span class="fl">45</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"acc"</span>,  what_col <span class="op">=</span> <span class="st">"forestgreen"</span>, </span>
-<span>           title_lbl <span class="op">=</span> <span class="st">"D. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
+<span>           main <span class="op">=</span> <span class="st">"D. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <p>Overall, viewing conditional probabilities (like <code>PPV</code> or
 <code>NPV</code>, but also <code>ppod</code> or <code>acc</code>) as a
 function of other probabilities (e.g., <code>prev</code>,
@@ -341,7 +338,8 @@ perspectives</a></td>
 <td align="right">E.</td>
 <td align="left"><a href="E_riskyr_primer.html">Quick start
 primer</a></td>
-<td align="left">Quick start primer</td>
+<td align="left">A primer on using <strong>riskyr</strong>
+</td>
 </tr>
 </tbody>
 </table>
@@ -359,7 +357,7 @@ primer</a></td>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
