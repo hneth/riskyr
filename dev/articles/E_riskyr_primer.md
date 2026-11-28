@@ -3,16 +3,15 @@
 [![riskyr](../inst/pix/riskyr_cube.png)](https://github.com/hneth/riskyr/)
 
 **riskyr** is a toolbox for rendering risk literacy more transparent.
-Its goal is to gain insights into risk-related scenarios with a minimum
-of hassle and maximum of fun.
+Its goal is to gain insights into risk-related scenarios by playing with
+their parameters, translating between representations, and adopting
+different perspectives.
 
 This page assumes that you just installed the **riskyr** package and are
-eager to see what you can do with it.  
-(See the [User
+eager to see what you can do with it. (See the [User
 guide](https://hneth.github.io/riskyr/dev/articles/A_user_guide.md) for
 a more comprehensive introduction and [Neth et al.,
-2021](https://doi.org/10.3389/fpsyg.2020.567817), for its theoretical
-background.)
+2021](https://doi.org/10.3389/fpsyg.2020.567817), for details.)
 
 ## Getting started
 
@@ -30,6 +29,7 @@ and uncover relationships between its parameters. Please load the
 package first, if you have not already done so:
 
 ``` r
+
 library("riskyr")  # loads the package
 ```
 
@@ -91,6 +91,7 @@ The following code defines a perfectly valid `riskyr` scenario from 3
 essential probabilities:
 
 ``` r
+
 # Create a minimal scenario (from probabilities):
 my_scenario <- riskyr(prev = .45, 
                       sens = .98,
@@ -107,6 +108,7 @@ the scenario a second time, but now uses the frequencies of
 `my_scenario` to do so:
 
 ``` r
+
 # Create a minimal scenario (from frequencies):
 my_scenario_2 <- riskyr(hi = my_scenario$hi, 
                         mi = my_scenario$mi,
@@ -118,6 +120,7 @@ If this succeeds, `my_scenario` and `my_scenario_2` contain the same
 information:
 
 ``` r
+
 all.equal(my_scenario, my_scenario_2)
 #> [1] TRUE
 ```
@@ -167,6 +170,7 @@ entirely optional. For illustrative purposes, we create a very
 well-specified `riskyr` scenario:
 
 ``` r
+
 # Create a scenario with custom labels: 
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
@@ -201,6 +205,7 @@ inspect some visualizations of our scenario.
 ##### Prism plot
 
 ``` r
+
 plot(my_scenario)
 ```
 
@@ -216,6 +221,7 @@ our text labels) by adding the `f_lbl = "nam"` argument. To save space,
 we do not show the plots here, but please try and see for yourself:
 
 ``` r
+
 plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 ```
@@ -247,6 +253,7 @@ predictions). We can use this display for our scenario by using the
 specifying the `type = "icons"`:
 
 ``` r
+
 plot(my_scenario, type = "icons")
 ```
 
@@ -269,6 +276,7 @@ into the dirty details of `my_scenario`, let us look at its
 [`summary()`](https://rdrr.io/r/base/summary.html):
 
 ``` r
+
 summary(my_scenario)
 #> Scenario:  Identifying reoffenders 
 #> 
@@ -335,6 +343,7 @@ same four types of frequencies as identified above (and listed as `hi`,
 `mi`, `fa`, and `cr` in the `summary` above):
 
 ``` r
+
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
@@ -363,6 +372,7 @@ and `NPV`) as a function of `prev` (and additionally assumes a
 5%-uncertainty concerning the exact parameter values):
 
 ``` r
+
 plot(my_scenario, type = "curve", uc = .05)
 ```
 
@@ -435,6 +445,7 @@ simply assign it to an R object. For instance, we can assign Scenario 10
 (i.e., `scenarios$n10`) to an R object `s10`:
 
 ``` r
+
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10.
 ```
 
@@ -444,6 +455,7 @@ As each scenario is stored as a list, different aspects of a scenario
 can be printed by their element names:
 
 ``` r
+
 # Show basic scenario information: 
 s10$scen_lbl  # shows descriptive label:
 #> [1] "PSA test (patients)"
@@ -466,6 +478,7 @@ As explained above, an overview of the main parameters of a scenario is
 provided by [`summary()`](https://rdrr.io/r/base/summary.html):
 
 ``` r
+
 summary(s10) # summarizes key scenario information:
 #> Scenario:  PSA test (patients) 
 #> 
@@ -520,6 +533,7 @@ different ways. To save space, we do not show the plots here, but please
 try and see for yourself:
 
 ``` r
+
 plot(s10, type = "tab")                   # plot 2x2 table 
 plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array 
 plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
@@ -542,6 +556,7 @@ Next, we could another prism diagram, to further illuminate the
 interplay between probabilities and frequencies in this scenario:
 
 ``` r
+
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -588,6 +603,7 @@ value (`NPV`) of the test.
   following commands plot:
 
 ``` r
+
 plot(s10, by = "cdac", area = "sq")
 plot(s10, by = "ac", area = "hr")
 ```
@@ -604,6 +620,7 @@ for us. To save space, we do not show the plots here, but please try and
 see for yourself:
 
 ``` r
+
 plot(s10, type = "curve", 
      what = "all",  # plot "all" available curves 
      uc = .05)      # with a 5%-uncertainty range 
@@ -633,6 +650,7 @@ of both `sens` and `spec`, for a given value of `prev`) with the
 following commands:[^5]
 
 ``` r
+
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
 plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
 plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
@@ -671,6 +689,7 @@ risk literacy more transparent.
 Here are the first steps:
 
 ``` r
+
 # Select Scenario 9: 
 s9 <- scenarios$n9  # assign pre-defined Scenario 9 to s9. 
 

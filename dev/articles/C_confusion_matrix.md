@@ -128,6 +128,7 @@ To view a 2x2 matrix (or confusion table) in **riskyr**, we can use the
 function (i.e., plot an existing scenario as `type = "tab"`):
 
 ``` r
+
 ## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)
@@ -189,6 +190,7 @@ Re-arranging the cells of the 2x2 matrix allows illustrating accuracy as
 a third perspective (e.g., by specifying the perspective `by = "cdac"`):
 
 ``` r
+
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          by = "cdac", p_split = "h", 
          p_lbl = "def", title_lbl = "Scenario 2")
@@ -263,7 +265,6 @@ frequency of correct cases (either `hi` or `cr`) by
 decision’s *sensitivity* (`sens`) and *specificity* (`spec`):
 
 ``` math
-
 \begin{aligned}
 \texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond_true}} & \ \ \textrm{(a1)}   \\
 \ \\ 
@@ -276,7 +277,6 @@ decision’s *sensitivity* (`sens`) and *specificity* (`spec`):
 (`NPV`):
 
 ``` math
-
 \begin{aligned}
 \texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec_pos}} & \ \ \ \textrm{(b1)}   \\
 \ \\ 
@@ -304,7 +304,6 @@ been made). Thus,
 Numerically, overall accuracy `acc` is computed as:
 
 ``` math
-
 \begin{aligned}
 \texttt{acc} &= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
              = \frac{\texttt{dec_cor}}{\texttt{dec_cor} + \texttt{dec_err}} = \frac{\texttt{dec_cor}}{\texttt{N}}  
@@ -324,7 +323,6 @@ multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and
 > weighted by `w`, and specificity (`spec`), weighted by `(1 - w)`.
 
 ``` math
-
 \begin{aligned}
 \texttt{wacc} \ &= \texttt{w} \cdot \texttt{sens} \ + \ (1 - \texttt{w}) \cdot \texttt{spec} \\ 
 \end{aligned}
@@ -350,7 +348,6 @@ The Matthews correlation coefficient (with values ranging from $`-1`$ to
 $`+1`$) is computed as:
 
 ``` math
-
 \begin{aligned}
 \texttt{mcc} \ &= \frac{(\texttt{hi} \cdot \texttt{cr}) \ - \ (\texttt{fa} \cdot \texttt{mi})}{\sqrt{(\texttt{hi} + \texttt{fa}) \cdot (\texttt{hi} + \texttt{mi}) \cdot (\texttt{cr} + \texttt{fa}) \cdot (\texttt{cr} + \texttt{mi})}}  \\
 \end{aligned}
@@ -373,7 +370,6 @@ accuracy, `accu` also provides the *F1 score*, which is the harmonic
 mean of `PPV` (aka. *precision*) and `sens` (aka. *recall*):
 
 ``` math
-
 \begin{aligned}
 \texttt{f1s} \ &=  2 \cdot \frac{\texttt{PPV} \cdot \texttt{sens}}{\texttt{PPV} + \texttt{sens}}  \\
 \end{aligned}
@@ -401,8 +397,8 @@ al. (2021)](https://doi.org/10.3389/fpsyg.2020.567817).
   FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal
   decision trees. *Judgment and Decision Making*, *12*, 344–368.
   <https://doi.org/10.1017/S1930297500006239> (Available online:
-  [pdf](https://journal.sjdm.org/17/17217/jdm17217.pdf) \|
-  [html](https://journal.sjdm.org/17/17217/jdm17217.html) \| [R
+  [pdf](https://jbaron.org/journal/17/17217/jdm17217.pdf) \|
+  [html](https://jbaron.org/journal/17/17217/jdm17217.html) \| [R
   package](https://CRAN.R-project.org/package=FFTrees) )
 
 Links to related Wikipedia articles:

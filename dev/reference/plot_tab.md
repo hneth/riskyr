@@ -53,7 +53,7 @@ plot_tab(
 
   The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`).
+  the probability of condition being `TRUE`, aka. *prior*).
 
 - sens:
 
@@ -73,7 +73,7 @@ plot_tab(
 
 - spec:
 
-  The decision's specificity value
+  The decision's specificity
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
   condition is `FALSE`). `spec` is optional when its complement `fart`

@@ -1,8 +1,7 @@
 # Alternative text labels (TP, FN, FP, TN).
 
-`txt_TF` is initialized to a set of text labels to enable an alternative
-frequency naming scheme in which "hi, mi, fa, cr" are labeled as "TP,
-FN, FP, TN".
+`txt_TF` is initialized to alternative text labels to define a frequency
+naming scheme in which (hi, mi, fa, cr) are called (TP, FN, FP, TN).
 
 ## Usage
 
@@ -49,7 +48,7 @@ Other lists containing current scenario information:
 ## Examples
 
 ``` r
-txt_TF                     # shows all labels of txt_TF
+txt_TF        # shows text labels of txt_TF
 #> $scen_lbl
 #> [1] "Scenario"
 #> 
@@ -113,9 +112,9 @@ txt_TF                     # shows all labels of txt_TF
 #> $cr_lbl
 #> [1] "TN"
 #> 
-txt_TF["hi_lbl"]           # shows current label for hits ("TP")
-#> $hi_lbl
-#> [1] "TP"
+txt_TF["hi"]  # shows the current label for hits ("TP")
+#> $<NA>
+#> NULL
 #> 
-txt_TF["hi_lbl"] <- "hit"  # re-label hits (change "TP" to "hit")
+txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 ```

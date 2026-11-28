@@ -49,10 +49,10 @@ of PPV develop as a function of prevalence? The
 function illustrates this relationship:
 
 ``` r
+
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
-           title_lbl = "Mammography screening", cex.lbl = .8)
-#> Argument 'title_lbl' is deprecated. Please use 'main' instead.
+           main = "Mammography screening", cex.lbl = .8)
 ```
 
 ![A riskyr curve plot showing PPV and NPV as a function of
@@ -77,11 +77,12 @@ about 60% (graph not shown here to save space, but try running the
 following code for yourself):
 
 ``` r
+
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
-           title_lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .80)
+           main = "Mammography screening (BRCA1 mutation)", cex.lbl = .80)
 ```
 
 This shows that — given an increased prevalence value `prev` of 60% —
@@ -108,12 +109,12 @@ bias or proportion of positive decisions `ppod` and the overall
 accuracy `acc` also vary as a function of the prevalence `prev`:
 
 ``` r
+
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
-           what = c("prev", "PPV", "NPV", "ppod", "acc"), 
-           title_lbl = "Mammography screening (BRCA1 mutation)", uc = .05, cex.lbl = .80)
-#> Argument 'title_lbl' is deprecated. Please use 'main' instead.
+           what = c("prev", "PPV", "NPV", "ppod", "acc"), aux_line = FALSE, 
+           main = "Mammography screening (BRCA1 mutation)", uc = .05, cex.lbl = .80)
 ```
 
 ![A riskyr curve plot showing PPV, NPV, acc, and ppod as a function of
@@ -139,9 +140,9 @@ Some examples (not shown here, but please try evaluating the following
 function calls):
 
 ``` r
+
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  
-           title_lbl = "A. Mammography (BRCA1)", cex.lbl = .8)
-#> Argument 'title_lbl' is deprecated. Please use 'main' instead.
+           main = "A. Mammography (BRCA1)", cex.lbl = .8)
 ```
 
 ![A riskyr plane plot showing PPV as a function of sens and
@@ -153,12 +154,13 @@ sensitivity and specificity for a given prevalence.
 Related plots (showing different probabilities) include:
 
 ``` r
+
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  
-           title_lbl = "B. Mammography (BRCA1)", cex.lbl = .8)
+           main = "B. Mammography (BRCA1)", cex.lbl = .8)
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", what_col = "firebrick", 
-           title_lbl = "C. Mammography (BRCA1)", phi = 45, cex.lbl = .8)
+           main = "C. Mammography (BRCA1)", phi = 45, cex.lbl = .8)
 plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  what_col = "forestgreen", 
-           title_lbl = "D. Mammography (BRCA1)", cex.lbl = .8)
+           main = "D. Mammography (BRCA1)", cex.lbl = .8)
 ```
 
 Overall, viewing conditional probabilities (like `PPV` or `NPV`, but

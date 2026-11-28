@@ -18,16 +18,16 @@ is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
 
 - prev:
 
-  The condition's prevalence value
+  The condition's prevalence
   [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) (i.e.,
-  the probability of condition being `TRUE`).
+  the probability of condition being `TRUE`, aka. *prior*).
 
 - sens:
 
   The decision's sensitivity
   [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) (i.e.,
   the conditional probability of a positive decision provided that the
-  condition is `TRUE`). `sens` is optional when is complement `mirt` is
+  condition is `TRUE`). `sens` is optional when its complement `mirt` is
   provided.
 
 - mirt:
@@ -35,7 +35,7 @@ is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
   The decision's miss rate
   [`mirt`](https://hneth.github.io/riskyr/dev/reference/mirt.md) (i.e.,
   the conditional probability of a negative decision provided that the
-  condition is `TRUE`). `mirt` is optional when is complement `sens` is
+  condition is `TRUE`). `mirt` is optional when its complement `sens` is
   provided.
 
 - spec:
@@ -43,8 +43,8 @@ is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
   The decision's specificity
   [`spec`](https://hneth.github.io/riskyr/dev/reference/spec.md) (i.e.,
   the conditional probability of a negative decision provided that the
-  condition is `FALSE`). `spec` is optional when is complement `fart` is
-  provided.
+  condition is `FALSE`). `spec` is optional when its complement `fart`
+  is provided.
 
 - fart:
 
@@ -108,6 +108,7 @@ Other verification functions:
 [`is_perc()`](https://hneth.github.io/riskyr/dev/reference/is_perc.md),
 [`is_prob()`](https://hneth.github.io/riskyr/dev/reference/is_prob.md),
 [`is_suff_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_suff_prob_set.md),
+[`is_valid_freq_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_freq_set.md),
 [`is_valid_prob_pair()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_pair.md),
 [`is_valid_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_set.md),
 [`is_valid_prob_triple()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_triple.md)

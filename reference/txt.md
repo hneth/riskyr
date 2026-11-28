@@ -161,7 +161,7 @@ Other lists containing current scenario information:
 ## Examples
 
 ``` r
-txt           # Show all elements and current labels
+txt           # Show  all current names and elements
 #> $scen_lbl
 #> [1] "Scenario"
 #> 
@@ -227,5 +227,5 @@ txt           # Show all elements and current labels
 #> 
 txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
 #> [1] "Scenario"
-txt$scen_lbl <- "An example"  # Define a new scenario label
+txt$scen_lbl <- "My example"  # Set a new scenario title
 ```

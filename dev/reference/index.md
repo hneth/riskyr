@@ -104,7 +104,7 @@ Lists and objects representing probability information.
 - [`prob`](https://hneth.github.io/riskyr/dev/reference/prob.md) : List
   current probability information.
 - [`prev`](https://hneth.github.io/riskyr/dev/reference/prev.md) : The
-  prevalence (baseline probability) of a condition.
+  prevalence (baseline probability or prior) of a condition.
 - [`sens`](https://hneth.github.io/riskyr/dev/reference/sens.md) : The
   sensitivity (or hit rate) of a decision process or diagnostic
   procedure.
@@ -276,6 +276,8 @@ Verifying and displaying representational formats.
   : Verify that input is a probability (numeric value from 0 to 1).
 - [`is_suff_prob_set()`](https://hneth.github.io/riskyr/dev/reference/is_suff_prob_set.md)
   : Verify a sufficient set of probability inputs.
+- [`is_valid_freq_set()`](https://hneth.github.io/riskyr/dev/reference/is_valid_freq_set.md)
+  : Verify a set of 4 essential frequencies.
 - [`is_valid_prob_pair()`](https://hneth.github.io/riskyr/dev/reference/is_valid_prob_pair.md)
   : Verify that a pair of probability inputs can be a pair of
   complementary probabilities.
